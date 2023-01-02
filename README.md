@@ -1,7 +1,11 @@
-# NO LONGER MAINTAINED
-This plugin is no longer maintained.
+# THIS IS A FORK
 
-I'm archiving the GitHub repo and closing the sourcehut issue tracker. Feel free to fork
+The original plugin has been declared abandoned by its autor as of 2023-01-02.
+This is a hard fork which aim to make the plugin more hackable and flexible.
+This will mean breaking the configuration API.
+
+Original repository: https://sr.ht/~p00f/nvim-ts-rainbow/
+
 
 # 🌈 nvim-ts-rainbow 🌈
 Rainbow parentheses for neovim using tree-sitter.
