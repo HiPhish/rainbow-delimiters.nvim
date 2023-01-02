@@ -14,3 +14,5 @@
 
 lua require "rainbow".init()
 autocmd ColorScheme * lua require "rainbow.internal".defhl()
+
+" vim:tw=79:ts=4:sw=4:noet:
