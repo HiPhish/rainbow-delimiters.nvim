@@ -19,6 +19,7 @@ local queries = require("nvim-treesitter.query")
 local M = {}
 
 function M.init()
+	print 'ping'
     require("nvim-treesitter").define_modules({
         rainbow = {
             module_path = "rainbow.internal",
@@ -46,6 +47,11 @@ function M.init()
             },
         },
     })
+
+	-- We have to retrofit the strategy because the strategy requires the
+	-- module to be defined. This needs to be fixed.
+	local config = require 'nvim-treesitter.configs'.get_module('rainbow')
+	config.strategy = require 'rainbow.strategy.global'
 end
 
 return M
