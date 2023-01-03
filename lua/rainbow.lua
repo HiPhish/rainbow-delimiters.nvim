@@ -14,44 +14,33 @@
    limitations under the License.
 --]]
 
-local queries = require("nvim-treesitter.query")
+local queries = require 'nvim-treesitter.query'
 
 local M = {}
 
 function M.init()
-	print 'ping'
-    require("nvim-treesitter").define_modules({
+    require('nvim-treesitter').define_modules {
         rainbow = {
-            module_path = "rainbow.internal",
+            module_path = 'rainbow.internal',
             is_supported = function(lang)
                 return queries.get_query(lang, "parens") ~= nil
             end,
             extended_mode = true,
-            colors = {
-                "#cc241d",
-                "#a89984",
-                "#b16286",
-                "#d79921",
-                "#689d6a",
-                "#d65d0e",
-                "#458588",
-            },
-            termcolors = {
-                "Red",
-                "Green",
-                "Yellow",
-                "Blue",
-                "Magenta",
-                "Cyan",
-                "White",
+            strategy = require 'rainbow.strategy.global',
+            -- Highlight groups in order of display
+            hlgroups = {
+            	-- The colours are intentionally not in the usual order to make
+            	-- the contrast between them stronger
+            	'TSRainbowRed',
+            	'TSRainbowYellow',
+            	'TSRainbowBlue',
+            	'TSRainbowOrange',
+            	'TSRainbowGreen',
+            	'TSRainbowViolet',
+            	'TSRainbowCyan',
             },
         },
-    })
-
-	-- We have to retrofit the strategy because the strategy requires the
-	-- module to be defined. This needs to be fixed.
-	local config = require 'nvim-treesitter.configs'.get_module('rainbow')
-	config.strategy = require 'rainbow.strategy.global'
+    }
 end
 
 return M

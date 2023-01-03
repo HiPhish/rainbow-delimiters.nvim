@@ -1,3 +1,4 @@
+"  Copyright 2023 Alejandro "HiPhish" Sanchez
 "  Copyright 2020-2022 Chinmay Dalal
 "
 "  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +13,14 @@
 "  See the License for the specific language governing permissions and
 "  limitations under the License.
 
+highlight default TSRainbowRed     guifg=#cc241d ctermfg=Red
+highlight default TSRainbowOrange  guifg=#d65d0e ctermfg=White
+highlight default TSRainbowYellow  guifg=#d79921 ctermfg=Yellow
+highlight default TSRainbowGreen   guifg=#689d6a ctermfg=Green
+highlight default TSRainbowCyan    guifg=#a89984 ctermfg=Cyan
+highlight default TSRainbowBlue    guifg=#458588 ctermfg=Blue
+highlight default TSRainbowViolet  guifg=#b16286 ctermfg=Magenta
+
 lua require "rainbow".init()
-autocmd ColorScheme * lua require "rainbow.internal".defhl()
 
 " vim:tw=79:ts=4:sw=4:noet:

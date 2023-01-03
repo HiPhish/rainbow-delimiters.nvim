@@ -71,30 +71,48 @@ https://github.com/p00f/nvim-ts-rainbow/issues/30#issuecomment-850991264
 Colours
 -------
 
-To change the colours you can set them in the setup:
+Colours are defined by the highlight listed in the `hlgroups` setup parameter.
+The plugin will cycle through these groups in the given order.  The default
+groups are
 
 .. code:: lua
 
-   require'nvim-treesitter.configs'.setup{
+   require'nvim-treesitter.configs'.setup {
      rainbow = {
        -- Setting colors
-       colors = {
-         -- Colors here
+       hlgroups = {
+         'TSRainbowRed',
+         'TSRainbowYellow',
+         'TSRainbowBlue',
+         'TSRainbowGreen',
+         'TSRainbowCyan',
+         'TSRainbowOrange',
+         'TSRainbowViolet',
        },
-       -- Term colors
-       termcolors = {
-         -- Term colors here
-       }
-     },
+     }
    }
 
-If you want to override some colours (you can only change colours 1 through 7
-this way), you can do it in your init.vim: (thanks @delphinus !). You can also
-use this while writing a colorscheme
+The order is intentionally different from the colours of a rainbow to ensure a
+hard contras between adjacent delimiters.  You can change the order, remove or
+add highlight groups and even specify your own groups.
+
+To customise the colours I recommend redefining the standard groups.
 
 .. code:: vim
 
-   hi rainbowcol1 guifg=#123456
+   " Link a highlight group from a theme
+   highlight link TSRainbowRed MyThemeRed
+   " Define your own colours
+   highlight TSRainbowRed guifg=#ff0000 ctermfg=Red
+
+You will probably want to have different colours per theme.  Since most themes
+will lack definitions for the above groups you will need to hook in somehow.  A
+simple solution is the use of an autocommand.
+
+.. code:: vim
+
+   autocmd ColorSchemePre MyTheme highlight link TSRainbow MyThemeRed
+   " and so on...
 
 
 Screenshots

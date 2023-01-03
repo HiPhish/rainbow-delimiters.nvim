@@ -20,31 +20,7 @@ local configs = require("nvim-treesitter.configs")
 local lib = require 'rainbow.lib'
 local api = vim.api
 
-local colors = configs.get_module("rainbow").colors
-local termcolors = configs.get_module("rainbow").termcolors
-
-
-
-
 local M = {}
-
---- Define highlight groups. This had to be a function to allow an autocmd doing this at colorscheme change.
-function M.defhl()
-	for i = 1, math.max(#colors, #termcolors) do
-		local s = string.format("highlight default rainbowcol%d", i)
-		if #colors > 0 then
-			s = s .. " guifg=" .. colors[(i % #colors == 0) and #colors or (i % #colors)]
-		end
-		if #termcolors > 0 then
-			s = s
-				.. " ctermfg="
-				.. termcolors[(i % #termcolors == 0) and #termcolors or (i % #termcolors)]
-		end
-		vim.cmd(s)
-	end
-end
-
-M.defhl()
 
 --- Attach module to buffer. Called when new buffer is opened or `:TSBufEnable rainbow`.
 --- @param bufnr number # Buffer number
@@ -82,21 +58,19 @@ function M.detach(bufnr)
 	strategy.on_detach(bufnr)
 end
 
-if vim.fn.has("nvim-0.7") == 1 then
-	api.nvim_create_augroup("RainbowParser", {})
-	api.nvim_create_autocmd("FileType", {
-		group = "RainbowParser",
-		pattern = "*",
-		callback = function()
-			local bufnr = api.nvim_get_current_buf()
-			if lib.state_table[bufnr] then
-				local lang = parsers.get_buf_lang(bufnr)
-				local parser = parsers.get_parser(bufnr, lang)
-				lib.buffer_parsers[bufnr] = parser
-			end
-		end,
-	})
-end
+api.nvim_create_augroup("RainbowParser", {})
+api.nvim_create_autocmd("FileType", {
+	group = "RainbowParser",
+	pattern = "*",
+	callback = function()
+		local bufnr = api.nvim_get_current_buf()
+		if lib.state_table[bufnr] then
+			local lang = parsers.get_buf_lang(bufnr)
+			local parser = parsers.get_parser(bufnr, lang)
+			lib.buffer_parsers[bufnr] = parser
+		end
+	end,
+})
 
 return M
 

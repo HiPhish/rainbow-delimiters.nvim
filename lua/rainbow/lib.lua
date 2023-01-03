@@ -14,7 +14,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 --]]
-   --
+
+local configs = require 'nvim-treesitter.configs'
+
 ---Library of shared internal functions and variables.
 local M = {}
 
@@ -23,14 +25,13 @@ M.nsid = vim.api.nvim_create_namespace("rainbow_ns")
 ---Maps a buffer ID to the buffer's parser; retaining a reference prevents the
 ---parser from getting garbage-collected.
 M.buffer_parsers = {}
-
 M.state_table = {}
 
 ---Find the nesting level of a node.
 ---@param node table # Node to find the level of
----@param len number # Number of colours
 ---@param levels table # Levels for the language
-function M.color_no(node, len, levels)
+---@return number level  Level of the node, does not wrap around
+function M.node_level(node, levels)
 	local counter = 0
 	local current = node
 	local found = false
@@ -48,11 +49,16 @@ function M.color_no(node, len, levels)
 	end
 	if not found then
 		return 1
-	elseif counter % len == 0 then
-		return len
-	else
-		return (counter % len)
 	end
+	return counter
+end
+
+---Get the appropriate highlight group for the given level of nesting.
+---@param i number  One-based index into the highlight groups
+---@return string hlgroup  Name of the highlight groups
+function M.hlgroup_at(i)
+	local hlgroups = configs.get_module('rainbow').hlgroups
+	return hlgroups[(i - 1) % #hlgroups + 1]
 end
 
 return M

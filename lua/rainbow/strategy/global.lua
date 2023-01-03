@@ -14,14 +14,13 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 --]]
---
+
 local parsers = require("nvim-treesitter.parsers")
 local queries = require 'nvim-treesitter.query'
 local configs = require 'nvim-treesitter.configs'
 local add_predicate = vim.treesitter.query.add_predicate
 local extended_languages = { "latex", "html", "verilog", "jsx" }
 local lib = require 'rainbow.lib'
-local colors = configs.get_module('rainbow').colors
 
 
 ---Strategy which highlights the entire buffer.
@@ -74,33 +73,21 @@ local function update_range(bufnr, changes, tree, lang)
 			for _, node, _ in query:iter_captures(root_node, bufnr, change[1], change[3] + 1) do
 				-- set colour for this nesting level
 				if not node:has_error() then
-					local color_no_ = lib.color_no(node, #colors, levels)
-					local startRow, startCol, endRow, endCol = node:range() -- range of the capture, zero-indexed
-					if vim.fn.has("nvim-0.7") == 1 then
-						vim.highlight.range(
-							bufnr,
-							lib.nsid,
-							("rainbowcol" .. color_no_),
-							{ startRow, startCol },
-							{ endRow, endCol - 1 },
-							{
-								regtype = "b",
-								inclusive = true,
-								priority = 210,
-							}
-						)
-					else
-						vim.highlight.range(
-							bufnr,
-							lib.nsid,
-							("rainbowcol" .. color_no_),
-							{ startRow, startCol },
-							{ endRow, endCol - 1 },
-							"blockwise",
-							true,
-							210
-						)
-					end
+					local hlgroup = lib.hlgroup_at(lib.node_level(node, levels))
+					-- range of the capture, zero-indexed
+					local startRow, startCol, endRow, endCol = node:range()
+					vim.highlight.range(
+						bufnr,
+						lib.nsid,
+						hlgroup,
+						{ startRow, startCol },
+						{ endRow, endCol - 1 },
+						{
+							regtype = "b",
+							inclusive = true,
+							priority = 210,
+						}
+					)
 				end
 			end
 		end
