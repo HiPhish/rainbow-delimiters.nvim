@@ -21,12 +21,12 @@ local M = {}
 function M.init()
     require('nvim-treesitter').define_modules {
         rainbow = {
-            module_path = 'rainbow.internal',
+            module_path = 'ts-rainbow.internal',
             is_supported = function(lang)
                 return queries.get_query(lang, "parens") ~= nil
             end,
             extended_mode = true,
-            strategy = require 'rainbow.strategy.global',
+            strategy = require 'ts-rainbow.strategy.global',
             -- Highlight groups in order of display
             hlgroups = {
             	-- The colours are intentionally not in the usual order to make

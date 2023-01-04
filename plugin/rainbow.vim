@@ -21,6 +21,6 @@ highlight default TSRainbowCyan    guifg=#a89984 ctermfg=Cyan
 highlight default TSRainbowBlue    guifg=#458588 ctermfg=Blue
 highlight default TSRainbowViolet  guifg=#b16286 ctermfg=Magenta
 
-lua require "rainbow".init()
+lua require "ts-rainbow".init()
 
 " vim:tw=79:ts=4:sw=4:noet:

@@ -20,7 +20,7 @@ local queries = require 'nvim-treesitter.query'
 local configs = require 'nvim-treesitter.configs'
 local add_predicate = vim.treesitter.query.add_predicate
 local extended_languages = { "latex", "html", "verilog", "jsx" }
-local lib = require 'rainbow.lib'
+local lib = require 'ts-rainbow.lib'
 
 
 ---Strategy which highlights the entire buffer.
@@ -68,7 +68,7 @@ local function update_range(bufnr, changes, tree, lang)
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
 		local query = queries.get_query(lang, "parens")
-		local levels = require("rainbow.levels")[lang]
+		local levels = require("ts-rainbow.levels")[lang]
 		if query ~= nil then
 			for _, node, _ in query:iter_captures(root_node, bufnr, change[1], change[3] + 1) do
 				-- set colour for this nesting level

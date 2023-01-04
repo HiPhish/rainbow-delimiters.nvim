@@ -17,7 +17,7 @@
 
 local parsers = require("nvim-treesitter.parsers")
 local configs = require("nvim-treesitter.configs")
-local lib = require 'rainbow.lib'
+local lib = require 'ts-rainbow.lib'
 local api = vim.api
 
 local M = {}
