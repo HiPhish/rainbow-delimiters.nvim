@@ -25,6 +25,8 @@ M.nsid = vim.api.nvim_create_namespace("rainbow_ns")
 ---Maps a buffer ID to the buffer's parser; retaining a reference prevents the
 ---parser from getting garbage-collected.
 M.buffer_parsers = {}
+---Keeps track of buffers which have this module attached.  The key is the
+---buffer number, the value is a boolean.
 M.state_table = {}
 
 ---Find the nesting level of a node.

@@ -108,7 +108,7 @@ function M.on_attach(bufnr, lang)
 	local config = configs.get_module("rainbow")
 	register_predicates(config)
 	local parser = parsers.get_parser(bufnr, lang)
-	parser:register_cbs({
+	parser:register_cbs {
 		on_changedtree = function(changes, tree)
 			if lib.state_table[bufnr] then
 				update_range(bufnr, changes, tree, lang)
@@ -116,7 +116,7 @@ function M.on_attach(bufnr, lang)
 				return
 			end
 		end,
-	})
+	}
 	lib.buffer_parsers[bufnr] = parser
 	lib.state_table[bufnr] = true
 	full_update(bufnr)

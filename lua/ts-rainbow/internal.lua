@@ -22,6 +22,16 @@ local api = vim.api
 
 local M = {}
 
+---Update the parser for a buffer.
+local function set_buffer_parser()
+	local bufnr = api.nvim_get_current_buf()
+	if lib.state_table[bufnr] then
+		local lang = parsers.get_buf_lang(bufnr)
+		local parser = parsers.get_parser(bufnr, lang)
+		lib.buffer_parsers[bufnr] = parser
+	end
+end
+
 --- Attach module to buffer. Called when new buffer is opened or `:TSBufEnable rainbow`.
 --- @param bufnr number # Buffer number
 --- @param lang string # Buffer language
@@ -58,18 +68,13 @@ function M.detach(bufnr)
 	strategy.on_detach(bufnr)
 end
 
-api.nvim_create_augroup("RainbowParser", {})
+-- If the file type of a buffer changes we have to swap out the parser for that
+-- buffer.
+api.nvim_create_augroup("TSRainbowParser", {})
 api.nvim_create_autocmd("FileType", {
-	group = "RainbowParser",
+	group = "TSRainbowParser",
 	pattern = "*",
-	callback = function()
-		local bufnr = api.nvim_get_current_buf()
-		if lib.state_table[bufnr] then
-			local lang = parsers.get_buf_lang(bufnr)
-			local parser = parsers.get_parser(bufnr, lang)
-			lib.buffer_parsers[bufnr] = parser
-		end
-	end,
+	callback = set_buffer_parser,
 })
 
 return M

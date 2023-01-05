@@ -75,7 +75,7 @@ groups are
 
 .. code:: lua
 
-   require'nvim-treesitter.configs'.setup {
+   require('nvim-treesitter.configs').setup {
      rainbow = {
        -- Setting colors
        hlgroups = {
