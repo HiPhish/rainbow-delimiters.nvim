@@ -20,6 +20,9 @@ local configs = require 'nvim-treesitter.configs'
 ---Library of shared internal functions and variables.
 local M = {}
 
+---Default query name to use
+M.query = 'parens'
+
 M.nsid = vim.api.nvim_create_namespace("rainbow_ns")
 
 ---Maps a buffer ID to the buffer's parser; retaining a reference prevents the

@@ -66,7 +66,7 @@ local function update_range(bufnr, changes, tree, lang)
 
 	local query = configs.get_module("rainbow").query
 	if type(query) == 'table' then
-		query = query[lang] or query[1] or 'parens'
+		query = query[lang] or query[1] or lib.query
 	end
 
 	for _, change in ipairs(changes) do
