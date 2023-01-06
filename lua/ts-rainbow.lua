@@ -15,6 +15,7 @@
 --]]
 
 local queries = require 'nvim-treesitter.query'
+local configs = require 'nvim-treesitter.configs'
 
 local M = {}
 
@@ -23,10 +24,17 @@ function M.init()
         rainbow = {
             module_path = 'ts-rainbow.internal',
             is_supported = function(lang)
-                return queries.get_query(lang, "parens") ~= nil
+            	local query = configs.get_module("rainbow").query
+            	print(vim.inspect(query))
+				if type(query) == 'table' then
+					query = query[lang] or query[1] or 'parens'
+				end
+				print(vim.inspect(queries.get_query(lang, query)))
+                return queries.get_query(lang, query) ~= nil
             end,
             extended_mode = true,
             strategy = require 'ts-rainbow.strategy.global',
+            query = 'parens',
             -- Highlight groups in order of display
             hlgroups = {
             	-- The colours are intentionally not in the usual order to make

@@ -62,13 +62,16 @@ end
 ---@param tree    table   TS tree
 ---@param lang    string  Language
 local function update_range(bufnr, changes, tree, lang)
-	if vim.fn.pumvisible() ~= 0 or not lang then
-		return
+	if vim.fn.pumvisible() ~= 0 or not lang then return end
+
+	local query = configs.get_module("rainbow").query
+	if type(query) == 'table' then
+		query = query[lang] or query[1] or 'parens'
 	end
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
-		local query = queries.get_query(lang, "parens")
+		local query = queries.get_query(lang, query)
 		local levels = levels[lang]
 		if query ~= nil then
 			for _, node, _ in query:iter_captures(root_node, bufnr, change[1], change[3] + 1) do

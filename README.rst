@@ -55,6 +55,8 @@ Here is an example:
        enable = true,
        -- list of languages you want to disable the plugin for
        disable = { "jsx", "cpp" }, 
+       -- Which query to use for finding delimiters
+       query = 'parens',
        -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
        extended_mode = true,
        -- Do not enable for files with more than n lines, int
@@ -111,6 +113,37 @@ simple solution is the use of an autocommand.
 
    autocmd ColorSchemePre MyTheme highlight link TSRainbow MyThemeRed
    " and so on...
+
+
+Query
+-----
+
+In order to know what exactly constitutes a delimiter the plugin needs a
+Tree-sitter query.  The name of the query is given in the `query` configuration
+option.  The value can be one of the following:
+
+- A string applies the same query for all languages
+- A table where the first item is the name of the universal query
+- A table where the key is the name of the language and the value is the name
+  of the query
+
+The latter two can be combined together.
+
+Example:
+
+.. code:: lua
+
+   -- One query for all languages
+   'parens'
+
+   -- Same as above
+   {'parens'}
+
+   -- Use 'whatever' for Lua, the default query otherwise
+   {lua = 'whatever'}
+
+   -- Explicit default with override for Lua
+   {'parens', lua = 'whatever'}
 
 
 Screenshots
