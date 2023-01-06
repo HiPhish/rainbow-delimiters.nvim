@@ -14,170 +14,188 @@
    limitations under the License.
 --]]
 
-return {
-	python = {
-		tuple = true,
-		interpolation = true,
-		list = true,
-		dictionary = true,
-		set = true,
-		subscript = true,
-		argument_list = true,
-		parameters = true,
-		parenthesized_expression = true,
-		generator_expression = true,
-		list_comprehension = true,
-		dictionary_comprehension = true,
-		set_comprehension = true,
-	},
-	rust = {
-		arguments = true,
-		token_tree = true,
-		array_expression = true,
-		attribute_item = true,
-		block = true,
-		closure_expression = true,
-		declaration_list = true,
-		field_declaration_list = true,
-		index_expression = true,
-		macro_definition = true,
-		macro_rule = true,
-		match_block = true,
-		meta_arguments = true,
-		parameters = true,
-		parenthesized_expression = true,
-		struct_expression = true,
-		tuple_expression = true,
-		tuple_pattern = true,
-		tuple_struct_pattern = true,
-		tuple_type = true,
-		type_arguments = true,
-		type_parameters = true,
-		unit_type = true,
-		use_list = true,
-	},
-	query = {
-		grouping = true,
-		list = true,
-		named_node = true,
-	},
-	c = {
-		array_declarator = true,
-		call_expression = true,
-		compound_statement = true,
-		enumerator_list = true,
-		field_declaration_list = true,
-		for_statement = true,
-		function_definition = true,
-		initializer_list = true,
-		parameter_list = true,
-		parenthesized_expression = true,
-		subscript_expression = true,
-	},
-	cpp = {
-		array_declarator = true,
-		call_expression = true,
-		cast_expression = true,
-		compound_statement = true,
-		condition_clause = true,
-		declaration_list = true,
-		enumerator_list = true,
-		field_declaration_list = true,
-		initializer_list = true,
-		parameter_list = true,
-		parenthesized_expression = true,
-		preproc_params = true,
-		lambda_capture_specifier = true,
-		subscript_expression = true,
-		template_parameter_list = true,
-		template_type = true,
-	},
-	fennel = {
-		["for"] = true,
-		["local"] = true,
-		each = true,
-		each_clause = true,
-		fn = true,
-		global = true,
-		hashfn = true,
-		lambda = true,
-		let = true,
-		let_clause = true,
-		list = true,
-		match = true,
-		parameters = true,
-		quoted_list = true,
-		quoted_sequential_table = true,
-		sequential_table = true,
-		set = true,
-		table = true,
-		var = true,
-	},
-	tsx = {
-		array = true,
-		array_pattern = true,
-		array_type = true,
-		class_body = true,
-		call_expression = true,
-		formal_parameters = true,
-		jsx_element = true,
-		jsx_expression = true,
-		jsx_self_closing_element = true,
-		object = true,
-		object_pattern = true,
-		object_type = true,
-		parenthesized_expression = true,
-		statement_block = true,
-		type_arguments = true,
-	},
-	javascript = {
-		array = true,
-		call_expression = true,
-		class_body = true,
-		formal_parameters = true,
-		-- NOTE: nvim-treesitter uses the javascript parser for jsx too
-		jsx_element = true,
-		jsx_expression = true,
-		jsx_self_closing_element = true,
-		new_expression = true,
-		object = true,
-		parenthesized_expression = true,
-		statement_block = true,
-		subscript_expression = true,
-		template_substitution = true,
-	},
-	elixir = {
-		arguments = true,
-		binary = true,
-		block = true,
-		interpolation = true,
-		list = true,
-		map = true,
-		sigil = true,
-		struct = true,
-		tuple = true,
-	},
-	html = {
-		element = true,
-		script_element = true,
-		style_element = true,
-	},
-	lua = {
-		arguments = true,
-		bracket_index_expression = true,
-		parameters = true,
-		parenthesized_expression = true,
-		table_constructor = true,
-	},
-	commonlisp = {
-		list_lit = true,
-	},
-	make = {
-		command_substitution = true,
-		function_call = true,
-		substitution_reference = true,
-		variable_reference = true,
-	}
+local set_mt = {
+	__add = function(s1, s2)
+		local result = {}
+		for item in pairs(s1) do result[item] = true end
+		for item in pairs(s2) do result[item] = true end
+	return result
+end
 }
+
+---Set constructor, creates a set table containing all the passed arguments.
+local function Set(...)
+	local result = setmetatable({}, set_mt)
+	for _, item in pairs({...}) do result[item] = true end
+	return result
+end
+
+---Sets of note types.  When determining the level of a node we want to skip
+---through certain node types.  This set contains all the node types which need
+---to be counted.
+local M = {}
+
+M.python = Set(
+	'tuple',
+	'interpolation',
+	'list',
+	'dictionary',
+	'set',
+	'subscript',
+	'argument_list',
+	'parameters',
+	'parenthesized_expression',
+	'generator_expression',
+	'list_comprehension',
+	'dictionary_comprehension',
+	'set_comprehension'
+)
+
+M.rust = Set(
+	'arguments',
+	'token_tree',
+	'array_expression',
+	'attribute_item',
+	'block',
+	'closure_expression',
+	'declaration_list',
+	'field_declaration_list',
+	'index_expression',
+	'macro_definition',
+	'macro_rule',
+	'match_block',
+	'meta_arguments',
+	'parameters',
+	'parenthesized_expression',
+	'struct_expression',
+	'tuple_expression',
+	'tuple_pattern',
+	'tuple_struct_pattern',
+	'tuple_type',
+	'type_arguments',
+	'type_parameters',
+	'unit_type',
+	'use_list'
+)
+
+M.query = Set(
+	'grouping',
+	'list',
+	'named_node'
+)
+
+M.c = Set(
+	'array_declarator',
+	'call_expression',
+	'compound_statement',
+	'enumerator_list',
+	'field_declaration_list',
+	'for_statement',
+	'function_definition',
+	'initializer_list',
+	'parameter_list',
+	'parenthesized_expression',
+	'subscript_expression'
+)
+
+M.cpp = M.c + Set(
+	'cast_expression',
+	'condition_clause',
+	'declaration_list',
+	'preproc_params',
+	'lambda_capture_specifier',
+	'template_parameter_list',
+	'template_type'
+)
+
+M.fennel = Set(
+	"for",
+	"local",
+	'each',
+	'each_clause',
+	'fn',
+	'global',
+	'hashfn',
+	'lambda',
+	'let',
+	'let_clause',
+	'list',
+	'match',
+	'parameters',
+	'quoted_list',
+	'quoted_sequential_table',
+	'sequential_table',
+	'set',
+	'table',
+	'var'
+)
+
+M.tsx = Set(
+	'array',
+	'array_pattern',
+	'array_type',
+	'class_body',
+	'call_expression',
+	'formal_parameters',
+	'jsx_element',
+	'jsx_expression',
+	'jsx_self_closing_element',
+	'object',
+	'object_pattern',
+	'object_type',
+	'parenthesized_expression',
+	'statement_block',
+	'type_arguments'
+)
+
+M.javascript = Set(
+	'array',
+	'call_expression',
+	'class_body',
+	'formal_parameters',
+	-- NOTE: nvim-treesitter uses the javascript parser for jsx too
+	'jsx_element',
+	'jsx_expression',
+	'jsx_self_closing_element',
+	'new_expression',
+	'object',
+	'parenthesized_expression',
+	'statement_block',
+	'subscript_expression',
+	'template_substitution'
+)
+
+M.elixir = Set(
+	'arguments',
+	'binary',
+	'block',
+	'interpolation',
+	'list',
+	'map',
+	'sigil',
+	'struct',
+	'tuple'
+)
+
+M.html = Set('element', 'script_element', 'style_element')
+
+M.lua = Set(
+	'arguments',
+	'bracket_index_expression',
+	'parameters',
+	'parenthesized_expression',
+	'table_constructor'
+)
+
+M.commonlisp = Set('list_lit')
+
+M.make = Set(
+	'command_substitution',
+	'function_call',
+	'substitution_reference',
+	'variable_reference'
+)
+
+return M
 
 -- vim:tw=79:ts=4:sw=4:noet:

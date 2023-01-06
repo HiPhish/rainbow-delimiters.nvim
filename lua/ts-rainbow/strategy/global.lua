@@ -21,6 +21,7 @@ local configs = require 'nvim-treesitter.configs'
 local add_predicate = vim.treesitter.query.add_predicate
 local extended_languages = { "latex", "html", "verilog", "jsx" }
 local lib = require 'ts-rainbow.lib'
+local levels = require 'ts-rainbow.levels'
 
 
 ---Strategy which highlights the entire buffer.
@@ -56,10 +57,10 @@ local function register_predicates(config)
 end
 
 ---Update highlights for a range. Called every time text is changed.
----@param bufnr number # Buffer number
----@param changes table # Range of text changes
----@param tree table # Syntax tree
----@param lang string # Language
+---@param bufnr   number  Buffer number
+---@param changes table   List of node ranges in which the changes occurred
+---@param tree    table   TS tree
+---@param lang    string  Language
 local function update_range(bufnr, changes, tree, lang)
 	if vim.fn.pumvisible() ~= 0 or not lang then
 		return
@@ -68,26 +69,13 @@ local function update_range(bufnr, changes, tree, lang)
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
 		local query = queries.get_query(lang, "parens")
-		local levels = require("ts-rainbow.levels")[lang]
+		local levels = levels[lang]
 		if query ~= nil then
 			for _, node, _ in query:iter_captures(root_node, bufnr, change[1], change[3] + 1) do
 				-- set colour for this nesting level
 				if not node:has_error() then
 					local hlgroup = lib.hlgroup_at(lib.node_level(node, levels))
-					-- range of the capture, zero-indexed
-					local startRow, startCol, endRow, endCol = node:range()
-					vim.highlight.range(
-						bufnr,
-						lib.nsid,
-						hlgroup,
-						{ startRow, startCol },
-						{ endRow, endCol - 1 },
-						{
-							regtype = "b",
-							inclusive = true,
-							priority = 210,
-						}
-					)
+					lib.highlight(bufnr, node, hlgroup)
 				end
 			end
 		end
@@ -96,11 +84,16 @@ end
 
 ---Update highlights for every tree in given buffer.
 ---@param bufnr number # Buffer number
+---@return nil
 local function full_update(bufnr)
-	local parser = lib.buffer_parsers[bufnr]
-	parser:for_each_tree(function(tree, sub_parser)
-		update_range(bufnr, { { tree:root():range() } }, tree, sub_parser:lang())
-	end)
+	local function callback(tree, sub_parser)
+		local changes = {
+			{tree:root():range()}
+		}
+		update_range(bufnr, changes, tree, sub_parser:lang())
+	end
+
+	lib.buffer_parsers[bufnr]:for_each_tree(callback)
 end
 
 
