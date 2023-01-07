@@ -35,9 +35,9 @@ function M.init()
             strategy = require 'ts-rainbow.strategy.global',
             query = {
             	lib.query,
-            	html = 'tags',
-            	latex = 'blocks',
-            	verilog = 'blocks',
+            	html = 'rainbow-tags',
+            	latex = 'rainbow-blocks',
+            	verilog = 'rainbow-blocks',
             },
             -- Highlight groups in order of display
             hlgroups = {

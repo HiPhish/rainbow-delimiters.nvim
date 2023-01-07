@@ -21,7 +21,7 @@ local configs = require 'nvim-treesitter.configs'
 local M = {}
 
 ---Default query name to use
-M.query = 'parens'
+M.query = 'rainbow-parens'
 
 M.nsid = vim.api.nvim_create_namespace("rainbow_ns")
 

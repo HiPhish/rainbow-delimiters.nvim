@@ -55,7 +55,7 @@ Here is an example:
        -- list of languages you want to disable the plugin for
        disable = { "jsx", "cpp" }, 
        -- Which query to use for finding delimiters
-       query = 'parens',
+       query = 'rainbow-parens',
        -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
        extended_mode = true,
        -- Do not enable for files with more than n lines, int
@@ -133,25 +133,27 @@ Example:
 .. code:: lua
 
    -- One query for all languages
-   'parens'
+   'rainbow-parens'
 
    -- Same as above
-   {'parens'}
+   {'rainbow-parens'}
 
    -- Use 'whatever' for Lua, the default query otherwise
-   {html = 'tags'}
+   {html = 'rainbow-tags'}
 
    -- Explicit default with override for Lua
-   {'parens', html = 'tags'}
+   {'rainbow-parens', html = 'rainbow-tags'}
 
 The following queries are defined by default:
 
-`parens`
+`rainbow-parens`
    Parentheses, works for all languages. These can be round, square, curly or
    angular depending on the particular languages.
-`tags` (HTML)
+
+`rainbow-tags` (HTML)
    HTML tags
-`blocks` (LaTeX, Verilog)
+
+`rainbow-blocks` (LaTeX, Verilog)
    Blocks made up of pairs of words like `begin` and `end`
 
 Currently it is not possible to combine queries on the fly, so all queries
