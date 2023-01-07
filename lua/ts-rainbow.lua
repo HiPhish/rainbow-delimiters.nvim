@@ -33,7 +33,12 @@ function M.init()
             end,
             extended_mode = true,
             strategy = require 'ts-rainbow.strategy.global',
-            query = lib.query,
+            query = {
+            	lib.query,
+            	html = 'tags',
+            	latex = 'blocks',
+            	verilog = 'blocks',
+            },
             -- Highlight groups in order of display
             hlgroups = {
             	-- The colours are intentionally not in the usual order to make

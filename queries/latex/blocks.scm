@@ -5,3 +5,6 @@
 "\\)" @right
 "{" @left
 "}" @right
+
+(begin)  @left
+(end) @right

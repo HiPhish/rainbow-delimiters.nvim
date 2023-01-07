@@ -23,7 +23,6 @@ strategies, both globally and per file type.
    the moment.
 
 
-
 Installation and setup
 ######################
 
@@ -140,10 +139,27 @@ Example:
    {'parens'}
 
    -- Use 'whatever' for Lua, the default query otherwise
-   {lua = 'whatever'}
+   {html = 'tags'}
 
    -- Explicit default with override for Lua
-   {'parens', lua = 'whatever'}
+   {'parens', html = 'tags'}
+
+The following queries are defined by default:
+
+`parens`
+   Parentheses, works for all languages. These can be round, square, curly or
+   angular depending on the particular languages.
+`tags` (HTML)
+   HTML tags
+`blocks` (LaTeX, Verilog)
+   Blocks made up of pairs of words like `begin` and `end`
+
+Currently it is not possible to combine queries on the fly, so all queries
+include the `parens` query.  This means for example if you choose `blocks` as
+the query for LaTeX you will get rainbow highlighting for `\begin` and `\end`
+blocks, as well as for parentheses.  You will have to create a custom query
+(let's call it `only-blocks`) and copy-paste the queries you want from the
+`blocks` query.
 
 
 Screenshots
