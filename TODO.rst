@@ -1,5 +1,8 @@
 .. default-role:: code
 
+- Adjust queries for all languages to the use new captures
+- Allow setting the strategy per file type
+
 
 #######################
  Plans for this plugin

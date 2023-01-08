@@ -16,6 +16,7 @@
 --]]
 
 local configs = require 'nvim-treesitter.configs'
+local queries = require 'nvim-treesitter.query'
 
 ---Library of shared internal functions and variables.
 local M = {}
@@ -82,6 +83,17 @@ function M.highlight(bufnr, node, hlgroup)
 	}
 
 	vim.highlight.range(bufnr, M.nsid, hlgroup, start, finish, opts)
+end
+
+---Fetches the query for the given language from the settings.
+---@param lang string  Name of the language to get the query for
+---@return userdata query  The query object
+function M.get_query(lang)
+	local setting = configs.get_module('rainbow').query
+	if type(setting) == 'table' then
+		setting = setting[lang] or setting[1] or M.query
+	end
+	return queries.get_query(lang, setting)
 end
 
 return M

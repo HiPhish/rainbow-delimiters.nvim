@@ -16,8 +16,6 @@
 --]]
 
 local parsers = require("nvim-treesitter.parsers")
-local queries = require 'nvim-treesitter.query'
-local configs = require 'nvim-treesitter.configs'
 local lib = require 'ts-rainbow.lib'
 local levels = require 'ts-rainbow.levels'
 
@@ -32,18 +30,15 @@ local M = {}
 ---@param lang    string  Language
 local function update_range(bufnr, changes, tree, lang)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
-
-	local query = configs.get_module("rainbow").query
-	if type(query) == 'table' then
-		query = query[lang] or query[1] or lib.query
-	end
+	local query = lib.get_query(lang)
+	if not query then return end
+	local levels = levels[lang]
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
-		local query = queries.get_query(lang, query)
-		local levels = levels[lang]
-		if query ~= nil then
-			for _, node, _ in query:iter_captures(root_node, bufnr, change[1], change[3] + 1) do
+		for id, node, _ in query:iter_captures(root_node, bufnr, change[1], change[3] + 1) do
+			local name = query.captures[id]
+			if name == 'opening' or name == 'closing' then
 				-- set colour for this nesting level
 				if not node:has_error() then
 					local hlgroup = lib.hlgroup_at(lib.node_level(node, levels))

@@ -1,2 +1,2 @@
-"(" @left
-")" @right
+"(" @opening
+")" @closing
