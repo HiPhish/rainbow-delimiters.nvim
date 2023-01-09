@@ -33,6 +33,7 @@ function M.init()
             end,
             extended_mode = true,
             strategy = require 'ts-rainbow.strategy.global',
+            -- strategy = require 'ts-rainbow.strategy.local',
             query = {
             	lib.query,
             	html = 'rainbow-tags',

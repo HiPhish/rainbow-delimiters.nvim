@@ -1,1 +1,7 @@
-; inherits: square,round,curly
+(block
+  (("{" @opening)
+   ("}" @closing))) @container
+
+(parenthesized_query
+  (("(" @opening)
+   (")" @closing))) @container

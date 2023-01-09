@@ -14,8 +14,6 @@ Queries to port
 These queries still use the legacy language.  I have to port them to use the
 new capture groups.
 
-- css
-- java
 - javascript
 - json
 - latex

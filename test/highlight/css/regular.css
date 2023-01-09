@@ -1,0 +1,9 @@
+.foo {
+	color: #ffffff;
+}
+
+@media (not (color)) {
+	.foo {
+		color: #ffffff;
+	}
+}
