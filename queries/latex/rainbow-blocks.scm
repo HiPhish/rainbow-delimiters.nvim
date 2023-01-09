@@ -1,10 +1,12 @@
-"$" @left
-"\\[" @left
-"\\]" @right
-"\\(" @left
-"\\)" @right
-"{" @left
-"}" @right
+(inline_formula
+  (("$" @opening)
+   ("$" @closing))) @container
 
-(begin)  @left
-(end) @right
+(generic_environment
+  (((begin) @opening)
+   ((end)   @closing))) @container
+
+
+(math_environment
+  (((begin) @opening)
+   ((end)   @closing))) @container
