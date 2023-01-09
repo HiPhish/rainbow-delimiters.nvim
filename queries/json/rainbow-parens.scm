@@ -1,1 +1,7 @@
-; inherits: square,curly
+(object
+  ("{" @opening)
+  ("}" @closing)) @container
+
+(array
+  ("[" @opening)
+  ("]" @closing)) @container
