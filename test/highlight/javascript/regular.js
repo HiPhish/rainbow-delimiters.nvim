@@ -1,37 +1,30 @@
-// prettier-ignore
-    (function () {
-//hl2         33 3
-        const abc = {
-        // hl       4
-            nested: {
-            // hl   5
-                evenMore: {
-                // hl     6
-                    another: [
-                    // hl    7
-                        {
-                    //hl1
-                            level: "",
-                        },
-                    //hl1
-                    ],
-                //hl7
-                },
-            //hl6
-            },
-        //hl5
-        };
-    //hl4
+// Template strings
+let who = 'world';
+console.log(`Hello, ${who}`);
 
-        class Foo {
-            // hl 4
-            method() {
-            // hl 55 5
-                fn()
-            // hl 66
-            }
-        //hl5
-        }
-    //hl4
-    })();
-//hl3211
+// Nested object
+let some_object = {
+	a: {
+		b: {
+			c: {},
+		}
+	}
+};
+
+// Function with nested function
+function add(x, y) {
+	function iter(i, acc) {
+		if (i == 0) {
+			return accu;
+		}
+		return iter(i - 1, acc + 1);
+	}
+	return iter(y, x)
+}
+
+// Class with method
+class Foo {
+	method() {
+		console.log('Hi!');
+	}
+}
