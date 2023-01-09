@@ -1,32 +1,80 @@
 .. default-role:: code
 
-- Adjust queries for all languages to the use new captures
-- Allow setting the strategy per file type
-
-
 #######################
  Plans for this plugin
 #######################
 
-The goal of the fork is to make the plugin more extensible and hackable.  As
-little as possible should be hard-coded, users should be able to override as
-much as possible.  Users should be able to write their own logic outside the
-plugin and not have to patch the plugin itself.
 
-Highlighting strategies
-   By default the entire buffer is highlighted, but maybe users want to only
-   highlight a portion.  A strategy implements how to to perform highlighting.
-   The strategy protocol requires that a strategy table contains a number of
-   entries which map to functions with specific signatures.
+Built-in queries
+################
 
-Custom queries (or predicates)
-   What parts do we want to highlight?  Queries allow users to specify if they
-   want to highlight e.g. parentheses, entire words (e.g. HTML tags) or maybe
-   something else entirely.  This replaces the extended mode.
+Queries to port
+===============
 
-Custom colours
-   Highlighting should use Vim colour groups.  We can specify our own names and
-   let users define (or link) them on their own.
+These queries still use the legacy language.  I have to port them to use the
+new capture groups.
 
-Documentation
-   A proper manual, not the README.
+- css
+- java
+- javascript
+- json
+- latex
+- lua
+- make
+- python
+- query
+- racket
+- regex
+- scheme
+- typescript
+- vim
+- yaml
+
+Queries which I cannot port
+===========================
+
+I do not know enough about the following languages in order to write good
+queries.  Contributions are welcome.
+
+- clojure
+- cpp
+- cuda
+- dart
+- devicetree
+- ecma
+- elixir
+- elm
+- fennel
+- fish
+- gdscript
+- go
+- graphql
+- haskell
+- hcl
+- json5
+- jsonc
+- jsx
+- julia
+- kotlin
+- meson
+- nix
+- ocaml
+- ocaml_interface
+- ocamllex
+- php
+- r
+- rescript
+- ruby
+- rust
+- scala
+- scss
+- solidity
+- sparql
+- supercollider
+- svelte
+- teal
+- tsx
+- turtle
+- verilog
+- vue
+- zig

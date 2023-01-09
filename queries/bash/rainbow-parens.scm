@@ -1,10 +1,17 @@
-; inherits: round,curly,square
-(_
-  "[[" @left
-  "]]" @right)
 (command_substitution
-  "$(" @left
-  ")" @right)
+  (("$(" @opening)
+   (")"  @closing))) @container
+
 (expansion
-  "${" @left
-  "}" @right)
+  (("${" @opening)
+   (":-" @intermediate)
+   ("}" @closing))) @container
+
+;;; The double-bracket variant is a bashism
+(test_command
+  ((["[[" "["] @opening)
+   (["]]" "]"] @closing))) @container
+
+(subshell
+ (("(" @opening)
+  (")" @closing))) @container

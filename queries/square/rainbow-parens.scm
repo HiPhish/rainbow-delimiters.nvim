@@ -1,2 +1,0 @@
-"[" @opening
-"]" @closing
