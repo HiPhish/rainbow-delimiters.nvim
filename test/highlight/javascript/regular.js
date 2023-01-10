@@ -10,21 +10,3 @@ let some_object = {
 		}
 	}
 };
-
-// Function with nested function
-function add(x, y) {
-	function iter(i, acc) {
-		if (i == 0) {
-			return accu;
-		}
-		return iter(i - 1, acc + 1);
-	}
-	return iter(y, x)
-}
-
-// Class with method
-class Foo {
-	method() {
-		console.log('Hi!');
-	}
-}

@@ -1,4 +1,5 @@
-; inherits: ecma
-(type_arguments
-  "<" @paren
-  ">" @paren)
+; inherits: javascript
+
+(type_parameters
+  (("<" @opening)
+   (">" @closing))) @container

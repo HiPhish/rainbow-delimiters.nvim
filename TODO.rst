@@ -5,16 +5,26 @@
 #######################
 
 
+Configuration
+#############
+
+- Allow setting the query per file type
+
+
+Highlighting
+############
+
+- I need a better way of determining the level of a node. My idea: from the
+  current `@container` move up the tree and count any `@container` encountered
+  along the way.
+
+
+
 Built-in queries
 ################
 
-Queries to port
-===============
+Queries for all languages I know have now been ported.
 
-These queries still use the legacy language.  I have to port them to use the
-new capture groups.
-
-- typescript
 
 Queries which I cannot port
 ===========================
@@ -27,7 +37,6 @@ queries.  Contributions are welcome.
 - cuda
 - dart
 - devicetree
-- ecma
 - elixir
 - elm
 - fennel
@@ -39,17 +48,14 @@ queries.  Contributions are welcome.
 - hcl
 - json5
 - jsonc
-- jsx
 - julia
 - kotlin
 - meson
 - nix
 - ocaml
 - ocaml_interface
-- ocamllex
 - php
 - r
-- rescript
 - ruby
 - rust
 - scala
@@ -58,7 +64,6 @@ queries.  Contributions are welcome.
 - sparql
 - supercollider
 - svelte
-- teal
 - tsx
 - turtle
 - verilog
