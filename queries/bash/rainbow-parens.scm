@@ -4,7 +4,7 @@
 
 (expansion
   (("${" @opening)
-   (":-" @intermediate)
+   (":-" @intermediate)?
    ("}" @closing))) @container
 
 ;;; The double-bracket variant is a bashism
