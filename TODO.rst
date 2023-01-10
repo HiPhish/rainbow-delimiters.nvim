@@ -14,11 +14,7 @@ Queries to port
 These queries still use the legacy language.  I have to port them to use the
 new capture groups.
 
-- regex
-- scheme
 - typescript
-- vim
-- yaml
 
 Queries which I cannot port
 ===========================

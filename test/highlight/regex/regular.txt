@@ -1,0 +1,9 @@
+a(b(c(d)))
+a(b(c(d)?))
+a(b(c[def]))
+a(b(c[^def]))
+a(b(c{1}))
+a(b(c{1,4}))
+a(b(c(?=d)))
+
+ vim:ft=regex
