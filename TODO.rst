@@ -33,7 +33,6 @@ I do not know enough about the following languages in order to write good
 queries.  Contributions are welcome.
 
 - clojure
-- cpp
 - cuda
 - dart
 - devicetree
@@ -46,8 +45,6 @@ queries.  Contributions are welcome.
 - graphql
 - haskell
 - hcl
-- json5
-- jsonc
 - julia
 - kotlin
 - meson

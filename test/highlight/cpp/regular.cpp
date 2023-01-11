@@ -1,13 +1,21 @@
-#include <stdio.h>
+#include <cstdio>
 
 /* A function declaration */
 int add(int, int);
 
+// Structure and class definitions
 struct Point2D {
+public:
 	int x;
 	int y;
 };
 
+class Point3D {
+public:
+	int x;
+	int y;
+	int z;
+};
 
 /* A function definition */
 int add(int x, int y) {
@@ -40,15 +48,20 @@ int add(int x, int y) {
 	return add(x + 1, y - 1);
 }
 
+template <typename T> T myMax(T x, T y) {
+	return (x > y) ? x : y;
+}
+
 float int2float(int i) {
 	return (float)i;
 }
 
 int main(int argc, char *argv[]) {
-	int a = 10, b = 5;
-	int result = add(a, b);
+	auto a {10};
+	auto b (5);
+	auto result = add(a, b);
 	printf("The sum of %d and %d is %d", ((((a)))), b, result);
 	int indices[] = {0, };
-	int i = indices[indices[indices[indices[indices[indices[0]]]]]];
+	auto i = indices[indices[indices[indices[indices[indices[0]]]]]];
 	return 0;
 }

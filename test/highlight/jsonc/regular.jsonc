@@ -1,0 +1,13 @@
+// This is a comment
+{
+	"foo": "bar",
+	/* This is a multi-line comment
+	*/
+	"bar": {
+		"baz": [
+			[
+				[]
+			]
+		]
+	}
+}

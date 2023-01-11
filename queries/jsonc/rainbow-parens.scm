@@ -1,1 +1,1 @@
-; inherits: square,curly
+; inherits: json
