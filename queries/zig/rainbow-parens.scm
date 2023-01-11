@@ -1,1 +1,0 @@
-; inherits: round,square,curly
