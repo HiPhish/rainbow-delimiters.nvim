@@ -1,9 +1,15 @@
 root = true
 
 [*]
-indent_style = space
-indent_size = 4
-tab_width = 8
+indent_size = tab
+tab_width = 4
 end_of_line = lf
 insert_final_newline = true
 charset = utf-8
+
+[*.lua]
+indent_style = tab
+
+[*.scm]
+indent_style = space
+indent_size = 2
