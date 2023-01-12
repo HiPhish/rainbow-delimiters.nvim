@@ -209,34 +209,6 @@ instructions.
 
 .. image:: https://user-images.githubusercontent.com/4954650/212133427-46182f57-bfd8-4cbe-be1f-9aad5ddfd796.png
 
-Java
-====
-
-.. image:: https://raw.githubusercontent.com/p00f/nvim-ts-rainbow/master/screenshots/java.png
-
-![alt text]()
-
-The screenshots below use a different color scheme.
-
-Fennel
-======
-
-.. image:: https://raw.githubusercontent.com/p00f/nvim-ts-rainbow/master/screenshots/fnlwezterm.png
-.. image:: https://raw.githubusercontent.com/p00f/nvim-ts-rainbow/master/screenshots/fnltreesitter.png
-
-
-C++
-===
-
-.. image:: https://raw.githubusercontent.com/p00f/nvim-ts-rainbow/master/screenshots/cpp.png
-
-Latex
-=====
-
-With tag begin-end matching
-
-.. image:: https://raw.githubusercontent.com/p00f/nvim-ts-rainbow/master/screenshots/latex_.png
-
 
 License
 #######
