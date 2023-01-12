@@ -3,7 +3,7 @@
   (if (zero? y)
     x
     (add (add1 x)
-         (sub1 x))))
+         (sub1 y))))
 
 (define-syntax foo
   (syntax-rules ()
