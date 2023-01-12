@@ -181,6 +181,34 @@ The strategy can be set globally or per language like the query.
 Screenshots
 ###########
 
+Bash
+====
+
+.. image:: https://user-images.githubusercontent.com/4954650/212133420-4eec7fd3-9458-42ef-ba11-43c1ad9db26b.png
+
+C
+=
+
+.. image:: https://user-images.githubusercontent.com/4954650/212133423-8b4f1f00-634a-42c1-9ebc-69f8057a63e6.png
+
+Common Lisp
+===========
+
+.. image:: https://user-images.githubusercontent.com/4954650/212133425-85496400-4e24-4afd-805c-55ca3665c4d9.png
+
+Java
+====
+
+.. image:: https://user-images.githubusercontent.com/4954650/212133426-7615f902-e39f-4625-bb91-2e757233c7ba.png
+
+LaTeX
+=====
+
+Using the `blocks` query to highlight the entire `\begin` and `\end`
+instructions.
+
+.. image:: https://user-images.githubusercontent.com/4954650/212133427-46182f57-bfd8-4cbe-be1f-9aad5ddfd796.png
+
 Java
 ====
 
