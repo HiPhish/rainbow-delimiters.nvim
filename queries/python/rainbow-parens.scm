@@ -45,3 +45,7 @@
 (parenthesized_expression
   (("(" @opening)
    (")" @closing))) @container
+
+(subscript
+  (("[" @opening)
+   ("]" @closing))) @container
