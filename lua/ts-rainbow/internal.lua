@@ -15,9 +15,10 @@
    limitations under the License.
 --]]
 
-local parsers = require("nvim-treesitter.parsers")
-local configs = require("nvim-treesitter.configs")
-local lib = require 'ts-rainbow.lib'
+local parsers    = require("nvim-treesitter.parsers")
+local configs    = require("nvim-treesitter.configs")
+local lib        = require 'ts-rainbow.lib'
+local strategies = require 'ts-rainbow.strategies'
 local api = vim.api
 
 local M = {}
@@ -25,10 +26,10 @@ local M = {}
 ---Update the parser for a buffer.
 local function set_buffer_parser()
 	local bufnr = api.nvim_get_current_buf()
-	if lib.state_table[bufnr] then
+	if lib.buffers[bufnr] then
 		local lang = parsers.get_buf_lang(bufnr)
 		local parser = parsers.get_parser(bufnr, lang)
-		lib.buffer_parsers[bufnr] = parser
+		lib.buffers[bufnr].parser = parser
 	end
 end
 
@@ -39,13 +40,24 @@ function M.attach(bufnr, lang)
 	local config = configs.get_module("rainbow")
 	if not config then return end
 
-	local strategy = config.strategy
 	local max_file_lines = config.max_file_lines
 	if max_file_lines ~= nil and vim.api.nvim_buf_line_count(bufnr) > max_file_lines then
 		return
 	end
 
-	strategy.on_attach(bufnr, lang)
+	local strategy = strategies.get(lang)
+	local query = lib.get_query(lang)
+
+	lib.buffers[bufnr] = {
+		lang = lang,
+		strategy = strategy,
+		query = query,
+		parser = parsers.get_parser(bufnr, lang),
+	}
+
+	-- For now we silently discard errors, but in the future we should log
+	-- them.
+	pcall(strategy.on_attach, bufnr, lang)
 end
 
 --- Detach module from buffer. Called when `:TSBufDisable rainbow`.
@@ -54,18 +66,19 @@ function M.detach(bufnr)
 	local config = configs.get_module("rainbow")
 	if not config then return end
 
-	local strategy = config.strategy
+	local strategy = lib.buffers[bufnr].strategy
 
-	lib.state_table[bufnr] = false
 	if vim.treesitter.highlighter.hl_map then
 		vim.treesitter.highlighter.hl_map["punctuation.bracket"] = "TSPunctBracket"
 	else
 		vim.api.nvim_set_hl(0, "@punctuation.bracket", { link = "TSPunctBracket" })
 	end
 	vim.api.nvim_buf_clear_namespace(bufnr, lib.nsid, 0, -1)
-	lib.buffer_parsers[bufnr] = nil
 
-	strategy.on_detach(bufnr)
+	-- For now we silently discard errors, but in the future we should log
+	-- them.
+	pcall(strategy.on_detach, bufnr)
+	lib.buffers[bufnr] = nil
 end
 
 -- If the file type of a buffer changes we have to swap out the parser for that

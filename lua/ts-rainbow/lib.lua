@@ -24,14 +24,14 @@ local M = {}
 ---Default query name to use
 M.query = 'rainbow-parens'
 
+---Namespace reserved for this plugin
 M.nsid = vim.api.nvim_create_namespace("rainbow_ns")
 
----Maps a buffer ID to the buffer's parser; retaining a reference prevents the
----parser from getting garbage-collected.
-M.buffer_parsers = {}
----Keeps track of buffers which have this module attached.  The key is the
----buffer number, the value is a boolean.
-M.state_table = {}
+---Keeps track of attached buffers.  The key is the buffer number and the value
+---is a table of information about that buffer (e.g. language, strategy,
+---query).  This also makes sure we keep track of all parsers in active use to
+---prevent them from being garbage-collected.
+M.buffers = {}
 
 ---Find the nesting level of a node.
 ---@param node   table  Node to find the level of

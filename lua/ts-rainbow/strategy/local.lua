@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 --]]
-local parsers  = require("nvim-treesitter.parsers")
+
 local lib = require 'ts-rainbow.lib'
 local api = vim.api
 local ts = vim.treesitter
@@ -83,7 +83,7 @@ end
 ---position.
 local function local_rainbow(bufnr)
 	if bufnr == 0 then bufnr = vim.fn.bufnr() end
-	local parser = lib.buffer_parsers[bufnr]
+	local parser = lib.buffers[bufnr].parser
 	if not parser then
 		return
 	end
@@ -99,9 +99,6 @@ local function callback(args)
 end
 
 function M.on_attach(bufnr, lang)
-	local parser = parsers.get_parser(bufnr, lang)
-	lib.buffer_parsers[bufnr] = parser
-	lib.state_table[bufnr] = true
 	api.nvim_create_autocmd('CursorMoved', {
 		group = augroup,
 		buffer = bufnr,
@@ -114,7 +111,6 @@ function M.on_detach(bufnr)
 	api.nvim_clear_autocmds {
 		buffer = bufnr
 	}
-	lib.buffer_parsers[bufnr] = nil
 end
 
 return M

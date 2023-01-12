@@ -60,7 +60,7 @@ local function full_update(bufnr)
 		update_range(bufnr, changes, tree, sub_parser:lang())
 	end
 
-	lib.buffer_parsers[bufnr]:for_each_tree(callback)
+	lib.buffers[bufnr].parser:for_each_tree(callback)
 end
 
 
@@ -68,15 +68,13 @@ function M.on_attach(bufnr, lang)
 	local parser = parsers.get_parser(bufnr, lang)
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
-			if lib.state_table[bufnr] then
+			if lib.buffers[bufnr] then
 				update_range(bufnr, changes, tree, lang)
 			else
 				return
 			end
 		end,
 	}
-	lib.buffer_parsers[bufnr] = parser
-	lib.state_table[bufnr] = true
 	full_update(bufnr)
 end
 

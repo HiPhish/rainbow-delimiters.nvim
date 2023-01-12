@@ -56,6 +56,7 @@ Here is an example:
        disable = { "jsx", "cpp" }, 
        -- Which query to use for finding delimiters
        query = 'rainbow-parens',
+       strategy = require 'ts-rainbow.strategy.global',
        -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
        extended_mode = true,
        -- Do not enable for files with more than n lines, int
@@ -162,6 +163,19 @@ the query for LaTeX you will get rainbow highlighting for `\begin` and `\end`
 blocks, as well as for parentheses.  You will have to create a custom query
 (let's call it `only-blocks`) and copy-paste the queries you want from the
 `blocks` query.
+
+Strategy
+--------
+
+A strategy defines how to highlight delimiters.  The default strategy is to
+highlight everything in the buffer.  Each strategy is a table which conforms to
+the strategy protocol.  The following strategies are included:
+
+- `require 'ts-rainbow.strategy.global'` highlights the entire buffer
+- `require 'ts-rainbow.strategy.local'` highlights only delimiters of the
+  current sub-tree the cursor is in.
+
+The strategy can be set globally or per language like the query.
 
 
 Screenshots
