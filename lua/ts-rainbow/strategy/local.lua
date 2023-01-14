@@ -98,7 +98,7 @@ local function callback(args)
 	local_rainbow(buf)
 end
 
-function M.on_attach(bufnr, lang)
+function M.attach(bufnr, lang)
 	api.nvim_create_autocmd('CursorMoved', {
 		group = augroup,
 		buffer = bufnr,
@@ -106,7 +106,7 @@ function M.on_attach(bufnr, lang)
 	})
 end
 
-function M.on_detach(bufnr)
+function M.detach(bufnr)
 	-- Uninstall autocommand
 	api.nvim_clear_autocmds {
 		buffer = bufnr

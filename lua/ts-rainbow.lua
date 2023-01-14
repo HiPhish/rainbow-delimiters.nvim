@@ -1,4 +1,5 @@
 --[[
+   Copyright 2023 Alejandro "HiPhish" Sanchez
    Copyright 2020-2022 Chinmay Dalal
 
    Licensed under the Apache License, Version 2.0 (the "License");

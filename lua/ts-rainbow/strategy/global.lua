@@ -64,7 +64,7 @@ local function full_update(bufnr)
 end
 
 
-function M.on_attach(bufnr, lang)
+function M.attach(bufnr, lang)
 	local parser = parsers.get_parser(bufnr, lang)
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
@@ -78,7 +78,7 @@ function M.on_attach(bufnr, lang)
 	full_update(bufnr)
 end
 
-function M.on_detach(bufnr)
+function M.detach(bufnr)
 end
 
 return M

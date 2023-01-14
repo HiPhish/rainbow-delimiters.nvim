@@ -1,0 +1,373 @@
+*nvim-ts-rainbow2.txt*	Alternating highlight for delimiters in code
+
+                                                                  *ts-rainbow*
+     ___________ ____        ____       _       _                  ______~
+    / / / /_   _/ ___|      |  _ \ __ _(_)_ __ | |__   _____      _\ \ \ \~
+   | | | |  | | \___ \ _____| |_) / _` | | '_ \| '_ \ / _ \ \ /\ / /| | | |~
+   | | | |  | |  ___) |_____|  _ < (_| | | | | | |_) | (_) \ V  V / | | | |~
+   | | | |  |_| |____/      |_| \_\__,_|_|_| |_|_.__/ \___/ \_/\_/  | | | |~
+    \_\_\_\                                                        /_/_/_/~
+
+Author: Alejandro "HiPhish" Sanchez
+License: Apache-2.0
+
+
+==============================================================================
+TABLE OF CONTENTS                                        *ts-rainbow-contents*
+
+1. Introduction ................................. |ts-rainbow-intro|
+2. Setup and configuration ...................... |ts-rainbow-setup|
+   2.1 Highlight colors ......................... |ts-rainbow-colors|
+   2.2 Strategies ............................... |ts-rainbow-strategy|
+   2.3 Queries .................................. |ts-rainbow-query|
+3. Extending .................................... |ts-rainbow-extending|
+   3.1 The library .............................. |ts-rainbow-custom-api|
+   3.2 Custom queries ........................... |ts-rainbow-custom-query|
+   3.3 Custom strategies ........................ |ts-rainbow-custom-strategy|
+   3.4 Adding new languages ..................... |ts-rainbow-custom-lang|
+4. Acknowledgements ............................. |ts-rainbow-credit|
+5. Further reading .............................. |ts-rainbow-reading|
+
+
+==============================================================================
+INTRODUCTION
+
+This plugin provides alternating highlighting for delimiters in Neovim, also
+known as "rainbow parentheses".  Thanks to the built-in |treesitter| support
+we are not limited to just parentheses.  We can match any part of the document
+tree, such as HTML tags or `\begin`/`end` instruction pairs in LaTeX.  We can
+define new patterns for existing languages, add support for new languages and
+even change the strategy used for highlighting.
+
+
+==============================================================================
+SETUP AND CONFIGURATION
+
+The plugin |nvim-treesitter| must be installed and configured.  This plugin is
+a module for nvim-treesitter; please refer to |nvim-treesitter-modules| for
+information on how to enable and configure a module.
+
+In addition to the default keys defined by nvim-treesitter, the configuration
+accepts the following keys:
+
+`strategy`
+The highlighting strategy to use, see |ts-rainbow-strategy|
+
+`query`
+Name of the query to match delimiters, see |ts-rainbow-query|
+
+`hlgroups`
+Names of the highlight groups to use for highlighting, see |ts-rainbow-colors|
+
+`max_file_lines`
+Do not highlight files longer than this many lines; set to `nil` (the default)
+for unlimited.
+
+Here is the default configuration:
+>
+    require("nvim-treesitter.configs").setup {
+        rainbow = {
+            query = {
+               'rainbow-parens'
+            }
+            strategy = require 'ts-rainbow.strategy.global',
+            hlgroups = {
+               'TSRainbowRed',
+               'TSRainbowYellow',
+               'TSRainbowBlue',
+               'TSRainbowOrange',
+               'TSRainbowGreen',
+               'TSRainbowViolet',
+               'TSRainbowCyan'
+            },
+            max_file_lines = nil,
+        }
+    }
+<
+
+
+------------------------------------------------------------------------------
+HIGHLIGHT COLORS                                           *ts-rainbow-colors*
+
+The `hlgroups` setting controls which highlight group to apply.  It is a list
+of any number of highlight groups as strings.  The default values are in this
+order:
+
+- `TSRainbowRed`
+- `TSRainbowYellow`
+- `TSRainbowBlue`
+- `TSRainbowOrange`
+- `TSRainbowGreen`
+- `TSRainbowViolet`
+- `TSRainbowCyan`
+
+These are non-standard highlight groups and I have tried to find reasonable
+default values for most uses.  Nevertheless, you probably want to redefine
+them for your colour scheme or link them to some existing group.
+
+The colors are intentionally not in the order of the rainbow to help make the
+contrast between adjacent delimiters more noticeable.  You can re-order the
+colours in your settings if you prefer a different order.
+
+Example highlight group definitions:
+>
+    " Link to an existing highlight group
+    highlight link TSRainbowRed WarningMsg
+
+    " Define the highlight from scratch
+    highlight TSRainbowOrange  guifg=#d65d0e ctermfg=White
+<
+You will probably want to have different colours per theme.  Since most themes
+will lack definitions for the above groups you will need to hook in somehow.
+A simple solution is the use of an autocommand.
+>
+    autocmd ColorSchemePre MyTheme highlight link TSRainbow MyThemeRed
+    " and so on...
+<
+
+
+------------------------------------------------------------------------------
+STRATEGIES                                               *ts-rainbow-strategy*
+
+A strategy defines how to perform the highlighting of delimiters.  For
+example, the included global strategy highlights every delimiter in a buffer
+and updates the highlights when the document tree changes.  On the other hand,
+the included local strategy highlights only the sub-tree of the document which
+contains the cursor and is updated whenever the cursor moves.
+
+The strategy can be set either globally with per-language overrides.  The
+setting is a table where the first value is the default strategy and the
+overrides use the name of the language as keys.
+
+>
+    -- Use global strategy by default, but local for HTML and Common Lisp
+    strategy = {
+        require 'ts-rainbow.strategy.global',
+        html = require 'ts-rainbow.strategy.local',
+        commonlisp = require 'ts-rainbow.strategy.local',
+    }
+<
+
+A strategy is just a table which must contain specific fields.  It is possible
+to define your own strategy, see |ts-rainbow-custom-strategy|. The following
+strategies are included:
+
+require 'ts-rainbow.strategy.global'~
+
+The default strategy, highlights the entire buffer.  Has very simple logic.
+
+
+require 'ts-rainbow.strategy.local'~
+
+Based on the cursor position highlights only the sub-tree which contains the
+cursor.  Updated every time and uses more complex logic than the global
+strategy to figure out which nodes exactly to highlight.
+
+
+------------------------------------------------------------------------------
+QUERIES                                                     *ts-rainbow-query*
+
+A query defines what to match.  Every language needs its own custom query.
+The query setting can be either a string (same query for all languages) or a
+table.  If it is a table then the first entry is the default query and other
+entries are key-value pairs where the key is the name of the language and the
+value is the name of the query.
+>
+    -- Use parentheses by default, entire tags for HTML and blocks for LaTeX
+    query = {
+        'rainbow-parens',
+        html = 'rainbow-tags',
+        latex = 'rainbow-blocks',
+    }
+<
+If you wish to define your own custom query or add support for a new language,
+consult |ts-rainbow-custom-query| for details.
+
+For every language the query `rainbow-parens` is defined, which matches a
+reasonable set of parentheses and similar nodes.  In addition there are the
+following extra queries for certain languages:
+
+- `html`
+  - `rainbow-tags` Matches both opening and closing tags in their entirety
+- `latex`
+  - `rainbow-blocks` Matches `\begin` and `\end` instructions
+
+
+
+==============================================================================
+EXTENDING RAINBOW DELIMITERS
+
+Rainbow delimiters are hackable, you can add your own strategies, queries for
+existing languages or even queries for all new languages.  Strategies and
+queries are split up to be independent and can be mixed arbitrarily, but on
+the flip side this means there are some rules which need to be followed.
+
+
+------------------------------------------------------------------------------
+THE LIBRARY                                                   *ts-rainbow-api*
+
+There is a utility library provided for people writing their own strategies.
+
+
+------------------------------------------------------------------------------
+CUSTOM STRATEGIES                                 *ts-rainbow-custom-strategy*
+
+A strategy is a table which must contain a certain set of fields.  In
+object-oriented terminology we would say that a strategy table must implement
+the strategy protocol.
+>
+    strategy = {
+        attach = function(bufnr: number, lang: string),
+        detach = function(bufnr: string)
+    }
+<
+
+------------------------------------------------------------------------------
+`attach`
+
+This function takes two arguments: the number of the buffer and the language
+used of the buffer.  It is analogous to the `attach` function of custom
+|nvim-treesitter| modules and will receive the exact same arguments.  This
+function is generally used to set up autocommands or other callbacks for
+events when the highlighting needs to be updated.
+
+------------------------------------------------------------------------------
+`detach`
+
+This function takes one argument: the number of the buffer.  It is analogous
+to the `detach` function of custom |nvim-treesitter| modules and will receive
+the exact same argument.  This function is generally used to clean up any
+custom autocommands and callbacks set up in the `attach` function.
+
+------------------------------------------------------------------------------
+The logic within the strategy can vary wildly between strategies.  Usually you
+will want to install some callback in the `attach` function.  That callback
+can then use the Tree-sitter API and the utility library to select which nodes
+to highlight and what highlight group to apply.
+
+See |ts-rainbow-custom-query| for the standard capture groups used.  Selecting
+standard capture groups allows your strategy with any of the built-in queries
+as well as user-specified custom queries.
+
+
+------------------------------------------------------------------------------
+CUSTOM QUERIES                                       *ts-rainbow-custom-query*
+
+A query defines what exactly needs to be highlighted.  Different languages
+have different document trees, so you need a separate query for each language.
+The queries need to define the following capture groups:
+
+- `container`
+- `opening`
+- `closing`
+- `intermediate`
+
+Only `container` is mandatory, `opening` and `closing` will pretty much always
+be present as well.  The `intermediate` capture group will be rarely used.
+
+Let's look at an example first.  Here is a snippet of HTML code:
+>
+    <a href="https://example.com">
+        Example<br/>link
+    </a>
+<
+
+The corresponding document tree including anonymous nodes is as follows:
+>
+    element [1, 4] - [3, 8]
+      start_tag [1, 4] - [1, 34]
+    	"<" [1, 4] - [1, 5]
+    	tag_name [1, 5] - [1, 6]
+    	attribute [1, 7] - [1, 33]
+      	  attribute_name [1, 7] - [1, 11]
+      	  "=" [1, 11] - [1, 12]
+      	  quoted_attribute_value [1, 12] - [1, 33]
+            """ [1, 12] - [1, 13]
+            attribute_value [1, 13] - [1, 32]
+            """ [1, 32] - [1, 33]
+    	">" [1, 33] - [1, 34]
+      text [2, 6] - [2, 13]
+      element [2, 13] - [2, 18]
+    	self_closing_tag [2, 13] - [2, 18]
+      	  "<" [2, 13] - [2, 14]
+      	  tag_name [2, 14] - [2, 16]
+      	  "/>" [2, 16] - [2, 18]
+      text [2, 18] - [2, 22]
+      end_tag [3, 4] - [3, 8]
+    	"</" [3, 4] - [3, 6]
+    	tag_name [3, 6] - [3, 7]
+    	">" [3, 7] - [3, 8]
+<
+
+As a human I immediately perceive the entire link as one object with two
+delimiters: the opening `<a>` tag and the closing `</a>` tag.  Perhaps the
+self-closing `<br/>` tag can be seen as an intermediate delimiter because it
+does not open a new scope.  On the other hand, it is part of the content of
+the entire link, not one of its delimiters.
+
+As you can see, it is up to interpretation as to what exactly constitutes a
+delimiter.  In this example for the sake of exhaustiveness we will consider
+the `<br/>` tag a delimiters.  The corresponding query is as follows:
+>
+    (element
+      ((start_tag) @opening
+       (element
+         (self_closing_tag) @intermediate)?  ;Optional!
+       (end_tag) @closing)) @container
+<
+Highlighting the entire tag might be too vibrant though.  What if we want to
+highlight only the opening and closing angle brackets?  The query gets
+slightly more complex because we have to descend deeper into the document
+tree.
+>
+    (element
+      ((start_tag
+          ["<" ">"] @opening)
+       (element
+          (self_closing_tag
+            ["<" "/>"] @intermediate))?  ;Optional!
+       (end_tag
+          ["</" ">"] @closing))) @container
+<
+Both the opening and closing brackets are marked as one of either `opening`,
+`intermediate` or `closing`.  This is because we care about delimiters at a
+semantic level: both ends of the brackets are considered opening if they are
+part of the opening tag.
+
+You might now see why we need the `@container` capture group: there is no way
+to know in general how deeply the delimiter is nested.  Even for one language
+our understanding of what constitutes a delimiter is up for debate.  Therefore
+a human must decide for each query which node is the container and which nodes
+are the delimiters.  Capturing this information makes it available for use in
+strategies.
+
+
+------------------------------------------------------------------------------
+ADDING SUPPORT FOR NEW LANGUAGES                      *ts-rainbow-custom-lang*
+
+Supporting a new new language requires creating one or more queries for the
+language.  If the query is mature enough please consider upstreaming it so
+everyone can benefit.
+
+
+==============================================================================
+ACKNOWLEDGEMENTS                                           *ts-rainbow-credit*
+
+The original version of nvim-ts-rainbow was written by Chinmay "p00f" Dalal,
+and discontinued in January of 2023.  The original repositories can be found
+under these URLs:
+
+- https://sr.ht/~p00f/nvim-ts-rainbow/
+- https://github.com/p00f/nvim-ts-rainbow
+
+
+==============================================================================
+FURTHER READING                                           *ts-rainbow-reading*
+
+- nvim-treesitter plugin https://github.com/nvim-treesitter/nvim-treesitter
+- Official Tree-sitter website https://tree-sitter.github.io/tree-sitter/
+- Neovim Tree-sitter documentation: |treesitter.txt|
+
+
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
