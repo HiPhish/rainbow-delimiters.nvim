@@ -207,6 +207,55 @@ the flip side this means there are some rules which need to be followed.
 THE LIBRARY                                                   *ts-rainbow-api*
 
 There is a utility library provided for people writing their own strategies.
+It is available as a table under the Lua module `'ts-rainbow'`.
+
+
+                                                    *ts-rainbow.buffer_config*
+'ts-rainbow'.buffer_config({bufnr})
+    Returns the buffer settings table for the given buffer.  If ts-rainbow has
+    not attached to the buffer the result is `nil`.  This can be used for
+    checks in a strategy.
+
+    The table contains the following keys:
+
+    - `lang`       Language of the buffer
+    - `strategy`   Strategy in use
+    - `query`      Name of query in use
+    - `parser`     Reference to the buffer parser (|treesitter-languagetree|)
+
+
+                                                  *ts-rainbow.clear_namespace*
+ts-rainbow.clear_namespace
+    Clears the namespace reserved for ts-rainbow.  Call this function to
+    remove all highlighting in the given buffer.
+
+
+                                                        *ts-rainbow.get_query*
+'ts-rainbow'.get_query({language})
+    Fetches the query name for the given {language} from the settings.
+
+
+                                                       *ts-rainbow.hlgroup_at*
+'ts-rainbow'.hlgroup_at({nesting_level})
+    Gets the name of the highlight group set up at the given nesting level.
+    This function will properly roll over, meaning that if there are seven
+    highlight groups defined and the {nesting_level} is nine, you will get the
+    second highlight group.
+
+
+                                                           *ts-rainbow.levels*
+'ts-rainbow'.levels
+    Note: This will probably be removed.
+
+
+                                                       *ts-rainbow.node_level*
+'ts-rainbow'.node_level({node})
+    Returns the level of the given `@container` capture node relative to other
+    `@container` capture nodes.  See |ts-rainbow-custom-query| for information
+    on query capture groups.
+
+    The value does not roll over.  If there are seven highlight groups and the
+    node has nesting level nine, then nine will be returned.
 
 
 ------------------------------------------------------------------------------
