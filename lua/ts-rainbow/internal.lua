@@ -57,7 +57,7 @@ function M.attach(bufnr, lang)
 
 	-- For now we silently discard errors, but in the future we should log
 	-- them.
-	pcall(strategy.attach, bufnr, lang)
+	pcall(strategy.on_attach, bufnr, lang)
 end
 
 --- Detach module from buffer. Called when `:TSBufDisable rainbow`.
@@ -77,7 +77,7 @@ function M.detach(bufnr)
 
 	-- For now we silently discard errors, but in the future we should log
 	-- them.
-	pcall(strategy.detach, bufnr)
+	pcall(strategy.on_detach, bufnr)
 	lib.buffers[bufnr] = nil
 end
 

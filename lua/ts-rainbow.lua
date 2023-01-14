@@ -15,45 +15,26 @@
    limitations under the License.
 --]]
 
-local queries = require 'nvim-treesitter.query'
-local configs = require 'nvim-treesitter.configs'
 local lib = require 'ts-rainbow.lib'
 
+---Public API for use in writing strategies or other custom code.
 local M = {}
 
-function M.init()
-	require('nvim-treesitter').define_modules {
-		rainbow = {
-			module_path = 'ts-rainbow.internal',
-			is_supported = function(lang)
-				local query = configs.get_module('rainbow').query
-				if type(query) == 'table' then
-					query = query[lang] or query[1] or lib.query
-				end
-				return queries.get_query(lang, query) ~= nil
-			end,
-			extended_mode = true,
-			strategy = require 'ts-rainbow.strategy.global',
-			query = {
-				lib.query,
-				html = 'rainbow-tags',
-				latex = 'rainbow-blocks',
-				verilog = 'rainbow-blocks',
-			},
-			-- Highlight groups in order of display
-			hlgroups = {
-				-- The colours are intentionally not in the usual order to make
-				-- the contrast between them stronger
-				'TSRainbowRed',
-				'TSRainbowYellow',
-				'TSRainbowBlue',
-				'TSRainbowOrange',
-				'TSRainbowGreen',
-				'TSRainbowViolet',
-				'TSRainbowCyan',
-			},
-		},
-	}
+M.get_query = lib.get_query
+M.highlight = lib.highlight
+M.hlgroup_at = lib.hlgroup_at
+M.node_level = lib.node_level
+---This might get removed, I hope there is a better solution
+M.levels = require 'ts-rainbow.levels'
+
+function M.clear_namespace(bufnr)
+	vim.api.nvim_buf_clear_namespace(bufnr, lib.nsid, 0, -1)
+end
+
+function M.buffer_config(bufnr)
+	-- TODO: make the resulting table read-only. Perhaps this should be done in
+	-- the original table?
+	return lib.buffers[bufnr]
 end
 
 return M

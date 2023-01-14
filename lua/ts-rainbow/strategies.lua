@@ -31,9 +31,7 @@ local default = M.global
 ---@return table strategy  The strategy table to use
 function M.get(lang)
 	local setting = configs.get_module('rainbow').strategy
-	if type(setting) == 'table' then
-		setting = setting[lang] or setting[1] or default
-	end
+	setting = setting[lang] or setting[1] or default
 	return setting
 end
 

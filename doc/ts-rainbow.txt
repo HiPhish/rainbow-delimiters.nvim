@@ -217,13 +217,13 @@ object-oriented terminology we would say that a strategy table must implement
 the strategy protocol.
 >
     strategy = {
-        attach = function(bufnr: number, lang: string),
-        detach = function(bufnr: string)
+        on_attach = function(bufnr: number, lang: string),
+        on_detach = function(bufnr: string)
     }
 <
 
 ------------------------------------------------------------------------------
-`attach`
+`on_attach`
 
 This function takes two arguments: the number of the buffer and the language
 used of the buffer.  It is analogous to the `attach` function of custom
@@ -232,16 +232,16 @@ function is generally used to set up autocommands or other callbacks for
 events when the highlighting needs to be updated.
 
 ------------------------------------------------------------------------------
-`detach`
+`on_detach`
 
 This function takes one argument: the number of the buffer.  It is analogous
 to the `detach` function of custom |nvim-treesitter| modules and will receive
 the exact same argument.  This function is generally used to clean up any
-custom autocommands and callbacks set up in the `attach` function.
+custom autocommands and callbacks set up in the `on_attach` function.
 
 ------------------------------------------------------------------------------
 The logic within the strategy can vary wildly between strategies.  Usually you
-will want to install some callback in the `attach` function.  That callback
+will want to install some callback in the `on_attach` function.  That callback
 can then use the Tree-sitter API and the utility library to select which nodes
 to highlight and what highlight group to apply.
 

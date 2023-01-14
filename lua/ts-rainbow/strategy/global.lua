@@ -15,9 +15,7 @@
    limitations under the License.
 --]]
 
-local parsers = require("nvim-treesitter.parsers")
-local lib = require 'ts-rainbow.lib'
-local levels = require 'ts-rainbow.levels'
+local rainbow = require 'ts-rainbow'
 
 
 ---Strategy which highlights the entire buffer.
@@ -30,9 +28,9 @@ local M = {}
 ---@param lang    string  Language
 local function update_range(bufnr, changes, tree, lang)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
-	local query = lib.get_query(lang)
+	local query = rainbow.get_query(lang)
 	if not query then return end
-	local levels = levels[lang]
+	local levels = rainbow.levels[lang]
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
@@ -41,8 +39,8 @@ local function update_range(bufnr, changes, tree, lang)
 			if name == 'opening' or name == 'closing' then
 				-- set colour for this nesting level
 				if not node:has_error() then
-					local hlgroup = lib.hlgroup_at(lib.node_level(node, levels))
-					lib.highlight(bufnr, node, hlgroup)
+					local hlgroup = rainbow.hlgroup_at(rainbow.node_level(node, levels))
+					rainbow.highlight(bufnr, node, hlgroup)
 				end
 			end
 		end
@@ -60,15 +58,15 @@ local function full_update(bufnr)
 		update_range(bufnr, changes, tree, sub_parser:lang())
 	end
 
-	lib.buffers[bufnr].parser:for_each_tree(callback)
+	rainbow.buffer_config(bufnr).parser:for_each_tree(callback)
 end
 
 
-function M.attach(bufnr, lang)
-	local parser = parsers.get_parser(bufnr, lang)
+function M.on_attach(bufnr, lang)
+	local parser = rainbow.buffer_config(bufnr).parser
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
-			if lib.buffers[bufnr] then
+			if rainbow.buffer_config(bufnr) then
 				update_range(bufnr, changes, tree, lang)
 			else
 				return
@@ -78,7 +76,7 @@ function M.attach(bufnr, lang)
 	full_update(bufnr)
 end
 
-function M.detach(bufnr)
+function M.on_detach(bufnr)
 end
 
 return M

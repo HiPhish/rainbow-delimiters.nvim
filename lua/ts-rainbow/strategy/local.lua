@@ -14,7 +14,7 @@
    limitations under the License.
 --]]
 
-local lib = require 'ts-rainbow.lib'
+local rainbow = require 'ts-rainbow'
 local api = vim.api
 local ts = vim.treesitter
 
@@ -28,10 +28,10 @@ local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 local function update_local(bufnr, tree, lang)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
-	local query = lib.get_query(lang)
+	local query = rainbow.get_query(lang)
 	if not query then return end
 
-	api.nvim_buf_clear_namespace(bufnr, lib.nsid, 0, -1)
+	rainbow.clear_namespace(bufnr)
 	local levels = require('ts-rainbow.levels')[lang]
 
 	local row, col
@@ -72,9 +72,9 @@ local function update_local(bufnr, tree, lang)
 			end
 		end
 		if ts.is_in_node_range(container, row, col) or ts.is_ancestor(cursor_container, container) then
-			local hlgroup = lib.hlgroup_at(lib.node_level(container, levels))
-			lib.highlight(bufnr, opening, hlgroup)
-			lib.highlight(bufnr, closing, hlgroup)
+			local hlgroup = rainbow.hlgroup_at(rainbow.node_level(container, levels))
+			rainbow.highlight(bufnr, opening, hlgroup)
+			rainbow.highlight(bufnr, closing, hlgroup)
 		end
 	end
 end
@@ -83,7 +83,7 @@ end
 ---position.
 local function local_rainbow(bufnr)
 	if bufnr == 0 then bufnr = vim.fn.bufnr() end
-	local parser = lib.buffers[bufnr].parser
+	local parser = rainbow.buffer_config(bufnr).parser
 	if not parser then
 		return
 	end
@@ -98,7 +98,7 @@ local function callback(args)
 	local_rainbow(buf)
 end
 
-function M.attach(bufnr, lang)
+function M.on_attach(bufnr, lang)
 	api.nvim_create_autocmd('CursorMoved', {
 		group = augroup,
 		buffer = bufnr,
@@ -106,7 +106,7 @@ function M.attach(bufnr, lang)
 	})
 end
 
-function M.detach(bufnr)
+function M.on_detach(bufnr)
 	-- Uninstall autocommand
 	api.nvim_clear_autocmds {
 		buffer = bufnr
