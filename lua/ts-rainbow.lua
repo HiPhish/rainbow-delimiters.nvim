@@ -15,15 +15,77 @@
    limitations under the License.
 --]]
 
-local lib = require 'ts-rainbow.lib'
+local configs = require 'nvim-treesitter.configs'
+local queries = require 'nvim-treesitter.query'
+local lib     = require 'ts-rainbow.lib'
 
 ---Public API for use in writing strategies or other custom code.
 local M = {}
 
-M.get_query = lib.get_query
-M.highlight = lib.highlight
-M.hlgroup_at = lib.hlgroup_at
-M.node_level = lib.node_level
+---Fetches the query for the given language from the settings.
+---@param lang string  Name of the language to get the query for
+---@return userdata query  The query object
+function M.get_query(lang)
+	local setting = configs.get_module('rainbow').query
+	if type(setting) == 'table' then
+		setting = setting[lang] or setting[1] or lib.query
+	end
+	return queries.get_query(lang, setting)
+end
+
+---Apply highlighting to a single node.
+---@param bufnr   number  Buffer which contains the node
+---@param node    table   Node to highlight
+---@param hlgroup string  Name of the highlight group to  apply.
+---@return nil
+function M.highlight(bufnr, node, hlgroup)
+	-- range of the capture, zero-indexed
+	local startRow, startCol, endRow, endCol = node:range()
+
+	local start, finish = {startRow, startCol}, {endRow, endCol - 1}
+	local opts = {
+		regtype = "b",
+		inclusive = true,
+		priority = 210,
+	}
+
+	vim.highlight.range(bufnr, lib.nsid, hlgroup, start, finish, opts)
+end
+
+
+---Get the appropriate highlight group for the given level of nesting.
+---@param i number  One-based index into the highlight groups
+---@return string hlgroup  Name of the highlight groups
+function M.hlgroup_at(i)
+	local hlgroups = configs.get_module('rainbow').hlgroups
+	return hlgroups[(i - 1) % #hlgroups + 1]
+end
+
+---Find the nesting level of a node.
+---@param node   table  Node to find the level of
+---@param levels table  Levels for the language
+---@return number level Level of the node, does not wrap around
+function M.node_level(node, levels)
+	local result, current, found = 0, node, false
+
+	while current:parent() ~= nil do
+		if levels then
+			if levels[current:type()] then
+				result = result + 1
+				found = true
+			end
+		else
+			result = result + 1
+			found = true
+		end
+		current = current:parent()
+	end
+	if not found then
+		return 1
+	end
+	return result
+end
+
 ---This might get removed, I hope there is a better solution
 M.levels = require 'ts-rainbow.levels'
 
@@ -38,5 +100,4 @@ function M.buffer_config(bufnr)
 end
 
 return M
-
 -- vim:tw=79:ts=4:sw=4:noet:

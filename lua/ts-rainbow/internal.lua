@@ -19,6 +19,7 @@ local parsers    = require("nvim-treesitter.parsers")
 local configs    = require("nvim-treesitter.configs")
 local lib        = require 'ts-rainbow.lib'
 local strategies = require 'ts-rainbow.strategies'
+local rainbow    = require 'ts-rainbow'
 local api = vim.api
 
 local M = {}
@@ -46,7 +47,7 @@ function M.attach(bufnr, lang)
 	end
 
 	local strategy = strategies.get(lang)
-	local query = lib.get_query(lang)
+	local query = rainbow.get_query(lang)
 
 	lib.buffers[bufnr] = {
 		lang = lang,
@@ -91,5 +92,4 @@ api.nvim_create_autocmd("FileType", {
 })
 
 return M
-
 -- vim:tw=79:ts=4:sw=4:noet:
