@@ -5,12 +5,6 @@
 #######################
 
 
-Configuration
-#############
-
-- Allow setting the query per file type
-
-
 Highlighting
 ############
 
