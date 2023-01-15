@@ -66,11 +66,7 @@ function M.on_attach(bufnr, lang)
 	local parser = rainbow.buffer_config(bufnr).parser
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
-			if rainbow.buffer_config(bufnr) then
-				update_range(bufnr, changes, tree, lang)
-			else
-				return
-			end
+			update_range(bufnr, changes, tree, lang)
 		end,
 	}
 	full_update(bufnr)
