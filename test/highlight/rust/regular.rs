@@ -20,7 +20,7 @@ enum EnumTest {
 }
 
 fn test<A: Default>() -> usize {
-    std::mem::sizeof::<A>()
+    std::mem::size_of::<A>()
 }
 
 macro_rules! inefficient_vec {
