@@ -8,6 +8,15 @@ struct Inner {
     value: u32,
 }
 
+extern "C" {
+    fn extern_block();
+}
+
+union TestUnion {
+    val_1: f32,
+    val_2: u32,
+}
+
 #[derive(Default, Debug)]
 struct TupleStruct(u32);
 
@@ -79,15 +88,24 @@ fn main() {
     let num = 5;
 
     let match_expr = match num {
-        1 | 2 | 3 => {}
-        | 4 
-        | 5 
-        | 6 => {}
-        7 => {}
-        8 => match boolean_expr {
+        _ => match boolean_expr {
             _ => {}
         },
-        _ => {}
+    };
+
+    let fancy_match_expr = match enums[0] {
+        EnumTest::TupleVariant(v) => {}
+        EnumTest::TupleVariantTupleStruct(TupleStruct(v)) => {}
+        EnumTest::StructVariant { value } => {}
+        EnumTest::NestedStructVariant {
+            inner: Inner { value },
+        } => {}
+    };
+
+    let array = [1, 2, 3, 4];
+
+    let array_match = match array {
+        [a, b, c, d] => {}
     };
 
     let nested_macro = vec![vec![vec![vec![vec![0]]]]];

@@ -89,3 +89,19 @@
 (array_expression
   (("[" @opening)
    ("]" @closing))) @container
+
+(index_expression
+  (("[" @opening)
+   ("]" @closing))) @container
+
+(tuple_struct_pattern
+  (("(" @opening)
+   (")" @closing))) @container
+
+(struct_pattern
+  (("{" @opening)
+   ("}" @closing))) @container
+
+(slice_pattern
+  (("[" @opening)
+   ("]" @closing))) @container
