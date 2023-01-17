@@ -1,115 +1,115 @@
 (parenthesized_expression
   ("(" @opening)
-   (")" @closing)) @container
+  (")" @closing)) @container
 
 (declaration_list
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (field_declaration_list
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (ordered_field_declaration_list
   ("(" @opening)
-   (")" @closing)) @container
+  (")" @closing)) @container
 
 (enum_variant_list
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (use_list
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (field_initializer_list
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (parameters
- ("(" @opening)
+  ("(" @opening)
   (")" @closing)) @container
 
 (arguments
- ("(" @opening)
+  ("(" @opening)
   (")" @closing)) @container
 
 (block
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (match_block
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (tuple_expression
- ("(" @opening)
+  ("(" @opening)
   (")" @closing)) @container
 
 (tuple_type
   ("(" @opening)
-   (")" @closing)) @container
+  (")" @closing)) @container
 
 (token_tree
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (token_tree
   ("(" @opening)
-   (")" @closing)) @container
+  (")" @closing)) @container
 
 (token_tree
   ("[" @opening)
-   ("]" @closing)) @container
+  ("]" @closing)) @container
 
 (token_tree_pattern
   ("(" @opening)
-   (")" @closing)) @container
+  (")" @closing)) @container
 
 (token_repetition_pattern
   ("(" @opening)
-   (")" @closing)) @container
+  (")" @closing)) @container
 
 (attribute_item
   ("[" @opening)
-   ("]" @closing)) @container
+  ("]" @closing)) @container
 
 (inner_attribute_item
   ("[" @opening)
-   ("]" @closing)) @container
+  ("]" @closing)) @container
 
 (type_arguments
- ("<" @opening)
+  ("<" @opening)
   (">" @closing)) @container
 
 (type_parameters
- ("<" @opening)
+  ("<" @opening)
   (">" @closing)) @container
 
 (closure_parameters
- ("|" @opening)
+  ("|" @opening)
   ("|" @closing)) @container
 
 (array_expression
   ("[" @opening)
-   ("]" @closing)) @container
+  ("]" @closing)) @container
 
 (index_expression
   ("[" @opening)
-   ("]" @closing)) @container
+  ("]" @closing)) @container
 
 (tuple_struct_pattern
   ("(" @opening)
-   (")" @closing)) @container
+  (")" @closing)) @container
 
 (tuple_pattern
   ("(" @opening)
-   (")" @closing)) @container
+  (")" @closing)) @container
 
 (struct_pattern
   ("{" @opening)
-   ("}" @closing)) @container
+  ("}" @closing)) @container
 
 (slice_pattern
   ("[" @opening)
-   ("]" @closing)) @container
+  ("]" @closing)) @container
