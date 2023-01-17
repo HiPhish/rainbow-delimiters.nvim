@@ -306,13 +306,20 @@ A query defines what exactly needs to be highlighted.  Different languages
 have different document trees, so you need a separate query for each language.
 The queries need to define the following capture groups:
 
-- `container`
-- `opening`
-- `closing`
-- `intermediate`
+- `@container`
+  The entire delimited node.
+- `@opening`
+  The opening delimiter.
+- `@closing`
+  The closing delimiter.
+- `@intermediate`
+  Delimiters inside the block, such a as comma in an argument list or the
+  `elseif` of an `if`-`elseif`-`else` block in Lua.
 
-Only `container` is mandatory, `opening` and `closing` will pretty much always
-be present as well.  The `intermediate` capture group will be rarely used.
+Only `@container` is mandatory, `@opening` and `@closing` will pretty much
+always be present as well.  The `@intermediate` capture group will be rarely
+used.  If we have too many `@intermediate` delimiters the code can become too
+vibrant and distracting.
 
 Let's look at an example first.  Here is a snippet of HTML code:
 >
@@ -359,10 +366,10 @@ delimiter.  In this example for the sake of exhaustiveness we will consider
 the `<br/>` tag a delimiters.  The corresponding query is as follows:
 >
     (element
-      ((start_tag) @opening
-       (element
-         (self_closing_tag) @intermediate)?  ;Optional!
-       (end_tag) @closing)) @container
+      (start_tag) @opening
+      (element
+        (self_closing_tag) @intermediate)?  ;Optional!
+      (end_tag) @closing) @container
 <
 Highlighting the entire tag might be too vibrant though.  What if we want to
 highlight only the opening and closing angle brackets?  The query gets
@@ -378,10 +385,12 @@ tree.
        (end_tag
           ["</" ">"] @closing))) @container
 <
-Both the opening and closing brackets are marked as one of either `opening`,
-`intermediate` or `closing`.  This is because we care about delimiters at a
+Both the opening and closing brackets are marked as one of either `@opening`,
+`@intermediate` or `@closing`.  This is because we care about delimiters at a
 semantic level: both ends of the brackets are considered opening if they are
-part of the opening tag.
+part of the opening tag.  This is just my opinion though, in your own query
+you might decide to capture all opening angle brackets as `@opening` and all
+closing angle brackets as `@closing`.
 
 You might now see why we need the `@container` capture group: there is no way
 to know in general how deeply the delimiter is nested.  Even for one language
