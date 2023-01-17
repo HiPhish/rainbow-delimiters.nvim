@@ -28,8 +28,12 @@ enum EnumTest {
     NestedStructVariant { inner: Inner },
 }
 
-fn test<A: Default>() -> usize {
+fn test_type_param<A: Default>() -> usize {
     std::mem::size_of::<A>()
+}
+
+fn test_param(a: u32, b: u32) -> u32 {
+    a * b
 }
 
 macro_rules! inefficient_vec {
@@ -109,6 +113,8 @@ fn main() {
     };
 
     let nested_macro = vec![vec![vec![vec![vec![0]]]]];
+
+    test_param(3, 4);
 }
 
 use level_1::{
