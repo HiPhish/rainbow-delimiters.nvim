@@ -46,6 +46,10 @@
  ("(" @opening)
   (")" @closing)) @container
 
+(tuple_type
+  ("(" @opening)
+   (")" @closing)) @container
+
 (token_tree
   ("{" @opening)
    ("}" @closing)) @container
@@ -95,6 +99,10 @@
    ("]" @closing)) @container
 
 (tuple_struct_pattern
+  ("(" @opening)
+   (")" @closing)) @container
+
+(tuple_pattern
   ("(" @opening)
    (")" @closing)) @container
 

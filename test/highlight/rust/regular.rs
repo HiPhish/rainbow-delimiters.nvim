@@ -36,6 +36,12 @@ fn test_param(a: u32, b: u32) -> u32 {
     a * b
 }
 
+fn tuple_param(a: (u32, u32)) -> u32 {
+    let (a, b) = a;
+
+    a * a
+}
+
 macro_rules! inefficient_vec {
     ( $( $x:expr ),* ) => {
         {
@@ -115,6 +121,9 @@ fn main() {
     let nested_macro = vec![vec![vec![vec![vec![0]]]]];
 
     test_param(3, 4);
+
+    let test_tuple: (u32, u32) = (0, 1);
+    tuple_param(test_tuple);
 }
 
 use level_1::{
