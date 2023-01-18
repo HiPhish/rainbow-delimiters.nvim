@@ -58,6 +58,14 @@ configuration.  Here is an example:
 Please refer to the documentation for more details.
 
 
+Help wanted
+###########
+
+There are only so many languages which I understand to the point that I can
+write queries for them.  If you want support for a new language please consider
+contributing code.  See the CONTRIBUTING_ for details.
+
+
 Screenshots
 ###########
 
@@ -112,4 +120,5 @@ Huge thanks to @vigoux, @theHamsta, @sogaiu, @bfredl and @sunjon and
 
 .. _Tree-sitter: https://tree-sitter.github.io/tree-sitter/
 .. _nvim-treesitter: https://github.com/nvim-treesitter/nvim-treesitter
+.. _CONTRIBUTING: CONTRIBUTING.rst
 .. _LICENSE: LICENSE
