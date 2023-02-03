@@ -22,15 +22,16 @@ local lib     = require 'ts-rainbow.lib'
 ---Public API for use in writing strategies or other custom code.
 local M = {}
 
----Fetches the query for the given language from the settings.
+---Fetches the query and its name for the given language from the settings.
+---
 ---@param lang string  Name of the language to get the query for
 ---@return userdata query  The query object
+---@return string   name   The name of the query
 function M.get_query(lang)
-	local setting = configs.get_module('rainbow').query
-	if type(setting) == 'table' then
-		setting = setting[lang] or setting[1] or lib.query
-	end
-	return queries.get_query(lang, setting)
+	local settings = configs.get_module('rainbow').query
+	local name = type(settings) == 'string' and settings or settings[lang] or settings[1] or lib.query
+	local query = queries.get_query(lang, name)
+	return query, name
 end
 
 ---Apply highlighting to a single node.
@@ -62,15 +63,15 @@ function M.hlgroup_at(i)
 end
 
 ---Find the nesting level of a node.
----@param node   table  Node to find the level of
----@param levels table  Levels for the language
+---@param node       table  Node to find the level of
+---@param containers table  Set-like table of `@container` capture names
 ---@return number level Level of the node, does not wrap around
-function M.node_level(node, levels)
+function M.node_level(node, containers)
 	local result, current, found = 0, node, false
 
 	while current:parent() ~= nil do
-		if levels then
-			if levels[current:type()] then
+		if containers then
+			if containers[current:type()] then
 				result = result + 1
 				found = true
 			end
@@ -86,8 +87,9 @@ function M.node_level(node, levels)
 	return result
 end
 
----This might get removed, I hope there is a better solution
-M.levels = require 'ts-rainbow.levels'
+---Table mapping the name of a language to a set-like table of `@container`
+---capture names. I am not certain whether this will remain.
+M.containers = require 'ts-rainbow.containers'
 
 function M.clear_namespace(bufnr)
 	vim.api.nvim_buf_clear_namespace(bufnr, lib.nsid, 0, -1)

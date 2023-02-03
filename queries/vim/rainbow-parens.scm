@@ -6,7 +6,7 @@
   ("[" @opening)
   ("]" @closing)) @container
 
-(dictionnary
+(dictionnary  ;; this is no typo, "dictionary" is misspelled in the parser
   ("{" @opening)
   (dictionnary_entry
     (":" @intermediate))
@@ -27,4 +27,3 @@
 (ternary_expression
   ("(" @opening)
   (")" @closing)) @container
-

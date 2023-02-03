@@ -220,7 +220,8 @@ It is available as a table under the Lua module `'ts-rainbow'`.
 
     - `lang`       Language of the buffer
     - `strategy`   Strategy in use
-    - `query`      Name of query in use
+    - `query`      |Query| object in use
+    - `query_name` Name of query in use
     - `parser`     Reference to the buffer parser (|treesitter-languagetree|)
 
 
@@ -243,8 +244,8 @@ ts-rainbow.clear_namespace
     second highlight group.
 
 
-                                                           *ts-rainbow.levels*
-'ts-rainbow'.levels
+                                                       *ts-rainbow.containers*
+'ts-rainbow'.containers
     Note: This will probably be removed.
 
 
@@ -406,6 +407,11 @@ ADDING SUPPORT FOR NEW LANGUAGES                      *ts-rainbow-custom-lang*
 Supporting a new new language requires creating one or more queries for the
 language.  If the query is mature enough please consider upstreaming it so
 everyone can benefit.
+
+Afterwards add the node names of all `@container` capture groups to the file
+`lua/ts-rainbow/queries.lua`. The file evaluates to a Lua table; the key is
+the name of the language and the value is a set-like table of node names as
+strings.
 
 
 ==============================================================================

@@ -16,6 +16,7 @@
 --]]
 
 local rainbow = require 'ts-rainbow'
+local queries = require 'ts-rainbow.queries'
 
 
 ---Strategy which highlights the entire buffer.
@@ -26,11 +27,11 @@ local M = {}
 ---@param changes table   List of node ranges in which the changes occurred
 ---@param tree    table   TS tree
 ---@param lang    string  Language
-local function update_range(bufnr, changes, tree, lang)
+local function update_range(bufnr, changes, tree, lang, query_name)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 	local query = rainbow.get_query(lang)
 	if not query then return end
-	local levels = rainbow.levels[lang]
+	local containers = queries[lang][query_name]
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
@@ -39,7 +40,7 @@ local function update_range(bufnr, changes, tree, lang)
 			if name == 'opening' or name == 'closing' then
 				-- set colour for this nesting level
 				if not node:has_error() then
-					local hlgroup = rainbow.hlgroup_at(rainbow.node_level(node, levels))
+					local hlgroup = rainbow.hlgroup_at(rainbow.node_level(node, containers))
 					rainbow.highlight(bufnr, node, hlgroup)
 				end
 			end
@@ -50,26 +51,28 @@ end
 ---Update highlights for every tree in given buffer.
 ---@param bufnr number # Buffer number
 ---@return nil
-local function full_update(bufnr)
+local function full_update(bufnr, query_name)
 	local function callback(tree, sub_parser)
 		local changes = {
 			{tree:root():range()}
 		}
-		update_range(bufnr, changes, tree, sub_parser:lang())
+		update_range(bufnr, changes, tree, sub_parser:lang(), query_name)
 	end
 
 	rainbow.buffer_config(bufnr).parser:for_each_tree(callback)
 end
 
 
-function M.on_attach(bufnr, lang)
+function M.on_attach(bufnr, settings)
 	local parser = rainbow.buffer_config(bufnr).parser
+	local lang = settings.lang
+	local query_name = settings.query_name
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
-			update_range(bufnr, changes, tree, lang)
+			update_range(bufnr, changes, tree, lang, query_name)
 		end,
 	}
-	full_update(bufnr)
+	full_update(bufnr, query_name)
 end
 
 function M.on_detach(bufnr)

@@ -47,18 +47,20 @@ function M.attach(bufnr, lang)
 	end
 
 	local strategy = strategies.get(lang)
-	local query = rainbow.get_query(lang)
+	local query, query_name = rainbow.get_query(lang)
 
-	lib.buffers[bufnr] = {
+	local settings = {
 		lang = lang,
 		strategy = strategy,
 		query = query,
+		query_name = query_name,
 		parser = parsers.get_parser(bufnr, lang),
 	}
+	lib.buffers[bufnr] = settings
 
 	-- For now we silently discard errors, but in the future we should log
 	-- them.
-	pcall(strategy.on_attach, bufnr, lang)
+	pcall(strategy.on_attach, bufnr, settings)
 end
 
 --- Detach module from buffer. Called when `:TSBufDisable rainbow`.

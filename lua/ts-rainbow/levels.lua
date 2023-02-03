@@ -14,26 +14,13 @@
    limitations under the License.
 --]]
 
-local set_mt = {
-	__add = function(s1, s2)
-		local result = {}
-		for item in pairs(s1) do result[item] = true end
-		for item in pairs(s2) do result[item] = true end
-	return result
-end
-}
-
----Set constructor, creates a set table containing all the passed arguments.
-local function Set(...)
-	local result = setmetatable({}, set_mt)
-	for _, item in pairs({...}) do result[item] = true end
-	return result
-end
-
 ---Sets of note types.  When determining the level of a node we want to skip
 ---through certain node types.  This set contains all the node types which need
 ---to be counted.
 local M = {}
+local set = require 'ts-rainbow.set'
+
+local Set = set.Set
 
 M.python = Set(
 	'tuple',

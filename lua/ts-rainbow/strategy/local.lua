@@ -25,14 +25,14 @@ local M = {}
 
 local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
-local function update_local(bufnr, tree, lang)
+local function update_local(bufnr, tree, lang, query_name)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
 	local query = rainbow.get_query(lang)
 	if not query then return end
 
 	rainbow.clear_namespace(bufnr)
-	local levels = require('ts-rainbow.levels')[lang]
+	local containers = require('ts-rainbow.queries')[lang][query_name]
 
 	local row, col
 	do
@@ -72,7 +72,7 @@ local function update_local(bufnr, tree, lang)
 			end
 		end
 		if ts.is_in_node_range(container, row, col) or ts.is_ancestor(cursor_container, container) then
-			local hlgroup = rainbow.hlgroup_at(rainbow.node_level(container, levels))
+			local hlgroup = rainbow.hlgroup_at(rainbow.node_level(container, containers))
 			rainbow.highlight(bufnr, opening, hlgroup)
 			rainbow.highlight(bufnr, closing, hlgroup)
 		end
@@ -81,35 +81,33 @@ end
 
 ---Callback function to re-highlight the buffer according to the current cursor
 ---position.
-local function local_rainbow(bufnr)
+local function local_rainbow(bufnr, query_name)
 	if bufnr == 0 then bufnr = vim.fn.bufnr() end
 	local parser = rainbow.buffer_config(bufnr).parser
 	if not parser then
 		return
 	end
 	parser:for_each_tree(function(tree, sub_parser)
-		update_local(bufnr, tree, sub_parser:lang())
+		update_local(bufnr, tree, sub_parser:lang(), query_name)
 	end)
 end
 
----Callback used in autocommand.
-local function callback(args)
-	local buf = args.buf
-	local_rainbow(buf)
-end
-
-function M.on_attach(bufnr, lang)
+function M.on_attach(bufnr, settings)
 	api.nvim_create_autocmd('CursorMoved', {
 		group = augroup,
 		buffer = bufnr,
-		callback = callback
+		callback = function(args)
+			local buf = args.buf
+			local_rainbow(buf, settings.query_name)
+		end
 	})
 end
 
 function M.on_detach(bufnr)
 	-- Uninstall autocommand
 	api.nvim_clear_autocmds {
-		buffer = bufnr
+		buffer = bufnr,
+		group = augroup,
 	}
 end
 
