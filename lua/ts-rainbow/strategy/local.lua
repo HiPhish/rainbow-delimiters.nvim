@@ -32,7 +32,7 @@ local function update_local(bufnr, tree, lang, query_name)
 	if not query then return end
 
 	rainbow.clear_namespace(bufnr)
-	local containers = require('ts-rainbow.queries')[lang][query_name]
+	local containers = rainbow.containers[lang][query_name]
 
 	local row, col
 	do

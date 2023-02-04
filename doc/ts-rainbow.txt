@@ -409,7 +409,7 @@ language.  If the query is mature enough please consider upstreaming it so
 everyone can benefit.
 
 Afterwards add the node names of all `@container` capture groups to the file
-`lua/ts-rainbow/queries.lua`. The file evaluates to a Lua table; the key is
+`lua/ts-rainbow/containers.lua`. The file evaluates to a Lua table; the key is
 the name of the language and the value is a set-like table of node names as
 strings.
 

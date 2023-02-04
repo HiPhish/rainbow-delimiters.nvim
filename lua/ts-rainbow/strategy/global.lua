@@ -16,7 +16,6 @@
 --]]
 
 local rainbow = require 'ts-rainbow'
-local queries = require 'ts-rainbow.queries'
 
 
 ---Strategy which highlights the entire buffer.
@@ -31,7 +30,7 @@ local function update_range(bufnr, changes, tree, lang, query_name)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 	local query = rainbow.get_query(lang)
 	if not query then return end
-	local containers = queries[lang][query_name]
+	local containers = rainbow.containers[lang][query_name]
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
