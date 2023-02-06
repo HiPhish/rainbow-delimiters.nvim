@@ -46,6 +46,54 @@ We want to highlight the lower-level nodes like `tag_name` or `start_tag` and
 determine the nesting level or the relationship to other container nodes.
 
 
+Determining the level of container node
+=======================================
+
+In order to correctly highlight containers we need to know the nesting level of
+each container relative to the other containers in the document.  We can use
+the order in which matches are returned by the `iter_matches` method of a
+query.  The iterator traverses the document tree in a depth-first manner
+according to the visitor patter, but matches are created upon exiting a node.
+
+Let us look at a practical example.  Here is a hypothetical tree:
+
+.. code::
+
+   A
+   ├─B
+   │ └─C
+   │   └─D
+   └─E
+     ├─F
+     └─G
+
+The nodes are returned in the following order:
+
+#) D
+#) C
+#) B
+#) F
+#) G
+#) E
+#) A
+
+We can only know how deeply nodes are nested relative to one another.  We need
+to build the entire tree structure to know the absolute nesting levels.  Here
+is an algorithm which can build up the tree, it uses the fact that the order of
+nodes never skips over an ancestor.
+
+Start with an empty set `s = {}`.  For each match `m` do the following:
+
+#) Remove all matches from `s` whose `@container` node is a descendant of the
+   container node of `m`.  Collect them in the set `s_m`.
+#) Set `s_m` as the child match set of `m`
+#) Add `m` to `s`
+
+Eventually `s` will only contain root-level matches, i.e. matches of nesting
+level one.  To apply the highlighting we can then descend back down the match
+tree, incrementing the highlighting level by one each time we descend.
+
+
 The local highlight strategy
 ============================
 

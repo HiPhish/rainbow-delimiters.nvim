@@ -15,63 +15,97 @@
    limitations under the License.
 --]]
 
-local rainbow = require 'ts-rainbow'
+local Set = require 'ts-rainbow.set'
+local rb  = require 'ts-rainbow'
+local ts  = vim.treesitter
 
 
 ---Strategy which highlights the entire buffer.
 local M = {}
+
+local function highlight_matches(bufnr, records, level)
+	local hlgroup = rb.hlgroup_at(level)
+	for record in records:iter() do
+		local opening = record.opening
+		if opening then rb.highlight(bufnr, opening, hlgroup) end
+		local closing = record.closing
+		if closing then rb.highlight(bufnr, closing, hlgroup) end
+		for _, intermediate in ipairs(record.intermediates) do
+			rb.highlight(bufnr, intermediate, hlgroup)
+		end
+		highlight_matches(bufnr, record.children, level + 1)
+	end
+end
 
 ---Update highlights for a range. Called every time text is changed.
 ---@param bufnr   number  Buffer number
 ---@param changes table   List of node ranges in which the changes occurred
 ---@param tree    table   TS tree
 ---@param lang    string  Language
-local function update_range(bufnr, changes, tree, lang, query_name)
+local function update_range(bufnr, changes, tree, lang)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
-	local query = rainbow.get_query(lang)
+	local query = rb.get_query(lang)
 	if not query then return end
-	local containers = rainbow.containers[lang][query_name]
+
+	local match_records = Set.new()
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
-		for id, node, _ in query:iter_captures(root_node, bufnr, change[1], change[3] + 1) do
-			local name = query.captures[id]
-			if name == 'opening' or name == 'closing' then
-				-- set colour for this nesting level
-				if not node:has_error() then
-					local hlgroup = rainbow.hlgroup_at(rainbow.node_level(node, containers))
-					rainbow.highlight(bufnr, node, hlgroup)
+		for _, match, _ in query:iter_matches(root_node, bufnr, change[1], change[3] + 1) do
+			-- This is the match record, it lists all the relevant nodes from
+			-- the match.
+			local match_record = {
+				intermediates = {},
+			}
+			for id, node in pairs(match) do
+				local name = query.captures[id]
+				if name == 'container' then
+					match_record.container = node
+				elseif name == 'opening' then
+					match_record.opening = node
+				elseif name == 'closing' then
+					match_record.closing = node
+				elseif name == 'intermediate' then
+					match_record.intermediates[#match_record.intermediates+1] = node
 				end
 			end
+
+			local function is_child(other)
+				return ts.is_ancestor(match_record.container, other.container)
+			end
+
+			match_record.children = match_records:remove_if(is_child)
+			match_records:add(match_record)
 		end
 	end
+
+	highlight_matches(bufnr, match_records, 1)
 end
 
 ---Update highlights for every tree in given buffer.
 ---@param bufnr number # Buffer number
 ---@return nil
-local function full_update(bufnr, query_name)
+local function full_update(bufnr)
 	local function callback(tree, sub_parser)
 		local changes = {
 			{tree:root():range()}
 		}
-		update_range(bufnr, changes, tree, sub_parser:lang(), query_name)
+		update_range(bufnr, changes, tree, sub_parser:lang())
 	end
 
-	rainbow.buffer_config(bufnr).parser:for_each_tree(callback)
+	rb.buffer_config(bufnr).parser:for_each_tree(callback)
 end
 
 
 function M.on_attach(bufnr, settings)
-	local parser = rainbow.buffer_config(bufnr).parser
+	local parser = rb.buffer_config(bufnr).parser
 	local lang = settings.lang
-	local query_name = settings.query_name
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
-			update_range(bufnr, changes, tree, lang, query_name)
+			update_range(bufnr, changes, tree, lang)
 		end,
 	}
-	full_update(bufnr, query_name)
+	full_update(bufnr)
 end
 
 function M.on_detach(bufnr)

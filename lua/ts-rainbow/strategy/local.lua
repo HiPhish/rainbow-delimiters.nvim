@@ -14,9 +14,10 @@
    limitations under the License.
 --]]
 
-local rainbow = require 'ts-rainbow'
+local Set = require 'ts-rainbow.set'
+local rb  = require 'ts-rainbow'
 local api = vim.api
-local ts = vim.treesitter
+local ts  = vim.treesitter
 
 ---Highlight strategy which highlights the sub-tree of the buffer which
 ---contains the cursor. Re-computes -highlights when the buffer contents change
@@ -25,14 +26,29 @@ local M = {}
 
 local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
-local function update_local(bufnr, tree, lang, query_name)
+local function highlight_matches(bufnr, records, level)
+	local hlgroup = rb.hlgroup_at(level)
+	for record in records:iter() do
+		local opening = record.opening
+		if opening then rb.highlight(bufnr, opening, hlgroup) end
+		local closing = record.closing
+		if closing then rb.highlight(bufnr, closing, hlgroup) end
+		for _, intermediate in ipairs(record.intermediates) do
+			rb.highlight(bufnr, intermediate, hlgroup)
+		end
+		highlight_matches(bufnr, record.children, level + 1)
+	end
+end
+
+local function update_local(bufnr, tree, lang)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
-	local query = rainbow.get_query(lang)
+	local query = rb.get_query(lang)
 	if not query then return end
 
-	rainbow.clear_namespace(bufnr)
-	local containers = rainbow.containers[lang][query_name]
+	local match_records = Set.new()
+
+	rb.clear_namespace(bufnr)
 
 	local row, col
 	do
@@ -61,34 +77,52 @@ local function update_local(bufnr, tree, lang, query_name)
 
 	for _, match, _ in query:iter_matches(tree:root(), bufnr) do
 		local container, opening, closing
+		local intermediates = {}
 		for id, node in pairs(match) do
 			local name = query.captures[id]
 			if name == 'container' then
+				if not (ts.is_in_node_range(node, row, col) or ts.is_ancestor(cursor_container, node)) then
+					break
+				end
 				container = node
 			elseif name == 'opening' then
 				opening = node
 			elseif name == 'closing' then
 				closing = node
+			elseif name == 'intermediate' then
+				intermediates[#intermediates+1] = node
 			end
 		end
-		if ts.is_in_node_range(container, row, col) or ts.is_ancestor(cursor_container, container) then
-			local hlgroup = rainbow.hlgroup_at(rainbow.node_level(container, containers))
-			rainbow.highlight(bufnr, opening, hlgroup)
-			rainbow.highlight(bufnr, closing, hlgroup)
+		if container then
+			local match_record = {
+				container = container,
+				opening = opening,
+				closing = closing,
+				intermediates = intermediates,
+			}
+
+			local function is_child(other)
+				return ts.is_ancestor(match_record.container, other.container)
+			end
+
+			match_record.children = match_records:remove_if(is_child)
+			match_records:add(match_record)
 		end
 	end
+
+	highlight_matches(bufnr, match_records, 1)
 end
 
 ---Callback function to re-highlight the buffer according to the current cursor
 ---position.
-local function local_rainbow(bufnr, query_name)
+local function local_rainbow(bufnr)
 	if bufnr == 0 then bufnr = vim.fn.bufnr() end
-	local parser = rainbow.buffer_config(bufnr).parser
+	local parser = rb.buffer_config(bufnr).parser
 	if not parser then
 		return
 	end
 	parser:for_each_tree(function(tree, sub_parser)
-		update_local(bufnr, tree, sub_parser:lang(), query_name)
+		update_local(bufnr, tree, sub_parser:lang())
 	end)
 end
 
@@ -98,7 +132,7 @@ function M.on_attach(bufnr, settings)
 		buffer = bufnr,
 		callback = function(args)
 			local buf = args.buf
-			local_rainbow(buf, settings.query_name)
+			local_rainbow(buf)
 		end
 	})
 end

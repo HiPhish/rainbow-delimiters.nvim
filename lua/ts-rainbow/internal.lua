@@ -47,13 +47,12 @@ function M.attach(bufnr, lang)
 	end
 
 	local strategy = strategies.get(lang)
-	local query, query_name = rainbow.get_query(lang)
+	local query = rainbow.get_query(lang)
 
 	local settings = {
 		lang = lang,
 		strategy = strategy,
 		query = query,
-		query_name = query_name,
 		parser = parsers.get_parser(bufnr, lang),
 	}
 	lib.buffers[bufnr] = settings

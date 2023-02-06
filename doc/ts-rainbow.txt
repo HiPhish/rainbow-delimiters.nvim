@@ -221,7 +221,6 @@ It is available as a table under the Lua module `'ts-rainbow'`.
     - `lang`       Language of the buffer
     - `strategy`   Strategy in use
     - `query`      |Query| object in use
-    - `query_name` Name of query in use
     - `parser`     Reference to the buffer parser (|treesitter-languagetree|)
 
 
@@ -233,7 +232,7 @@ ts-rainbow.clear_namespace
 
                                                         *ts-rainbow.get_query*
 'ts-rainbow'.get_query({language})
-    Fetches the query name for the given {language} from the settings.
+    Fetches the query object for the given {language} from the settings.
 
 
                                                        *ts-rainbow.hlgroup_at*
@@ -242,11 +241,6 @@ ts-rainbow.clear_namespace
     This function will properly roll over, meaning that if there are seven
     highlight groups defined and the {nesting_level} is nine, you will get the
     second highlight group.
-
-
-                                                       *ts-rainbow.containers*
-'ts-rainbow'.containers
-    Note: This will probably be removed.
 
 
                                                        *ts-rainbow.node_level*
@@ -296,8 +290,8 @@ can then use the Tree-sitter API and the utility library to select which nodes
 to highlight and what highlight group to apply.
 
 See |ts-rainbow-custom-query| for the standard capture groups used.  Selecting
-standard capture groups allows your strategy with any of the built-in queries
-as well as user-specified custom queries.
+standard capture groups allows your strategy to work with any of the built-in
+queries as well as user-specified custom queries.
 
 
 ------------------------------------------------------------------------------
@@ -407,11 +401,6 @@ ADDING SUPPORT FOR NEW LANGUAGES                      *ts-rainbow-custom-lang*
 Supporting a new new language requires creating one or more queries for the
 language.  If the query is mature enough please consider upstreaming it so
 everyone can benefit.
-
-Afterwards add the node names of all `@container` capture groups to the file
-`lua/ts-rainbow/containers.lua`. The file evaluates to a Lua table; the key is
-the name of the language and the value is a set-like table of node names as
-strings.
 
 
 ==============================================================================

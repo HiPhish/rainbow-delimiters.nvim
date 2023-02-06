@@ -22,16 +22,15 @@ local lib     = require 'ts-rainbow.lib'
 ---Public API for use in writing strategies or other custom code.
 local M = {}
 
----Fetches the query and its name for the given language from the settings.
+---Fetches the query object for the given language from the settings.
 ---
 ---@param lang string  Name of the language to get the query for
 ---@return userdata query  The query object
----@return string   name   The name of the query
 function M.get_query(lang)
 	local settings = configs.get_module('rainbow').query
 	local name = type(settings) == 'string' and settings or settings[lang] or settings[1] or lib.query
 	local query = queries.get_query(lang, name)
-	return query, name
+	return query
 end
 
 ---Apply highlighting to a single node.
@@ -71,7 +70,7 @@ function M.node_level(node, containers)
 
 	while current:parent() ~= nil do
 		if containers then
-			if containers[current:type()] then
+			if containers:contains(current:type()) then
 				result = result + 1
 				found = true
 			end
@@ -86,10 +85,6 @@ function M.node_level(node, containers)
 	end
 	return result
 end
-
----Table mapping the name of a language to a set-like table of `@container`
----capture names. I am not certain whether this will remain.
-M.containers = require 'ts-rainbow.containers'
 
 function M.clear_namespace(bufnr)
 	vim.api.nvim_buf_clear_namespace(bufnr, lib.nsid, 0, -1)

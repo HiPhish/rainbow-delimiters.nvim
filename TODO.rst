@@ -5,15 +5,6 @@
 #######################
 
 
-Highlighting
-############
-
-- I need a better way of determining the level of a node. My idea: from the
-  current `@container` move up the tree and count any `@container` encountered
-  along the way.
-
-
-
 Built-in queries
 ################
 
@@ -48,7 +39,6 @@ queries.  Contributions are welcome.
 - php
 - r
 - ruby
-- rust
 - scala
 - scss
 - solidity

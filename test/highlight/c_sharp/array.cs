@@ -14,4 +14,3 @@ class Program {
     	int j = indices[indices[indices[indices[0]]]];
     }
 }
-
