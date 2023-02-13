@@ -82,16 +82,26 @@ to build the entire tree structure to know the absolute nesting levels.  Here
 is an algorithm which can build up the tree, it uses the fact that the order of
 nodes never skips over an ancestor.
 
-Start with an empty set `s = {}`.  For each match `m` do the following:
+Start with an empty stack `s = []`.  For each match `m` do the following:
 
-#) Remove all matches from `s` whose `@container` node is a descendant of the
-   container node of `m`.  Collect them in the set `s_m`.
-#) Set `s_m` as the child match set of `m`
+#) Keep popping matches off `s` up until we find a match `m'` whose
+   `@container` node is not a descendant of the container node of `m`. Collect
+   the popped matches (excluding `m'`) onto a new stack `s_m` (order does not
+   matter)
+#) Set `s_m` as the child match stack of `m`
 #) Add `m` to `s`
 
 Eventually `s` will only contain root-level matches, i.e. matches of nesting
-level one.  To apply the highlighting we can then descend back down the match
-tree, incrementing the highlighting level by one each time we descend.
+level one.  To apply the highlighting we can then traverse the match tree,
+incrementing the highlighting level by one each time we descend a level.
+
+The order of matches among siblings in the tree does not matter.  The above
+algorithm uses a stack when collecting children, but any unordered
+one-dimensional sequence will do.  The stack `s` is important for determining
+the relationship between nodes: since we know that no ancestors will be skipped
+we can be certain that we can stop checking the stack for descendants of `m`
+once we encounter the first non-descendant match.  Otherwise we would have to
+compare each match with each other match, which would tank the performance.
 
 
 The local highlight strategy

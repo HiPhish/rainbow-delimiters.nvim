@@ -14,10 +14,10 @@
    limitations under the License.
 --]]
 
-local Set = require 'ts-rainbow.set'
-local rb  = require 'ts-rainbow'
-local api = vim.api
-local ts  = vim.treesitter
+local Stack = require 'ts-rainbow.stack'
+local rb    = require 'ts-rainbow'
+local api   = vim.api
+local ts    = vim.treesitter
 
 ---Highlight strategy which highlights the sub-tree of the buffer which
 ---contains the cursor. Re-computes -highlights when the buffer contents change
@@ -28,7 +28,7 @@ local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
 local function highlight_matches(bufnr, records, level)
 	local hlgroup = rb.hlgroup_at(level)
-	for record in records:iter() do
+	for _, record in records:iter() do
 		local opening = record.opening
 		if opening then rb.highlight(bufnr, opening, hlgroup) end
 		local closing = record.closing
@@ -46,7 +46,7 @@ local function update_local(bufnr, tree, lang)
 	local query = rb.get_query(lang)
 	if not query then return end
 
-	local match_records = Set.new()
+	local matches = Stack.new()
 
 	rb.clear_namespace(bufnr)
 
@@ -99,18 +99,21 @@ local function update_local(bufnr, tree, lang)
 				opening = opening,
 				closing = closing,
 				intermediates = intermediates,
+				children = Stack.new(),
 			}
 
-			local function is_child(other)
-				return ts.is_ancestor(match_record.container, other.container)
+			for _, other in matches:iter() do
+				if not ts.is_ancestor(match_record.container, other.container) then
+					break
+				end
+				match_record.children:push(other)
+				matches:pop()
 			end
-
-			match_record.children = match_records:remove_if(is_child)
-			match_records:add(match_record)
+			matches:push(match_record)
 		end
 	end
 
-	highlight_matches(bufnr, match_records, 1)
+	highlight_matches(bufnr, matches, 1)
 end
 
 ---Callback function to re-highlight the buffer according to the current cursor

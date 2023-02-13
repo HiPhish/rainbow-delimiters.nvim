@@ -15,9 +15,9 @@
    limitations under the License.
 --]]
 
-local Set = require 'ts-rainbow.set'
-local rb  = require 'ts-rainbow'
-local ts  = vim.treesitter
+local Stack = require 'ts-rainbow.stack'
+local rb    = require 'ts-rainbow'
+local ts    = vim.treesitter
 
 
 ---Strategy which highlights the entire buffer.
@@ -25,7 +25,7 @@ local M = {}
 
 local function highlight_matches(bufnr, records, level)
 	local hlgroup = rb.hlgroup_at(level)
-	for record in records:iter() do
+	for _, record in records:iter() do
 		local opening = record.opening
 		if opening then rb.highlight(bufnr, opening, hlgroup) end
 		local closing = record.closing
@@ -47,7 +47,7 @@ local function update_range(bufnr, changes, tree, lang)
 	local query = rb.get_query(lang)
 	if not query then return end
 
-	local match_records = Set.new()
+	local matches = Stack.new()
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
@@ -56,6 +56,7 @@ local function update_range(bufnr, changes, tree, lang)
 			-- the match.
 			local match_record = {
 				intermediates = {},
+				children = Stack.new(),
 			}
 			for id, node in pairs(match) do
 				local name = query.captures[id]
@@ -70,16 +71,18 @@ local function update_range(bufnr, changes, tree, lang)
 				end
 			end
 
-			local function is_child(other)
-				return ts.is_ancestor(match_record.container, other.container)
+			for _, other in matches:iter() do
+				if not ts.is_ancestor(match_record.container, other.container) then
+					break
+				end
+				match_record.children:push(other)
+				matches:pop()
 			end
-
-			match_record.children = match_records:remove_if(is_child)
-			match_records:add(match_record)
+			matches:push(match_record)
 		end
 	end
 
-	highlight_matches(bufnr, match_records, 1)
+	highlight_matches(bufnr, matches, 1)
 end
 
 ---Update highlights for every tree in given buffer.

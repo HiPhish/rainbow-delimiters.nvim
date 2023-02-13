@@ -6,7 +6,7 @@
          (decf y))))
 
 (defmacro foo (a &rest rest)
-  `(format t "~A~%" (list ,a ,@rest))   )
+  `(format t "~A~%" (list ,a ,@rest)))
 
 '(((a . b)))
 '((((a b . c))))
