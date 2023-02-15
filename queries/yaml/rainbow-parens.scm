@@ -1,6 +1,6 @@
 (flow_mapping
   ("{" @opening)
-  (flow_pair (":" @intermediate))
+  (flow_pair (":" @intermediate))*
   ("}" @closing)) @container
 
 (flow_sequence

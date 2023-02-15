@@ -1,10 +1,25 @@
-{
-	"foo": "bar",
-	"bar": {
-		"baz": [
-			[
-				['Hello, world!']
-			]
-		]
-	}
-}
+json_compatibility:
+  {
+    "foo": "bar",
+    "bar": {
+      "baz": [
+        [
+          [[['Hello, world!']]]
+        ]
+      ]
+    },
+    "key": {
+      "key": {
+        "key": {
+          "key": {
+            "key": "value"
+          }
+        }
+      }
+    }
+  }
+
+list_of_objects:
+  - { key1: value, key2: value, key3: value }
+  - { key1: value, key2: value, key3: value }  # A comment
+  - { key1: { key2: { key3: value } } }        # Nested map
