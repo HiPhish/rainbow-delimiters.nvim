@@ -5,6 +5,59 @@
 #################################
 
 
+Design decisions
+################
+
+Tables over strings for configuration
+=====================================
+
+Strategies are given as a complex table, but a string identifier would have
+been much more pleasant on the eye. Which of these two is easier to read and
+write?
+
+.. code:: lua
+
+   -- This?
+   settings = {
+      strategy = {
+         'global'
+         html = 'local'
+      }
+   }
+
+   -- Or this?
+   settings = {
+      strategy = {
+         require 'ts-rainbow.strategy.global'
+         html = require 'ts-rainbow.strategy.local'
+      }
+   }
+
+Using strings might seem like the more elegant choice, but it it makes the code
+more complicated to maintain and less flexible for the user.  With tables a
+user can create a new custom strategy and assign it directly without the need
+to "register" them first under some name.
+
+More importantly though, we have unlimited freedom where that table is coming
+from.  Suppose we wanted to add settings to a strategy.  With string
+identifiers we now need much more machinery to connect a string identifier and
+its settings.  On the other hand, we can just call a function with the settings
+are arguments which returns the strategy table.
+
+.. code:: lua
+
+   settings = {
+       strategy = {
+           require 'ts-rainbow.strategy.global',
+           -- Function call evaluates to a strategy table
+           latext = my_custom_strategy {
+               option_1 = true,
+               option_2 = 'test'
+           }
+       }
+   }
+
+
 Strategies
 ##########
 
