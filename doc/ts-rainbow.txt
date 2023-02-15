@@ -61,7 +61,7 @@ Names of the highlight groups to use for highlighting, see |ts-rainbow-colors|
 
 `max_file_lines`
 Do not highlight files longer than this many lines; set to `nil` (the default)
-for unlimited.
+for unlimited
 
 Here is the default configuration:
 >
@@ -137,19 +137,28 @@ contains the cursor and is updated whenever the cursor moves.
 
 The strategy can be set either globally with per-language overrides.  The
 setting is a table where the first value is the default strategy and the
-overrides use the name of the language as keys.
+overrides use the name of the language as keys.  Each value can be either a
+strategy  or a function of zero arguments which evaluates to a strategy.  A
+function can be used to defer the decision to a later point in time.
 
 >
-    -- Use global strategy by default, but local for HTML and Common Lisp
     strategy = {
+    	-- Use global strategy by default
         require 'ts-rainbow.strategy.global',
+        -- Use local for HTML
         html = require 'ts-rainbow.strategy.local',
-        commonlisp = require 'ts-rainbow.strategy.local',
+        -- Pick the strategy for LaTeX dynamically based on the buffer size
+        latex = function()
+	    if vim.fn.line('$') > 1000 then
+	        return require 'ts-rainbow.strategy.global'
+	    end
+	    return require 'ts-rainbow.strategy.local'
+        end
     }
 <
 
-A strategy is just a table which must contain specific fields.  It is possible
-to define your own strategy, see |ts-rainbow-custom-strategy|. The following
+A strategy is a table which must contain specific fields.  It is possible to
+define your own strategy, see |ts-rainbow-custom-strategy|. The following
 strategies are included:
 
 require 'ts-rainbow.strategy.global'~
@@ -160,8 +169,8 @@ The default strategy, highlights the entire buffer.  Has very simple logic.
 require 'ts-rainbow.strategy.local'~
 
 Based on the cursor position highlights only the sub-tree which contains the
-cursor.  Updated every time and uses more complex logic than the global
-strategy to figure out which nodes exactly to highlight.
+cursor.  Updated every time the cursor moves and uses more complex logic than
+the global strategy to figure out which nodes exactly to highlight.
 
 
 ------------------------------------------------------------------------------

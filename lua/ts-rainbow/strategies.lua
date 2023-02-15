@@ -32,6 +32,9 @@ local default = M.global
 function M.get(lang)
 	local setting = configs.get_module('rainbow').strategy
 	setting = setting[lang] or setting[1] or default
+	if type(setting) == 'function' then
+		return setting()
+	end
 	return setting
 end
 
