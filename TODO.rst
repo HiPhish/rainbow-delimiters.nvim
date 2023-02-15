@@ -5,6 +5,14 @@
 #######################
 
 
+Performance of the local strategy
+#################################
+
+The local strategy can get quite slow in large files.  This is due to the
+frequent ancestry checks when iterating through the matches.  There needs to be
+some way of cutting down on ancestry checks by using the order of matches.
+
+
 Built-in queries
 ################
 

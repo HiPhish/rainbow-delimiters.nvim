@@ -24,6 +24,12 @@ local ts    = vim.treesitter
 ---or when the cursor is moved.
 local M = {}
 
+-- Cache of queries by language. Fetching a query on every cursor movement is
+-- expensive, but we can cache them here and retrieve them after the first
+-- fetch. If a query does not exist we store the 'false' value to distinguish
+-- it from a query which has not yet been fetched.
+local queries = {}
+
 local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
 local function highlight_matches(bufnr, records, level)
@@ -43,7 +49,8 @@ end
 local function update_local(bufnr, tree, lang)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
-	local query = rb.get_query(lang)
+	if queries[lang] == nil then queries[lang] = rb.get_query(lang) or false end
+	local query = queries[lang]
 	if not query then return end
 
 	local matches = Stack.new()
