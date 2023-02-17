@@ -1,3 +1,5 @@
+#include <vector>
+#include <iostream>
 #include <cstdio>
 
 /* A function declaration */
@@ -54,6 +56,10 @@ template <typename T> T myMax(T x, T y) {
 
 float int2float(int i) {
 	return (float)i;
+}
+
+void do_nothing_with_vector(std::vector<std::vector<std::vector<int>>> v) {
+	return;
 }
 
 int main(int argc, char *argv[]) {
