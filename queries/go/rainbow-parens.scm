@@ -1,3 +1,7 @@
+(parenthesized_expression
+  (("(" @opening)
+   (")" @closing))) @container
+
 (import_spec_list
    (("(" @opening)
     (")" @closing))) @container

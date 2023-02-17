@@ -37,7 +37,7 @@ func isFloat32(i interface{}) bool {
 }
 
 func SumUp[K comparable, V float32](v1 V, v2 V) V {
-	return v1 + v2
+	return v1 + (((v2)))
 }
 
 func main() {
