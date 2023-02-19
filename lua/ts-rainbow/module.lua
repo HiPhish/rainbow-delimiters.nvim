@@ -18,6 +18,7 @@
 local queries = require 'nvim-treesitter.query'
 local configs = require 'nvim-treesitter.configs'
 local lib = require 'ts-rainbow.lib'
+local rb  = require 'ts-rainbow'
 
 ---Module definition for the nvim-treesitter plugin.
 local M = {}
@@ -36,7 +37,7 @@ function M.register()
 			end,
 			extended_mode = true,
 			strategy = {
-				require 'ts-rainbow.strategy.global',
+				rb.strategy.global,
 			},
 			query = {
 				lib.query,

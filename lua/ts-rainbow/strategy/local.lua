@@ -15,7 +15,7 @@
 --]]
 
 local Stack = require 'ts-rainbow.stack'
-local rb    = require 'ts-rainbow'
+local lib   = require 'ts-rainbow.lib'
 local api   = vim.api
 local ts    = vim.treesitter
 
@@ -33,14 +33,14 @@ local queries = {}
 local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
 local function highlight_matches(bufnr, records, level)
-	local hlgroup = rb.hlgroup_at(level)
+	local hlgroup = lib.hlgroup_at(level)
 	for _, record in records:iter() do
 		local opening = record.opening
-		if opening then rb.highlight(bufnr, opening, hlgroup) end
+		if opening then lib.highlight(bufnr, opening, hlgroup) end
 		local closing = record.closing
-		if closing then rb.highlight(bufnr, closing, hlgroup) end
+		if closing then lib.highlight(bufnr, closing, hlgroup) end
 		for _, intermediate in ipairs(record.intermediates) do
-			rb.highlight(bufnr, intermediate, hlgroup)
+			lib.highlight(bufnr, intermediate, hlgroup)
 		end
 		highlight_matches(bufnr, record.children, level + 1)
 	end
@@ -49,13 +49,13 @@ end
 local function update_local(bufnr, tree, lang)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
-	if queries[lang] == nil then queries[lang] = rb.get_query(lang) or false end
+	if queries[lang] == nil then queries[lang] = lib.get_query(lang) or false end
 	local query = queries[lang]
 	if not query then return end
 
 	local matches = Stack.new()
 
-	rb.clear_namespace(bufnr)
+	lib.clear_namespace(bufnr)
 
 	local row, col
 	do
@@ -127,7 +127,7 @@ end
 ---position.
 local function local_rainbow(bufnr)
 	if bufnr == 0 then bufnr = vim.fn.bufnr() end
-	local parser = rb.buffer_config(bufnr).parser
+	local parser = lib.buffer_config(bufnr).parser
 	if not parser then
 		return
 	end

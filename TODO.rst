@@ -5,6 +5,15 @@
 #######################
 
 
+API
+###
+
+- Do we really need `get_query` in the public API? Maybe we can store the value
+  in the buffer settings.
+- Should `buffer_config` be a read-only proxy table for the actual config
+  table?
+
+
 Performance of the local strategy
 #################################
 

@@ -65,12 +65,14 @@ for unlimited
 
 Here is the default configuration:
 >
+    local rainbow = require 'ts-rainbow'
+
     require("nvim-treesitter.configs").setup {
         rainbow = {
             query = {
                'rainbow-parens'
             }
-            strategy = require 'ts-rainbow.strategy.global',
+            strategy = rainbow.strategy.global,
             hlgroups = {
                'TSRainbowRed',
                'TSRainbowYellow',
@@ -142,17 +144,19 @@ strategy  or a function of zero arguments which evaluates to a strategy.  A
 function can be used to defer the decision to a later point in time.
 
 >
+    local rainbow = require 'ts-rainbow'
+
     strategy = {
     	-- Use global strategy by default
-        require 'ts-rainbow.strategy.global',
+        rainbow.strategy['global'],
         -- Use local for HTML
-        html = require 'ts-rainbow.strategy.local',
+        html = rainbow.strategy['local'],
         -- Pick the strategy for LaTeX dynamically based on the buffer size
         latex = function()
 	    if vim.fn.line('$') > 1000 then
-	        return require 'ts-rainbow.strategy.global'
+	        return rainbow.strategy['global']
 	    end
-	    return require 'ts-rainbow.strategy.local'
+	    return rainbow.strategy['local']
         end
     }
 <
@@ -161,12 +165,17 @@ A strategy is a table which must contain specific fields.  It is possible to
 define your own strategy, see |ts-rainbow-custom-strategy|. The following
 strategies are included:
 
-require 'ts-rainbow.strategy.global'~
+                                                  *ts-rainbow.strategy.global*
+Global~
+'ts-rainbow'.strategy['global']
 
 The default strategy, highlights the entire buffer.  Has very simple logic.
 
 
-require 'ts-rainbow.strategy.local'~
+                                                   *ts-rainbow.strategy.local*
+Local~
+'ts-rainbow'.strategy['local']
+
 
 Based on the cursor position highlights only the sub-tree which contains the
 cursor.  Updated every time the cursor moves and uses more complex logic than
@@ -260,6 +269,17 @@ ts-rainbow.clear_namespace
 
     The value does not roll over.  If there are seven highlight groups and the
     node has nesting level nine, then nine will be returned.
+
+
+                                                         *ts-rainbow.strategy*
+'ts-rainbow'.strategy
+    Table of included strategies.  See |ts-rainbow-strategy| for information
+    about strategies.  The included ones are:
+
+    - `global`   |ts-rainbow.strategy.global|
+    - `local`    |ts-rainbow.strategy.local|
+
+    Do not add your own strategies to this table.
 
 
 ------------------------------------------------------------------------------

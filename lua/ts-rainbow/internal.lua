@@ -15,13 +15,13 @@
    limitations under the License.
 --]]
 
-local parsers    = require("nvim-treesitter.parsers")
-local configs    = require("nvim-treesitter.configs")
-local lib        = require 'ts-rainbow.lib'
-local strategies = require 'ts-rainbow.strategies'
-local rainbow    = require 'ts-rainbow'
-local api = vim.api
+local parsers = require("nvim-treesitter.parsers")
+local configs = require("nvim-treesitter.configs")
+local lib     = require 'ts-rainbow.lib'
+local rb      = require 'ts-rainbow'
+local api     = vim.api
 
+---Internal implementation of the plugin.
 local M = {}
 
 ---Update the parser for a buffer.
@@ -32,6 +32,19 @@ local function set_buffer_parser()
 		local parser = parsers.get_parser(bufnr, lang)
 		lib.buffers[bufnr].parser = parser
 	end
+end
+
+---Finds the configured strategy for the given language, falling back on the
+---default if there is no language-specific setting.
+---@param lang string  The language of the buffer
+---@return table strategy  The strategy table to use
+local function get_strategy(lang)
+	local settings = configs.get_module('rainbow').strategy
+	local setting = settings[lang] or settings[1] or rb.strategy.global
+	if type(setting) == 'function' then
+		return setting()
+	end
+	return setting
 end
 
 --- Attach module to buffer. Called when new buffer is opened or `:TSBufEnable rainbow`.
@@ -46,12 +59,12 @@ function M.attach(bufnr, lang)
 		return
 	end
 
-	local strategy = strategies.get(lang)
-	local query = rainbow.get_query(lang)
+	local strat = get_strategy(lang)
+	local query = rb.get_query(lang)
 
 	local settings = {
 		lang = lang,
-		strategy = strategy,
+		strategy = strat,
 		query = query,
 		parser = parsers.get_parser(bufnr, lang),
 	}
@@ -59,7 +72,7 @@ function M.attach(bufnr, lang)
 
 	-- For now we silently discard errors, but in the future we should log
 	-- them.
-	pcall(strategy.on_attach, bufnr, settings)
+	pcall(strat.on_attach, bufnr, settings)
 end
 
 --- Detach module from buffer. Called when `:TSBufDisable rainbow`.
