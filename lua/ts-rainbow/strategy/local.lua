@@ -33,12 +33,6 @@ local M = {}
 -- match tree every time the cursor moves.
 
 
--- Cache of queries by language. Fetching a query on every cursor movement is
--- expensive, but we can cache them here and retrieve them after the first
--- fetch. If a query does not exist we store the 'false' value to distinguish
--- it from a query which has not yet been fetched.
-local queries = {}
-
 -- Cache of match trees. We compute the match tree on every change, so that
 -- when the cursor moves without changing the tree we don't need to re-compute
 -- it.
@@ -85,9 +79,7 @@ end
 
 ---Assembles the match tree, usually called after the document tree has
 ---changed.
-local function build_match_tree(bufnr, changes, tree, lang)
-	if queries[lang] == nil then queries[lang] = lib.get_query(lang) or false end
-	local query = queries[lang]
+local function build_match_tree(bufnr, changes, tree, query)
 	if not query then return end
 
 	local matches = Stack.new()
@@ -128,11 +120,7 @@ local function build_match_tree(bufnr, changes, tree, lang)
 	return matches
 end
 
-local function update_local(bufnr, tree, lang)
-	if queries[lang] == nil then queries[lang] = lib.get_query(lang) or false end
-	local query = queries[lang]
-	if not query then return end
-
+local function update_local(bufnr, tree, lang, query)
 	lib.clear_namespace(bufnr)
 
 	-- Find the lowest container node which contains the cursor
@@ -145,7 +133,7 @@ local function update_local(bufnr, tree, lang)
 			if cursor_container then break end
 			for id, node in pairs(match) do
 				local name = query.captures[id]
-				if name == 'container' and ts.is_in_node_range(node, curpos[1], curpos[2]) then
+				if name == 'container' and ts.is_in_node_range(node, curpos[1] - 1, curpos[2]) then
 					cursor_container = node
 					break
 				end
@@ -175,15 +163,16 @@ end
 
 ---Callback function to re-highlight the buffer according to the current cursor
 ---position.
-local function local_rainbow(bufnr, parser)
+local function local_rainbow(bufnr, parser, query)
 	parser:for_each_tree(function(tree, sub_parser)
-		update_local(bufnr, tree, sub_parser:lang())
+		update_local(bufnr, tree, sub_parser:lang(), query)
 	end)
 end
 
 function M.on_attach(bufnr, settings)
 	local lang = settings.lang
 	local parser = settings.parser
+	local query = settings.query
 
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
@@ -194,8 +183,8 @@ function M.on_attach(bufnr, settings)
 			local fake_changes = {
 				{tree:root():range()}
 			}
-			match_trees[bufnr][lang] = build_match_tree(bufnr, fake_changes, tree, lang)
-			local_rainbow(bufnr, parser)
+			match_trees[bufnr][lang] = build_match_tree(bufnr, fake_changes, tree, query)
+			local_rainbow(bufnr, parser, query)
 		end,
 	}
 
@@ -203,7 +192,7 @@ function M.on_attach(bufnr, settings)
 		group = augroup,
 		buffer = bufnr,
 		callback = function(args)
-			local_rainbow(args.buf, parser)
+			local_rainbow(args.buf, parser, query)
 		end
 	})
 
@@ -214,7 +203,7 @@ function M.on_attach(bufnr, settings)
 		local changes = {
 			{tree:root():range()}
 		}
-		match_trees[bufnr][sub_lang] = build_match_tree(bufnr, changes, tree, sub_lang)
+		match_trees[bufnr][sub_lang] = build_match_tree(bufnr, changes, tree, query)
 	end)
 end
 

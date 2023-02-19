@@ -42,9 +42,8 @@ end
 ---@param changes table   List of node ranges in which the changes occurred
 ---@param tree    table   TS tree
 ---@param lang    string  Language
-local function update_range(bufnr, changes, tree, lang)
+local function update_range(bufnr, changes, tree, lang, query)
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
-	local query = lib.get_query(lang)
 	if not query then return end
 
 	local matches = Stack.new()
@@ -88,12 +87,12 @@ end
 ---Update highlights for every tree in given buffer.
 ---@param bufnr number # Buffer number
 ---@return nil
-local function full_update(bufnr, parser)
+local function full_update(bufnr, parser, query)
 	local function callback(tree, sub_parser)
 		local changes = {
 			{tree:root():range()}
 		}
-		update_range(bufnr, changes, tree, sub_parser:lang())
+		update_range(bufnr, changes, tree, sub_parser:lang(), query)
 	end
 
 	parser:for_each_tree(callback)
@@ -103,12 +102,13 @@ end
 function M.on_attach(bufnr, settings)
 	local parser = settings.parser
 	local lang = settings.lang
+	local query = settings.query
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
-			update_range(bufnr, changes, tree, lang)
+			update_range(bufnr, changes, tree, lang, query)
 		end,
 	}
-	full_update(bufnr, parser)
+	full_update(bufnr, parser, query)
 end
 
 function M.on_detach(bufnr)

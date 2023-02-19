@@ -60,7 +60,7 @@ function M.attach(bufnr, lang)
 	end
 
 	local strat = get_strategy(lang)
-	local query = rb.get_query(lang)
+	local query = lib.get_query(lang)
 
 	local settings = {
 		lang = lang,

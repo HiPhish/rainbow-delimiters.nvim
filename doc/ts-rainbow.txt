@@ -234,11 +234,6 @@ ts-rainbow.clear_namespace
     remove all highlighting in the given buffer.
 
 
-                                                        *ts-rainbow.get_query*
-'ts-rainbow'.get_query({language})
-    Fetches the query object for the given {language} from the settings.
-
-
                                                        *ts-rainbow.hlgroup_at*
 'ts-rainbow'.hlgroup_at({nesting_level})
     Gets the name of the highlight group set up at the given nesting level.

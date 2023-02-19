@@ -5,13 +5,6 @@
 #######################
 
 
-API
-###
-
-- Do we really need `get_query` in the public API? Maybe we can store the value
-  in the buffer settings.
-
-
 Built-in queries
 ################
 

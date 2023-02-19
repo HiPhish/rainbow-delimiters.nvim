@@ -19,7 +19,6 @@ local lib = require 'ts-rainbow.lib'
 
 ---Public API for use in writing strategies or other custom code.
 local M = {
-	get_query = lib.get_query,
 	highlight = lib.highlight,
 	hlgroup_at = lib.hlgroup_at,
 	node_level = lib.node_level,
