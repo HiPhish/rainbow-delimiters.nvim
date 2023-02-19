@@ -24,6 +24,15 @@ local ts    = vim.treesitter
 ---or when the cursor is moved.
 local M = {}
 
+-- Implementation note: This strategy uses a two-step process: on every change
+-- to the document tree we compute the match tree and cache it, then when the
+-- cursor moves we use the cached match tree and the current cursor position to
+-- decide which matches to highlight.
+--
+-- The document tree changes rarely, so there is no need to re-compute the
+-- match tree every time the cursor moves.
+
+
 -- Cache of queries by language. Fetching a query on every cursor movement is
 -- expensive, but we can cache them here and retrieve them after the first
 -- fetch. If a query does not exist we store the 'false' value to distinguish
@@ -126,28 +135,20 @@ local function update_local(bufnr, tree, lang)
 
 	lib.clear_namespace(bufnr)
 
-	local row, col
-	do
-		local curpos = vim.fn.getpos('.')
-		row, col = curpos[2] - 1, curpos[3] - 1
-	end
-
-	-- NOTE: We highlight the delimiters, but in order to decide whether to
-	-- highlight or not we have to look at the level of the container node
-	-- which contains all delimiters.  See HACKING file for details.
-
 	-- Find the lowest container node which contains the cursor
-	-- NOTE: This could be made simpler; the order of traversal guarantees that
-	-- the first match which contains the cursor will be the lowest one.
 	local cursor_container
-	for id, node in query:iter_captures(tree:root(), bufnr) do
-		local name = query.captures[id]
-		if name == 'container' then
-			local lower =
-				ts.is_in_node_range(node, row, col) and
-				(not cursor_container or ts.is_ancestor(cursor_container, node))
-			if lower then
-				cursor_container = node
+	do
+		local curpos = api.nvim_win_get_cursor(0)
+		-- The order of traversal guarantees that the first match which
+		-- contains the cursor is also the lowest one.
+		for _, match in query:iter_matches(tree:root(), bufnr) do
+			if cursor_container then break end
+			for id, node in pairs(match) do
+				local name = query.captures[id]
+				if name == 'container' and ts.is_in_node_range(node, curpos[1], curpos[2]) then
+					cursor_container = node
+					break
+				end
 			end
 		end
 	end

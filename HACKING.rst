@@ -183,10 +183,9 @@ simply check whether the parent contains the cursor.
 
 When working with the Tree-sitter API and iterating through matches and
 captures we have no way of knowing that any of the captures within `Charlie`
-belong to `Bravo`.  Furthermore, we do now know that `Bravo` is the lowest node
-to still contain the cursor.
+are contained within `Bravo`.  However, due to the order of traversal we do
+know that `Bravo` is the lowest node to still contain the cursor.
 
-Therefore we first have to iterate through all captures and fine the lowest
-container node which contains the cursor.  Then if a captured node does not
-contain the cursor we can check whether it is a descendant of the cursor
-container node.
+Therefore we that the first match which contains the cursor is the lowest one.
+If a match does not contain the cursor we can check whether it is a
+descendant of the cursor container match.
