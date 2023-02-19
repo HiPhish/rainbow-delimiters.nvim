@@ -30,30 +30,99 @@ local M = {}
 -- it from a query which has not yet been fetched.
 local queries = {}
 
+-- Cache of match trees. We compute the match tree on every change, so that
+-- when the cursor moves without changing the tree we don't need to re-compute
+-- it.
+local match_trees = {}
+
+-- Reusable autogroup for events in this strategy.
 local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
-local function highlight_matches(bufnr, records, level)
-	local hlgroup = lib.hlgroup_at(level)
-	for _, record in records:iter() do
-		local opening = record.opening
-		if opening then lib.highlight(bufnr, opening, hlgroup) end
-		local closing = record.closing
-		if closing then lib.highlight(bufnr, closing, hlgroup) end
-		for _, intermediate in ipairs(record.intermediates) do
-			lib.highlight(bufnr, intermediate, hlgroup)
-		end
-		highlight_matches(bufnr, record.children, level + 1)
+
+---Highlights a single match with the given highlight group
+local function highlight_match(bufnr, match, hlgroup)
+	local opening = match.opening
+	if opening then lib.highlight(bufnr, opening, hlgroup) end
+	local closing = match.closing
+	if closing then lib.highlight(bufnr, closing, hlgroup) end
+	for _, intermediate in ipairs(match.intermediates) do
+		lib.highlight(bufnr, intermediate, hlgroup)
 	end
 end
 
-local function update_local(bufnr, tree, lang)
-	if vim.fn.pumvisible() ~= 0 or not lang then return end
+---Highlights all matches and their children on the stack of matches. All
+---matches must be on the same level of the match tree.
+---
+---@param bufnr   number  Number of the buffer
+---@param matches Stack   Stack of matches
+---@param level   number  Level of the matches
+local function highlight_matches(bufnr, matches, level)
+	local hlgroup = lib.hlgroup_at(level)
+	for _, match in matches:iter() do
+		highlight_match(bufnr, match, hlgroup)
+		highlight_matches(bufnr, match.children, level + 1)
+	end
+end
 
+---Finds a match (and its level) in the match tree whose container node is the
+---given container node.
+local function find_container(matches, container, level)
+	for _, match in matches:iter() do
+		if match.container == container then return match, level end
+		local result, final_level = find_container(match.children, container, level + 1)
+		if result then return result, final_level end
+	end
+end
+
+---Assembles the match tree, usually called after the document tree has
+---changed.
+local function build_match_tree(bufnr, changes, tree, lang)
 	if queries[lang] == nil then queries[lang] = lib.get_query(lang) or false end
 	local query = queries[lang]
 	if not query then return end
 
 	local matches = Stack.new()
+
+	for _, change in ipairs(changes) do
+		local root_node = tree:root()
+		for _, match, _ in query:iter_matches(root_node, bufnr, change[1], change[3] + 1) do
+			-- This is the match record, it lists all the relevant nodes from
+			-- the match.
+			local match_record = {
+				intermediates = {},
+				children = Stack.new(),
+			}
+			for id, node in pairs(match) do
+				local name = query.captures[id]
+				if name == 'container' then
+					match_record.container = node
+				elseif name == 'opening' then
+					match_record.opening = node
+				elseif name == 'closing' then
+					match_record.closing = node
+				elseif name == 'intermediate' then
+					match_record.intermediates[#match_record.intermediates+1] = node
+				end
+			end
+
+			for _, other in matches:iter() do
+				if not ts.is_ancestor(match_record.container, other.container) then
+					break
+				end
+				other.ancestor = match_record
+				match_record.children:push(other)
+				matches:pop()
+			end
+			matches:push(match_record)
+		end
+	end
+	return matches
+end
+
+local function update_local(bufnr, tree, lang)
+	if queries[lang] == nil then queries[lang] = lib.get_query(lang) or false end
+	local query = queries[lang]
+	if not query then return end
 
 	lib.clear_namespace(bufnr)
 
@@ -68,6 +137,8 @@ local function update_local(bufnr, tree, lang)
 	-- which contains all delimiters.  See HACKING file for details.
 
 	-- Find the lowest container node which contains the cursor
+	-- NOTE: This could be made simpler; the order of traversal guarantees that
+	-- the first match which contains the cursor will be the lowest one.
 	local cursor_container
 	for id, node in query:iter_captures(tree:root(), bufnr) do
 		local name = query.captures[id]
@@ -82,77 +153,77 @@ local function update_local(bufnr, tree, lang)
 	end
 	if not cursor_container then return end
 
-	for _, match, _ in query:iter_matches(tree:root(), bufnr) do
-		local container, opening, closing
-		local intermediates = {}
-		for id, node in pairs(match) do
-			local name = query.captures[id]
-			if name == 'container' then
-				if not (ts.is_in_node_range(node, row, col) or ts.is_ancestor(cursor_container, node)) then
-					break
-				end
-				container = node
-			elseif name == 'opening' then
-				opening = node
-			elseif name == 'closing' then
-				closing = node
-			elseif name == 'intermediate' then
-				intermediates[#intermediates+1] = node
-			end
-		end
-		if container then
-			local match_record = {
-				container = container,
-				opening = opening,
-				closing = closing,
-				intermediates = intermediates,
-				children = Stack.new(),
-			}
+	local matches = match_trees[bufnr][lang]
+	if not matches then return end
 
-			for _, other in matches:iter() do
-				if not ts.is_ancestor(match_record.container, other.container) then
-					break
-				end
-				match_record.children:push(other)
-				matches:pop()
-			end
-			matches:push(match_record)
-		end
+	-- Find the correct container in the match tree
+	local cursor_match, level = find_container(matches, cursor_container, 1)
+	if not cursor_match then return end
+
+	-- Highlight the container match and everything below
+	highlight_matches(bufnr, Stack.new {cursor_match}, level)
+
+	-- Starting with the cursor match travel up and highlight every ancestor as
+	-- well
+	local ancestor, level = cursor_match.ancestor, level - 1
+	while ancestor do
+		highlight_match(bufnr, ancestor, lib.hlgroup_at(level))
+		ancestor, level = ancestor.ancestor, level - 1
 	end
-
-	highlight_matches(bufnr, matches, 1)
 end
 
 ---Callback function to re-highlight the buffer according to the current cursor
 ---position.
-local function local_rainbow(bufnr)
-	if bufnr == 0 then bufnr = vim.fn.bufnr() end
-	local parser = lib.buffer_config(bufnr).parser
-	if not parser then
-		return
-	end
+local function local_rainbow(bufnr, parser)
 	parser:for_each_tree(function(tree, sub_parser)
 		update_local(bufnr, tree, sub_parser:lang())
 	end)
 end
 
 function M.on_attach(bufnr, settings)
+	local lang = settings.lang
+	local parser = settings.parser
+
+	parser:register_cbs {
+		on_changedtree = function(changes, tree)
+			if vim.fn.pumvisible() ~= 0 or not lang then return end
+			-- Ideally we would only rebuild the parts of the tree that have changed,
+			-- but this doesn't work, so we will rebuild the entire tree
+			-- instead.
+			local fake_changes = {
+				{tree:root():range()}
+			}
+			match_trees[bufnr][lang] = build_match_tree(bufnr, fake_changes, tree, lang)
+			local_rainbow(bufnr, parser)
+		end,
+	}
+
 	api.nvim_create_autocmd('CursorMoved', {
 		group = augroup,
 		buffer = bufnr,
 		callback = function(args)
-			local buf = args.buf
-			local_rainbow(buf)
+			local_rainbow(args.buf, parser)
 		end
 	})
+
+	-- Build up the initial match tree
+	match_trees[bufnr] = {}
+	parser:for_each_tree(function(tree, sub_parser)
+		local sub_lang = sub_parser:lang()
+		local changes = {
+			{tree:root():range()}
+		}
+		match_trees[bufnr][sub_lang] = build_match_tree(bufnr, changes, tree, sub_lang)
+	end)
 end
 
 function M.on_detach(bufnr)
-	-- Uninstall autocommand
+	-- Uninstall autocommand and delete cached match tree
 	api.nvim_clear_autocmds {
 		buffer = bufnr,
 		group = augroup,
 	}
+	match_trees[bufnr] = nil
 end
 
 return M
