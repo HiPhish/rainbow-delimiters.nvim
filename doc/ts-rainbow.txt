@@ -229,7 +229,7 @@ It is available as a table under the Lua module `'ts-rainbow'`.
 
 
                                                   *ts-rainbow.clear_namespace*
-ts-rainbow.clear_namespace
+'ts-rainbow'.clear_namespace
     Clears the namespace reserved for ts-rainbow.  Call this function to
     remove all highlighting in the given buffer.
 
