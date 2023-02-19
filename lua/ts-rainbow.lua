@@ -24,7 +24,6 @@ local M = {
 	hlgroup_at = lib.hlgroup_at,
 	node_level = lib.node_level,
 	clear_namespace = lib.clear_namespace,
-	buffer_config = lib.buffer_config,
 	---Available default highlight strategies
 	strategy = {
 		['global'] = require 'ts-rainbow.strategy.global',

@@ -115,15 +115,5 @@ function M.clear_namespace(bufnr)
 	vim.api.nvim_buf_clear_namespace(bufnr, M.nsid, 0, -1)
 end
 
----Returns the Rainbow configuration for the given buffer
----
----@param bufnr number  The number of the buffer
----@return table config  Buffer configuration
-function M.buffer_config(bufnr)
-	-- TODO: make the resulting table read-only. Perhaps this should be done in
-	-- the original table?
-	return M.buffers[bufnr]
-end
-
 return M
 -- vim:tw=79:ts=4:sw=4:noet:

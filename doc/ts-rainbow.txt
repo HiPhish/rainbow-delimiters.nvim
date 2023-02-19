@@ -228,20 +228,6 @@ There is a utility library provided for people writing their own strategies.
 It is available as a table under the Lua module `'ts-rainbow'`.
 
 
-                                                    *ts-rainbow.buffer_config*
-'ts-rainbow'.buffer_config({bufnr})
-    Returns the buffer settings table for the given buffer.  If ts-rainbow has
-    not attached to the buffer the result is `nil`.  This can be used for
-    checks in a strategy.
-
-    The table contains the following keys:
-
-    - `lang`       Language of the buffer
-    - `strategy`   Strategy in use
-    - `query`      |Query| object in use
-    - `parser`     Reference to the buffer parser (|treesitter-languagetree|)
-
-
                                                   *ts-rainbow.clear_namespace*
 ts-rainbow.clear_namespace
     Clears the namespace reserved for ts-rainbow.  Call this function to
@@ -290,7 +276,7 @@ object-oriented terminology we would say that a strategy table must implement
 the strategy protocol.
 >
     strategy = {
-        on_attach = function(bufnr: number, lang: string),
+        on_attach = function(bufnr: number, settings: table),
         on_detach = function(bufnr: string)
     }
 <
@@ -298,11 +284,22 @@ the strategy protocol.
 ------------------------------------------------------------------------------
 `on_attach`
 
-This function takes two arguments: the number of the buffer and the language
-used of the buffer.  It is analogous to the `attach` function of custom
-|nvim-treesitter| modules and will receive the exact same arguments.  This
-function is generally used to set up autocommands or other callbacks for
-events when the highlighting needs to be updated.
+This function takes two arguments: the number of the buffer and the table of
+settings used by the buffer.  It is analogous to the `attach` function of
+custom |nvim-treesitter|.  This function is generally used to set up
+autocommands or other callbacks for events when the highlighting needs to be
+updated.
+
+The settings table contains the following entries:
+
+  - `lang`       Language of the buffer
+  - `strategy`   Strategy in use
+  - `query`      |Query| object in use
+  - `parser`     Reference to the buffer parser (|treesitter-languagetree|)
+
+A strategy should pick the settings it needs and either store them in an
+internal table, or construct closures (e.g. for callback functions) around
+them.
 
 ------------------------------------------------------------------------------
 `on_detach`

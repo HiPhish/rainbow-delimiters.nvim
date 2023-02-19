@@ -88,7 +88,7 @@ end
 ---Update highlights for every tree in given buffer.
 ---@param bufnr number # Buffer number
 ---@return nil
-local function full_update(bufnr)
+local function full_update(bufnr, parser)
 	local function callback(tree, sub_parser)
 		local changes = {
 			{tree:root():range()}
@@ -96,19 +96,19 @@ local function full_update(bufnr)
 		update_range(bufnr, changes, tree, sub_parser:lang())
 	end
 
-	lib.buffer_config(bufnr).parser:for_each_tree(callback)
+	parser:for_each_tree(callback)
 end
 
 
 function M.on_attach(bufnr, settings)
-	local parser = lib.buffer_config(bufnr).parser
+	local parser = settings.parser
 	local lang = settings.lang
 	parser:register_cbs {
 		on_changedtree = function(changes, tree)
 			update_range(bufnr, changes, tree, lang)
 		end,
 	}
-	full_update(bufnr)
+	full_update(bufnr, parser)
 end
 
 function M.on_detach(bufnr)
