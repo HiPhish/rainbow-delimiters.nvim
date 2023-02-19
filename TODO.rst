@@ -32,7 +32,6 @@ queries.  Contributions are welcome.
 - fennel
 - fish
 - gdscript
-- go
 - graphql
 - haskell
 - hcl
