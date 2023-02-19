@@ -43,7 +43,6 @@ function M.register()
 				lib.query,
 				html = 'rainbow-tags',
 				latex = 'rainbow-blocks',
-				verilog = 'rainbow-blocks',
 			},
 			-- Highlight groups in order of display
 			hlgroups = {
