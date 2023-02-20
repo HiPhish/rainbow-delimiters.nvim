@@ -121,9 +121,10 @@ Example highlight group definitions:
 <
 You will probably want to have different colours per theme.  Since most themes
 will lack definitions for the above groups you will need to hook in somehow.
-A simple solution is the use of an autocommand.
+A simple solution is to use an autocommand.
 >
     autocmd ColorSchemePre MyTheme highlight link TSRainbow MyThemeRed
+    autocmd ColorSchemePre MyTheme highlight link TSRainbow MyThemeYellow
     " and so on...
 <
 
@@ -137,11 +138,11 @@ and updates the highlights when the document tree changes.  On the other hand,
 the included local strategy highlights only the sub-tree of the document which
 contains the cursor and is updated whenever the cursor moves.
 
-The strategy can be set either globally with per-language overrides.  The
-setting is a table where the first value is the default strategy and the
-overrides use the name of the language as keys.  Each value can be either a
-strategy  or a function of zero arguments which evaluates to a strategy.  A
-function can be used to defer the decision to a later point in time.
+The strategy is set globally with per-language overrides.  The setting is a
+table where the first value is the default strategy and the overrides use the
+name of the language as keys.  Each value can be either a strategy  or a
+function of zero arguments which evaluates to a strategy.  A function can be
+used to defer the decision to a later point in time.
 
 >
     local rainbow = require 'ts-rainbow'
@@ -176,7 +177,6 @@ The default strategy, highlights the entire buffer.  Has very simple logic.
 Local~
 'ts-rainbow'.strategy['local']
 
-
 Based on the cursor position highlights only the sub-tree which contains the
 cursor.  Updated every time the cursor moves and uses more complex logic than
 the global strategy to figure out which nodes exactly to highlight.
@@ -202,8 +202,8 @@ If you wish to define your own custom query or add support for a new language,
 consult |ts-rainbow-custom-query| for details.
 
 For every language the query `rainbow-parens` is defined, which matches a
-reasonable set of parentheses and similar nodes.  In addition there are the
-following extra queries for certain languages:
+reasonable set of parentheses and similar delimiters.  In addition there are
+the following extra queries for certain languages:
 
 - `html`
   - `rainbow-tags` Matches both opening and closing tags in their entirety
@@ -216,9 +216,9 @@ following extra queries for certain languages:
 EXTENDING RAINBOW DELIMITERS
 
 Rainbow delimiters are hackable, you can add your own strategies, queries for
-existing languages or even queries for all new languages.  Strategies and
-queries are split up to be independent and can be mixed arbitrarily, but on
-the flip side this means there are some rules which need to be followed.
+existing languages or even queries for new languages.  Strategies and queries
+are split up to be independent and can be mixed arbitrarily, but there are
+some rules which need to be followed.
 
 
 ------------------------------------------------------------------------------
@@ -229,7 +229,7 @@ It is available as a table under the Lua module `'ts-rainbow'`.
 
 
                                                   *ts-rainbow.clear_namespace*
-'ts-rainbow'.clear_namespace
+'ts-rainbow'.clear_namespace({bufnr})
     Clears the namespace reserved for ts-rainbow.  Call this function to
     remove all highlighting in the given buffer.
 
@@ -240,16 +240,6 @@ It is available as a table under the Lua module `'ts-rainbow'`.
     This function will properly roll over, meaning that if there are seven
     highlight groups defined and the {nesting_level} is nine, you will get the
     second highlight group.
-
-
-                                                       *ts-rainbow.node_level*
-'ts-rainbow'.node_level({node})
-    Returns the level of the given `@container` capture node relative to other
-    `@container` capture nodes.  See |ts-rainbow-custom-query| for information
-    on query capture groups.
-
-    The value does not roll over.  If there are seven highlight groups and the
-    node has nesting level nine, then nine will be returned.
 
 
                                                          *ts-rainbow.strategy*
@@ -292,7 +282,7 @@ The settings table contains the following entries:
   - `query`      |Query| object in use
   - `parser`     Reference to the buffer parser (|treesitter-languagetree|)
 
-A strategy should pick the settings it needs and either store them in an
+A strategy should pick the settings it needs and either cache them in an
 internal table, or construct closures (e.g. for callback functions) around
 them.
 
@@ -302,13 +292,13 @@ them.
 This function takes one argument: the number of the buffer.  It is analogous
 to the `detach` function of custom |nvim-treesitter| modules and will receive
 the exact same argument.  This function is generally used to clean up any
-custom autocommands and callbacks set up in the `on_attach` function.
+custom state, autocommands and callbacks set up in the `on_attach` function.
 
 ------------------------------------------------------------------------------
 The logic within the strategy can vary wildly between strategies.  Usually you
 will want to install some callback in the `on_attach` function.  That callback
-can then use the Tree-sitter API and the utility library to select which nodes
-to highlight and what highlight group to apply.
+can then use the Tree-sitter API and the utility library (|ts-rainbow-api|) to
+select which nodes to highlight and what highlight group to apply.
 
 See |ts-rainbow-custom-query| for the standard capture groups used.  Selecting
 standard capture groups allows your strategy to work with any of the built-in
@@ -425,7 +415,7 @@ everyone can benefit.
 
 
 ==============================================================================
-ACKNOWLEDGEMENTS                                           *ts-rainbow-credit*
+ACKNOWLEDGMENTS                                            *ts-rainbow-credit*
 
 The original version of nvim-ts-rainbow was written by Chinmay "p00f" Dalal,
 and discontinued in January of 2023.  The original repositories can be found

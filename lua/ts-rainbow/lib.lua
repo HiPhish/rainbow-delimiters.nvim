@@ -82,30 +82,6 @@ function M.hlgroup_at(i)
 	return hlgroups[(i - 1) % #hlgroups + 1]
 end
 
----Find the nesting level of a node.
----@param node       table  Node to find the level of
----@param containers table  Set-like table of `@container` capture names
----@return number level Level of the node, does not wrap around
-function M.node_level(node, containers)
-	local result, current, found = 0, node, false
-
-	while current:parent() ~= nil do
-		if containers then
-			if containers:contains(current:type()) then
-				result = result + 1
-				found = true
-			end
-		else
-			result = result + 1
-			found = true
-		end
-		current = current:parent()
-	end
-	if not found then
-		return 1
-	end
-	return result
-end
 
 ---Clears the reserved Rainbow namespace.
 ---
