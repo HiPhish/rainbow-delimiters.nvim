@@ -327,6 +327,10 @@ always be present as well.  The `@intermediate` capture group will be rarely
 used.  If we have too many `@intermediate` delimiters the code can become too
 vibrant and distracting.
 
+WARNING: As of Neovim version 0.8.3 there is still a bug in the Tree-sitter
+integration.  If a capture matches multiple nodes (e.g. multiple `elseif`
+intermediate statements in an `if` block) only the last one will be used.
+
 Let's look at an example first.  Here is a snippet of HTML code:
 >
     <a href="https://example.com">

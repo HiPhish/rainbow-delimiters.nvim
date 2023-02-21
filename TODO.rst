@@ -10,6 +10,9 @@ Built-in queries
 
 Queries for all languages I know have now been ported.
 
+As of version 0.8.3 Neovim can only match one node per query.  This is a
+limitation of Neovim and there is nothing that can be done on this end.
+
 
 Queries which I cannot port
 ===========================

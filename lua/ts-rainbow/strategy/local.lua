@@ -44,13 +44,9 @@ local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
 ---Highlights a single match with the given highlight group
 local function highlight_match(bufnr, match, hlgroup)
-	local opening = match.opening
-	if opening then lib.highlight(bufnr, opening, hlgroup) end
-	local closing = match.closing
-	if closing then lib.highlight(bufnr, closing, hlgroup) end
-	for _, intermediate in ipairs(match.intermediates) do
-		lib.highlight(bufnr, intermediate, hlgroup)
-	end
+	for _, opening      in match.opening:iter()      do lib.highlight(bufnr, opening,      hlgroup) end
+	for _, closing      in match.closing:iter()      do lib.highlight(bufnr, closing,      hlgroup) end
+	for _, intermediate in match.intermediate:iter() do lib.highlight(bufnr, intermediate, hlgroup) end
 end
 
 ---Highlights all matches and their children on the stack of matches. All
@@ -90,19 +86,17 @@ local function build_match_tree(bufnr, changes, tree, query)
 			-- This is the match record, it lists all the relevant nodes from
 			-- the match.
 			local match_record = {
-				intermediates = {},
+				opening = Stack.new(),
+				closing = Stack.new(),
+				intermediate = Stack.new(),
 				children = Stack.new(),
 			}
 			for id, node in pairs(match) do
 				local name = query.captures[id]
 				if name == 'container' then
 					match_record.container = node
-				elseif name == 'opening' then
-					match_record.opening = node
-				elseif name == 'closing' then
-					match_record.closing = node
-				elseif name == 'intermediate' then
-					match_record.intermediates[#match_record.intermediates+1] = node
+				else
+					if match_record[name] then match_record[name]:push(node) end
 				end
 			end
 
