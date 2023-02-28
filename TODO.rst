@@ -5,13 +5,6 @@
 #######################
 
 
-Opt-out functionality
-#####################
-
-If the query or strategy is `nil` the plugin should not be enabled for that
-langauge.  This can remove the need for the `max_file_lines` setting.
-
-
 Built-in queries
 ################
 

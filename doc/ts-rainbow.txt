@@ -58,10 +58,6 @@ Name of the query to match delimiters, see |ts-rainbow-query|
 `hlgroups`
 Names of the highlight groups to use for highlighting, see |ts-rainbow-colors|
 
-`max_file_lines`
-Do not highlight files longer than this many lines; set to `nil` (the default)
-for unlimited
-
 Here is the default configuration:
 >
     local rainbow = require 'ts-rainbow'
@@ -81,7 +77,6 @@ Here is the default configuration:
                'TSRainbowViolet',
                'TSRainbowCyan'
             },
-            max_file_lines = nil,
         }
     }
 <

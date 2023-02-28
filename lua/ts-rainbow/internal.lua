@@ -54,11 +54,6 @@ function M.attach(bufnr, lang)
 	local config = configs.get_module("rainbow")
 	if not config then return end
 
-	local max_file_lines = config.max_file_lines
-	if max_file_lines ~= nil and vim.api.nvim_buf_line_count(bufnr) > max_file_lines then
-		return
-	end
-
 	local strat = get_strategy(lang)
 	-- Intentionally abort; the user has explicitly disabled rainbow delimiters
 	-- for this buffer, usually by setting a strategy- or query function which

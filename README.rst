@@ -50,8 +50,6 @@ configuration.  Here is an example:
        query = 'rainbow-parens',
        -- Highlight the entire buffer all at once
        strategy = require 'ts-rainbow.strategy.global',
-       -- Do not enable for files with more than n lines
-       max_file_lines = 3000
      }
    }
 
