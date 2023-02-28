@@ -5,10 +5,20 @@
 #######################
 
 
+Opt-out functionality
+#####################
+
+If the query or strategy is `nil` the plugin should not be enabled for that
+langauge.  This can remove the need for the `max_file_lines` setting.
+
+
 Built-in queries
 ################
 
 Queries for all languages I know have now been ported.
+
+A buffer may contain injected languages, I need to make sure this is supported
+as well.
 
 As of version 0.8.3 Neovim can only match one node per query.  This is a
 limitation of Neovim and there is nothing that can be done on this end.

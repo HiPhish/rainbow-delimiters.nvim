@@ -1,12 +1,11 @@
 *nvim-ts-rainbow2.txt*	Alternating highlight for delimiters in code
 
                                                                   *ts-rainbow*
-     ___________ ____        ____       _       _                  ______~
-    / / / /_   _/ ___|      |  _ \ __ _(_)_ __ | |__   _____      _\ \ \ \~
-   | | | |  | | \___ \ _____| |_) / _` | | '_ \| '_ \ / _ \ \ /\ / /| | | |~
-   | | | |  | |  ___) |_____|  _ < (_| | | | | | |_) | (_) \ V  V / | | | |~
-   | | | |  |_| |____/      |_| \_\__,_|_|_| |_|_.__/ \___/ \_/\_/  | | | |~
-    \_\_\_\                                                        /_/_/_/~
+           _____ ____        ____       _       _~
+          |_   _/ ___|      |  _ \ __ _(_)_ __ | |__   _____      __~
+            | | \___ \ _____| |_) / _` | | '_ \| '_ \ / _ \ \ /\ / /~
+            | |  ___) |_____|  _ < (_| | | | | | |_) | (_) \ V  V /~
+            |_| |____/      |_| \_\__,_|_|_| |_|_.__/ \___/ \_/\_/~
 
 Author: Alejandro "HiPhish" Sanchez
 License: Apache-2.0
@@ -35,9 +34,9 @@ INTRODUCTION
 This plugin provides alternating highlighting for delimiters in Neovim, also
 known as "rainbow parentheses".  Thanks to the built-in |treesitter| support
 we are not limited to just parentheses.  We can match any part of the document
-tree, such as HTML tags or `\begin`/`end` instruction pairs in LaTeX.  We can
-define new patterns for existing languages, add support for new languages and
-even change the strategy used for highlighting.
+tree, such as HTML tags or `do`/`end` pairs in Lua.  We can define new
+patterns for existing languages, add support for new languages and even change
+the strategy used for highlighting.
 
 
 ==============================================================================
@@ -163,7 +162,7 @@ used to defer the decision to a later point in time.
 <
 
 A strategy is a table which must contain specific fields.  It is possible to
-define your own strategy, see |ts-rainbow-custom-strategy|. The following
+define your own strategy, see |ts-rainbow-custom-strategy|.  The following
 strategies are included:
 
                                                   *ts-rainbow.strategy.global*
@@ -319,7 +318,7 @@ The queries need to define the following capture groups:
 - `@closing`
   The closing delimiter.
 - `@intermediate`
-  Delimiters inside the block, such a as comma in an argument list or the
+  Delimiters inside the block, such as a comma in an argument list or the
   `elseif` of an `if`-`elseif`-`else` block in Lua.
 
 Only `@container` is mandatory, `@opening` and `@closing` will pretty much
