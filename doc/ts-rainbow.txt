@@ -141,22 +141,27 @@ The strategy is set globally with per-language overrides.  The setting is a
 table where the first value is the default strategy and the overrides use the
 name of the language as keys.  Each value can be either a strategy  or a
 function of zero arguments which evaluates to a strategy.  A function can be
-used to defer the decision to a later point in time.
+used to defer the decision to a later point in time.  If the function
+evaluates to `nil` rainbow delimiters will be disabled for that buffer.
 
 >
     local rainbow = require 'ts-rainbow'
 
     strategy = {
-    	-- Use global strategy by default
+        -- Use global strategy by default
         rainbow.strategy['global'],
         -- Use local for HTML
         html = rainbow.strategy['local'],
         -- Pick the strategy for LaTeX dynamically based on the buffer size
         latex = function()
-	    if vim.fn.line('$') > 1000 then
-	        return rainbow.strategy['global']
-	    end
-	    return rainbow.strategy['local']
+            -- Disabled for very large files, global strategy for large files,
+            -- local strategy otherwise
+            if vim.fn.line('$') > 10000 then
+                return nil
+            elseif vim.fn.line('$') > 1000 then
+                return rainbow.strategy['global']
+            end
+            return rainbow.strategy['local']
         end
     }
 <

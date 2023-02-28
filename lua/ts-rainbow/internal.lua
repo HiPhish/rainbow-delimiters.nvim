@@ -60,8 +60,14 @@ function M.attach(bufnr, lang)
 	end
 
 	local strat = get_strategy(lang)
-	local query = lib.get_query(lang)
+	-- Intentionally abort; the user has explicitly disabled rainbow delimiters
+	-- for this buffer, usually by setting a strategy- or query function which
+	-- returned nil.
+	if not strat then
+		return
+	end
 
+	local query = lib.get_query(lang)
 	local settings = {
 		lang = lang,
 		strategy = strat,
