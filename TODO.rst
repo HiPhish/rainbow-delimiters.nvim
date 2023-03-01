@@ -8,13 +8,10 @@
 Built-in queries
 ################
 
-Queries for all languages I know have now been ported.
-
-A buffer may contain injected languages, I need to make sure this is supported
-as well.
-
 As of version 0.8.3 Neovim can only match one node per query.  This is a
 limitation of Neovim and there is nothing that can be done on this end.
+
+The global query does not updated the highlighting of injected languages.
 
 
 Queries which I cannot port
