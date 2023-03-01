@@ -76,8 +76,6 @@ end
 ---Assembles the match tree, usually called after the document tree has
 ---changed.
 local function build_match_tree(bufnr, changes, tree, query)
-	if not query then return end
-
 	local matches = Stack.new()
 
 	for _, change in ipairs(changes) do
@@ -115,8 +113,6 @@ local function build_match_tree(bufnr, changes, tree, query)
 end
 
 local function update_local(bufnr, tree, lang, query)
-	lib.clear_namespace(bufnr)
-
 	-- Find the lowest container node which contains the cursor
 	local cursor_container
 	do
@@ -186,6 +182,7 @@ function M.on_attach(bufnr, settings)
 		group = augroup,
 		buffer = bufnr,
 		callback = function(args)
+			lib.clear_namespace(bufnr)
 			local_rainbow(args.buf, parser, query)
 		end
 	})

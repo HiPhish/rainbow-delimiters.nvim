@@ -97,13 +97,8 @@ function M.on_attach(bufnr, settings)
 	local parser = settings.parser
 
 	parser:for_each_child(function(p, lang)
-		print('registering CB for ' .. lang)
 		p:register_cbs {
 			on_changedtree = function(changes, tree)
-				if lang == 'vim' then
-					print(vim.inspect(changes))
-					print(tree:root():sexpr())
-				end
 				update_range(bufnr, changes, tree, lang)
 			end,
 		}
