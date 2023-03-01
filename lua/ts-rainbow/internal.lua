@@ -20,6 +20,7 @@ local configs = require("nvim-treesitter.configs")
 local lib     = require 'ts-rainbow.lib'
 local rb      = require 'ts-rainbow'
 local api     = vim.api
+local ts      = vim.treesitter
 
 ---Internal implementation of the plugin.
 local M = {}
@@ -29,7 +30,7 @@ local function set_buffer_parser()
 	local bufnr = api.nvim_get_current_buf()
 	if lib.buffers[bufnr] then
 		local lang = parsers.get_buf_lang(bufnr)
-		local parser = parsers.get_parser(bufnr, lang)
+		local parser = ts.get_parser(bufnr, lang)
 		lib.buffers[bufnr].parser = parser
 	end
 end
