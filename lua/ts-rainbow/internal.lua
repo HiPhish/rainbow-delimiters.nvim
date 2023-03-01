@@ -65,7 +65,7 @@ function M.attach(bufnr, lang)
 
 	local settings = {
 		strategy = strat,
-		parser = parsers.get_parser(bufnr, lang),
+		parser = ts.get_parser(bufnr, lang),
 	}
 	lib.buffers[bufnr] = settings
 
