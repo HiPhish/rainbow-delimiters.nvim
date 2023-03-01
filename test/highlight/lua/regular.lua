@@ -1,3 +1,5 @@
+-- This is a comment
+
 local function f1(a, b)
 	local function f2(a2, b2)
 		return a2, b2
@@ -19,3 +21,8 @@ print {
 local one = {1}
 
 print(one[one[one[1]]])
+
+-- Embedded Vim script
+vim.cmd [[
+	echo a(b(c(d(e(f())))))
+]]
