@@ -63,11 +63,8 @@ function M.attach(bufnr, lang)
 		return
 	end
 
-	local query = lib.get_query(lang)
 	local settings = {
-		lang = lang,
 		strategy = strat,
-		query = query,
 		parser = parsers.get_parser(bufnr, lang),
 	}
 	lib.buffers[bufnr] = settings

@@ -276,9 +276,7 @@ updated.
 
 The settings table contains the following entries:
 
-  - `lang`       Language of the buffer
   - `strategy`   Strategy in use
-  - `query`      |Query| object in use
   - `parser`     Reference to the buffer parser (|treesitter-languagetree|)
 
 A strategy should pick the settings it needs and either cache them in an
