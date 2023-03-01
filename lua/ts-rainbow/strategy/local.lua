@@ -75,7 +75,9 @@ end
 
 ---Assembles the match tree, usually called after the document tree has
 ---changed.
-local function build_match_tree(bufnr, changes, tree, query)
+local function build_match_tree(bufnr, changes, tree, lang)
+	local query = lib.get_query(lang)
+	if not query then return end
 	local matches = Stack.new()
 
 	for _, change in ipairs(changes) do
@@ -112,7 +114,10 @@ local function build_match_tree(bufnr, changes, tree, query)
 	return matches
 end
 
-local function update_local(bufnr, tree, lang, query)
+local function update_local(bufnr, tree, lang)
+	local query = lib.get_query(lang)
+	if not query then return end
+
 	-- Find the lowest container node which contains the cursor
 	local cursor_container
 	do
@@ -153,37 +158,38 @@ end
 
 ---Callback function to re-highlight the buffer according to the current cursor
 ---position.
-local function local_rainbow(bufnr, parser, query)
+local function local_rainbow(bufnr, parser)
 	parser:for_each_tree(function(tree, sub_parser)
-		update_local(bufnr, tree, sub_parser:lang(), query)
+		update_local(bufnr, tree, sub_parser:lang())
 	end)
 end
 
 function M.on_attach(bufnr, settings)
-	local lang = settings.lang
 	local parser = settings.parser
-	local query = settings.query
 
-	parser:register_cbs {
-		on_changedtree = function(changes, tree)
-			if vim.fn.pumvisible() ~= 0 or not lang then return end
-			-- Ideally we would only rebuild the parts of the tree that have changed,
-			-- but this doesn't work, so we will rebuild the entire tree
-			-- instead.
-			local fake_changes = {
-				{tree:root():range()}
-			}
-			match_trees[bufnr][lang] = build_match_tree(bufnr, fake_changes, tree, query)
-			local_rainbow(bufnr, parser, query)
-		end,
-	}
+	parser:for_each_child(function(p, lang)
+		p:register_cbs {
+			on_changedtree = function(_changes, tree)
+				if vim.fn.pumvisible() ~= 0 then return end
+				-- Ideally we would only rebuild the parts of the tree that have changed,
+				-- but this doesn't work, so we will rebuild the entire tree
+				-- instead.
+				local fake_changes = {
+					{tree:root():range()}
+				}
+				match_trees[bufnr][lang] = build_match_tree(bufnr, fake_changes, tree, lang)
+				-- Re-highlight after the change
+				local_rainbow(bufnr, parser)
+			end
+		}
+	end, true)
 
 	api.nvim_create_autocmd('CursorMoved', {
 		group = augroup,
 		buffer = bufnr,
 		callback = function(args)
 			lib.clear_namespace(bufnr)
-			local_rainbow(args.buf, parser, query)
+			local_rainbow(args.buf, parser)
 		end
 	})
 
@@ -194,7 +200,7 @@ function M.on_attach(bufnr, settings)
 		local changes = {
 			{tree:root():range()}
 		}
-		match_trees[bufnr][sub_lang] = build_match_tree(bufnr, changes, tree, query)
+		match_trees[bufnr][sub_lang] = build_match_tree(bufnr, changes, tree, sub_lang)
 	end)
 end
 
