@@ -19,10 +19,7 @@ local lib = require 'ts-rainbow.lib'
 
 ---Public API for use in writing strategies or other custom code.
 local M = {
-	highlight = lib.highlight,
 	hlgroup_at = lib.hlgroup_at,
-	node_level = lib.node_level,
-	clear_namespace = lib.clear_namespace,
 	---Available default highlight strategies
 	strategy = {
 		['global'] = require 'ts-rainbow.strategy.global',
