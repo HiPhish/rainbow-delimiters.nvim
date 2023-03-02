@@ -12,18 +12,6 @@ strategies, both globally and per file type.  Users can override and extend the
 built-in defaults through their own configuration.
 
 
-.. warning::
-
-   The original plugin has been declared abandoned by its author as of
-   2023-01-02.  This is a hard fork which aim to make the plugin more hackable
-   and flexible.  This will mean breaking the configuration API.
-
-   As long as this notice in place the plugin is in a limbo state between
-   original and fork and breaking changes can occur at any moment.  Please
-   stick with the original for the time being, there is a lot to refactor at
-   the moment.
-
-
 Installation and setup
 ######################
 
@@ -62,6 +50,14 @@ Help wanted
 There are only so many languages which I understand to the point that I can
 write queries for them.  If you want support for a new language please consider
 contributing code.  See the CONTRIBUTING_ for details.
+
+
+Status of the plugin
+####################
+
+Tree-sitter support in Neovim is still experimental.  This plugin and its API
+should be considered stable insofar as breaking changes will only happen if
+changes to Neovim necessitates them.
 
 
 Screenshots
