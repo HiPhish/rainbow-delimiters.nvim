@@ -13,15 +13,14 @@
 "  See the License for the specific language governing permissions and
 "  limitations under the License.
 
-call ts_rainbow#define_hlgroups()
-
-augroup TSRainbowHighlight
-	autocmd!
-	" A theme might execute `:highlight clear`, so we have to re-evaluate the
-	" definitions.
-	au ColorScheme * call ts_rainbow#define_hlgroups()
-augroup END
-
-lua require "ts-rainbow.module".register()
+function ts_rainbow#define_hlgroups()
+	highlight default TSRainbowRed     guifg=#cc241d ctermfg=Red
+	highlight default TSRainbowOrange  guifg=#d65d0e ctermfg=White
+	highlight default TSRainbowYellow  guifg=#d79921 ctermfg=Yellow
+	highlight default TSRainbowGreen   guifg=#689d6a ctermfg=Green
+	highlight default TSRainbowCyan    guifg=#a89984 ctermfg=Cyan
+	highlight default TSRainbowBlue    guifg=#458588 ctermfg=Blue
+	highlight default TSRainbowViolet  guifg=#b16286 ctermfg=Magenta
+endfunction
 
 " vim:tw=79:ts=4:sw=4:noet:
