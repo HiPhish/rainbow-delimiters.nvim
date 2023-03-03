@@ -13,13 +13,20 @@
 "  See the License for the specific language governing permissions and
 "  limitations under the License.
 
-highlight default TSRainbowRed     guifg=#cc241d ctermfg=Red
-highlight default TSRainbowOrange  guifg=#d65d0e ctermfg=White
-highlight default TSRainbowYellow  guifg=#d79921 ctermfg=Yellow
-highlight default TSRainbowGreen   guifg=#689d6a ctermfg=Green
-highlight default TSRainbowCyan    guifg=#a89984 ctermfg=Cyan
-highlight default TSRainbowBlue    guifg=#458588 ctermfg=Blue
-highlight default TSRainbowViolet  guifg=#b16286 ctermfg=Magenta
+augroup TSRainbowHighlight
+	autocmd!
+	au ColorScheme * call SetTSRinbowHighlights()
+augroup END
+
+function SetTSRinbowHighlights()
+		highlight default TSRainbowRed     guifg=#cc241d ctermfg=Red
+		highlight default TSRainbowOrange  guifg=#d65d0e ctermfg=White
+		highlight default TSRainbowYellow  guifg=#d79921 ctermfg=Yellow
+		highlight default TSRainbowGreen   guifg=#689d6a ctermfg=Green
+		highlight default TSRainbowCyan    guifg=#a89984 ctermfg=Cyan
+		highlight default TSRainbowBlue    guifg=#458588 ctermfg=Blue
+		highlight default TSRainbowViolet  guifg=#b16286 ctermfg=Magenta
+endfunction
 
 lua require "ts-rainbow.module".register()
 
