@@ -12,6 +12,11 @@ Versioning`_.
 Unreleased
 ##########
 
+Fixed
+=====
+
+- Highlight groups getting cleared when colour scheme is reloaded
+
 Added
 =====
 
