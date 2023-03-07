@@ -9,6 +9,15 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Added
+=====
+
+- Query `rainbow-tags` for HTML includes `style` tags
+
+
 [2.0.0] - 2023-03-02
 ####################
 
