@@ -21,6 +21,8 @@ Added
 =====
 
 - Query `rainbow-tags` for HTML includes `style` tags
+- Support for reStructuredText (`rst`)
+- Support for Markdown (`markdown`)
 
 
 [2.0.0] - 2023-03-02
