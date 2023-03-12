@@ -13,7 +13,7 @@ print((((('Hello, world!')))))
 print {
 	{
 		{
-			'Hello, wold!'
+			'Hello, world!'
 		}
 	}
 }
