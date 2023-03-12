@@ -97,6 +97,9 @@ function M.on_attach(bufnr, settings)
 	local parser = settings.parser
 
 	parser:for_each_child(function(p, lang)
+		-- Skip languages which are not supported, otherwise we get a
+		-- nil-reference error
+		if not lib.get_query(lang) then return end
 		p:register_cbs {
 			on_changedtree = function(changes, tree)
 				update_range(bufnr, changes, tree, lang)

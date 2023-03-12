@@ -16,6 +16,7 @@ Fixed
 =====
 
 - Highlight groups getting cleared when colour scheme is reloaded
+- Null-dereference error if an injected language does not have a query define
 
 Added
 =====

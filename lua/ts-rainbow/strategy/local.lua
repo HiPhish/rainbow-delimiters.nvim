@@ -77,7 +77,6 @@ end
 ---changed.
 local function build_match_tree(bufnr, changes, tree, lang)
 	local query = lib.get_query(lang)
-	if not query then return end
 	local matches = Stack.new()
 
 	for _, change in ipairs(changes) do
@@ -168,6 +167,9 @@ function M.on_attach(bufnr, settings)
 	local parser = settings.parser
 
 	parser:for_each_child(function(p, lang)
+		-- Skip languages which are not supported, otherwise we get a
+		-- nil-reference error
+		if not lib.get_query(lang) then return end
 		p:register_cbs {
 			on_changedtree = function(_changes, tree)
 				if vim.fn.pumvisible() ~= 0 then return end
