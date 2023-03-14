@@ -1,5 +1,6 @@
+<!-- A plain default Vue.js program using the default languages -->
+
 <template>
-    ErrorLayout
     {{ errCode }}
     {{ $t(errMsg) }}
     <a-button type="primary" @click="goToHome">goToHome</a-button>
@@ -9,27 +10,26 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
-
-import { router } from "@/router";
-import { ErrorStore } from "@/stores";
-
-const { errCode, errMsg } = storeToRefs(ErrorStore());
-const { clearError } = ErrorStore();
-
-const goToHome = async () => {
-    await router.push({ name: "router_dashboard" });
-    clearError();
+// Template strings
+let who = 'world';
+console.log(`Hello, ${who}`);
+// Nested object
+let some_object = {
+	a: {
+		b: {
+			c: {},
+		}
+	}
 };
 </script>
 
 <style>
-body {
-    color: red;
-    background: #000;
+.foo {
+	color: #ffffff;
 }
-button {
-    color: red;
-    cursor: pointer;
+@media (not (color)) {
+	.foo {
+		color: #ffffff;
+	}
 }
 </style>
