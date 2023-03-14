@@ -49,5 +49,4 @@ queries.  Contributions are welcome.
 - tsx
 - turtle
 - verilog
-- vue
 - zig
