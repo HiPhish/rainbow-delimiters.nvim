@@ -3,6 +3,8 @@
   | {{ errCode }}
   | {{ $t(errMsg) }}
   a-button(type="primary" @click="goToHome") Go to home
+  template#footer
+    a-button(type="primary" @click="goToHome") {{ $t(errMsg) }}
 </template>
 
 <script setup lang="ts">
