@@ -22,3 +22,11 @@
 (formal_parameters
   (("(" @opening)
    (")" @closing))) @container
+
+(parenthesized_expression
+  ("(" @opening
+   ")" @closing)) @container
+
+(subscript_expression
+  ("[" @opening
+   "]" @closing)) @container

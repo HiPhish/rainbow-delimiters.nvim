@@ -22,6 +22,8 @@ Added
 =====
 
 - Query `rainbow-tags` for HTML includes `style` tags
+- Query `rainbow-parens` for Javascript includes `parenthesized_expression` and
+  `subscript_expression`
 - Support for reStructuredText (`rst`)
 - Support for Markdown (`markdown`)
 - Support for Vue.js (`vue`)
