@@ -27,6 +27,7 @@ Added
 - Support for reStructuredText (`rst`)
 - Support for Markdown (`markdown`)
 - Support for Vue.js (`vue`)
+- Support for Fennel (`fennel`)
 
 
 [2.0.0] - 2023-03-02

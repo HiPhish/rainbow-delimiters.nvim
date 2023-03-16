@@ -2,6 +2,9 @@
 
 { :a { :b { :c { :d {} } } } }
 
+(let [one 1 two 2 tbl { : one : two}]
+  tbl)
+
 [0 [1 [2 [3 []]]]]
 
 (fn add-partial [x]

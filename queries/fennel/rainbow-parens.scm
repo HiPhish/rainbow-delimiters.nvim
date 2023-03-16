@@ -4,7 +4,7 @@
 
 (table
   "{" @opening
-  (":" @intermediate)?
+  (":" @intermediate)*
   "}" @closing) @container
 
 (sequential_table
@@ -46,3 +46,15 @@
 (accumulate
   "(" @opening
   ")" @closing) @container
+
+(var
+  "(" @opening
+  ")" @closing) @container
+
+(parameters
+  "[" @opening
+  "]" @closing) @container
+
+(let_clause
+  "[" @opening
+  "]" @closing) @container

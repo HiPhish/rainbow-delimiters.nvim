@@ -25,7 +25,6 @@ queries.  Contributions are welcome.
 - devicetree
 - elixir
 - elm
-- fennel
 - fish
 - gdscript
 - graphql
