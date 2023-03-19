@@ -28,6 +28,7 @@ Added
 - Support for Markdown (`markdown`)
 - Support for Vue.js (`vue`)
 - Support for Fennel (`fennel`)
+- Support for React.js (part of Javascript support)
 
 
 [2.0.0] - 2023-03-02

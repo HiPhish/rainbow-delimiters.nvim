@@ -208,6 +208,9 @@ the following extra queries for certain languages:
 
 - `html`
   - `rainbow-tags` Matches both opening and closing tags in their entirety
+- `javascript`
+  - `rainbow-parens-react` Supports the angle brackets of React.js tags
+  - `rainbow-tags-react`   Alternative to the above, highlights entire tags
 - `latex`
   - `rainbow-blocks` Matches `\begin` and `\end` instructions
 
