@@ -9,8 +9,11 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
-Unreleased
-##########
+[2.1.0] - 2023-03-19
+####################
+
+This release brings with it bugfixes and support for new file types.  A very
+big Thank You to all who have contributed their efforts.
 
 Fixed
 =====
