@@ -29,6 +29,7 @@ Added
 - Support for Vue.js (`vue`)
 - Support for Fennel (`fennel`)
 - Support for React.js (part of Javascript support)
+- Support for React.js in Typescript (`tsx`)
 
 
 [2.0.0] - 2023-03-02

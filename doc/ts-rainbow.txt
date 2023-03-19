@@ -213,6 +213,8 @@ the following extra queries for certain languages:
   - `rainbow-tags-react`   Alternative to the above, highlights entire tags
 - `latex`
   - `rainbow-blocks` Matches `\begin` and `\end` instructions
+- `tsx`
+  - `rainbow-tags` Matches entire tags, like the same query in HTML
 
 
 
