@@ -21,7 +21,7 @@ Fixed
 Added
 =====
 
-- Query `rainbow-tags` for HTML includes `style` tags
+- Query `rainbow-tags` for HTML includes `style` and `script` tags
 - Query `rainbow-parens` for Javascript includes `parenthesized_expression` and
   `subscript_expression`
 - Support for reStructuredText (`rst`)
