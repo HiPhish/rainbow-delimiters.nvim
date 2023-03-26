@@ -9,6 +9,15 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Added
+=====
+
+- Support for R (`r`)
+
+
 [2.1.0] - 2023-03-19
 ####################
 

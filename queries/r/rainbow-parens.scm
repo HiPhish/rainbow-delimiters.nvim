@@ -1,19 +1,19 @@
 (call
-  (("(" @opening)
-  ( ")" @closing))) @container
+  "(" @opening
+  ")" @closing) @container
 
 (subset
-  (("[" @opening)
-  ("]" @closing))) @container
+  "[" @opening
+  "]" @closing) @container
 
 (subset2
-  (("[[" @opening)
-  ("]]" @closing))) @container
+  "[[" @opening
+  "]]" @closing) @container
 
 (if
-  (("(" @opening)
-  ( ")" @closing))) @container
+  "(" @opening
+  ")" @closing) @container
 
 (brace_list
-  (("{" @opening)
-  ("}" @closing))) @container
+  "{" @opening
+  "}" @closing) @container
