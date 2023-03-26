@@ -63,7 +63,7 @@ changes to Neovim necessitates them.
 
    There is currently a shortcoming in Neovim's Tree-sitter API which makes it
    so that only the first node of a capture group can be highlighted.  Please
-   see `neovim/neovim#17099`for details.  Affected queries:
+   see `neovim/neovim#17099`_ for details.  Affected queries:
 
    - HTML `rainbow-parens`
    - JSX (Javascript + React.js) `rainbow-parens-react` (affects React tags
