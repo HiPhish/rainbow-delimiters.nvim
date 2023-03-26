@@ -17,7 +17,7 @@
 
 (lambda
   "(" @opening
-   ")" @closing) @container
+  ")" @closing) @container
 
 (let
   "(" @opening

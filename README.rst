@@ -59,6 +59,25 @@ Tree-sitter support in Neovim is still experimental.  This plugin and its API
 should be considered stable insofar as breaking changes will only happen if
 changes to Neovim necessitates them.
 
+.. warning::
+
+   There is currently a shortcoming in Neovim's Tree-sitter API which makes it
+   so that only the first node of a capture group can be highlighted.  Please
+   see `neovim/neovim#17099`for details.  Affected queries:
+
+   - HTML `rainbow-parens`
+   - JSX (Javascript + React.js) `rainbow-parens-react` (affects React tags
+     only)
+   - Python (`rainbow-parens`) (affects only the `for ... in` inside
+     comprehensions)
+   - TSX (Typescript + React.js) `rainbow-parens-react` (affects React tags
+     only)
+   - Vue.js `rainbow-parens`
+
+   Most of these are related to HTML-like tags, so you can use an alternative
+   query instead.  See the manual_ (`:h ts-rainbow-query`) for a list of extra
+   queries.
+
 
 Screenshots
 ###########
@@ -116,3 +135,5 @@ Huge thanks to @vigoux, @theHamsta, @sogaiu, @bfredl and @sunjon and
 .. _nvim-treesitter: https://github.com/nvim-treesitter/nvim-treesitter
 .. _CONTRIBUTING: CONTRIBUTING.rst
 .. _LICENSE: LICENSE
+.. _manual: doc/ts-rainbow.txt
+.. _neovim/neovim#17099: https://github.com/neovim/neovim/pull/17099
