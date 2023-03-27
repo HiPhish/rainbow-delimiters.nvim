@@ -15,6 +15,7 @@ Unreleased
 Added
 =====
 
+- Compatibility with Tree-sitter API in Neovim 0.9
 - Support for R (`r`)
 
 

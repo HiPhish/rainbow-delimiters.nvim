@@ -15,8 +15,6 @@
    limitations under the License.
 --]]
 
-local queries = require 'nvim-treesitter.query'
-local configs = require 'nvim-treesitter.configs'
 local lib = require 'ts-rainbow.lib'
 local rb  = require 'ts-rainbow'
 
@@ -29,11 +27,7 @@ function M.register()
 		rainbow = {
 			module_path = 'ts-rainbow.internal',
 			is_supported = function(lang)
-				local query = configs.get_module('rainbow').query
-				if type(query) == 'table' then
-					query = query[lang] or query[1] or lib.query
-				end
-				return queries.get_query(lang, query) ~= nil
+				return lib.get_query(lang) ~= nil
 			end,
 			extended_mode = true,
 			strategy = {
@@ -62,4 +56,5 @@ end
 
 
 return M
+
 -- vim:tw=79:ts=4:sw=4:noet:
