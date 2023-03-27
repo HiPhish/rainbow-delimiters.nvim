@@ -16,7 +16,8 @@
 --]]
 
 local configs = require 'nvim-treesitter.configs'
-local queries = require 'nvim-treesitter.query'
+local get_query = vim.fn.has('nvim-0.9') and vim.treesitter.query.get or
+	vim.treesitter.query.get_query
 
 
 ---[ Internal ]----------------------------------------------------------------
@@ -48,9 +49,9 @@ M.buffers = {}
 ---@param lang string  Name of the language to get the query for
 ---@return userdata query  The query object
 function M.get_query(lang)
-	local settings = configs.get_module('rainbow').query
+	local settings = configs.get_module('rainbow')['query']
 	local name = type(settings) == 'string' and settings or settings[lang] or settings[1] or M.query
-	local query = queries.get_query(lang, name)
+	local query = get_query(lang, name)
 	return query
 end
 
