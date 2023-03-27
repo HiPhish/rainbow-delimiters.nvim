@@ -31,7 +31,7 @@ func isFloat32(i interface{}) bool {
 	case float32:
 		return true
 	default:
-		fmt.Println("%v is not a float32", v)
+		fmt.Printf("%v is not a float32", v)
 		return false
 	}
 }
@@ -48,14 +48,16 @@ func main() {
 	}
 
 	addons := map[string]struct {
-		Item string
+		Item  string
 		Price float32
 	}{
-		"Zinfandel": {Item: "chocolate", Price: 10.0},
+		"Zinfandel":          {Item: "chocolate", Price: 10.0},
 		"Cabernet Sauvignon": {Item: "cake", Price: 12.0},
 	}
 
-	var nonexpensive []Wine
+	var (
+		nonexpensive []Wine
+	)
 
 LABEL:
 	for {
