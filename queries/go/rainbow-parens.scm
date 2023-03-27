@@ -6,6 +6,10 @@
    (("(" @opening)
     (")" @closing))) @container
 
+(var_declaration
+   (("(" @opening)
+    (")" @closing))) @container
+
 (const_declaration
    (("(" @opening)
     (")" @closing))) @container
@@ -41,6 +45,14 @@
 (slice_type
    (("[" @opening)
     ("]" @closing))) @container
+
+(map_type
+   (("[" @opening)
+    ("]" @closing))) @container
+
+(interface_type
+   (("{" @opening)
+    ("}" @closing))) @container
 
 (type_parameter_list
    (("[" @opening)
