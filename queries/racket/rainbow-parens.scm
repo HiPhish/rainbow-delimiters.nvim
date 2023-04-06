@@ -1,10 +1,15 @@
 (list
-  [(("(" @opening)
-    (dot)? @intermediate
-    (")" @closing))
-   (("[" @opening)
-    (dot)? @intermediate
-    ("]" @closing))
-   (("{" @opening)
-    (dot)? @intermediate
-    ("}" @closing))]) @container
+  "(" @opening
+  (dot)? @intermediate
+  ")" @closing) @container
+
+(list
+  "[" @opening
+  (dot)? @intermediate
+  "]" @closing) @container
+
+(list
+  "{" @opening
+  (dot)? @intermediate
+  "}" @closing) @container
+
