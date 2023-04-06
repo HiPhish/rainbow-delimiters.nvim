@@ -13,7 +13,7 @@
 
 (fn
   "(" @opening
-   ")" @closing) @container
+  ")" @closing) @container
 
 (lambda
   "(" @opening
