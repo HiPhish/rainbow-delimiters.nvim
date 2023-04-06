@@ -2,6 +2,10 @@
   (("(" @opening)
    (")" @closing))) @container
 
+(parameters
+  (("(" @opening)
+   (")" @closing))) @container
+
 (parenthesized_expression
   (("(" @opening)
    (")" @closing))) @container
