@@ -1,35 +1,35 @@
 ;;; String interpolation inside template strings
 (template_substitution
-  (("${" @opening)
-   ("}"  @closing))) @container
+  "${" @opening
+  "}"  @closing) @container
 
 (object
-  (("{" @opening)
-   ("}" @closing))) @container
+  "{" @opening
+  "}" @closing) @container
 
 (statement_block
-  (("{" @opening)
-   ("}" @closing))) @container
+  "{" @opening
+  "}" @closing) @container
 
 (class_body
-  (("{" @opening)
-   ("}" @closing))) @container
+  "{" @opening
+  "}" @closing) @container
 
 (arguments
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @opening
+  ")" @closing) @container
 
 (formal_parameters
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @opening
+  ")" @closing) @container
 
 (parenthesized_expression
-  ("(" @opening
-   ")" @closing)) @container
+  "(" @opening
+  ")" @closing) @container
 
 (subscript_expression
-  ("[" @opening
-   "]" @closing)) @container
+  "[" @opening
+  "]" @closing) @container
 
 
 ;;; React.js support
