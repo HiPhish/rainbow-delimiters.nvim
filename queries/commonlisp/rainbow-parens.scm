@@ -1,9 +1,9 @@
 (list_lit
-  (("(" @opening)
+  "(" @opening
    _*
-   (")" @closing))) @container
+   ")" @closing) @container
 
 (defun
-  (("(" @opening)
+  "(" @opening
    _*
-   (")" @closing))) @container
+   ")" @closing) @container
