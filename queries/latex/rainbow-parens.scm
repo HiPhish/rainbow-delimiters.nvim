@@ -1,7 +1,7 @@
 (curly_group
-  (("{" @opening)
-   ("}" @closing))) @container
+  "{" @opening
+  "}" @closing) @container
 
 (inline_formula
-  (("$" @opening)
-   ("$" @closing))) @container
+  "$" @opening
+  "$" @closing) @container
