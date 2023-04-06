@@ -113,3 +113,7 @@
 (slice_pattern
   "[" @opening
   "]" @closing) @container
+
+(macro_definition
+  "{" @opening
+  "}" @closing) @container
