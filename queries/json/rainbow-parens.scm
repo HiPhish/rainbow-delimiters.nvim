@@ -1,7 +1,7 @@
 (object
-  ("{" @opening)
-  ("}" @closing)) @container
+  "{" @opening
+  "}" @closing) @container
 
 (array
-  ("[" @opening)
-  ("]" @closing)) @container
+  "[" @opening
+  "]" @closing) @container
