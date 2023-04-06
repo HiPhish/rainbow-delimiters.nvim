@@ -1,7 +1,7 @@
 (named_node
-  ("(" @opening)
-  (")" @closing)) @container
+  "(" @opening
+  ")" @closing) @container
 
 (list
-  ("[" @opening)
-  ("]" @closing)) @container
+  "[" @opening
+  "]" @closing) @container
