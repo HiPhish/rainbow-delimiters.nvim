@@ -13,6 +13,12 @@
 "  See the License for the specific language governing permissions and
 "  limitations under the License.
 
+if get(s:, 'loaded_rainbow', v:false)
+	finish
+endif
+let s:save_cpo = &cpo
+set cpo&vim
+
 call ts_rainbow#define_hlgroups()
 
 augroup TSRainbowHighlight
@@ -23,5 +29,9 @@ augroup TSRainbowHighlight
 augroup END
 
 lua require "ts-rainbow.module".register()
+
+let s:loaded_rainbow = v:true
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " vim:tw=79:ts=4:sw=4:noet:
