@@ -2,6 +2,20 @@
 const who = 'world';
 console.log(`Hello, ${who}`);
 
+// Function with nested function
+function add(x, y) {
+	function iter(i, acc) {
+		if (i == 0) {
+			return acc;
+		}
+		return iter(i - 1, acc + 1);
+	}
+	return iter(y, x)
+}
+
+// Arrow function definition
+const multiply = (x, y) => x * y;
+
 // Nested object
 let some_object = {
 	a: {
