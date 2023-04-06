@@ -19,6 +19,12 @@ Added
 - Support for R (`r`)
 - Go queries for nodes `interface_type`, `map_type` and `var_declaration`
 
+Fixed
+=====
+
+- Lua query now includes `parameters` pattern
+- Protection from sourcing the plugin multiple times
+
 
 [2.1.0] - 2023-03-19
 ####################
