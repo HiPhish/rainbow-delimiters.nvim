@@ -1,7 +1,7 @@
 (block
-  (("{" @opening)
-   ("}" @closing))) @container
+  "{" @opening
+  "}" @closing) @container
 
 (parenthesized_query
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @opening
+  ")" @closing) @container
