@@ -15,6 +15,9 @@ Unreleased
 Added
 =====
 
+- Support for Haskell
+- Compatibility with Tree-sitter API in Neovim 0.9
+- Support for R (`r`)
 - Support for Julia
 - Support for Dart
 - Compatibility with Tree-sitter API in Neovim 0.9
