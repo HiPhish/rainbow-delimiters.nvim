@@ -14,6 +14,10 @@
   (("(" @opening)
    (")" @closing))) @container
 
+(import_list
+  (("(" @opening)
+   (")" @closing))) @container
+
 (import_item
   (("(" @opening)
    (")" @closing))) @container
