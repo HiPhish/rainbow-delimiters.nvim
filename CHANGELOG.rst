@@ -15,6 +15,7 @@ Unreleased
 Added
 =====
 
+- Support for Dart
 - Compatibility with Tree-sitter API in Neovim 0.9
 - Support for R (`r`)
 - Go queries for nodes `interface_type`, `map_type` and `var_declaration`
