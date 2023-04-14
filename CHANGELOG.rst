@@ -29,6 +29,7 @@ Fixed
 =====
 
 - Lua query now includes `parameters` pattern
+- LaTeX query now includes `curly_group_text` and `curly_group_text_list`
 - Protection from sourcing the plugin multiple times
 
 
