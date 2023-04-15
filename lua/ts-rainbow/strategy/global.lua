@@ -46,6 +46,10 @@ local function update_range(bufnr, changes, tree, lang)
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
+		local capture_extmarks = vim.api.nvim_buf_get_extmarks(bufnr, lib.nsid, {change[1], 0}, {change[3] + 1, 0}, {})
+		for _, extmark in ipairs(capture_extmarks) do
+			vim.api.nvim_buf_del_extmark(bufnr, lib.nsid, extmark[1])
+		end
 		for _, match, _ in query:iter_matches(root_node, bufnr, change[1], change[3] + 1) do
 			-- This is the match record, it lists all the relevant nodes from
 			-- the match.
