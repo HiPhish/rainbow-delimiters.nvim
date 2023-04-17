@@ -17,10 +17,10 @@ Added
 
 - Support for Haskell
 - Support for Nix
-- Support for R (`r`)
 - Support for Julia
 - Support for Dart
 - Support for R (`r`)
+- Support for Zig (`zig`)
 - Compatibility with Tree-sitter API in Neovim 0.9
 - Go queries for nodes `interface_type`, `map_type` and `var_declaration`
 - Query `rainbow-tags` for Vue.js
