@@ -87,7 +87,11 @@ function M.detach(bufnr)
 	else
 		vim.api.nvim_set_hl(0, "@punctuation.bracket", { link = "TSPunctBracket" })
 	end
-	vim.api.nvim_buf_clear_namespace(bufnr, lib.nsid, 0, -1)
+
+	-- Clear all the namespaces for each language
+	lib.buffers[bufnr].parser:for_each_child(function(_, lang)
+		lib.clear_namespace(bufnr, lang)
+	end)
 
 	-- For now we silently discard errors, but in the future we should log
 	-- them.

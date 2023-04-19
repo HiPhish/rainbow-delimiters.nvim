@@ -31,8 +31,24 @@ local M = {}
 ---Default query name to use
 M.query = 'rainbow-parens'
 
----Namespace reserved for this plugin
-M.nsid = vim.api.nvim_create_namespace("rainbow_ns")
+---Per-language namespaces. This table instantiates namespaces on demand, i.e.
+---a namespace won't exist until we first try to get it from the table.
+local nsids = setmetatable({}, {
+	__index = function(t, k)
+		local result = rawget(t, k)
+		if result == nil then
+			result = vim.api.nvim_create_namespace('')
+			rawset(t, k, result)
+		end
+		return result
+	end,
+	-- Note: this will only catch new indices, not assignment to an already
+	-- existing key
+	__newindex = function(_, _, _)
+		error('Table is immutable')
+	end
+})
+
 
 ---Keeps track of attached buffers.  The key is the buffer number and the value
 ---is a table of information about that buffer (e.g. language, strategy,
@@ -57,10 +73,11 @@ end
 
 ---Apply highlighting to a single node.
 ---@param bufnr   number  Buffer which contains the node
+---@param lang    string  Language of the node (to group HL into namespaces)
 ---@param node    table   Node to highlight
 ---@param hlgroup string  Name of the highlight group to  apply.
 ---@return nil
-function M.highlight(bufnr, node, hlgroup)
+function M.highlight(bufnr, lang, node, hlgroup)
 	-- range of the capture, zero-indexed
 	local startRow, startCol, endRow, endCol = node:range()
 
@@ -71,7 +88,8 @@ function M.highlight(bufnr, node, hlgroup)
 		priority = 210,
 	}
 
-	vim.highlight.range(bufnr, M.nsid, hlgroup, start, finish, opts)
+	local nsid = nsids[lang]
+	vim.highlight.range(bufnr, nsid, hlgroup, start, finish, opts)
 end
 
 
@@ -88,8 +106,9 @@ end
 ---
 ---@param bufnr number  Number of the buffer for which to clear the namespace
 ---@return nil
-function M.clear_namespace(bufnr)
-	vim.api.nvim_buf_clear_namespace(bufnr, M.nsid, 0, -1)
+function M.clear_namespace(bufnr, lang, line_start, line_end)
+	local nsid = nsids[lang]
+	vim.api.nvim_buf_clear_namespace(bufnr, nsid, line_start or 0, line_end or -1)
 end
 
 return M
