@@ -163,9 +163,8 @@ local function local_rainbow(bufnr, parser)
 	end)
 end
 
-function M.on_attach(bufnr, settings)
-	local parser = settings.parser
-
+---Sets up all the callbacks and performs an initial highlighting
+local function setup_parser(bufnr, parser)
 	parser:for_each_child(function(p, lang)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
@@ -182,9 +181,19 @@ function M.on_attach(bufnr, settings)
 				match_trees[bufnr][lang] = build_match_tree(bufnr, fake_changes, tree, lang)
 				-- Re-highlight after the change
 				local_rainbow(bufnr, parser)
-			end
+			end,
+			-- New languages can be added into the text at some later time, e.g.
+			-- code snippets in Markdown
+			on_child_added = function(child)
+				setup_parser(bufnr, child)
+			end,
 		}
 	end, true)
+end
+
+function M.on_attach(bufnr, settings)
+	local parser = settings.parser
+	setup_parser(bufnr, parser)
 
 	api.nvim_create_autocmd('CursorMoved', {
 		group = augroup,
