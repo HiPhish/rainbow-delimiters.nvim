@@ -82,12 +82,6 @@ function M.detach(bufnr)
 
 	local strategy = lib.buffers[bufnr].strategy
 
-	if vim.treesitter.highlighter.hl_map then
-		vim.treesitter.highlighter.hl_map["punctuation.bracket"] = "TSPunctBracket"
-	else
-		vim.api.nvim_set_hl(0, "@punctuation.bracket", { link = "TSPunctBracket" })
-	end
-
 	-- Clear all the namespaces for each language
 	lib.buffers[bufnr].parser:for_each_child(function(_, lang)
 		lib.clear_namespace(bufnr, lang)
