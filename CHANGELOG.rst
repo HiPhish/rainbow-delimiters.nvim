@@ -31,6 +31,7 @@ Fixed
 - Lua query now includes `parameters` pattern
 - LaTeX query now includes `curly_group_text` and `curly_group_text_list`
 - Protection from sourcing the plugin multiple times
+- Inconsistent pairs due to uncleared extmarks
 
 
 [2.1.0] - 2023-03-19
