@@ -43,10 +43,10 @@ local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
 
 ---Highlights a single match with the given highlight group
-local function highlight_match(bufnr, match, hlgroup)
-	for _, opening      in match.opening:iter()      do lib.highlight(bufnr, opening,      hlgroup) end
-	for _, closing      in match.closing:iter()      do lib.highlight(bufnr, closing,      hlgroup) end
-	for _, intermediate in match.intermediate:iter() do lib.highlight(bufnr, intermediate, hlgroup) end
+local function highlight_match(bufnr, lang, match, hlgroup)
+	for _, opening      in match.opening:iter()      do lib.highlight(bufnr, lang, opening,      hlgroup) end
+	for _, closing      in match.closing:iter()      do lib.highlight(bufnr, lang, closing,      hlgroup) end
+	for _, intermediate in match.intermediate:iter() do lib.highlight(bufnr, lang, intermediate, hlgroup) end
 end
 
 ---Highlights all matches and their children on the stack of matches. All
@@ -55,11 +55,11 @@ end
 ---@param bufnr   number  Number of the buffer
 ---@param matches Stack   Stack of matches
 ---@param level   number  Level of the matches
-local function highlight_matches(bufnr, matches, level)
+local function highlight_matches(bufnr, lang, matches, level)
 	local hlgroup = lib.hlgroup_at(level)
 	for _, match in matches:iter() do
-		highlight_match(bufnr, match, hlgroup)
-		highlight_matches(bufnr, match.children, level + 1)
+		highlight_match(bufnr, lang, match, hlgroup)
+		highlight_matches(bufnr, lang, match.children, level + 1)
 	end
 end
 
@@ -144,13 +144,13 @@ local function update_local(bufnr, tree, lang)
 	if not cursor_match then return end
 
 	-- Highlight the container match and everything below
-	highlight_matches(bufnr, Stack.new {cursor_match}, level)
+	highlight_matches(bufnr, lang, Stack.new {cursor_match}, level)
 
 	-- Starting with the cursor match travel up and highlight every ancestor as
 	-- well
 	local ancestor, level = cursor_match.ancestor, level - 1
 	while ancestor do
-		highlight_match(bufnr, ancestor, lib.hlgroup_at(level))
+		highlight_match(bufnr, lang, ancestor, lib.hlgroup_at(level))
 		ancestor, level = ancestor.ancestor, level - 1
 	end
 end
@@ -163,9 +163,8 @@ local function local_rainbow(bufnr, parser)
 	end)
 end
 
-function M.on_attach(bufnr, settings)
-	local parser = settings.parser
-
+---Sets up all the callbacks and performs an initial highlighting
+local function setup_parser(bufnr, parser)
 	parser:for_each_child(function(p, lang)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
@@ -182,15 +181,28 @@ function M.on_attach(bufnr, settings)
 				match_trees[bufnr][lang] = build_match_tree(bufnr, fake_changes, tree, lang)
 				-- Re-highlight after the change
 				local_rainbow(bufnr, parser)
-			end
+			end,
+			-- New languages can be added into the text at some later time, e.g.
+			-- code snippets in Markdown
+			on_child_added = function(child)
+				setup_parser(bufnr, child)
+			end,
 		}
 	end, true)
+end
+
+function M.on_attach(bufnr, settings)
+	local parser = settings.parser
+	setup_parser(bufnr, parser)
 
 	api.nvim_create_autocmd('CursorMoved', {
 		group = augroup,
 		buffer = bufnr,
 		callback = function(args)
-			lib.clear_namespace(bufnr)
+			lib.clear_namespace(bufnr, parser:lang())
+			parser:for_each_child(function(_, lang)
+				lib.clear_namespace(bufnr, lang)
+			end)
 			local_rainbow(args.buf, parser)
 		end
 	})
@@ -204,6 +216,7 @@ function M.on_attach(bufnr, settings)
 		}
 		match_trees[bufnr][sub_lang] = build_match_tree(bufnr, changes, tree, sub_lang)
 	end)
+	local_rainbow(bufnr, parser)
 end
 
 function M.on_detach(bufnr)

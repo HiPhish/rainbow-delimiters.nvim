@@ -23,13 +23,13 @@ local ts    = vim.treesitter
 ---Strategy which highlights the entire buffer.
 local M = {}
 
-local function highlight_matches(bufnr, matches, level)
+local function highlight_matches(bufnr, lang, matches, level)
 	local hlgroup = lib.hlgroup_at(level)
 	for _, match in matches:iter() do
-		for _, opening      in match.opening:iter()      do lib.highlight(bufnr, opening,      hlgroup) end
-		for _, closing      in match.closing:iter()      do lib.highlight(bufnr, closing,      hlgroup) end
-		for _, intermediate in match.intermediate:iter() do lib.highlight(bufnr, intermediate, hlgroup) end
-		highlight_matches(bufnr, match.children, level + 1)
+		for _, opening      in match.opening:iter()      do lib.highlight(bufnr, lang, opening,      hlgroup) end
+		for _, closing      in match.closing:iter()      do lib.highlight(bufnr, lang, closing,      hlgroup) end
+		for _, intermediate in match.intermediate:iter() do lib.highlight(bufnr, lang, intermediate, hlgroup) end
+		highlight_matches(bufnr, lang, match.children, level + 1)
 	end
 end
 
@@ -46,6 +46,7 @@ local function update_range(bufnr, changes, tree, lang)
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
+		lib.clear_namespace(bufnr, lang, change[1], change[3] + 1)
 		for _, match, _ in query:iter_matches(root_node, bufnr, change[1], change[3] + 1) do
 			-- This is the match record, it lists all the relevant nodes from
 			-- the match.
@@ -75,7 +76,7 @@ local function update_range(bufnr, changes, tree, lang)
 		end
 	end
 
-	highlight_matches(bufnr, matches, 1)
+	highlight_matches(bufnr, lang, matches, 1)
 end
 
 ---Update highlights for every tree in given buffer.
@@ -92,10 +93,8 @@ local function full_update(bufnr, parser)
 	parser:for_each_tree(callback)
 end
 
-
-function M.on_attach(bufnr, settings)
-	local parser = settings.parser
-
+---Sets up all the callbacks and performs an initial highlighting
+local function setup_parser(bufnr, parser)
 	parser:for_each_child(function(p, lang)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
@@ -104,10 +103,21 @@ function M.on_attach(bufnr, settings)
 			on_changedtree = function(changes, tree)
 				update_range(bufnr, changes, tree, lang)
 			end,
+			-- New languages can be added into the text at some later time, e.g.
+			-- code snippets in Markdown
+			on_child_added = function(child)
+				setup_parser(bufnr, child)
+			end,
 		}
 	end, true)
 
 	full_update(bufnr, parser)
+end
+
+
+function M.on_attach(bufnr, settings)
+	local parser = settings.parser
+	setup_parser(bufnr, parser)
 end
 
 function M.on_detach(bufnr)
