@@ -25,6 +25,11 @@ Added
 - Go queries for nodes `interface_type`, `map_type` and `var_declaration`
 - Query `rainbow-tags` for Vue.js
 
+Changed
+=======
+
+- More Fennel patterns
+
 Fixed
 =====
 
