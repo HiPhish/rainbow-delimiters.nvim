@@ -85,7 +85,7 @@ function M.detach(bufnr)
 	-- Clear all the namespaces for each language
 	lib.buffers[bufnr].parser:for_each_child(function(_, lang)
 		lib.clear_namespace(bufnr, lang)
-	end)
+	end, true)
 
 	-- For now we silently discard errors, but in the future we should log
 	-- them.
