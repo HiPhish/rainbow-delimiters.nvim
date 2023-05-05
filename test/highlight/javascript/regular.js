@@ -28,6 +28,11 @@ let some_object = {
 	}
 };
 
+// object pattern
+const destructuredFunction = ({ value }) => {
+  return {}
+}
+
 // Subscript expressions
 const zeroes = [0];
 console.log(zeroes[zeroes[zeroes[0]]])

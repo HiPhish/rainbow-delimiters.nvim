@@ -38,3 +38,7 @@
 (export_clause
   "{" @opening
   "}" @closing) @container
+
+(object_pattern
+  "{" @opening
+  "}" @closing) @container
