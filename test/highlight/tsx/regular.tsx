@@ -58,7 +58,7 @@ function hello() {
 
 function app() {
 	return (
-		<div>
+		<div style={{ display: 'flex' }}>
 			<p>
 				This is an <a href="https://example.com">Example link</a>.
 			</p>
@@ -66,6 +66,7 @@ function app() {
 				This is an <a href="https://example.com">Example<br/>link</a> with<br/> line <br/>break.
 			</p>
 			<button onClick={hello}>Click me!</button>
+      <CustomComponent bool={true} arr={[1, 2, 3]} />
 		</div>
 	)
 }
