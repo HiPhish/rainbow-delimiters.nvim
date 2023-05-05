@@ -42,3 +42,7 @@
 (object_pattern
   "{" @opening
   "}" @closing) @container
+
+(array
+  "[" @opening
+  "]" @closing) @container

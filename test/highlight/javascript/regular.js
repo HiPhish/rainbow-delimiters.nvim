@@ -19,12 +19,13 @@ function add(x, y) {
 // Arrow function definition
 const multiply = (x, y) => x * y;
 
-// Nested object
+// Nested object and array
 let some_object = {
 	a: {
 		b: {
 			c: {},
-		}
+		},
+    d: [[1, 2, 3]]
 	}
 };
 
