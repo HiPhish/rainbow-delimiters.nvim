@@ -34,3 +34,7 @@
 (named_imports
   "{" @opening
   "}" @closing) @container
+
+(export_clause
+  "{" @opening
+  "}" @closing) @container

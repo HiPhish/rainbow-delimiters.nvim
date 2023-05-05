@@ -34,3 +34,6 @@ console.log(zeroes[zeroes[zeroes[0]]])
 
 // Parenthesized expressions
 console.log(1 + (2 + (3 + 4)))
+
+// export clause
+export { zeroes }
