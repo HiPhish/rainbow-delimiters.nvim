@@ -30,3 +30,7 @@
 (subscript_expression
   "[" @opening
   "]" @closing) @container
+
+(named_imports
+  "{" @opening
+  "}" @closing) @container

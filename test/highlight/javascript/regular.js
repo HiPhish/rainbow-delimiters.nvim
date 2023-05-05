@@ -1,3 +1,6 @@
+// Named imports
+import { useState } from 'react'
+
 // Template strings
 const who = 'world';
 console.log(`Hello, ${who}`);
