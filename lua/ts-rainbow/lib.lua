@@ -89,7 +89,10 @@ function M.highlight(bufnr, lang, node, hlgroup)
 	}
 
 	local nsid = nsids[lang]
-	vim.highlight.range(bufnr, nsid, hlgroup, start, finish, opts)
+
+	if vim.api.nvim_buf_is_loaded(bufnr) then
+		vim.highlight.range(bufnr, nsid, hlgroup, start, finish, opts)
+	end
 end
 
 
