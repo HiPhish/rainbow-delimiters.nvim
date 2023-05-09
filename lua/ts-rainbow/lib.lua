@@ -111,7 +111,9 @@ end
 ---@return nil
 function M.clear_namespace(bufnr, lang, line_start, line_end)
 	local nsid = nsids[lang]
-	vim.api.nvim_buf_clear_namespace(bufnr, nsid, line_start or 0, line_end or -1)
+	if vim.api.nvim_buf_is_valid(bufnr) then
+		vim.api.nvim_buf_clear_namespace(bufnr, nsid, line_start or 0, line_end or -1)
+	end
 end
 
 return M
