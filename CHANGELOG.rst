@@ -38,6 +38,7 @@ Fixed
 - Protection from sourcing the plugin multiple times
 - Inconsistent pairs due to uncleared extmarks
 - Highlight group @punctuation.bracket getting changed for no reason
+- Resource leak if buffer was deleted
 
 
 [2.1.0] - 2023-03-19
