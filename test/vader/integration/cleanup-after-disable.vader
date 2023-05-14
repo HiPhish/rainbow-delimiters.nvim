@@ -1,0 +1,12 @@
+# Cleanup is performed after a the rainbow module is disabled
+
+Execute lua (Set up the plugin):
+    require('nvim-treesitter.configs').setup({enable = true, rainbow = {strategy = {require('ts-rainbow.strategy.dummy')}}})
+
+Given lua (Some Lua buffer):
+    print((((('Hello, world!')))))
+
+Execute lua (Disable the plugin):
+    vim.cmd{cmd = 'Assert', args = {require("ts-rainbow.strategy.dummy").buffers[vim.fn.bufnr()] ~= nil}}
+    vim.cmd.TSDisable({args = {'rainbow'}})
+    vim.cmd{cmd = 'Assert', args = {require("ts-rainbow.strategy.dummy").buffers[vim.fn.bufnr()] == nil}}

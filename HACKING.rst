@@ -58,6 +58,15 @@ are arguments which returns the strategy table.
    }
 
 
+Testing
+#######
+
+We use Vader_ for testing.  Execute `:Vader test/vader/**/*` to run all Vader
+tests.  As of the time of writing this there is a bug in Vader: tests contain
+Lua code, which will set the file type of the Vader result buffer to `lua`.
+This is annoying, but it does not affect the test results.
+
+
 Strategies
 ##########
 
@@ -189,3 +198,6 @@ know that `Bravo` is the lowest node to still contain the cursor.
 Therefore we that the first match which contains the cursor is the lowest one.
 If a match does not contain the cursor we can check whether it is a
 descendant of the cursor container match.
+
+
+.. _Vader: https://github.com/junegunn/vader.vim

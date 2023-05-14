@@ -67,7 +67,6 @@ function M.attach(bufnr, lang)
 	parser:register_cbs {
 		on_detach = function(bnr)
 			if not lib.buffers[bnr] then return end
-			print(string.format('Detaching buffer %d', bnr))
 			M.detach(bufnr)
 		end
 	}
