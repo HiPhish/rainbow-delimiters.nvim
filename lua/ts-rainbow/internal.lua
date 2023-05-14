@@ -63,9 +63,18 @@ function M.attach(bufnr, lang)
 		return
 	end
 
+	local parser = ts.get_parser(bufnr, lang)
+	parser:register_cbs {
+		on_detach = function(bnr)
+			if not lib.buffers[bnr] then return end
+			print(string.format('Detaching buffer %d', bnr))
+			M.detach(bufnr)
+		end
+	}
+
 	local settings = {
 		strategy = strat,
-		parser = ts.get_parser(bufnr, lang),
+		parser = parser,
 	}
 	lib.buffers[bufnr] = settings
 
