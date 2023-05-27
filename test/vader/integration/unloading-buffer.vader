@@ -1,0 +1,19 @@
+# Unloading a buffer does not raise an error
+
+# This test is broken and will always succeed; see these GitHub threads for more details:
+#  https://github.com/HiPhish/nvim-ts-rainbow2/issues/40
+#  https://github.com/HiPhish/nvim-ts-rainbow2/pull/42
+
+Execute lua (Set up the plugin):
+    require('nvim-treesitter.configs').setup({enable = true, rainbow = {strategy = {require('ts-rainbow').strategy.global}}})
+
+Execute (Create two windows with different buffers):
+    set ft=lua
+    call setline(1, 'print(((("Hello world"))))')
+    new
+    set ft=lua
+    call setline(1, 'print(((("Goodbye world"))))')
+
+Execute (Detlete one of the buffers):
+    let g:myerror = execute('bdelete!')
+    AssertEqual '', g:myerror, 'Deleting the buffer threw an error'
