@@ -16,6 +16,7 @@ Added
 =====
 
 - The "noop" strategy which does nothing at all
+- Support for CUDA (`cu`)
 
 
 [2.2.0] - 2023-05-27
