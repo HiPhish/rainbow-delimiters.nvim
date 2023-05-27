@@ -25,13 +25,13 @@ let some_object = {
 		b: {
 			c: {},
 		},
-    d: [[1, 2, 3]]
+	d: [[1, 2, 3]]
 	}
 };
 
 // object pattern
 const destructuredFunction = ({ value }) => {
-  return {}
+	return {}
 }
 
 // Subscript expressions

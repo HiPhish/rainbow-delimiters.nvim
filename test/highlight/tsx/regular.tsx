@@ -11,24 +11,24 @@ function add(x: number, y: number): number {
 
 // Function with generic type parameter
 function id<T>(x: T): T {
-    return x;
+	return x;
 }
 
 // Class with members
 class Person {
-    private name: string;
-    private age: number;
-    private salary: number;
+	private name: string;
+	private age: number;
+	private salary: number;
 
-    constructor(name: string, age: number, salary: number) {
-        this.name = name;
-        this.age = age;
-        this.salary = salary;
-    }
+	constructor(name: string, age: number, salary: number) {
+		this.name = name;
+		this.age = age;
+		this.salary = salary;
+	}
 
-    toString(): string {
-        return `${this.name} (${this.age}) (${this.salary})`; // As of version 1.4
-    }
+	toString(): string {
+		return `${this.name} (${this.age}) (${this.salary})`; // As of version 1.4
+	}
 }
 
 // Template strings
