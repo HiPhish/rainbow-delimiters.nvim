@@ -31,6 +31,10 @@ class Person {
     }
 }
 
+interface Request {
+	body: RequestProp['body'];
+}
+
 // Template strings
 const who = 'world';
 console.log(`Hello, ${who}`);
