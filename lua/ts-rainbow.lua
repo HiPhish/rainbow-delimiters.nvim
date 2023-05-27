@@ -24,6 +24,7 @@ local M = {
 	strategy = {
 		['global'] = require 'ts-rainbow.strategy.global',
 		['local'] = require 'ts-rainbow.strategy.local',
+		['noop'] = require 'ts-rainbow.strategy.no-op',
 	}
 }
 

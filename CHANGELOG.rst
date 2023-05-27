@@ -9,6 +9,15 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Added
+=====
+
+- The "noop" strategy which does nothing at all
+
+
 [2.2.0] - 2023-05-27
 ####################
 

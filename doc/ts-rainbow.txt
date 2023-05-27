@@ -183,6 +183,14 @@ cursor.  Updated every time the cursor moves and uses more complex logic than
 the global strategy to figure out which nodes exactly to highlight.
 
 
+                                                     *ts-rainbow.strategy.noop*
+No-op~
+'ts-rainbow'.strategy['noop']
+
+A dummy strategy which does nothing.  This is only useful in testing or if you
+really want an empty strategy.
+
+
 ------------------------------------------------------------------------------
 QUERIES                                                     *ts-rainbow-query*
 
