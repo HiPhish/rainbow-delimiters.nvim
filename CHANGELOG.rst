@@ -24,6 +24,8 @@ Added
 - Compatibility with Tree-sitter API in Neovim 0.9
 - Go queries for nodes `interface_type`, `map_type` and `var_declaration`
 - Query `rainbow-tags` for Vue.js
+- Missing patterns for imports and exports in Javascript
+- Missing pattern for JSX expression in React
 
 Changed
 =======

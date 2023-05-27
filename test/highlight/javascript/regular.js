@@ -1,3 +1,6 @@
+// Named imports
+import { useState } from 'react'
+
 // Template strings
 const who = 'world';
 console.log(`Hello, ${who}`);
@@ -16,14 +19,20 @@ function add(x, y) {
 // Arrow function definition
 const multiply = (x, y) => x * y;
 
-// Nested object
+// Nested object and array
 let some_object = {
 	a: {
 		b: {
 			c: {},
-		}
+		},
+	d: [[1, 2, 3]]
 	}
 };
+
+// object pattern
+const destructuredFunction = ({ value }) => {
+	return {}
+}
 
 // Subscript expressions
 const zeroes = [0];
@@ -31,3 +40,6 @@ console.log(zeroes[zeroes[zeroes[0]]])
 
 // Parenthesized expressions
 console.log(1 + (2 + (3 + 4)))
+
+// export clause
+export { zeroes }
