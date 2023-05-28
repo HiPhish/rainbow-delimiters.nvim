@@ -19,6 +19,11 @@ Added
 - Missing patterns for Typescript
 - Support for CUDA (`cu`)
 
+Fixed
+=====
+
+- Missing patterns in Typescript React query `rainbow-tags`
+
 
 [2.2.0] - 2023-05-27
 ####################
