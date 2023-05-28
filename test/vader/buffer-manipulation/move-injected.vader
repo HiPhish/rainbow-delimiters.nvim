@@ -1,0 +1,37 @@
+# Moving a line of text from an injected language into the parent language
+# clears the previous extmarks
+
+# NOTE: This test is broken in Neovim 0.9 because the 'on_changedtree' callback
+# is not called when it needs to be.  Neovim 0.10 works fine.
+
+Given markdown (A Markdown buffer with Lua code):
+  This is some Markdown
+
+  ```lua
+  print(((('Hello world'))))
+  ```
+
+  This is more markdown.
+
+
+Execute (Move Lua line out of code block):
+  redraw!  " Without this there will be no extmarks at all
+  4 move 5
+
+
+Expect markdown (The Lua line is outside the code block):
+  This is some Markdown
+
+  ```lua
+  ```
+  print(((('Hello world'))))
+
+  This is more markdown.
+
+
+Then:
+  redraw!
+  let derp = luaeval('vim.inspect_pos(0, 4, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("ts-rainbow.lib").nsids.lua')})
+  AssertEqual [], derp

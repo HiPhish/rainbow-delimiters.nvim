@@ -101,6 +101,17 @@ local function setup_parser(bufnr, parser)
 		if not lib.get_query(lang) then return end
 		p:register_cbs {
 			on_changedtree = function(changes, tree)
+				-- If a line has been moved from another region it will still
+				-- carry with it the extmarks from the old region.  We need to
+				-- clear all extmarks which do not belong to the current
+				-- language
+				for _, change in ipairs(changes) do
+					for key, nsid in pairs(lib.nsids) do
+						if key ~= lang then
+							vim.api.nvim_buf_clear_namespace(bufnr, nsid, change[1], change[3])
+						end
+					end
+				end
 				update_range(bufnr, changes, tree, lang)
 			end,
 			-- New languages can be added into the text at some later time, e.g.

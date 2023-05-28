@@ -23,6 +23,8 @@ Fixed
 =====
 
 - Missing patterns in Typescript React query `rainbow-tags`
+- Obsolete extmarks being preserved when text changes region (e.g. in Markdown
+  moving a line out of a Lua code block into the surrounding text body)
 
 
 [2.2.0] - 2023-05-27

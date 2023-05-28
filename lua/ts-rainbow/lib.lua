@@ -33,7 +33,7 @@ M.query = 'rainbow-parens'
 
 ---Per-language namespaces. This table instantiates namespaces on demand, i.e.
 ---a namespace won't exist until we first try to get it from the table.
-local nsids = setmetatable({}, {
+M.nsids = setmetatable({}, {
 	__index = function(t, k)
 		local result = rawget(t, k)
 		if result == nil then
@@ -88,7 +88,7 @@ function M.highlight(bufnr, lang, node, hlgroup)
 		priority = 210,
 	}
 
-	local nsid = nsids[lang]
+	local nsid = M.nsids[lang]
 
 	if vim.api.nvim_buf_is_loaded(bufnr) then
 		vim.highlight.range(bufnr, nsid, hlgroup, start, finish, opts)
@@ -110,7 +110,7 @@ end
 ---@param bufnr number  Number of the buffer for which to clear the namespace
 ---@return nil
 function M.clear_namespace(bufnr, lang, line_start, line_end)
-	local nsid = nsids[lang]
+	local nsid = M.nsids[lang]
 	if vim.api.nvim_buf_is_valid(bufnr) then
 		vim.api.nvim_buf_clear_namespace(bufnr, nsid, line_start or 0, line_end or -1)
 	end
