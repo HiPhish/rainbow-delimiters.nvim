@@ -1,0 +1,35 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug"]
+assignees:
+  - "HiPhish"
+body:
+  - type: 'input'
+    attributes:
+      label: 'Neovim version'
+      description: 'Version of your Neovim'
+      placeholder: '0.0.0'
+  - type: 'input'
+    attributes:
+      label: 'Language affected'
+      description: 'Leave empty if you experience the issue with any file type.'
+      placeholder: 'Lua'
+  - type: 'input'
+    attributes:
+      label: 'Query'
+      description: 'Leave empty if the issue is not tied to a specific query.'
+      placeholder: 'rainbow-parens'
+  - type: 'input'
+    attributes:
+      label: 'Strategy'
+      description: 'Leave empty if the issue is not tied to a specific strategy.'
+      placeholder: 'global'
+  - type: 'textarea'
+    attributes:
+      label: 'Description'
+      description: |
+        Please describe the bug in detail here.  If possible provide a minimal
+        code sample which replicates the issue
+      placeholder: 'print((("Hello world!")))'
+      render: 'Text'

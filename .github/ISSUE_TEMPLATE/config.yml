@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Main repoo
+    url: 'https://gitlab.com/HiPhish/nvim-ts-rainbow2'
+    about: 'Upstream repository; you can also report bugs here on GitHub.'
