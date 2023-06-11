@@ -37,6 +37,7 @@ function M.register()
 				lib.query,
 				html = 'rainbow-tags',
 				latex = 'rainbow-blocks',
+				tsx = 'rainbow-tags',
 			},
 			-- Highlight groups in order of display
 			hlgroups = {

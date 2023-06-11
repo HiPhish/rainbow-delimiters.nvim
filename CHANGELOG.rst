@@ -20,6 +20,13 @@ Added
 - Support for CUDA (`cu`)
 - Support for Jsonnet (`jsonnet`)
 
+
+Changed
+=======
+
+- React tags: highlight name of tag only
+
+
 Fixed
 =====
 
