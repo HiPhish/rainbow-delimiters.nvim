@@ -18,6 +18,7 @@ Added
 - The "noop" strategy which does nothing at all
 - Missing patterns for Typescript
 - Support for CUDA (`cu`)
+- Support for Jsonnet (`jsonnet`)
 
 Fixed
 =====
