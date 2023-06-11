@@ -25,6 +25,7 @@ Changed
 =======
 
 - React tags: highlight name of tag only
+- HTML tags: highlight name of tag only
 
 
 Fixed
