@@ -2,6 +2,10 @@
   (("(" @opening)
    (")" @closing))) @container
 
+(exp_tuple
+  (("(" @opening)
+   (")" @closing))) @container
+
 (con_unit
   (("(" @opening)
    (")" @closing))) @container
@@ -23,6 +27,10 @@
    (")" @closing))) @container
 
 (type_parens
+  (("(" @opening)
+   (")" @closing))) @container
+
+(type_tuple
   (("(" @opening)
    (")" @closing))) @container
 
