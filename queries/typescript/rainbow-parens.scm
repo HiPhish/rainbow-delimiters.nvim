@@ -1,5 +1,9 @@
 ; inherits: javascript
 
+(type_arguments
+  "<" @opening
+  ">" @closing) @container
+
 (type_parameters
   "<" @opening
   ">" @closing) @container
