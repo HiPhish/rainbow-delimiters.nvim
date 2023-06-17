@@ -31,7 +31,7 @@ Expect markdown (The Lua line is outside the code block):
 
 Then:
   redraw!
-  let derp = luaeval('vim.inspect_pos(0, 4, 5)').extmarks
+  let extmarks = luaeval('vim.inspect_pos(0, 4, 5)').extmarks
     \->map('v:val["ns_id"]')
     \->filter({_, nsid -> nsid == luaeval('require("ts-rainbow.lib").nsids.lua')})
-  AssertEqual [], derp
+  AssertEqual [], extmarks

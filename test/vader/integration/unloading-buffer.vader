@@ -14,6 +14,6 @@ Execute (Create two windows with different buffers):
     set ft=lua
     call setline(1, 'print(((("Goodbye world"))))')
 
-Execute (Detlete one of the buffers):
+Execute (Delete one of the buffers):
     let g:myerror = execute('bdelete!')
     AssertEqual '', g:myerror, 'Deleting the buffer threw an error'

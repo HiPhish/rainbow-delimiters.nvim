@@ -101,6 +101,10 @@ local function setup_parser(bufnr, parser)
 		if not lib.get_query(lang) then return end
 		p:register_cbs {
 			on_changedtree = function(changes, tree)
+				-- HACK: As of Neovim v0.9.1 there is no way of unregistering a
+				-- callback, so we use this check to abort
+				if not lib.buffers[bufnr] then return end
+
 				-- If a line has been moved from another region it will still
 				-- carry with it the extmarks from the old region.  We need to
 				-- clear all extmarks which do not belong to the current

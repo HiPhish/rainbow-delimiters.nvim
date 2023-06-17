@@ -171,6 +171,10 @@ local function setup_parser(bufnr, parser)
 		if not lib.get_query(lang) then return end
 		p:register_cbs {
 			on_changedtree = function(_changes, tree)
+				-- HACK: As of Neovim v0.9.1 there is no way of unregistering a
+				-- callback, so we use this check to abort
+				if not lib.buffers[bufnr] then return end
+
 				if vim.fn.pumvisible() ~= 0 then return end
 				-- Ideally we would only rebuild the parts of the tree that have changed,
 				-- but this doesn't work, so we will rebuild the entire tree

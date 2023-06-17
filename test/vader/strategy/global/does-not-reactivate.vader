@@ -1,0 +1,28 @@
+Execute lua (Set up the plugin):
+  the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.global'))
+  require('nvim-treesitter.configs').setup({enable = true, rainbow = {strategy = {the_strategy}}})
+
+Given lua (Some Lua buffer):
+  print({{{{{}}}}})
+
+Execute (Disable the plugin):
+  redraw!  " Without this there will be no extmarks at all
+  TSDisable rainbow
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("ts-rainbow.lib").nsids.lua')})
+  AssertEqual [], extmarks
+
+Do (insert a new pair of curly braces):
+  f}
+  i{}\<ESC>
+
+Expect lua (An added nested pair of curly braces):
+  print({{{{{{}}}}}})
+
+Then (There is no highlight on the delimiters):
+  redraw!  " Without this there will be no extmarks at all
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("ts-rainbow.lib").nsids.lua')})
+  AssertEqual [], extmarks
