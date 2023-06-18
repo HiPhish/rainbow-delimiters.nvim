@@ -83,7 +83,7 @@ function M.highlight(bufnr, lang, node, hlgroup)
 
 	local start, finish = {startRow, startCol}, {endRow, endCol - 1}
 	local opts = {
-		regtype = "b",
+		regtype = 'c',
 		inclusive = true,
 		priority = 210,
 	}
