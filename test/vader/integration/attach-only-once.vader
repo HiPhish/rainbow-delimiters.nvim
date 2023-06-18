@@ -1,0 +1,17 @@
+# Do not execute the `on_attach` callback a second time if the buffer is
+# already attached.
+
+Execute lua (Set up the plugin):
+    the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.no-op'))
+    vim.g.tempfile = vim.fn.tempname() .. '.lua'
+    require('nvim-treesitter.configs').setup({enable = true, rainbow = {strategy = {the_strategy}}})
+
+Execute (Edit the buffer multiple times):
+    call writefile(['print((((("Hello, world!")))))'], g:tempfile)
+    silent execute 'edit' g:tempfile
+    silent execute 'edit' g:tempfile
+    silent execute 'edit' g:tempfile
+
+Then (The buffer has only been attached once):
+    AssertEqual 1, luaeval('the_strategy.attachments[1]')
+    bwipeout  " Remove the temporary buffer again
