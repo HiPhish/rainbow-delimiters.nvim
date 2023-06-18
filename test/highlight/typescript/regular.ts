@@ -29,6 +29,10 @@ class Person {
     toString(): string {
         return `${this.name} (${this.age}) (${this.salary})`; // As of version 1.4
     }
+
+    async method(): Promise<Array<Record<string, number>>> {
+        return []
+    }
 }
 
 interface Request {
