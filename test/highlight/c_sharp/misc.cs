@@ -1,0 +1,43 @@
+public class A<T> { }
+
+public struct B<T> { }
+
+public interface C<T> : A<IEnumerable<T>> { }
+
+public class TestClass
+{
+    public string? Name { get; set; }
+    public int[][]? MultiDimArray { get; set; }
+
+    private string MergeLines(IEnumerable<IEnumerable<string>> sections)
+    {
+        return string.Join(",", sections.SelectMany(t => t));
+    }
+
+    private void LoopTest()
+    {
+        foreach (var item in new string[0]) { }
+
+        for (int i = 0; i < 0; i++) { }
+
+        while (false) { }
+
+        do { } while (false);
+    }
+
+    private void Interpolation()
+    {
+        var passTitle = "123";
+        System.Console.WriteLine($"== {passTitle} ==");
+    }
+
+    private void AnonymousObject()
+    {
+        var a = new { Test = 123, };
+    }
+
+    private (int a, float b, (int c, float d)) TupleExpressions()
+    {
+        return (1, 2, (3, 4));
+    }
+}
