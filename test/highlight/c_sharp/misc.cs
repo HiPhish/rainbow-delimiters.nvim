@@ -1,9 +1,3 @@
-public class A<T> { }
-
-public struct B<T> { }
-
-public interface C<T> : A<IEnumerable<T>> { }
-
 public class TestClass
 {
     public string? Name { get; set; }
@@ -28,7 +22,9 @@ public class TestClass
     private void Interpolation()
     {
         var passTitle = "123";
-        System.Console.WriteLine($"== {passTitle} ==");
+        if (true) {
+        	System.Console.WriteLine($"== {passTitle} ==");
+        }
     }
 
     private void AnonymousObject()
