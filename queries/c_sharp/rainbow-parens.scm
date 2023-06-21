@@ -42,9 +42,21 @@
   "(" @opening
   ")" @closing) @container
 
+(attribute_list
+  "[" @opening
+  "]" @closing) @container
+
 (switch_statement
   "(" @opening
   ")" @closing) @container
+
+(switch_body
+  "{" @opening
+  "}" @closing) @container
+
+(switch_expression
+  "{" @opening
+  "}" @closing) @container
 
 (default_expression
   "(" @opening
@@ -102,10 +114,6 @@
   "{" @opening
   "}" @closing) @container
 
-(switch_body
-  "{" @opening
-  "}" @closing) @container
-
 (enum_member_declaration_list
   "{" @opening
   "}" @closing) @container
@@ -122,19 +130,11 @@
   "{" @opening
   "}" @closing) @container
 
-(switch_expression
-  "{" @opening
-  "}" @closing) @container
-
 (array_rank_specifier
   "[" @opening
   "]" @closing) @container
 
 (bracketed_argument_list
-  "[" @opening
-  "]" @closing) @container
-
-(attribute_list
   "[" @opening
   "]" @closing) @container
 
