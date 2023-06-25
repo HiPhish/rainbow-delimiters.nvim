@@ -17,6 +17,7 @@
 
 local Stack = require 'ts-rainbow.stack'
 local lib   = require 'ts-rainbow.lib'
+local log   = require 'ts-rainbow.log'
 local ts    = vim.treesitter
 
 
@@ -95,12 +96,16 @@ end
 
 ---Sets up all the callbacks and performs an initial highlighting
 local function setup_parser(bufnr, parser)
+	log.trace('Set up parser for buffer %d', bufnr)
 	parser:for_each_child(function(p, lang)
+		log.trace('Set up parser for %s', lang)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
 		if not lib.get_query(lang) then return end
+
 		p:register_cbs {
 			on_changedtree = function(changes, tree)
+				log.trace('Changed tree in buffer %d with languages %s', bufnr, lang)
 				-- HACK: As of Neovim v0.9.1 there is no way of unregistering a
 				-- callback, so we use this check to abort
 				if not lib.buffers[bufnr] then return end
@@ -131,6 +136,7 @@ end
 
 
 function M.on_attach(bufnr, settings)
+	log.trace('global strategy on_attach')
 	local parser = settings.parser
 	setup_parser(bufnr, parser)
 end

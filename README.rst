@@ -18,28 +18,20 @@ Installation and setup
 Installation
 ============
 
-The plugin depends on `nvim-treesitter`_.  Other than that it is installed like
-any other Neovim plugin.
+Install it like any other Neovim plugin.
 
 Setup
 =====
 
-Since this is a module for nvim-treesitter you need to setup everything in its
-configuration.  Here is an example:
+Configuration is done by setting entries in the Vim script dictionary
+`g:ts_rainbow_delims` or in the Lua module (table) `'ts-rainbow.config'`.  Here
+is an example:
 
 .. code:: lua
 
-   require('nvim-treesitter.configs').setup {
-     rainbow = {
-       enable = true,
-       -- list of languages you want to disable the plugin for
-       disable = { 'jsx', 'cpp' }, 
-       -- Which query to use for finding delimiters
-       query = 'rainbow-parens',
-       -- Highlight the entire buffer all at once
-       strategy = require('ts-rainbow').strategy.global,
-     }
-   }
+   local config = require 'ts-rainbow.config'
+   config.query = {'rainbow-parens'}
+   config.strategy = {require('ts-rainbow').strategy.global}
 
 Please refer to the `manual`_ for more details.
 

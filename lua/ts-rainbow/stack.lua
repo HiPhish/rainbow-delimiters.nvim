@@ -38,11 +38,9 @@ end
 ---@return string
 local function stack_tostring(stack)
 	local items = {}
-	-- print(vim.inspect(stack.content))
 	for _, item in ipairs(stack.content) do
 		items[#items+1] = tostring(item)
 	end
-	-- print (vim.inspect(items))
 	return string.format('[%s]', table.concat(items, ', '))
 end
 

@@ -16,7 +16,7 @@
 --]]
 
 local parsers = require("nvim-treesitter.parsers")
-local configs = require("nvim-treesitter.configs")
+local config  = require 'ts-rainbow.config'
 local lib     = require 'ts-rainbow.lib'
 local rb      = require 'ts-rainbow'
 local api     = vim.api
@@ -40,7 +40,7 @@ end
 ---@param lang string  The language of the buffer
 ---@return table strategy  The strategy table to use
 local function get_strategy(lang)
-	local settings = configs.get_module('rainbow').strategy
+	local settings = config.strategy
 	local setting = settings[lang] or settings[1] or rb.strategy.global
 	if type(setting) == 'function' then
 		return setting()
@@ -52,18 +52,21 @@ end
 --- @param bufnr number # Buffer number
 --- @param lang string # Buffer language
 function M.attach(bufnr, lang)
-	local config = configs.get_module("rainbow")
-	if not config then return end
+	if not lang then return end
+
+	local parser
+	do
+		local success
+		success, parser = pcall(vim.treesitter.get_parser, bufnr, lang)
+		if not success then return end
+	end
 
 	local strat = get_strategy(lang)
 	-- Intentionally abort; the user has explicitly disabled rainbow delimiters
 	-- for this buffer, usually by setting a strategy- or query function which
 	-- returned nil.
-	if not strat then
-		return
-	end
+	if not strat then return end
 
-	local parser = ts.get_parser(bufnr, lang)
 	parser:register_cbs {
 		on_detach = function(bnr)
 			if not lib.buffers[bnr] then return end
@@ -85,8 +88,7 @@ end
 --- Detach module from buffer. Called when `:TSBufDisable rainbow`.
 --- @param bufnr number # Buffer number
 function M.detach(bufnr)
-	local config = configs.get_module("rainbow")
-	if not config then return end
+	if not lib.buffers[bufnr] then return end
 
 	local strategy = lib.buffers[bufnr].strategy
 	local parser = lib.buffers[bufnr].parser
@@ -114,4 +116,5 @@ api.nvim_create_autocmd("FileType", {
 })
 
 return M
+
 -- vim:tw=79:ts=4:sw=4:noet:

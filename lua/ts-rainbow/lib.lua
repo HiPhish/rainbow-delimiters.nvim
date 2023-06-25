@@ -15,9 +15,10 @@
    limitations under the License.
 --]]
 
-local configs = require 'nvim-treesitter.configs'
 local get_query = vim.fn.has('nvim-0.9') and vim.treesitter.query.get or
 	vim.treesitter.query.get_query
+
+local log = require 'ts-rainbow.log'
 
 
 ---[ Internal ]----------------------------------------------------------------
@@ -65,9 +66,16 @@ M.buffers = {}
 ---@param lang string  Name of the language to get the query for
 ---@return userdata query  The query object
 function M.get_query(lang)
-	local settings = configs.get_module('rainbow')['query']
-	local name = type(settings) == 'string' and settings or settings[lang] or settings[1] or M.query
+	local config = require 'ts-rainbow.config'
+	local settings = config['query']
+	local name = settings[lang] or settings[1] or M.query
 	local query = get_query(lang, name)
+
+	if not query then
+		log.debug('Query %s not found for %s', name, lang)
+	else
+		log.trace('Query %s found for %s', name, lang)
+	end
 	return query
 end
 
@@ -100,7 +108,8 @@ end
 ---@param i number  One-based index into the highlight groups
 ---@return string hlgroup  Name of the highlight groups
 function M.hlgroup_at(i)
-	local hlgroups = configs.get_module('rainbow').hlgroups
+	local config = require 'ts-rainbow.config'
+	local hlgroups = config.highlight
 	return hlgroups[(i - 1) % #hlgroups + 1]
 end
 
@@ -117,4 +126,5 @@ function M.clear_namespace(bufnr, lang, line_start, line_end)
 end
 
 return M
+
 -- vim:tw=79:ts=4:sw=4:noet:
