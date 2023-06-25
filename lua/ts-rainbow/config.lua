@@ -14,48 +14,29 @@
    limitations under the License.
 --]]
 
----Plugin configuration table.
+---Plugin settings lookup table.  This table is only used for looking up
+---values.  Set `g:rainbow_delims` to change the values.
 local M = {}
 
-local rainbow = require 'ts-rainbow'
+local function lookup(table, key)
+	local result
 
-local default_config = {
-	query = {
-		'rainbow-parens',
-		html  = 'rainbow-tags',
-		latex = 'rainbow-blocks',
-		tsx   = 'rainbow-tags',
-	},
-	strategy = {
-		rainbow.strategy.global,
-	},
-	-- Highlight groups in order of display
-	highlight = {
-		-- The colours are intentionally not in the usual order to make
-		-- the contrast between them stronger
-		'TSRainbowRed',
-		'TSRainbowYellow',
-		'TSRainbowBlue',
-		'TSRainbowOrange',
-		'TSRainbowGreen',
-		'TSRainbowViolet',
-		'TSRainbowCyan',
-	}
-}
+	if vim.g.rainbow_delims then
+		result = rawget(vim.g.ts_rainbow_delims, key)
+	end
+	if result ~= nil then return result end
+
+	result = rawget(table, key)
+	if result ~= nil then return result end
+
+	-- Cache the result in table so we don't need a require lookup the next time
+	result = require('ts-rainbow.default')[key]
+	table[key] = result
+	return result
+end
 
 setmetatable(M, {
-	__index = function(config, key)
-		local result
-		result = rawget(config, key)
-		if result ~= nil then return result end
-
-		if vim.g.ts_rainbow_delims then
-			result = rawget(vim.g.ts_rainbow_delims, key)
-		end
-		if result ~= nil then return result end
-
-		return rawget(default_config, key)
-	end
+	__index = lookup,
 })
 
 return M
