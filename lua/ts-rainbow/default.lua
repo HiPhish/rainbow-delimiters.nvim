@@ -16,14 +16,23 @@
 
 ---Default plugin configuration.
 local M = {
+	---Query names by file type
 	query = {
 		['']  = 'rainbow-parens',
 		html  = 'rainbow-tags',
 		latex = 'rainbow-blocks',
 		tsx   = 'rainbow-tags',
 	},
+	---Highlight strategies by file type
 	strategy = {
-		require 'ts-rainbow.strategy.global'
+		[''] = require 'ts-rainbow.strategy.global'
+	},
+	---Event logging settings
+	log = {
+		---Log level of the module, see `:h log_levels`.
+		level = vim.log.levels.WARN,
+		---File name of the log file
+		file  = vim.fn.stdpath('log') .. '/rainbow-delimiters',
 	},
 	-- Highlight groups in order of display
 	highlight = {

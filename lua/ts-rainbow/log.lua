@@ -18,19 +18,13 @@
 ---equal to or greater than the log level of the module.
 local M = {}
 
-local levels = vim.log.levels
-local stdpath = vim.fn.stdpath
 local date = os.date
-
----Log level of the module, see `:h log_levels`.
-M.level = levels.WARN
----File name of the log file
-M.log_file = stdpath('log') .. '/rainbow-delimiters'
+local config = require 'ts-rainbow.config'
 
 local function log(level, message, ...)
-	if level < M.level then return end
+	if level < config.log.level then return end
 
-	local file = io.open(M.log_file, 'a+')
+	local file = io.open(config.log.file, 'a+')
 	-- Intentional: Silently discard the log if the log file cannot be opened
 	if not file then return end
 
@@ -68,14 +62,6 @@ end
 ---Log an info message
 function M.info(message, ...)
 	log(vim.log.levels.INFO, message, ...)
-end
-
----Temporarily set the log level to the given one and apply the thunk.
-function M.with_level(level, thunk)
-	local old_level = M.level
-	M.level = level
-	pcall(thunk)
-	M.level = old_level
 end
 
 return M
