@@ -15,7 +15,6 @@
    limitations under the License.
 --]]
 
-local parsers = require("nvim-treesitter.parsers")
 local config  = require 'ts-rainbow.config'
 local lib     = require 'ts-rainbow.lib'
 local rb      = require 'ts-rainbow'
@@ -29,7 +28,7 @@ local M = {}
 local function set_buffer_parser()
 	local bufnr = api.nvim_get_current_buf()
 	if lib.buffers[bufnr] then
-		local lang = parsers.get_buf_lang(bufnr)
+		local lang = ts.language.get_lang(vim.bo[bufnr].ft)
 		local parser = ts.get_parser(bufnr, lang)
 		lib.buffers[bufnr].parser = parser
 	end
