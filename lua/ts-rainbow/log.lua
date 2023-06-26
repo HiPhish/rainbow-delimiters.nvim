@@ -21,13 +21,7 @@ local M = {}
 local date = os.date
 local config = require 'ts-rainbow.config'
 
-local function log(level, message, ...)
-	if level < config.log.level then return end
-
-	local file = io.open(config.log.file, 'a+')
-	-- Intentional: Silently discard the log if the log file cannot be opened
-	if not file then return end
-
+local function write_log(file, message, ...)
 	local msg
 	local timestamp = date('%FT%H:%M%z')
 	if type(message) == 'function' then
@@ -36,7 +30,20 @@ local function log(level, message, ...)
 		msg = string.format('%s: ' .. message, timestamp , ...)
 	end
 	file:write(msg)
-	-- TODO: Should I also print the message?
+end
+
+local function log(level, message, ...)
+	if level < config.log.level then return end
+
+	local file = io.open(config.log.file, 'a+')
+	-- Intentional: Silently discard the log if the log file cannot be opened
+	if not file then return end
+
+	-- Wrap inside a pcall to make sure the file gets closed even if an error
+	-- occurs
+	pcall(write_log, message, ...)
+	file:close()
+	-- Should I also print the message?
 end
 
 ---Log an error message
