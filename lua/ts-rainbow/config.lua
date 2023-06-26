@@ -22,7 +22,7 @@ local function lookup(table, key)
 	local result
 
 	if vim.g.rainbow_delims then
-		result = rawget(vim.g.ts_rainbow_delims, key)
+		result = rawget(vim.g.rainbow_delims, key)
 	end
 	if result ~= nil then return result end
 

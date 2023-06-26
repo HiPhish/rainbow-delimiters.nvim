@@ -1,6 +1,6 @@
 Execute lua (Set up the plugin):
   the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.local'))
-  require('nvim-treesitter.configs').setup({enable = true, rainbow = {strategy = {the_strategy}}})
+  vim.g.rainbow_delims = {strategy = {[''] = the_strategy}}
 
 Given lua (Some Lua buffer):
   print({{{{{}}}}})

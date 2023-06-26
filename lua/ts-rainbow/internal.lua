@@ -17,7 +17,6 @@
 
 local config  = require 'ts-rainbow.config'
 local lib     = require 'ts-rainbow.lib'
-local rb      = require 'ts-rainbow'
 local api     = vim.api
 local ts      = vim.treesitter
 
@@ -40,7 +39,7 @@ end
 ---@return table strategy  The strategy table to use
 local function get_strategy(lang)
 	local settings = config.strategy
-	local setting = settings[lang] or settings[1] or rb.strategy.global
+	local setting = settings[lang] or settings['']
 	if type(setting) == 'function' then
 		return setting()
 	end
@@ -52,6 +51,7 @@ end
 --- @param lang string # Buffer language
 function M.attach(bufnr, lang)
 	if not lang then return end
+	if lib.buffers[bufnr] then return end
 
 	local parser
 	do

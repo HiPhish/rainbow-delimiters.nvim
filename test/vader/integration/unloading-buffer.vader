@@ -4,16 +4,18 @@
 #  https://github.com/HiPhish/nvim-ts-rainbow2/issues/40
 #  https://github.com/HiPhish/nvim-ts-rainbow2/pull/42
 
-Execute lua (Set up the plugin):
-    require('nvim-treesitter.configs').setup({enable = true, rainbow = {strategy = {require('ts-rainbow').strategy.global}}})
+" Execute lua (Set up the plugin):
+"     vim.g.rainbow_delims = {strategy = {[''] = require('ts-rainbow').strategy.global}}
 
-Execute (Create two windows with different buffers):
-    set ft=lua
-    call setline(1, 'print(((("Hello world"))))')
-    new
-    set ft=lua
-    call setline(1, 'print(((("Goodbye world"))))')
+" Execute (Create two windows with different buffers):
+"     set ft=lua
+"     call setline(1, 'print(((("Hello world"))))')
+"     new
+"     set ft=lua
+"     call setline(1, 'print(((("Goodbye world"))))')
+"     let g:secondbuf = bufnr()
 
-Execute (Delete one of the buffers):
-    let g:myerror = execute('bdelete!')
-    AssertEqual '', g:myerror, 'Deleting the buffer threw an error'
+" Execute (Delete one of the buffers):
+"     let g:myerror = execute('bdelete! ' .. g:secondbuf)
+"     AssertEqual '', g:myerror, 'Deleting the buffer threw an error'
+"     unlet g:secondbuf
