@@ -17,4 +17,8 @@ Execute (Edit the buffer multiple times):
 
 Then (The buffer has only been attached once):
     AssertEqual 1, luaeval('the_strategy.attachments[1]')
+
+Execute (Cleanup):
     bwipeout  " Remove the temporary buffer again
+
+# vim:tw=79:ts=2:sw=2:et:

@@ -17,21 +17,9 @@
 
 local config  = require 'ts-rainbow.config'
 local lib     = require 'ts-rainbow.lib'
-local api     = vim.api
-local ts      = vim.treesitter
 
 ---Internal implementation of the plugin.
 local M = {}
-
----Update the parser for a buffer.
-local function set_buffer_parser()
-	local bufnr = api.nvim_get_current_buf()
-	if lib.buffers[bufnr] then
-		local lang = ts.language.get_lang(vim.bo[bufnr].ft)
-		local parser = ts.get_parser(bufnr, lang)
-		lib.buffers[bufnr].parser = parser
-	end
-end
 
 ---Finds the configured strategy for the given language, falling back on the
 ---default if there is no language-specific setting.
@@ -51,7 +39,12 @@ end
 --- @param lang string # Buffer language
 function M.attach(bufnr, lang)
 	if not lang then return end
-	if lib.buffers[bufnr] then return end
+	if lib.buffers[bufnr] then
+		if lib.buffers[bufnr].lang == lang then return end
+		-- The file type of the buffer has change, so we need to detach first
+		-- before we re-attach
+		M.detach(bufnr)
+	end
 
 	local parser
 	do
@@ -70,12 +63,16 @@ function M.attach(bufnr, lang)
 		on_detach = function(bnr)
 			if not lib.buffers[bnr] then return end
 			M.detach(bufnr)
-		end
+		end,
+		on_child_removed = function(child)
+			lib.clear_namespace(bufnr, child:lang())
+		end,
 	}
 
 	local settings = {
 		strategy = strat,
-		parser = parser,
+		parser   = parser,
+		lang     = lang
 	}
 	lib.buffers[bufnr] = settings
 
@@ -104,15 +101,6 @@ function M.detach(bufnr)
 	pcall(strategy.on_detach, bufnr)
 	lib.buffers[bufnr] = nil
 end
-
--- If the file type of a buffer changes we have to swap out the parser for that
--- buffer.
-api.nvim_create_augroup("TSRainbowParser", {})
-api.nvim_create_autocmd("FileType", {
-	group = "TSRainbowParser",
-	pattern = "*",
-	callback = set_buffer_parser,
-})
 
 return M
 

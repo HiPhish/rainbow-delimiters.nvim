@@ -1,0 +1,24 @@
+# When the file type changes we need to detach from the buffer and re-attach
+# with the new language.
+
+Execute lua (Set up the plugin):
+    the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.no-op'))
+    vim.g.rainbow_delims = {strategy = {[''] = the_strategy}}
+
+Given lua (A Lua buffer):
+  'test'
+
+Execute (Do Nothing):
+
+Then (Attached to Lua buffer):
+  AssertEqual 1, luaeval('the_strategy.attachments[1]')
+  AssertEqual 'lua', luaeval('the_strategy.buffers[vim.fn.bufnr()].lang')
+
+Execute (Switch to Vim script):
+  set ft=vim
+
+Then (Re-attached to Vim script):
+  AssertEqual 1, luaeval('the_strategy.attachments[1]')
+  AssertEqual 'vim', luaeval('the_strategy.buffers[vim.fn.bufnr()].lang')
+
+# vim:tw=79:ts=2:sw=2:et:

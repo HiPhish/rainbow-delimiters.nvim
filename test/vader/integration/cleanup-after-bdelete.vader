@@ -1,13 +1,21 @@
 # Cleanup is performed after a buffer is deleted
 
 Execute lua (Set up the plugin):
-    the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.no-op'))
-    vim.g.rainbow_delims = {strategy = {[''] = the_strategy}}
+  the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.no-op'))
+  vim.g.rainbow_delims = {strategy = {[''] = the_strategy}}
 
 Given lua (Some Lua buffer):
-    print((((('Hello, world!')))))
+  print((((('Hello, world!')))))
+
+Do (Nothing):
+
+Then (The strategy is attached to the buffer):
+  Assert luaeval('the_strategy.buffers[vim.fn.bufnr()] ~= nil')
 
 Execute lua (Delete the buffer):
-    vim.cmd{cmd = 'Assert', args = {the_strategy.buffers[vim.fn.bufnr()] ~= nil}}
-    vim.cmd.bdelete({bang = true})
-    vim.cmd{cmd = 'Assert', args = {the_strategy.buffers[vim.fn.bufnr()] == nil}}
+  vim.cmd.bdelete({bang = true})
+
+Then (The strategy not is attached to the buffer):
+  Assert luaeval('the_strategy.buffers[vim.fn.bufnr()] == nil')
+
+# vim:tw=79:ts=2:sw=2:et:
