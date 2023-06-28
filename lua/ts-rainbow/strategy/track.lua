@@ -24,7 +24,7 @@
 ---@param strategy table
 local function track(strategy)
 	local buffers = {}
-	local attachments = {0}  -- Table because want to pass it by reference
+	local attachments = {0}  -- Table because I want to pass it by reference
 
 	return {
 		strategy = strategy,

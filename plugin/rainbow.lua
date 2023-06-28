@@ -17,7 +17,10 @@ if vim.g.loaded_rainbow then
 	return
 end
 
-local set_hl = vim.api.nvim_set_hl
+local api = vim.api
+local set_hl = api.nvim_set_hl
+local create_augroup = api.nvim_create_augroup
+local create_autocmd = api.nvim_create_autocmd
 local internal = require 'ts-rainbow.internal'
 local log = require 'ts-rainbow.log'
 
@@ -39,16 +42,16 @@ define_hlgroups()
 
 
 --- [ SET UP AUTOCOMMANDS ]----------------------------------------------------
-local hl_augroup = vim.api.nvim_create_augroup('TSRainbowHighlight', {})
-local rb_augroup = vim.api.nvim_create_augroup('TSRainbowDelimits', {})
+local hl_augroup = create_augroup('TSRainbowHighlight', {})
+local rb_augroup = create_augroup('TSRainbowDelimits', {})
 
-vim.api.nvim_create_autocmd('ColorScheme', {
+create_autocmd('ColorScheme', {
 	desc = 'Re-apply highlight group definitions when the colour scheme changes',
 	group = hl_augroup,
 	callback = define_hlgroups
 })
 
-vim.api.nvim_create_autocmd('FileType', {
+create_autocmd('FileType', {
 	desc = 'Attach to a new buffer',
 	group = rb_augroup,
 	callback = function(args)
@@ -60,7 +63,7 @@ vim.api.nvim_create_autocmd('FileType', {
 	end
 })
 
-vim.api.nvim_create_autocmd('BufUnload', {
+create_autocmd('BufUnload', {
 	desc = 'Detach from the current buffer',
 	group = rb_augroup,
 	callback = function(args)

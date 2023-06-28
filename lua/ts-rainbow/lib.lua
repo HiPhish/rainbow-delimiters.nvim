@@ -15,11 +15,9 @@
    limitations under the License.
 --]]
 
-local get_query = vim.fn.has('nvim-0.9') and vim.treesitter.query.get or
-	vim.treesitter.query.get_query
-
-local log    = require 'ts-rainbow.log'
-local config = require 'ts-rainbow.config'
+local get_query = vim.treesitter.query.get
+local log       = require 'ts-rainbow.log'
+local config    = require 'ts-rainbow.config'
 
 
 ---[ Internal ]----------------------------------------------------------------

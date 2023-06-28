@@ -15,8 +15,9 @@
    limitations under the License.
 --]]
 
-local config  = require 'ts-rainbow.config'
-local lib     = require 'ts-rainbow.lib'
+local get_parser = vim.treesitter.get_parser
+local config     = require 'ts-rainbow.config'
+local lib        = require 'ts-rainbow.lib'
 
 ---Internal implementation of the plugin.
 local M = {}
@@ -49,7 +50,7 @@ function M.attach(bufnr, lang)
 	local parser
 	do
 		local success
-		success, parser = pcall(vim.treesitter.get_parser, bufnr, lang)
+		success, parser = pcall(get_parser, bufnr, lang)
 		if not success then return end
 	end
 
