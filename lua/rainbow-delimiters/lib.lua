@@ -16,8 +16,8 @@
 --]]
 
 local get_query = vim.treesitter.query.get
-local log       = require 'ts-rainbow.log'
-local config    = require 'ts-rainbow.config'
+local log       = require 'rainbow-delimiters.log'
+local config    = require 'rainbow-delimiters.config'
 
 
 ---[ Internal ]----------------------------------------------------------------

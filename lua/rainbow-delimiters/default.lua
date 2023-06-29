@@ -25,7 +25,7 @@ local M = {
 	},
 	---Highlight strategies by file type
 	strategy = {
-		[''] = require 'ts-rainbow.strategy.global'
+		[''] = require 'rainbow-delimiters.strategy.global'
 	},
 	---Event logging settings
 	log = {

@@ -15,9 +15,9 @@
    limitations under the License.
 --]]
 
-local Stack = require 'ts-rainbow.stack'
-local lib   = require 'ts-rainbow.lib'
-local log   = require 'ts-rainbow.log'
+local Stack = require 'rainbow-delimiters.stack'
+local lib   = require 'rainbow-delimiters.lib'
+local log   = require 'rainbow-delimiters.log'
 local ts    = vim.treesitter
 
 

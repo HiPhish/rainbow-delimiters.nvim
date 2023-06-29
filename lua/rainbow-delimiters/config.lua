@@ -1,6 +1,5 @@
 --[[
    Copyright 2023 Alejandro "HiPhish" Sanchez
-   Copyright 2020-2022 Chinmay Dalal
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -15,19 +14,31 @@
    limitations under the License.
 --]]
 
-local lib = require 'ts-rainbow.lib'
+---Plugin settings lookup table.  This table is only used for looking up
+---values.  Set `g:rainbow_delims` to change the values.
+local M = {}
 
----Public API for use in writing strategies or other custom code.
-local M = {
-	hlgroup_at = lib.hlgroup_at,
-	---Available default highlight strategies
-	strategy = {
-		['global'] = require 'ts-rainbow.strategy.global',
-		['local'] = require 'ts-rainbow.strategy.local',
-		['noop'] = require 'ts-rainbow.strategy.no-op',
-	}
-}
+local function lookup(table, key)
+	local result
 
+	if vim.g.rainbow_delims then
+		result = rawget(vim.g.rainbow_delims, key)
+	end
+	if result ~= nil then return result end
+
+	result = rawget(table, key)
+	if result ~= nil then return result end
+
+	-- Cache the result in table so we don't need a require lookup the next time
+	result = require('rainbow-delimiters.default')[key]
+	table[key] = result
+	return result
+end
+
+setmetatable(M, {
+	__index = lookup,
+})
 
 return M
+
 -- vim:tw=79:ts=4:sw=4:noet:

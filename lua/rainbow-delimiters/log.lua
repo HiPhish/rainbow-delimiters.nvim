@@ -19,7 +19,7 @@
 local M = {}
 
 local date = os.date
-local config = require 'ts-rainbow.config'
+local config = require 'rainbow-delimiters.config'
 
 local function write_log(file, message, ...)
 	local msg
