@@ -88,7 +88,7 @@ function attach(args)
 	parser:register_cbs {
 		on_detach = function(bnr)
 			if not lib.buffers[bnr] then return end
-			detach(bufnr)
+			detach({bufnr=bufnr})
 		end,
 		on_child_removed = function(child)
 			lib.clear_namespace(bufnr, child:lang())
