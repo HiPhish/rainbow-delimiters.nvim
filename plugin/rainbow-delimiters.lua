@@ -46,8 +46,7 @@ define_hlgroups()
 --- [ CALLBACK FUNCTIONS ]-----------------------------------------------------
 local attach, detach
 
-function attach(args)
-	local bufnr = args.buf
+function attach(bufnr)
 	local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].ft)
 	if not lang then
 		log.trace('Cannot attach to buffer %d, no parser for %s', bufnr, lang)
@@ -59,7 +58,7 @@ function attach(args)
 		if lib.buffers[bufnr].lang == lang then return end
 		-- The file type of the buffer has change, so we need to detach first
 		-- before we re-attach
-		detach(args)
+		detach(bufnr)
 	end
 
 	local parser
@@ -88,7 +87,7 @@ function attach(args)
 	parser:register_cbs {
 		on_detach = function(bnr)
 			if not lib.buffers[bnr] then return end
-			detach({bufnr=bufnr})
+			detach(bufnr)
 		end,
 		on_child_removed = function(child)
 			lib.clear_namespace(bufnr, child:lang())
@@ -111,8 +110,7 @@ function attach(args)
 	end
 end
 
-function detach(args)
-	local bufnr = args.buf
+function detach(bufnr)
 	log.trace('Detaching from buffer %d.', bufnr)
 	if not lib.buffers[bufnr] then
 		return
@@ -151,13 +149,13 @@ create_autocmd('ColorScheme', {
 create_autocmd('FileType', {
 	desc = 'Attach to a new buffer',
 	group = rb_augroup,
-	callback = attach,
+	callback = function(args) attach(args.buf) end,
 })
 
 create_autocmd('BufUnload', {
 	desc = 'Detach from the current buffer',
 	group = rb_augroup,
-	callback = detach
+	callback = function(args) detach(args.buf) end
 })
 
 vim.g.loaded_rainbow = true
