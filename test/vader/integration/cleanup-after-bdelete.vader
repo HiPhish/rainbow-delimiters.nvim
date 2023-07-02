@@ -1,8 +1,8 @@
 # Cleanup is performed after a buffer is deleted
 
 Execute lua (Set up the plugin):
-  the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.no-op'))
-  vim.g.rainbow_delims = {strategy = {[''] = the_strategy}}
+  the_strategy = require('rainbow-delimiters.strategy.track')(require('rainbow-delimiters.strategy.no-op'))
+  vim.g.rainbow_delimiters = {strategy = {[''] = the_strategy}}
 
 Given lua (Some Lua buffer):
   print((((('Hello, world!')))))

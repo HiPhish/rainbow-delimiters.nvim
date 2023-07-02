@@ -1,6 +1,6 @@
 Execute lua (Set up the plugin):
-  the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.no-op'))
-  vim.g.rainbow_delims = {strategy = {[''] = the_strategy}}
+  the_strategy = require('rainbow-delimiters.strategy.track')(require('rainbow-delimiters.strategy.no-op'))
+  vim.g.rainbow_delimiters = {strategy = {[''] = the_strategy}}
 
 Given lua (Some Lua buffer):
   print({{{{{}}}}})
@@ -10,7 +10,7 @@ Execute (Disable the plugin):
   TSDisable rainbow
   let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
     \->map('v:val["ns_id"]')
-    \->filter({_, nsid -> nsid == luaeval('require("ts-rainbow.lib").nsids.lua')})
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
   AssertEqual [], extmarks
 
 Do (insert a new pair of curly braces):
@@ -24,5 +24,5 @@ Then (There is no highlight on the delimiters):
   redraw!  " Without this there will be no extmarks at all
   let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
     \->map('v:val["ns_id"]')
-    \->filter({_, nsid -> nsid == luaeval('require("ts-rainbow.lib").nsids.lua')})
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
   AssertEqual [], extmarks

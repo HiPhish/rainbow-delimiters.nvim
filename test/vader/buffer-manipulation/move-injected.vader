@@ -33,5 +33,5 @@ Then:
   redraw!
   let extmarks = luaeval('vim.inspect_pos(0, 4, 5)').extmarks
     \->map('v:val["ns_id"]')
-    \->filter({_, nsid -> nsid == luaeval('require("ts-rainbow.lib").nsids.lua')})
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
   AssertEqual [], extmarks

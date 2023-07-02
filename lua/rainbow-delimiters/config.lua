@@ -15,14 +15,14 @@
 --]]
 
 ---Plugin settings lookup table.  This table is only used for looking up
----values.  Set `g:rainbow_delims` to change the values.
+---values.  Set `g:rainbow_delimiters` to change the values.
 local M = {}
 
 local function lookup(table, key)
 	local result
 
-	if vim.g.rainbow_delims then
-		result = rawget(vim.g.rainbow_delims, key)
+	if vim.g.rainbow_delimiters then
+		result = rawget(vim.g.rainbow_delimiters, key)
 	end
 	if result ~= nil then return result end
 

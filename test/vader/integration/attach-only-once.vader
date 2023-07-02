@@ -2,9 +2,9 @@
 # already attached.
 
 Execute lua (Set up the plugin):
-    the_strategy = require('ts-rainbow.strategy.track')(require('ts-rainbow.strategy.no-op'))
+    the_strategy = require('rainbow-delimiters.strategy.track')(require('rainbow-delimiters.strategy.no-op'))
     vim.g.tempfile = vim.fn.tempname() .. '.lua'
-    vim.g.rainbow_delims = {strategy = {[''] = the_strategy}}
+    vim.g.rainbow_delimiters = {strategy = {[''] = the_strategy}}
 
 Execute (Edit the buffer multiple times):
     call writefile(['print((((("Hello, world!")))))'], g:tempfile)

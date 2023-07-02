@@ -29,7 +29,7 @@ Setup
 =====
 
 Configuration is done by setting entries in the Vim script dictionary
-`g:ts_rainbow_delims`.  Here is an example for the default configuration:
+`g:rainbow_delimiters`.  Here is an example for the default configuration:
 
 .. code:: vim
 
