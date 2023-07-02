@@ -1,4 +1,6 @@
-;;; String interpolation inside template strings
+;;; This query includes React support as well.
+
+;; String interpolation inside template strings
 (template_substitution
   "${" @opening
   "}"  @closing) @container
@@ -31,15 +33,33 @@
   "[" @opening
   "]" @closing) @container
 
+(named_imports
+  "{" @opening
+  "}" @closing) @container
+
+(export_clause
+  "{" @opening
+  "}" @closing) @container
+
+(object_pattern
+  "{" @opening
+  "}" @closing) @container
+
+(array
+  "[" @opening
+  "]" @closing) @container
+
 
 ;;; React.js support
 (jsx_element
-  (jsx_opening_element ["<" ">"] @opening)
-  (jsx_closing_element ["<" "/" ">"] @closing)) @container
+  open_tag: (jsx_opening_element
+              name: (identifier) @opening)
+  close_tag: (jsx_closing_element
+               name: (identifier) @closing)) @container
 
 (jsx_self_closing_element
-  "<" @opening
-  ["/" ">"] @closing) @container
+  name: (identifier) @opening
+  "/" @closing) @container
 
 (jsx_expression
   "{" @opening

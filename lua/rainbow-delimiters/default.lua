@@ -19,13 +19,11 @@ local M = {
 	---Query names by file type
 	query = {
 		['']  = 'rainbow-delimiters',
-		html  = 'rainbow-tags',
-		latex = 'rainbow-blocks',
-		tsx   = 'rainbow-tags',
+		javascript = 'rainbow-delimiters-react'
 	},
 	---Highlight strategies by file type
 	strategy = {
-		[''] = require 'rainbow-delimiters.strategy.global'
+		[''] = require 'rainbow-delimiters.strategy.global',
 	},
 	---Event logging settings
 	log = {

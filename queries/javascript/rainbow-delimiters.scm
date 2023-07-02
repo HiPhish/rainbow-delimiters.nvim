@@ -1,4 +1,7 @@
-;;; String interpolation inside template strings
+;;; This query only covers Javascript without any React support.  It exists so
+;;; that Typescript query can inherit it.
+
+;; String interpolation inside template strings
 (template_substitution
   "${" @opening
   "}"  @closing) @container
