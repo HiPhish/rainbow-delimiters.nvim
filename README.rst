@@ -62,8 +62,8 @@ The equivalent code in Lua:
 
    vim.g.rainbow_delimiters = {
        strategy = {
-           [''] = rainbow_delimiters.strategy.global,
-           commonlisp = rainbow_delimiters.strategy.local,
+           [''] = rainbow_delimiters.strategy['global'],
+           vim = rainbow_delimiters.strategy['local'],
        },
        query = {
            [''] = 'rainbow-delimiters',
