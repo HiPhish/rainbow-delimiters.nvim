@@ -44,4 +44,5 @@ local function track(strategy)
 end
 
 return track
+
 -- vim:tw=79:ts=4:sw=4:noet:
