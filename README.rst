@@ -157,6 +157,28 @@ Licensed under the Apache-2.0 license. Please see the `LICENSE`_ file for
 details.
 
 
+Migrating from nvim-ts-rainbow2
+###############################
+
+Rainbow-Delimiters uses different settings than nvim-ts-rainbow2, but
+converting the configuration is straight-forward.  The biggest change is where
+the settings are stored.
+
+- Settings are stored in the global variable `g:rainbow-delimiters`, which has
+  the same keys as the old settings
+- The default strategy and query have index `''` (empty string) instead of `1`
+- Default highlight groups have the prefix `RainbowDelimiter` instead of
+  `TSRainbow`, e.g. `RainbowDelimiterRed` instead of `TSRainbowRed`
+- The default query is now called `rainbow-delimiters` instead of
+  `rainbow-parens`
+- The public Lua module is called `rainbow-delimiters` instead of `ts-rainbow`
+
+The name of the default query is now `rainbow-delimiters` because for some
+languages like HTML the notion of "parentheses" does not make any sense.  In
+HTML the only meaningful delimiter is the tag.  Hence the generic notion of a
+"delimiter".
+
+
 Attribution
 ###########
 
