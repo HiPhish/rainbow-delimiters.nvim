@@ -19,7 +19,7 @@ body:
     attributes:
       label: 'Query'
       description: 'Leave empty if the issue is not tied to a specific query.'
-      placeholder: 'rainbow-parens'
+      placeholder: 'rainbow-delimiters'
   - type: 'input'
     attributes:
       label: 'Strategy'

@@ -250,7 +250,7 @@ If you wish to define your own custom query or add support for a new language,
 consult |rb-delimiters-custom-query| for details.
 
 For every language the query `rainbow-delimiters` is defined, which matches a
-reasonable set of parentheses and similar delimiters for each language..  In
+reasonable set of parentheses and similar delimiters for each language.  In
 addition there are the following extra queries for certain languages:
 
 - `html`

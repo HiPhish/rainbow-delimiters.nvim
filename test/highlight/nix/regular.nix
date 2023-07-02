@@ -1,5 +1,5 @@
 {
-  description = "Test flake for ts-rainbow-parens2";
+  description = "Test flake for rainbow-delimiters.nvim";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";

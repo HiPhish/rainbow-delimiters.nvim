@@ -104,14 +104,14 @@ changes to Neovim necessitates them.
    so that only the first node of a capture group can be highlighted.  Please
    see `neovim/neovim#17099`_ for details.  Affected queries:
 
-   - HTML `rainbow-parens`
-   - JSX (Javascript + React.js) `rainbow-parens-react` (affects React tags
+   - HTML `rainbow-delimiters`
+   - JSX (Javascript + React.js) `rainbow-delimiters-react` (affects React tags
      only)
-   - Python (`rainbow-parens`) (affects only the `for ... in` inside
+   - Python (`rainbow-delimiters`) (affects only the `for ... in` inside
      comprehensions)
-   - TSX (Typescript + React.js) `rainbow-parens-react` (affects React tags
+   - TSX (Typescript + React.js) `rainbow-delimiters-react` (affects React tags
      only)
-   - Vue.js `rainbow-parens`
+   - Vue.js `rainbow-delimiters`
 
    Most of these are related to HTML-like tags, so you can use an alternative
    query instead.  See the manual_ (`:h ts-rainbow-query`) for a list of extra

@@ -18,7 +18,7 @@
 local M = {
 	---Query names by file type
 	query = {
-		['']  = 'rainbow-parens',
+		['']  = 'rainbow-delimiters',
 		html  = 'rainbow-tags',
 		latex = 'rainbow-blocks',
 		tsx   = 'rainbow-tags',

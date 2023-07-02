@@ -14,7 +14,7 @@ at lease one query which matches the most common delimiters, usually `(`, `)`,
 manual first to understand how to write queries.  Your query should meet the
 following criteria:
 
-- Named `rainbow-parens`
+- Named `rainbow-delimiters`
 - Few if any `@intermediate` capture groups; we do not want the default query
   to be too vibrant
 - Write one or more files in the language under `test/highlight/<lang>` (where
