@@ -38,13 +38,13 @@ local M = {
 	highlight = {
 		-- The colours are intentionally not in the usual order to make
 		-- the contrast between them stronger
-		'TSRainbowRed',
-		'TSRainbowYellow',
-		'TSRainbowBlue',
-		'TSRainbowOrange',
-		'TSRainbowGreen',
-		'TSRainbowViolet',
-		'TSRainbowCyan',
+		'RainbowDelimiterRed',
+		'RainbowDelimiterYellow',
+		'RainbowDelimiterBlue',
+		'RainbowDelimiterOrange',
+		'RainbowDelimiterGreen',
+		'RainbowDelimiterViolet',
+		'RainbowDelimiterCyan',
 	}
 }
 

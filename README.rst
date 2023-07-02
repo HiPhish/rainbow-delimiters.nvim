@@ -11,6 +11,10 @@ hackable plugin which allows for different configuration of queries and
 strategies, both globally and per file type.  Users can override and extend the
 built-in defaults through their own configuration.
 
+This is a fork of `nvim-ts-rainbow2`_, which was implemented as a module for
+`nvim-treessiter`_.  However, since nvim-treesitter has deprecated the module
+system I had to create this standalone plugin.
+
 
 Installation and setup
 ######################
@@ -18,20 +22,63 @@ Installation and setup
 Installation
 ============
 
-Install it like any other Neovim plugin.
+Install it like any other Neovim plugin.  You will need a Tree-sitter parser
+for each language you want to use rainbow delimiters with.
 
 Setup
 =====
 
 Configuration is done by setting entries in the Vim script dictionary
-`g:ts_rainbow_delims` or in the Lua module (table) `'ts-rainbow.config'`.  Here
-is an example:
+`g:ts_rainbow_delims`.  Here is an example for the default configuration:
+
+.. code:: vim
+
+   let g:rainbow_delimiters = {
+       \ 'strategy': {
+           \ '': rainbow_delimiters#strategy.global,
+           \ 'vim': rainbow_delimiters#strategy.local,
+       \ },
+       \ 'query': {
+           \ '': 'rainbow-delimiters',
+           \ 'lua': 'rainbow-blocks',
+       \ },
+       \ 'highlight': [
+           \ 'RainbowDelimiterRed',
+           \ 'RainbowDelimiterYellow',
+           \ 'RainbowDelimiterBlue',
+           \ 'RainbowDelimiterOrange',
+           \ 'RainbowDelimiterGreen',
+           \ 'RainbowDelimiterViolet',
+           \ 'RainbowDelimiterCyan',
+       \ ], 
+   \ }
+
+The equivalent code in Lua:
 
 .. code:: lua
 
-   local config = require 'ts-rainbow.config'
-   config.query = {'rainbow-parens'}
-   config.strategy = {require('ts-rainbow').strategy.global}
+   -- This module contains a number of default definitions
+   local rainbow_delimiters = require 'rainbow-delimiters'
+
+   vim.g.rainbow_delimiters = {
+       strategy = {
+           [''] = rainbow_delimiters.strategy.global,
+           commonlisp = rainbow_delimiters.strategy.local,
+       },
+       query = {
+           [''] = 'rainbow-delimiters',
+           lua = 'rainbow-blocks',
+       },
+       highlight = {
+           'RainbowDelimiterRed',
+           'RainbowDelimiterYellow',
+           'RainbowDelimiterBlue',
+           'RainbowDelimiterOrange',
+           'RainbowDelimiterGreen',
+           'RainbowDelimiterViolet',
+           'RainbowDelimiterCyan',
+       },
+   }
 
 Please refer to the `manual`_ for more details.
 
@@ -129,3 +176,5 @@ Huge thanks to @vigoux, @theHamsta, @sogaiu, @bfredl and @sunjon and
 .. _LICENSE: LICENSE
 .. _manual: doc/ts-rainbow.txt
 .. _neovim/neovim#17099: https://github.com/neovim/neovim/pull/17099
+.. _nvim-ts-rainbow2: https://gitlab.com/HiPhish/nvim-ts-rainbow2
+.. _nvim-treessiter: https://github.com/nvim-treesitter/nvim-treesitter

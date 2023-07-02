@@ -22,9 +22,9 @@ local M = {
 	hlgroup_at = lib.hlgroup_at,
 	---Available default highlight strategies
 	strategy = {
-		['global'] = require 'ts-rainbow.strategy.global',
-		['local'] = require 'ts-rainbow.strategy.local',
-		['noop'] = require 'ts-rainbow.strategy.no-op',
+		['global'] = require 'rainbow-delimiters.strategy.global',
+		['local']  = require 'rainbow-delimiters.strategy.local',
+		['noop']   = require 'rainbow-delimiters.strategy.no-op',
 	}
 }
 

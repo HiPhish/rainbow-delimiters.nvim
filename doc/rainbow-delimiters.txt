@@ -1,12 +1,12 @@
 *rainbow-delimiters.txt*	Alternating highlight for delimiters in code
 
-                                                                  *ts-rainbow*
+                                                          *rainbow-delimiters*
+                                                               *rb-delimiters*
            ____       _       _~
           |  _ \ __ _(_)_ __ | |__   _____      __~
           | |_) / _` | | '_ \| '_ \ / _ \ \ /\ / /____~
           |  _ < (_| | | | | | |_) | (_) \ V  V /_____|~
           |_| \_\__,_|_|_| |_|_.__/ \___/ \_/\_/~
-          
                             ____       _ _           _ _~
                            |  _ \  ___| (_)_ __ ___ (_) |_ ___ _ __ ___~
                            | | | |/ _ \ | | '_ ` _ \| | __/ _ \ '__/ __|~
@@ -23,24 +23,24 @@ WARNING: This manual needs yet to be updated!
 
 
 ==============================================================================
-TABLE OF CONTENTS                                        *ts-rainbow-contents*
+TABLE OF CONTENTS                                     *rb-delimiters-contents*
 
-1. Introduction ................................. |ts-rainbow-intro|
-2. Setup and configuration ...................... |ts-rainbow-setup|
-   2.1 Highlight colors ......................... |ts-rainbow-colors|
-   2.2 Strategies ............................... |ts-rainbow-strategy|
-   2.3 Queries .................................. |ts-rainbow-query|
-3. Extending .................................... |ts-rainbow-extending|
-   3.1 The library .............................. |ts-rainbow-custom-api|
-   3.2 Custom queries ........................... |ts-rainbow-custom-query|
-   3.3 Custom strategies ........................ |ts-rainbow-custom-strategy|
-   3.4 Adding new languages ..................... |ts-rainbow-custom-lang|
-4. Acknowledgements ............................. |ts-rainbow-credit|
-5. Further reading .............................. |ts-rainbow-reading|
+1. Introduction .............................. |rb-delimiters-intro|
+2. Setup and configuration ................... |rb-delimiters-setup|
+   2.1 Highlight colors ...................... |rb-delimiters-colors|
+   2.2 Strategies ............................ |rb-delimiters-strategy|
+   2.3 Queries ............................... |rb-delimiters-query|
+3. Extending ................................. |rb-delimiters-extending|
+   3.1 The library ........................... |rb-delimiters-custom-api|
+   3.2 Custom queries ........................ |rb-delimiters-custom-query|
+   3.3 Custom strategies ..................... |rb-delimiters-custom-strategy|
+   3.4 Adding new languages .................. |rb-delimiters-custom-lang|
+4. Acknowledgements .......................... |rb-delimiters-credit|
+5. Further reading ........................... |rb-delimiters-reading|
 
 
 ==============================================================================
-INTRODUCTION
+INTRODUCTION                                             *rb-delimiters-intro*
 
 This plugin provides alternating highlighting for delimiters in Neovim, also
 known as "rainbow parentheses".  Thanks to the built-in |treesitter| support
@@ -51,91 +51,123 @@ the strategy used for highlighting.
 
 
 ==============================================================================
-SETUP AND CONFIGURATION
+SETUP AND CONFIGURATION                                  *rb-delimiters-setup*
 
-The plugin |nvim-treesitter| must be installed and configured.  This plugin is
-a module for nvim-treesitter; please refer to |nvim-treesitter-modules| for
-information on how to enable and configure a module.
+Install Rainbow-Delimiters like any other Neovim plugin.  You also need a
+Tree-sitter parser for each language to want to support.
 
-In addition to the default keys defined by nvim-treesitter, the configuration
-accepts the following keys:
+                                                        *g:rainbow_delimiters*
+Configuration is done through the variable `g:rainbow_delimiters`.  It is a
+dictionary which can be defined both in Vim script and in Lua.  The following
+keys are recognized:
 
 `strategy`
-The highlighting strategy to use, see |ts-rainbow-strategy|
+  Dictionary mapping Tree-sitter language names to strategies.  The empty
+  string is the key for the default strategy.  See |rb-delimiters-strategy|
+  for more information about strategies.
 
 `query`
-Name of the query to match delimiters, see |ts-rainbow-query|
+  Dictionary mapping Tree-sitter language names to queries.  The empty string
+  is the key for the default query.  See |rb-delimiters-query| for more
+  information about queries.
 
 `hlgroups`
-Names of the highlight groups to use for highlighting, see |ts-rainbow-colors|
+  List of names of the highlight groups to use for highlighting, for more
+  information see |rb-delimiters-colors|.
 
-Here is the default configuration:
+Here is an example configuration:
 >
-    local rainbow = require 'ts-rainbow'
+    let g:rainbow_delimiters = {
+        \ 'strategy': {
+            \ '': rainbow_delimiters#strategy.global,
+            \ 'vim': rainbow_delimiters#strategy.local,
+        \ },
+        \ 'query': {
+            \ '': 'rainbow-delimiters',
+            \ 'lua': 'rainbow-blocks',
+        \ },
+        \ 'highlight': [
+            \ 'RainbowDelimiterRed',
+            \ 'RainbowDelimiterYellow',
+            \ 'RainbowDelimiterBlue',
+            \ 'RainbowDelimiterOrange',
+            \ 'RainbowDelimiterGreen',
+            \ 'RainbowDelimiterViolet',
+            \ 'RainbowDelimiterCyan',
+        \ ], 
+    \ }
+<
 
-    require("nvim-treesitter.configs").setup {
-        rainbow = {
-            query = {
-               'rainbow-parens'
-            }
-            strategy = rainbow.strategy.global,
-            hlgroups = {
-               'TSRainbowRed',
-               'TSRainbowYellow',
-               'TSRainbowBlue',
-               'TSRainbowOrange',
-               'TSRainbowGreen',
-               'TSRainbowViolet',
-               'TSRainbowCyan'
-            },
-        }
+Alternatively, the same configuration in Lua:
+>
+    -- This module contains a number of default definitions
+    local rainbow_delimiters = require 'rainbow-delimiters'
+
+    vim.g.rainbow_delimiters = {
+        strategy = {
+            [''] = rainbow_delimiters.strategy.global,
+            commonlisp = rainbow_delimiters.strategy.local,
+        },
+        query = {
+            [''] = 'rainbow-delimiters',
+            lua = 'rainbow-blocks',
+        },
+        highlight = {
+            'RainbowDelimiterRed',
+            'RainbowDelimiterYellow',
+            'RainbowDelimiterBlue',
+            'RainbowDelimiterOrange',
+            'RainbowDelimiterGreen',
+            'RainbowDelimiterViolet',
+            'RainbowDelimiterCyan',
+        },
     }
 <
 
 
 ------------------------------------------------------------------------------
-HIGHLIGHT COLORS                                           *ts-rainbow-colors*
+HIGHLIGHT COLORS                                        *rb-delimiters-colors*
 
 The `hlgroups` setting controls which highlight group to apply.  It is a list
-of any number of highlight groups as strings.  The default values are in this
-order:
+of any number of highlight group names as strings.  The default values are in
+this order:
 
-- `TSRainbowRed`
-- `TSRainbowYellow`
-- `TSRainbowBlue`
-- `TSRainbowOrange`
-- `TSRainbowGreen`
-- `TSRainbowViolet`
-- `TSRainbowCyan`
+- `RainbowDelimiterRed`
+- `RainbowDelimiterYellow`
+- `RainbowDelimiterBlue`
+- `RainbowDelimiterOrange`
+- `RainbowDelimiterGreen`
+- `RainbowDelimiterViolet`
+- `RainbowDelimiterCyan`
 
 These are non-standard highlight groups and I have tried to find reasonable
 default values for most uses.  Nevertheless, you probably want to redefine
 them for your colour scheme or link them to some existing group.
 
 The colors are intentionally not in the order of the rainbow to help make the
-contrast between adjacent delimiters more noticeable.  You can re-order the
-colours in your settings if you prefer a different order.
+contrast between adjacent delimiters more noticeable.  Re-order the groups in
+your settings if you prefer a different order.
 
 Example highlight group definitions:
 >
     " Link to an existing highlight group
-    highlight link TSRainbowRed WarningMsg
+    highlight link RainbowDelimiterRed WarningMsg
 
     " Define the highlight from scratch
-    highlight TSRainbowOrange  guifg=#d65d0e ctermfg=White
+    highlight RainbowDelimiterOrange  guifg=#d65d0e ctermfg=White
 <
 You will probably want to have different colours per theme.  Since most themes
 will lack definitions for the above groups you will need to hook in somehow.
 A simple solution is to use an autocommand.
 >
-    autocmd ColorSchemePre MyTheme highlight link TSRainbow MyThemeRed
-    autocmd ColorSchemePre MyTheme highlight link TSRainbow MyThemeYellow
+    au ColorSchemePre MyTheme highlight link RainbowDelimiter MyThemeRed
+    au ColorSchemePre MyTheme highlight link RainbowDelimiter MyThemeYellow
     " and so on...
 <
 
 
 ------------------------------------------------------------------------------
-STRATEGIES                                               *ts-rainbow-strategy*
+STRATEGIES                                            *rb-delimiters-strategy*
 
 A strategy defines how to perform the highlighting of delimiters.  For
 example, the included global strategy highlights every delimiter in a buffer
@@ -144,18 +176,19 @@ the included local strategy highlights only the sub-tree of the document which
 contains the cursor and is updated whenever the cursor moves.
 
 The strategy is set globally with per-language overrides.  The setting is a
-table where the first value is the default strategy and the overrides use the
-name of the language as keys.  Each value can be either a strategy  or a
-function of zero arguments which evaluates to a strategy.  A function can be
-used to defer the decision to a later point in time.  If the function
-evaluates to `nil` rainbow delimiters will be disabled for that buffer.
+dictionary where the empty string is the key for the default strategy and the
+overrides use the name of the language as keys.  Each value can be either a
+strategy or a function of zero arguments which evaluates to a strategy.  A
+function can be used to defer the decision to a later point in time.  If the
+function evaluates to `nil` rainbow delimiters will be disabled for that
+buffer.
 
 >
-    local rainbow = require 'ts-rainbow'
+    local rainbow = require 'rainbow-delimiters'
 
     strategy = {
         -- Use global strategy by default
-        rainbow.strategy['global'],
+        [''] = rainbow.strategy['global'],
         -- Use local for HTML
         html = rainbow.strategy['local'],
         -- Pick the strategy for LaTeX dynamically based on the buffer size
@@ -173,55 +206,52 @@ evaluates to `nil` rainbow delimiters will be disabled for that buffer.
 <
 
 A strategy is a table which must contain specific fields.  It is possible to
-define your own strategy, see |ts-rainbow-custom-strategy|.  The following
+define your own strategy, see |rb-delimiters-custom-strategy|.  The following
 strategies are included:
 
-                                                  *ts-rainbow.strategy.global*
+                                               *rb-delimiters.strategy.global*
 Global~
-'ts-rainbow'.strategy['global']
+'rainbow-delimiters'.strategy['global']
 
 The default strategy, highlights the entire buffer.  Has very simple logic.
 
 
-                                                   *ts-rainbow.strategy.local*
+                                                *rb-delimiters.strategy.local*
 Local~
-'ts-rainbow'.strategy['local']
+'rainbow-delimiters'.strategy['local']
 
 Based on the cursor position highlights only the sub-tree which contains the
 cursor.  Updated every time the cursor moves and uses more complex logic than
 the global strategy to figure out which nodes exactly to highlight.
 
 
-                                                     *ts-rainbow.strategy.noop*
+                                                 *rb-delimiters.strategy.noop*
 No-op~
-'ts-rainbow'.strategy['noop']
+'rainbow-delimiters'.strategy['noop']
 
 A dummy strategy which does nothing.  This is only useful in testing or if you
 really want an empty strategy.
 
 
 ------------------------------------------------------------------------------
-QUERIES                                                     *ts-rainbow-query*
+QUERIES                                                  *rb-delimiters-query*
 
 A query defines what to match.  Every language needs its own custom query.
-The query setting can be either a string (same query for all languages) or a
-table.  If it is a table then the first entry is the default query and other
-entries are key-value pairs where the key is the name of the language and the
-value is the name of the query.
+The query setting is a table where each entry maps a language name to a query
+name.  The empty string is the key for the default query.
 >
-    -- Use parentheses by default, entire tags for HTML and blocks for LaTeX
+    -- Use parentheses by default, blocks for Lua
     query = {
-        'rainbow-parens',
-        html = 'rainbow-tags',
-        latex = 'rainbow-blocks',
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
     }
 <
 If you wish to define your own custom query or add support for a new language,
-consult |ts-rainbow-custom-query| for details.
+consult |rb-delimiters-custom-query| for details.
 
-For every language the query `rainbow-parens` is defined, which matches a
-reasonable set of parentheses and similar delimiters.  In addition there are
-the following extra queries for certain languages:
+For every language the query `rainbow-delimiters` is defined, which matches a
+reasonable set of parentheses and similar delimiters for each language..  In
+addition there are the following extra queries for certain languages:
 
 - `html`
   - `rainbow-tags` Matches both opening and closing tags in their entirety
@@ -247,33 +277,39 @@ some rules which need to be followed.
 
 
 ------------------------------------------------------------------------------
-THE LIBRARY                                                   *ts-rainbow-api*
+THE LIBRARY                                                *rb-delimiters-api*
 
 There is a utility library provided for people writing their own strategies.
-It is available as a table under the Lua module `'ts-rainbow'`.
+It is available as a table under the Lua module `'rainbow-delimiters'`.
 
 
-                                                       *ts-rainbow.hlgroup_at*
-'ts-rainbow'.hlgroup_at({nesting_level})
+                                                    *rb-delimiters.hlgroup_at*
+'rainbow-delimiters'.hlgroup_at({nesting_level})
     Gets the name of the highlight group set up at the given nesting level.
     This function will properly roll over, meaning that if there are seven
     highlight groups defined and the {nesting_level} is nine, you will get the
     second highlight group.
 
 
-                                                         *ts-rainbow.strategy*
-'ts-rainbow'.strategy
-    Table of included strategies.  See |ts-rainbow-strategy| for information
-    about strategies.  The included ones are:
+                                                      *rb-delimiters.strategy*
+'rainbow-delimiters'.strategy
+    Table of included strategies.  For more information about strategies see
+    |rb-delimiters-strategy|.  The included ones are:
 
-    - `global`   |ts-rainbow.strategy.global|
-    - `local`    |ts-rainbow.strategy.local|
+    - `global`   |rb-delimiters.strategy.global|
+    - `local`    |rb-delimiters.strategy.local|
+    - `noop`     |rb-delimiters.strategy.noop|
 
     Do not add your own strategies to this table.
 
 
+                                               *g:rainbow_delimiters#strategy*
+g:rainbow_delimiters#strategy
+    Vim script equivalent of |rb-delimiters.strategy| with the same keys.
+
+
 ------------------------------------------------------------------------------
-CUSTOM STRATEGIES                                 *ts-rainbow-custom-strategy*
+CUSTOM STRATEGIES                              *rb-delimiters-custom-strategy*
 
 A strategy is a table which must contain a certain set of fields.  In
 object-oriented terminology we would say that a strategy table must implement
@@ -289,8 +325,7 @@ the strategy protocol.
 `on_attach`
 
 This function takes two arguments: the number of the buffer and the table of
-settings used by the buffer.  It is analogous to the `attach` function of
-custom |nvim-treesitter|.  This function is generally used to set up
+settings used by the buffer.  This function is generally used to set up
 autocommands or other callbacks for events when the highlighting needs to be
 updated.
 
@@ -306,24 +341,24 @@ them.
 ------------------------------------------------------------------------------
 `on_detach`
 
-This function takes one argument: the number of the buffer.  It is analogous
-to the `detach` function of custom |nvim-treesitter| modules and will receive
-the exact same argument.  This function is generally used to clean up any
-custom state, autocommands and callbacks set up in the `on_attach` function.
+This function takes one argument: the number of the buffer.  This function is
+generally used to clean up any custom state, autocommands and callbacks set up
+in the `on_attach` function.
 
 ------------------------------------------------------------------------------
 The logic within the strategy can vary wildly between strategies.  Usually you
 will want to install some callback in the `on_attach` function.  That callback
-can then use the Tree-sitter API and the utility library (|ts-rainbow-api|) to
-select which nodes to highlight and what highlight group to apply.
+can then use the Tree-sitter API and the utility library (see
+|rb-delimiters-api|) to select which nodes to highlight and what highlight
+group to apply.
 
-See |ts-rainbow-custom-query| for the standard capture groups used.  Selecting
-standard capture groups allows your strategy to work with any of the built-in
-queries as well as user-specified custom queries.
+See |rb-delimiters-custom-query| for the standard capture groups used.
+Selecting standard capture groups allows your strategy to work with any of the
+built-in queries as well as user-specified custom queries.
 
 
 ------------------------------------------------------------------------------
-CUSTOM QUERIES                                       *ts-rainbow-custom-query*
+CUSTOM QUERIES                                    *rb-delimiters-custom-query*
 
 A query defines what exactly needs to be highlighted.  Different languages
 have different document trees, so you need a separate query for each language.
@@ -344,7 +379,7 @@ always be present as well.  The `@intermediate` capture group will be rarely
 used.  If we have too many `@intermediate` delimiters the code can become too
 vibrant and distracting.
 
-WARNING: As of Neovim version 0.8.3 there is still a bug in the Tree-sitter
+WARNING: As of Neovim version 0.9.1 there is still a bug in the Tree-sitter
 integration.  If a capture matches multiple nodes (e.g. multiple `elseif`
 intermediate statements in an `if` block) only the last one will be used.
 
@@ -428,7 +463,7 @@ strategies.
 
 
 ------------------------------------------------------------------------------
-ADDING SUPPORT FOR NEW LANGUAGES                      *ts-rainbow-custom-lang*
+ADDING SUPPORT FOR NEW LANGUAGES                   *rb-delimiters-custom-lang*
 
 Supporting a new new language requires creating one or more queries for the
 language.  If the query is mature enough please consider upstreaming it so
@@ -436,7 +471,7 @@ everyone can benefit.
 
 
 ==============================================================================
-ACKNOWLEDGMENTS                                            *ts-rainbow-credit*
+ACKNOWLEDGMENTS                                         *rb-delimiters-credit*
 
 The original version of nvim-ts-rainbow was written by Chinmay "p00f" Dalal,
 and discontinued in January of 2023.  The original repositories can be found
@@ -447,7 +482,7 @@ under these URLs:
 
 
 ==============================================================================
-FURTHER READING                                           *ts-rainbow-reading*
+FURTHER READING                                        *rb-delimiters-reading*
 
 - nvim-treesitter plugin https://github.com/nvim-treesitter/nvim-treesitter
 - Official Tree-sitter website https://tree-sitter.github.io/tree-sitter/
