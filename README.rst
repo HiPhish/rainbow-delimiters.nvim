@@ -201,7 +201,7 @@ Huge thanks to @vigoux, @theHamsta, @sogaiu, @bfredl and @sunjon and
 .. _nvim-treesitter: https://github.com/nvim-treesitter/nvim-treesitter
 .. _CONTRIBUTING: CONTRIBUTING.rst
 .. _LICENSE: LICENSE
-.. _manual: doc/ts-rainbow.txt
+.. _manual: doc/rainbow-delimiters.txt
 .. _neovim/neovim#17099: https://github.com/neovim/neovim/pull/17099
 .. _nvim-ts-rainbow2: https://gitlab.com/HiPhish/nvim-ts-rainbow2
 .. _nvim-treessiter: https://github.com/nvim-treesitter/nvim-treesitter
