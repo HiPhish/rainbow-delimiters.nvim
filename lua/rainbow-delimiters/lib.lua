@@ -62,8 +62,7 @@ M.buffers = {}
 ---@param lang string  Name of the language to get the query for
 ---@return userdata query  The query object
 function M.get_query(lang)
-	local settings = config['query']
-	local name = settings[lang] or settings['']
+	local name = config['query'][lang]
 	local query = get_query(lang, name)
 
 	if not query then

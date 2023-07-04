@@ -46,6 +46,20 @@ local M = {
 	}
 }
 
+---If the key does not exist in the table fall back on the empty string as
+---key.
+local function get_with_fallback(table, key)
+	return rawget(table, key) or rawget(table, '')
+end
+
+setmetatable(M.query, {
+	__index = get_with_fallback,
+})
+
+setmetatable(M.strategy, {
+	__index = get_with_fallback,
+})
+
 return M
 
 -- vim:tw=79:ts=4:sw=4:noet:

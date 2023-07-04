@@ -1,0 +1,17 @@
+# If the highlight table is empty fall back to the default
+
+Execute (Set highlight to empty list):
+  let g:rainbow_delimiters = {"highlight": []}
+
+Then (The configuration falls back on default):
+  AssertEqual 7, luaeval("#require('rainbow-delimiters.config').highlight")
+  AssertEqual 'RainbowDelimiterRed',    luaeval("require('rainbow-delimiters.config').highlight[1]"), 'Wrong 1st highlight group'
+  AssertEqual 'RainbowDelimiterYellow', luaeval("require('rainbow-delimiters.config').highlight[2]"), 'Wrong 2nd highlight group'
+  AssertEqual 'RainbowDelimiterBlue',   luaeval("require('rainbow-delimiters.config').highlight[3]"), 'Wrong 3rd highlight group'
+  AssertEqual 'RainbowDelimiterOrange', luaeval("require('rainbow-delimiters.config').highlight[4]"), 'Wrong 4th highlight group'
+  AssertEqual 'RainbowDelimiterGreen',  luaeval("require('rainbow-delimiters.config').highlight[5]"), 'Wrong 5th highlight group'
+  AssertEqual 'RainbowDelimiterViolet', luaeval("require('rainbow-delimiters.config').highlight[6]"), 'Wrong 6th highlight group'
+  AssertEqual 'RainbowDelimiterCyan',   luaeval("require('rainbow-delimiters.config').highlight[7]"), 'Wrong 7th highlight group'
+
+
+# vim:ts=2:sw=2:et

@@ -14,15 +14,11 @@
    limitations under the License.
 --]]
 
----Plugin settings lookup table.  This table is only used for looking up
----values.  Set `g:rainbow_delimiters` to change the values.
-local M = {}
-
-local function lookup(table, key)
+local function get_nested(table, index, key)
 	local result
 
-	if vim.g.rainbow_delimiters then
-		result = rawget(vim.g.rainbow_delimiters, key)
+	if vim.g.rainbow_delimiters and vim.g.rainbow_delimiters[index] then
+		result = rawget(vim.g.rainbow_delimiters[index], key)
 	end
 	if result ~= nil then return result end
 
@@ -30,13 +26,46 @@ local function lookup(table, key)
 	if result ~= nil then return result end
 
 	-- Cache the result in table so we don't need a require lookup the next time
-	result = require('rainbow-delimiters.default')[key]
+	result = require('rainbow-delimiters.default')[index][key]
 	table[key] = result
 	return result
 end
 
+---Plugin settings lookup table.  This table is only used for looking up
+---values.  Set `g:rainbow_delimiters` to change the values.
+local M = {
+	query = setmetatable({}, {
+		__index = function(table, key)
+			return get_nested(table, 'query', key)
+		end
+	}),
+	strategy = setmetatable({}, {
+		__index = function(table, key)
+			return get_nested(table, 'strategy', key)
+		end
+	}),
+	log = setmetatable({}, {
+		__index = function(table, key)
+			return get_nested(table, 'log', key)
+		end
+	}),
+}
+
 setmetatable(M, {
-	__index = lookup,
+	__index = function(table, key)
+		if key == 'highlight' then
+			local highlight
+
+			if vim.g.rainbow_delimiters then
+				highlight = rawget(vim.g.rainbow_delimiters, 'highlight')
+			end
+			if highlight and #highlight > 0 then return highlight end
+
+			highlight = require('rainbow-delimiters.default').highlight
+			return highlight
+		end
+		return rawget(table, key)
+	end,
 })
 
 return M

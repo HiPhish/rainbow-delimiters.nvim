@@ -1,0 +1,12 @@
+Execute (Override the query for one language only):
+  let g:rainbow_delimiters = {'query': {'javascript': 'rainbow-delimiters-react'}}
+
+Execute lua (get the query for Lua):
+  vim.g.js_query  = require('rainbow-delimiters.config')['query']['javascript']
+  vim.g.lua_query = require('rainbow-delimiters.config')['query']['lua']
+
+Then (The default Lua query is used):
+  AssertEqual 'rainbow-delimiters-react', g:js_query, 'Wrong query found for Javascript'
+  AssertEqual 'rainbow-delimiters', g:lua_query, 'Wrong query found for Lua'
+
+# vim:ts=2:sw=2:et

@@ -70,8 +70,7 @@ function attach(bufnr)
 
 	local strategy
 	do
-		local strategies = config.strategy
-		strategy = strategies[lang] or strategies['']
+		strategy = config.strategy[lang]
 		if type(strategy) == 'function' then
 			strategy = strategy()
 		end

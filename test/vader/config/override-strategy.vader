@@ -1,0 +1,20 @@
+# I had to use a trick here because we cannot compare dictionaries or functions
+# for identity between Vim script and Lua.  Instead I set a string as the
+# strategy and compare for that equality.
+
+
+Execute lua (Hack: forcibly set a different default strategy):
+  require('rainbow-delimiters.default').strategy[''] = 'default strategy'
+
+Execute lua (Override the strategy for Vim only):
+  vim.g.rainbow_delimiters = {strategy = {vim = 'vim strategy'}}
+
+Execute lua (get the strategy for Lua):
+  vim.g.vim_strategy = require('rainbow-delimiters.config')['strategy']['vim']
+  vim.g.lua_strategy = require('rainbow-delimiters.config')['strategy']['lua']
+
+Then (The proper strategies are used):
+  AssertEqual 'vim strategy', g:vim_strategy, 'Wrong strategy found for Vim'
+  AssertEqual 'default strategy', g:lua_strategy, 'Wrong strategy found for Lua'
+
+# vim:ts=2:sw=2:et
