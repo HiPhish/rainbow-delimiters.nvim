@@ -1,0 +1,11 @@
+Execute lua (Call the setup function):
+  require('rainbow-delimiters.setup') {
+    query = {
+      lua = 'rainbow-blocks'
+    }
+  }
+
+Then (The plugin has been configured):
+  AssertEqual g:rainbow_delimiters.query.lua, 'rainbow-blocks'
+
+# vim:ts=2:sw=2:et

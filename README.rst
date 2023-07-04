@@ -80,7 +80,8 @@ The equivalent code in Lua:
        },
    }
 
-Please refer to the `manual`_ for more details.
+Please refer to the `manual`_ for more details.  For those who prefer a `setup`
+function there is the module `rainbow-delimiters.setup`.
 
 
 Help wanted
