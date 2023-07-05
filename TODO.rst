@@ -20,32 +20,23 @@ Queries which I cannot port
 I do not know enough about the following languages in order to write good
 queries.  Contributions are welcome.
 
-- cuda
-- dart
 - devicetree
 - elixir
 - elm
 - fish
 - gdscript
 - graphql
-- haskell
 - hcl
-- julia
 - kotlin
 - meson
-- nix
 - ocaml
 - ocaml_interface
 - php
-- r
 - ruby
 - scala
-- scss
 - solidity
 - sparql
 - supercollider
 - svelte
-- tsx
 - turtle
 - verilog
-- zig
