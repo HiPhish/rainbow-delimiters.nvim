@@ -40,7 +40,7 @@ Configuration is done by setting entries in the Vim script dictionary
        \ },
        \ 'query': {
            \ '': 'rainbow-delimiters',
-           \ 'latex': 'rainbow-blocks',
+           \ 'lua': 'rainbow-blocks',
        \ },
        \ 'highlight': [
            \ 'RainbowDelimiterRed',

@@ -84,7 +84,7 @@ Here is an example configuration:
         \ },
         \ 'query': {
             \ '': 'rainbow-delimiters',
-            \ 'latex': 'rainbow-blocks',
+            \ 'lua': 'rainbow-blocks',
         \ },
         \ 'highlight': [
             \ 'RainbowDelimiterRed',
@@ -110,7 +110,7 @@ Alternatively, the same configuration in Lua:
         },
         query = {
             [''] = 'rainbow-delimiters',
-            latex = 'rainbow-blocks',
+            lua = 'rainbow-blocks',
         },
         highlight = {
             'RainbowDelimiterRed',
@@ -274,7 +274,7 @@ name.  The empty string is the key for the default query.
     -- Use parentheses by default, blocks for Lua
     query = {
         [''] = 'rainbow-delimiters',
-        latex = 'rainbow-blocks',
+        lua = 'rainbow-blocks',
     }
 <
 If you wish to define your own custom query or add support for a new language,
@@ -286,6 +286,9 @@ addition there are the following extra queries for certain languages:
 
 - `latex`
   - `rainbow-blocks` Matches `\begin` and `\end` instructions
+- `lua`
+  - `rainbow-blocks` Matches keyword delimiters like like `function` and
+    `end`, in addition to parentheses
 - `javascript`
   - `rainbow-delimiters-ract` Includes React support, set by default for
     Javascript files
