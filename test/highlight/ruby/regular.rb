@@ -10,3 +10,5 @@ def greeting(name, age)
 end
 
 puts greeting('Fry', 25)
+
+[[1], [2], [3]].each { |nums| nums.each { |num| puts num } }
