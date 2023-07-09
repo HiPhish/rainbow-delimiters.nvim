@@ -292,6 +292,7 @@ addition there are the following extra queries for certain languages:
 - `javascript`
   - `rainbow-delimiters-react` Includes React support, set by default for
     Javascript files
+  - `rainbow-parens` Only parentheses without React tags
 - `tsx`
   - `rainbow-parens` Just Typescript highlighting without React tags
 
