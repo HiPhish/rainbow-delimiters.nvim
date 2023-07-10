@@ -1,3 +1,12 @@
+; match blocks
+
+(seq_block
+    "begin" @opening
+    "end" @closing
+) @container
+
+; match parentheses
+
 (packed_dimension
     "[" @opening
     "]" @closing

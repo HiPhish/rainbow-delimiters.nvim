@@ -50,7 +50,7 @@ module test2 #(
 
             if (c == 15'd2) begin
                 c = 15'd3;
-                packed_data[2][3] = $clog2($clog2(24));
+                packed_data[2][3] = $clog2($clog2((24)));
             end
         end
     end
