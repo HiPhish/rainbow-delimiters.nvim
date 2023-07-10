@@ -1,5 +1,9 @@
 ; inherits: c
 
+(declaration_list
+  "{" @opening
+  "}" @closing) @container
+
 (template_parameter_list
   "<" @opening
   ">" @closing) @container
