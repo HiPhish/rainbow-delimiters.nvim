@@ -2,6 +2,13 @@
 #include <iostream>
 #include <cstdio>
 
+namespace herp {
+	const int derpiness = 9000;
+	int get_derpiness() {
+		return derpiness;
+	}
+}
+
 /* A function declaration */
 int add(int, int);
 
