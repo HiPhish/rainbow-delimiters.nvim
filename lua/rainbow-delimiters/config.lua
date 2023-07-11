@@ -17,11 +17,19 @@
 local function get_nested(table, index, key)
 	local result
 
+	-- 1. User setting for file type
 	if vim.g.rainbow_delimiters and vim.g.rainbow_delimiters[index] then
 		result = rawget(vim.g.rainbow_delimiters[index], key)
 	end
 	if result ~= nil then return result end
 
+	-- 2. User setting for fallback
+	if vim.g.rainbow_delimiters and vim.g.rainbow_delimiters[index] then
+		result = rawget(vim.g.rainbow_delimiters[index], '')
+	end
+	if result ~= nil then return result end
+
+	-- 3. Default setting
 	result = rawget(table, key)
 	if result ~= nil then return result end
 
