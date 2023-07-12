@@ -1,0 +1,59 @@
+# If there is no configuration all file types are whitelisted
+
+Execute (Clear any custom configuration):
+  if has_key(g:, 'rainbow_delimiters')
+    unlet g:rainbow_delimiters
+  endif
+
+Execute lua (Find out whether Lua and Vim script are enabled):
+  vim.g.lua_enabled = require('rainbow-delimiters.config').enabled_for('lua')
+  vim.g.vim_enabled = require('rainbow-delimiters.config').enabled_for('vim')
+
+Then (Lua is enabled, Vim script is disabled):
+  AssertEqual v:true, g:lua_enabled, 'Lua should be enabled'
+  AssertEqual v:true, g:vim_enabled, 'Vim script should be enabled'
+
+
+# By default all file types are whitelisted
+
+Execute (Set a blank configuration):
+  let g:rainbow_delimiters = {}
+
+Execute lua (Find out whether Lua and Vim script are enabled):
+  vim.g.lua_enabled = require('rainbow-delimiters.config').enabled_for('lua')
+  vim.g.vim_enabled = require('rainbow-delimiters.config').enabled_for('vim')
+
+Then (Lua is enabled, Vim script is disabled):
+  AssertEqual v:true, g:lua_enabled, 'Lua should be enabled'
+  AssertEqual v:true, g:vim_enabled, 'Vim script should be enabled'
+
+
+# We can whitelist individual file types by adding them to our configuration
+
+Execute (Set the whitelist):
+  let g:rainbow_delimiters = {'whitelist': ['lua']}
+
+Execute lua (Find out whether Lua and Vim script are enabled):
+  vim.g.lua_enabled = require('rainbow-delimiters.config').enabled_for('lua')
+  vim.g.vim_enabled = require('rainbow-delimiters.config').enabled_for('vim')
+
+Then (Lua is enabled, Vim script is disabled):
+  AssertEqual v:true, g:lua_enabled, 'Lua should be enabled'
+  AssertEqual v:false, g:vim_enabled, 'Vim script should be disabled'
+
+
+# We can blacklist individual file type by adding them to our configuration
+
+Execute (Set the blacklist):
+  let g:rainbow_delimiters = {'blacklist': ['vim']}
+
+Execute lua (Find out whether Lua and Vim script are enabled):
+  vim.g.lua_enabled = require('rainbow-delimiters.config').enabled_for('lua')
+  vim.g.vim_enabled = require('rainbow-delimiters.config').enabled_for('vim')
+
+Then (Lua is enabled, Vim script is disabled):
+  AssertEqual v:true, g:lua_enabled, 'Lua should be enabled'
+  AssertEqual v:false, g:vim_enabled, 'Vim script should be disabled'
+
+
+# vim:ts=2:sw=2:et

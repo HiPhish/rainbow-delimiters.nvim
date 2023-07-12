@@ -1,0 +1,15 @@
+# We can disable rainbow delimiters for certain languages
+
+Execute lua (Set up the plugin):
+    the_strategy = require('rainbow-delimiters.strategy.track')(require('rainbow-delimiters.strategy.no-op'))
+    vim.g.rainbow_delimiters = {blacklist = {'lua'}, strategy = {[''] = the_strategy}}
+
+Given lua (A Lua buffer):
+  'test'
+
+Execute (Do Nothing):
+
+Then (Not attached to the Lua buffer):
+  AssertEqual 0, luaeval('the_strategy.attachments[1]')
+
+# vim:tw=79:ts=2:sw=2:et:

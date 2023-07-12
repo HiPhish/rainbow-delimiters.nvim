@@ -22,6 +22,7 @@ local set_hl         = api.nvim_set_hl
 local create_augroup = api.nvim_create_augroup
 local create_autocmd = api.nvim_create_autocmd
 local get_parser = vim.treesitter.get_parser
+local get_lang   = vim.treesitter.language.get_lang
 local config     = require 'rainbow-delimiters.config'
 local log        = require 'rainbow-delimiters.log'
 local lib        = require 'rainbow-delimiters.lib'
@@ -148,7 +149,12 @@ create_autocmd('ColorScheme', {
 create_autocmd('FileType', {
 	desc = 'Attach to a new buffer',
 	group = rb_augroup,
-	callback = function(args) attach(args.buf) end,
+	callback = function(args)
+		local lang = get_lang(args.match)
+		if not config.enabled_for(lang) then return end
+
+		attach(args.buf)
+	end,
 })
 
 create_autocmd('BufUnload', {

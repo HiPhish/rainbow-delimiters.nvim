@@ -57,6 +57,29 @@ local M = {
 			return get_nested(table, 'log', key)
 		end
 	}),
+	enabled_for = function(lang)
+		local conf = vim.g.rainbow_delimiters
+		if not conf then return true end
+
+		local whitelist = conf.whitelist
+		local blacklist = conf.blacklist
+
+		if whitelist then
+			for _, v in ipairs(whitelist) do
+				if v == lang then return true end
+			end
+			return false
+		end
+
+		if blacklist then
+			for _, v in ipairs(blacklist) do
+				if v == lang then return false end
+			end
+			return true
+		end
+
+		return true
+	end
 }
 
 setmetatable(M, {
