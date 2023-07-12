@@ -37,4 +37,3 @@ queries.  Contributions are welcome.
 - supercollider
 - svelte
 - turtle
-- verilog

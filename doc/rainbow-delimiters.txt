@@ -297,7 +297,7 @@ addition there are the following extra queries for certain languages:
   - `rainbow-parens` Just Typescript highlighting without React tags
 - `verilog`
   - `rainbow-blocks` Matches keyword delimiters like `begin` and `end`, in
-    addition to parantheses
+    addition to parentheses
 
 
 
