@@ -19,8 +19,6 @@ Author: Alejandro "HiPhish" Sanchez
 License: Apache-2.0
 Version: 0.0.0
 
-WARNING: This manual needs yet to be updated!
-
 
 ==============================================================================
 TABLE OF CONTENTS                                     *rb-delimiters-contents*
