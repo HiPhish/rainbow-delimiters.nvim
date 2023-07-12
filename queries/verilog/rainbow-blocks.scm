@@ -58,12 +58,46 @@
 ) @container
 
 (event_control
-    "(" @begin
-    ")" @end
+    "(" @opening
+    ")" @closing
 ) @container
 
 (primary
-    "(" @begin
-    ")" @end
+    "(" @opening
+    ")" @closing
 ) @container
 
+(concatenation
+  "{" @opening
+  "}" @closing
+) @container
+
+(constant_concatenation
+  "{" @opening
+  "}" @closing
+) @container
+
+(constant_select1
+  "[" @opening
+  "]" @closing
+) @container
+
+(bit_select1
+  "[" @opening
+  "]" @closing
+) @container
+
+(constant_primary
+  "(" @opening
+  ")" @closing
+) @container
+
+(select1
+  "[" @opening
+  "]" @closing
+) @container
+
+(multiple_concatenation
+  "{" @opening
+  "}" @closing
+) @container
