@@ -311,6 +311,9 @@ addition there are the following extra queries for certain languages:
   - `rainbow-parens` Only parentheses without React tags
 - `tsx`
   - `rainbow-parens` Just Typescript highlighting without React tags
+- `verilog`
+  - `rainbow-blocks` Matches keyword delimiters like `begin` and `end`, in
+    addition to parentheses
 
 
 
