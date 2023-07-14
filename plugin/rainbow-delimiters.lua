@@ -76,6 +76,7 @@ function attach(bufnr)
 			strategy = strategy()
 		end
 	end
+	if not strategy then return end
 
 	-- Intentionally abort; the user has explicitly disabled rainbow delimiters
 	-- for this buffer, usually by setting a strategy- or query function which

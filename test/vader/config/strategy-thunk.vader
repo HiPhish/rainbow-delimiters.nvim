@@ -1,0 +1,29 @@
+Execute lua (Set a thunk as the strategy):
+  local noop = require('rainbow-delimiters').strategy.noop
+  the_strategy = require('rainbow-delimiters.strategy.track')(noop)
+  vim.g.rainbow_delimiters = {
+    strategy = {
+      [''] = function() return the_strategy end,
+      vim = function() return nil end,
+    }
+  }
+
+Given lua (Some Lua buffer):
+  print 'Hello world'
+
+Execute lua (get the strategy for Lua):
+  vim.g.n_attachments = the_strategy.attachments[1]
+
+Then (Not attached to the Lua buffer):
+  AssertEqual 1, g:n_attachments
+
+Given vim (Some Vim buffer):
+  echo 'Hello world'
+
+Execute lua (get the strategy for Lua):
+  vim.g.n_attachments = the_strategy.attachments[1]
+
+Then (Not attached to the Lua buffer):
+  AssertEqual 0, g:n_attachments
+
+# vim:ts=2:sw=2:et
