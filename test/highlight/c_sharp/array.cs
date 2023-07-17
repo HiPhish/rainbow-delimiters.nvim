@@ -11,6 +11,7 @@ class Program {
     	};
     	int[] indices = new int[] {0};
     	int i = array3D[0, 0, 0];
+        var implicitArray = new[] { "" };
     	int j = indices[indices[indices[indices[0]]]];
     }
 }
