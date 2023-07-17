@@ -138,6 +138,10 @@
   "[" @opening
   "]" @closing) @container
 
+(implicit_array_creation_expression
+  "[" @opening
+  "]" @closing) @container
+
 (implicit_stack_alloc_array_creation_expression
   "[" @opening
   "]" @closing) @container
