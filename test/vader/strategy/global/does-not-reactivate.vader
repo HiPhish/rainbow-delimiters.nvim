@@ -26,3 +26,5 @@ Then (There is no highlight on the delimiters):
     \->map('v:val["ns_id"]')
     \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
   AssertEqual [], extmarks
+
+# vim:tw=79:ts=2:sw=2:et:

@@ -28,6 +28,8 @@ local config    = require 'rainbow-delimiters.config'
 ---Private library of shared internal functions and variables.
 local M = {}
 
+M.enabled_for = config.enabled_for
+
 ---Per-language namespaces. This table instantiates namespaces on demand, i.e.
 ---a namespace won't exist until we first try to get it from the table.
 M.nsids = setmetatable({}, {

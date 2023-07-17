@@ -1,0 +1,30 @@
+# A nested language which is blacklisted must be ignored
+
+Execute (Set up the plugin):
+  if has_key(g:, 'rainbow_delimiters')
+    unlet g:rainbow_delimiters
+  endif
+  let g:rainbow_delimiters = {'blacklist': ['vim']}
+
+Given lua (A Lua buffer with embedded Vim script):
+  print {{{{{}}}}}
+  vim.cmd [[
+    echo string(1 + (2 + (3 + 4)))
+  ]]
+
+Execute:
+  redraw!  " Without this there will be no extmarks at all
+
+Then (The Lua code is highlighted, the Vim code not):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 6)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertNotEqual [], extmarks
+
+  let extmarks = luaeval('vim.inspect_pos(0, 2, 13)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.vim')})
+  AssertEqual [], extmarks
+  
+
+# vim:tw=79:ts=2:sw=2:et:

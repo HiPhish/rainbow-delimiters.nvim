@@ -114,6 +114,7 @@ local function build_match_tree(bufnr, changes, tree, lang)
 end
 
 local function update_local(bufnr, tree, lang)
+	if not lib.enabled_for(lang) then return end
 	local query = lib.get_query(lang)
 	if not query then return end
 
