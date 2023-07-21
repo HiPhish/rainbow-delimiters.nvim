@@ -1,6 +1,11 @@
 ---Health check module.
 local M = {}
 
+local error = vim.health.error or vim.health.report_error
+local warn = vim.health.warn or vim.health.report_warn
+local info= vim.health.info or vim.health.report_info
+local ok = vim.health.ok or vim.health.report_ok
+local start = vim.health.start or vim.health.report_start
 
 local STRATEGY_ADVICE = "See :h rb-delimiters-strategy for the strategy protocol"
 local    QUERY_ADVICE = "See :h rb-delimiters-query for included standard queries."
@@ -46,50 +51,50 @@ function M.check()
 	local settings = vim.g.rainbow_delimiters
 	if not settings then
 		return
-		vim.health.report_info("No custom configuration; see :h rb-delimiters-setup for information.")
+		info("No custom configuration; see :h rb-delimiters-setup for information.")
 	end
 
 	local whitelist = settings.whitelist
 	if whitelist then
-		vim.health.report_start 'Parsers for whitelisted languages'
+		start 'Parsers for whitelisted languages'
 		for _, lang in ipairs(whitelist) do
 			local success = check_parser_installed(lang)
 			if success then
 				local msg =string.format("Parser installed for '%s'", lang)
-				vim.health.report_ok(msg)
+				ok(msg)
 			else
 				local msg =string.format("No parser installed for '%s'", lang)
-				vim.health.report_warn(msg)
+				warn(msg)
 			end
 		end
 	end
 
 	local strategies = settings.strategy
 	if strategies then
-		vim.health.report_start 'Custom strategies'
+		start 'Custom strategies'
 		for lang, strategy in pairs(strategies) do
 			local has_strategy = check_strategy(strategy)
 			if lang == '' then
 				if has_strategy then
 					local msg = 'Valid custom default strategy.'
-					vim.health.report_ok(msg)
+					ok(msg)
 				else
 					local msg = 'Invalid custom default strategy.'
-					vim.health.report_error(msg, STRATEGY_ADVICE)
+					error(msg, STRATEGY_ADVICE)
 				end
 			else
 				local has_parser = check_parser_installed(lang)
 				if not has_parser then
 					local msg = string.format("No parser installed for '%s'", lang)
-					vim.health.report_error(msg)
+					error(msg)
 				end
 				if not has_strategy then
 					local msg = string.format("Invalid custom strategy for '%s'", lang)
-					vim.health.report_error(msg, STRATEGY_ADVICE)
+					error(msg, STRATEGY_ADVICE)
 				end
 				if has_parser and has_strategy then
 					local msg = string.format("Valid custom strategy for '%s'.", lang)
-					vim.health.report_ok(msg)
+					ok(msg)
 				end
 			end
 		end
@@ -97,18 +102,18 @@ function M.check()
 
 	local queries = settings.query
 	if queries then
-		vim.health.report_start 'Custom queries'
+		start 'Custom queries'
 		for lang, query in pairs(queries) do
 			if lang ~= '' then
 				local has_lang = check_parser_installed(lang)
 				local has_query = check_query(lang, query)
 				if not has_lang then
 					local msg = string.format("No parser installed for '%s'.", lang)
-					vim.health.report_warn(msg)
+					warn(msg)
 				end
 				if not has_query then
 					local msg = string.format("No query named '%s' for '%s' found.", query, lang)
-					vim.health.report_warn(msg, QUERY_ADVICE)
+					warn(msg, QUERY_ADVICE)
 				end
 			end
 		end
@@ -116,18 +121,18 @@ function M.check()
 
 	local hlgroups = settings.highlight
 	if hlgroups then
-		vim.health.report_start 'Custom highlight groups'
+		start 'Custom highlight groups'
 		local previous
 		for _, hlgroup in ipairs(hlgroups) do
 			local has_hlgroup = vim.fn.hlID(hlgroup) ~= 0
 			if has_hlgroup then
-				vim.health.report_ok(string.format("Highlight group '%s' defined.", hlgroup))
+				ok(string.format("Highlight group '%s' defined.", hlgroup))
 			else
-				vim.health.report_error(string.format("Highlight group '%s' not defined.", hlgroup))
+				error(string.format("Highlight group '%s' not defined.", hlgroup))
 			end
 			if previous and hlgroup == previous then
 				local msg = string.format("Consecutive highlight group '%s'", hlgroup)
-				vim.health.report_warn(msg, HLGROUP_ADVICE)
+				warn(msg, HLGROUP_ADVICE)
 			end
 			previous = hlgroup
 		end
