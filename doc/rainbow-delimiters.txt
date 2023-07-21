@@ -69,7 +69,7 @@ keys are recognized:
   is the key for the default query.  See |rb-delimiters-query| for more
   information about queries.
 
-`hlgroups`
+`highlight`
   List of names of the highlight groups to use for highlighting, for more
   information see |rb-delimiters-colors|.
 
@@ -173,7 +173,7 @@ overhead.  Do yourself a favour and don't use it.
 ------------------------------------------------------------------------------
 HIGHLIGHT COLORS                                        *rb-delimiters-colors*
 
-The `hlgroups` setting controls which highlight group to apply.  It is a list
+The `highlight` setting controls which highlight group to apply.  It is a list
 of any number of highlight group names as strings.  The default values are in
 this order:
 
