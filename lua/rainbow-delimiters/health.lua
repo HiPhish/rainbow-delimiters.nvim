@@ -44,15 +44,18 @@ end
 
 function M.check()
 	local settings = vim.g.rainbow_delimiters
-	if not settings then return end
+	if not settings then
+		return
+		vim.health.report_info("No custom configuration; see :h rb-delimiters-setup for information.")
+	end
 
 	local whitelist = settings.whitelist
 	if whitelist then
-		vim.health.report_start 'Checking Rainbow Delimiters: parsers for whitelisted languages'
+		vim.health.report_start 'Parsers for whitelisted languages'
 		for _, lang in ipairs(whitelist) do
 			local success = check_parser_installed(lang)
 			if success then
-				local msg =string.format('Parser installed for %s', lang)
+				local msg =string.format("Parser installed for '%s'", lang)
 				vim.health.report_ok(msg)
 			else
 				local msg =string.format("No parser installed for '%s'", lang)
@@ -63,7 +66,7 @@ function M.check()
 
 	local strategies = settings.strategy
 	if strategies then
-		vim.health.report_start 'Checking Rainbow Delimiters: custom strategies'
+		vim.health.report_start 'Custom strategies'
 		for lang, strategy in pairs(strategies) do
 			local has_strategy = check_strategy(strategy)
 			if lang == '' then
@@ -94,7 +97,7 @@ function M.check()
 
 	local queries = settings.query
 	if queries then
-		vim.health.report_start 'Checking Rainbow Delimiters: custom queries'
+		vim.health.report_start 'Custom queries'
 		for lang, query in pairs(queries) do
 			if lang ~= '' then
 				local has_lang = check_parser_installed(lang)
@@ -113,7 +116,7 @@ function M.check()
 
 	local hlgroups = settings.highlight
 	if hlgroups then
-		vim.health.report_start 'Checking Rainbow Delimiters: custom highlight groups'
+		vim.health.report_start 'Custom highlight groups'
 		local previous
 		for _, hlgroup in ipairs(hlgroups) do
 			local has_hlgroup = vim.fn.hlID(hlgroup) ~= 0
