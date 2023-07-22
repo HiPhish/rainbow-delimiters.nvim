@@ -1,11 +1,13 @@
 ---Health check module.
 local M = {}
 
-local error = vim.health.error or vim.health.report_error
-local warn = vim.health.warn or vim.health.report_warn
-local info= vim.health.info or vim.health.report_info
-local ok = vim.health.ok or vim.health.report_ok
+-- In Neovim 0.10 the following functions have been renamed
 local start = vim.health.start or vim.health.report_start
+local ok    = vim.health.ok    or vim.health.report_ok
+local info  = vim.health.info  or vim.health.report_info
+local warn  = vim.health.warn  or vim.health.report_warn
+local error = vim.health.error or vim.health.report_error
+
 
 local STRATEGY_ADVICE = "See :h rb-delimiters-strategy for the strategy protocol"
 local    QUERY_ADVICE = "See :h rb-delimiters-query for included standard queries."
@@ -25,8 +27,8 @@ end
 ---functions actually do.
 local function check_strategy(strategy)
 	if type(strategy) == 'function' then
-		local info = debug.getinfo(strategy)
-		return info.nparams == 0
+		local finfo = debug.getinfo(strategy)
+		return finfo.nparams == 0
 	end
 	if type(strategy) == 'table' then
 		if type(strategy.on_attach) ~= 'function' then
