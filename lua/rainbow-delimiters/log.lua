@@ -50,7 +50,7 @@ local function write_log(file, level, module, message, ...)
 end
 
 local function log(level, message, ...)
-	if level < config.log.level then return end
+	if level >= config.log.level then return end
 
 	local file = io.open(config.log.file, 'a+')
 	-- Intentional: Silently discard the log if the log file cannot be opened
