@@ -4,8 +4,6 @@
 
 (list_comprehension
   "[" @opening
-  (for_in_clause
-    ["for" "in"] @intermediate)
   "]" @closing) @container
 
 (dictionary
@@ -14,8 +12,6 @@
 
 (dictionary_comprehension
   "{" @opening
-  (for_in_clause
-    ["for" "in"] @intermediate)
   "}" @closing) @container
 
 (set
@@ -24,8 +20,6 @@
 
 (set_comprehension
   "{" @opening
-  (for_in_clause
-    ["for" "in"] @intermediate)
   "}" @closing) @container
 
 (tuple
@@ -34,8 +28,6 @@
 
 (generator_expression
   "(" @opening
-  (for_in_clause
-    ["for" "in"] @intermediate)
   ")" @closing) @container
 
 (argument_list
