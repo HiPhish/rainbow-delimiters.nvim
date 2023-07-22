@@ -30,7 +30,7 @@ local M = {
 		---Log level of the module, see `:h log_levels`.
 		level = vim.log.levels.WARN,
 		---File name of the log file
-		file  = vim.fn.stdpath('log') .. '/rainbow-delimiters',
+		file  = vim.fn.stdpath('log') .. '/rainbow-delimiters.log',
 	},
 	-- Highlight groups in order of display
 	highlight = {

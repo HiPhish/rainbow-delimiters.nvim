@@ -21,15 +21,32 @@ local M = {}
 local date = os.date
 local config = require 'rainbow-delimiters.config'
 
-local function write_log(file, message, ...)
+---Reverse lookup table; maps a log level to its text label
+local level_str = {}
+for key, value in pairs(vim.log.levels) do
+	level_str[value] = key
+end
+
+---Dynamically determines the module from which the log function was called.
+---If it was called from somewhere else return the name of the plugin.
+local function get_module()
+	local module = debug.getinfo(4, 'S').source:match('^.+rainbow%-delimiters/(.+).lua$')
+	if not module then
+		return ''
+	end
+	return module:gsub('/', '.')
+end
+
+local function write_log(file, level, module, message, ...)
 	local msg
 	local timestamp = date('%FT%H:%M%z')
 	if type(message) == 'function' then
-		msg = string.format('%s: ', timestamp, msg(...))
+		msg = message()
 	else
-		msg = string.format('%s: ' .. message, timestamp , ...)
+		msg = string.format(message, ...)
 	end
-	file:write(msg)
+
+	file:write(string.format('%s	%s	%s	%s\n', timestamp, level, module, msg))
 end
 
 local function log(level, message, ...)
@@ -41,7 +58,7 @@ local function log(level, message, ...)
 
 	-- Wrap inside a pcall to make sure the file gets closed even if an error
 	-- occurs
-	pcall(write_log, message, ...)
+	pcall(write_log, file, level_str[level], get_module(), message, ...)
 	file:close()
 	-- Should I also print the message?
 end

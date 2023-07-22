@@ -28,6 +28,7 @@ TABLE OF CONTENTS                                     *rb-delimiters-contents*
    2.1 Highlight colors ...................... |rb-delimiters-colors|
    2.2 Strategies ............................ |rb-delimiters-strategy|
    2.3 Queries ............................... |rb-delimiters-query|
+   2.4 Logging ............................... |rb-delimiters-logging|
 3. Extending ................................. |rb-delimiters-extending|
    3.1 The library ........................... |rb-delimiters-custom-api|
    3.2 Custom queries ........................ |rb-delimiters-custom-query|
@@ -80,6 +81,10 @@ keys are recognized:
 `blacklist`
   List of Tree-sitter languages for which to disabled rainbow delimiters.
   Rainbow delimiters will be enabled for all other languages.
+
+`log`
+  Settings for logging information.  This is a dictionary which contains
+  further settings.  See |rb-delimiters-logging| for details.
 
 If neither the white- nor the blacklist are set rainbow delimiters will be
 enabled for all languages. If both lists are set it is undefined which will
@@ -312,6 +317,36 @@ addition there are the following extra queries for certain languages:
 - `verilog`
   - `rainbow-blocks` Matches keyword delimiters like `begin` and `end`, in
     addition to parentheses
+
+
+------------------------------------------------------------------------------
+LOGGING                                                *rb-delimiters-logging*
+
+By default only errors are logged.  You can adjust what and how to log by
+adjusting the values of the `log` entry in the settings.  For information how
+to change settings. see |rb-delimiters-setup|.
+
+The following settings are supported:
+
+`file`
+  Path to the log file, default is `rainbow-delimiters.log` in your standard
+  log path (see |standard-path|).
+
+`level`
+  Only messages equal to or above this value will be logged.  The default is
+  to log warnings or above.  See |log_levels| for possible values.
+
+The log file format is a CSV file which uses the `TAB` character (ASCII
+`0x09`) as the field separator and a `NL` (ASCII `0x0A`) as the record
+separator.
+
+The fields are in this order:
+
+- Time stamp of when the message was logged in ISO 8601 format with time zone
+- Log level as string
+- Lua module from which the message was logged, or the empty string if outside
+  a module
+- The logged message
 
 
 
