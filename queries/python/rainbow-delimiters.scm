@@ -30,6 +30,10 @@
   "(" @opening
   ")" @closing) @container
 
+(parameters
+  "(" @opening
+  ")" @closing) @container
+
 (argument_list
   "(" @opening
   ")" @closing) @container
