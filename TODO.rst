@@ -21,7 +21,6 @@ I do not know enough about the following languages in order to write good
 queries.  Contributions are welcome.
 
 - devicetree
-- elixir
 - elm
 - fish
 - gdscript
