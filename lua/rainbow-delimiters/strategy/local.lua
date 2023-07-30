@@ -16,6 +16,7 @@
 
 local Stack = require 'rainbow-delimiters.stack'
 local lib   = require 'rainbow-delimiters.lib'
+local log   = require 'rainbow-delimiters.log'
 local api   = vim.api
 local ts    = vim.treesitter
 
@@ -166,7 +167,9 @@ end
 
 ---Sets up all the callbacks and performs an initial highlighting
 local function setup_parser(bufnr, parser)
+	log.debug('Setting up parser for buffer %d', bufnr)
 	parser:for_each_child(function(p, lang)
+		log.debug("Setting up parser for '%s' in buffer %d", lang, bufnr)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
 		if not lib.get_query(lang) then return end
@@ -193,6 +196,7 @@ local function setup_parser(bufnr, parser)
 				setup_parser(bufnr, child)
 			end,
 		}
+		log.trace("Done with setting up parser for '%s' in buffer %d", lang, bufnr)
 	end, true)
 end
 

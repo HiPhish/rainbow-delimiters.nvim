@@ -19,11 +19,12 @@
 local M = {}
 
 local date = os.date
+local levels = vim.log.levels
 local config = require 'rainbow-delimiters.config'
 
 ---Reverse lookup table; maps a log level to its text label
 local level_str = {}
-for key, value in pairs(vim.log.levels) do
+for key, value in pairs(levels) do
 	level_str[value] = key
 end
 
@@ -50,7 +51,7 @@ local function write_log(file, level, module, message, ...)
 end
 
 local function log(level, message, ...)
-	if level >= config.log.level then return end
+	if level < config.log.level then return end
 
 	local file = io.open(config.log.file, 'a+')
 	-- Intentional: Silently discard the log if the log file cannot be opened
@@ -65,27 +66,27 @@ end
 
 ---Log an error message
 function M.error(message, ...)
-	log(vim.log.levels.ERROR, message, ...)
+	log(levels.ERROR, message, ...)
 end
 
 ---Log a warning message
 function M.warn(message, ...)
-	log(vim.log.levels.WARN, message, ...)
+	log(levels.WARN, message, ...)
 end
 
 ---Log a tracing message
 function M.debug(message, ...)
-	log(vim.log.levels.DEBUG, message, ...)
+	log(levels.DEBUG, message, ...)
 end
 
 ---Log a tracing message
 function M.trace(message, ...)
-	log(vim.log.levels.TRACE, message, ...)
+	log(levels.TRACE, message, ...)
 end
 
 ---Log an info message
 function M.info(message, ...)
-	log(vim.log.levels.INFO, message, ...)
+	log(levels.INFO, message, ...)
 end
 
 return M
