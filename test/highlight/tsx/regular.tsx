@@ -2,7 +2,7 @@
 function add(x: number, y: number): number {
 	function iter(i: number, acc: number) {
 		if (i == 0) {
-			return accu;
+			return acc;
 		}
 		return iter(i - 1, acc + 1);
 	}

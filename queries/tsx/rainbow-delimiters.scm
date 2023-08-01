@@ -8,7 +8,7 @@
 
 (jsx_self_closing_element
   name: (identifier) @opening
-  "/" @closing) @container
+  "/>" @closing) @container
 
 (jsx_expression
   "{" @opening
