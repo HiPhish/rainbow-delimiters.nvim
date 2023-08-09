@@ -29,7 +29,6 @@ queries.  Contributions are welcome.
 - meson
 - ocaml
 - ocaml_interface
-- php
 - scala
 - solidity
 - sparql
