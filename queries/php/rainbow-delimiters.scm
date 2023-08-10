@@ -18,10 +18,6 @@
     "{" @opening
     "}" @closing) @container
 
-(encapsed_string
-    "{" @opening
-    "}" @closing) @container
-
 (array_creation_expression
     "[" @opening
     "]" @closing) @container
