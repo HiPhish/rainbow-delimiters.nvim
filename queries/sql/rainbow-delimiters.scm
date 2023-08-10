@@ -1,7 +1,3 @@
-(term
-    "(" @opening
-    ")" @closing) @container
-
 (subquery
     "(" @opening
     ")" @closing) @container
@@ -14,6 +10,13 @@
     "(" @opening
     ")" @closing) @container
 
-(binary_expression
+(
     "(" @opening
-    ")" @closing) @container
+    .
+    [
+        (binary_expression)
+        (literal)
+    ] @container
+    .
+    ")" @closing
+)
