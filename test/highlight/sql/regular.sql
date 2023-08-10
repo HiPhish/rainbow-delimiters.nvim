@@ -12,7 +12,7 @@ JOIN (
     FROM "orders"
     GROUP BY
         "orders"."id",
-        "orders"."user_id",
+        "orders"."user_id"
 ) AS "orders" ON "orders"."user_id" = "users"."id"
 WHERE "users"."age" = (2 + (3 * 4)) AND (4 - (5 * 0)) = (1 * (2 + 2 + (5)))
     AND "users"."id" IN (1, 2, 3, 4)
