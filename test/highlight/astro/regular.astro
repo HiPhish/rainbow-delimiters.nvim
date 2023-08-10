@@ -1,0 +1,33 @@
+---
+// component import
+import MainLayout from "../../layouts/MainLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+
+// utils imports
+import { formatBlogPosts } from "../../js/utils";
+
+const allPosts = await Astro.glob("./*.md");
+const formattedPosts = formatBlogPosts(allPosts, {});
+---
+
+<MainLayout title="My Blog">
+  <section class="container" aria-label="New Blog Posts">
+    <h1 class="h1">New Blog Posts</h1>
+    <div class="post-container">
+      {
+        formattedPosts.map((post) => (
+          <PostCard
+            frontmatter={post.frontmatter}
+            url={post.url}
+            tagType="h2"
+          />
+        ))
+      }
+    </div>
+  </section>
+  <!-- <PostCard
+    frontmatter={allPosts[0].frontmatter}
+    url={allPosts[0].url}
+    tagType="h2"
+  /> -->
+</MainLayout>
