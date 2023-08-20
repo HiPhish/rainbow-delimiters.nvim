@@ -22,7 +22,6 @@ queries.  Contributions are welcome.
 
 - devicetree
 - elm
-- fish
 - gdscript
 - graphql
 - kotlin
