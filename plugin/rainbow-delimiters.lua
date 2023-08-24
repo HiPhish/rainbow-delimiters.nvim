@@ -21,7 +21,6 @@ local api = vim.api
 local set_hl         = api.nvim_set_hl
 local create_augroup = api.nvim_create_augroup
 local create_autocmd = api.nvim_create_autocmd
-local get_parser = vim.treesitter.get_parser
 local get_lang   = vim.treesitter.language.get_lang
 local config     = require 'rainbow-delimiters.config'
 local log        = require 'rainbow-delimiters.log'
@@ -44,99 +43,6 @@ end
 define_hlgroups()
 
 
---- [ CALLBACK FUNCTIONS ]-----------------------------------------------------
-local attach, detach
-
-function attach(bufnr)
-	local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].ft)
-	if not lang then
-		log.trace('Cannot attach to buffer %d, no parser for %s', bufnr, lang)
-		return
-	end
-	log.trace('Attaching to buffer %d with language %s.', bufnr, lang)
-
-	if lib.buffers[bufnr] then
-		if lib.buffers[bufnr].lang == lang then return end
-		-- The file type of the buffer has change, so we need to detach first
-		-- before we re-attach
-		detach(bufnr)
-	end
-
-	local parser
-	do
-		local success
-		success, parser = pcall(get_parser, bufnr, lang)
-		if not success then return end
-	end
-
-	local strategy
-	do
-		strategy = config.strategy[lang]
-		if type(strategy) == 'function' then
-			strategy = strategy()
-		end
-	end
-	if not strategy or strategy == vim.NIL then return end
-
-	-- Intentionally abort; the user has explicitly disabled rainbow delimiters
-	-- for this buffer, usually by setting a strategy- or query function which
-	-- returned nil.
-	if not strategy then
-		log.warn('No strategy defined for %s', lang)
-	end
-
-	parser:register_cbs {
-		on_detach = function(bnr)
-			if not lib.buffers[bnr] then return end
-			detach(bufnr)
-		end,
-		on_child_removed = function(child)
-			lib.clear_namespace(bufnr, child:lang())
-		end,
-	}
-
-	local settings = {
-		strategy = strategy,
-		parser   = parser,
-		lang     = lang
-	}
-	lib.buffers[bufnr] = settings
-
-	-- For now we silently discard errors, but in the future we should log
-	-- them.
-	local success, error = pcall(strategy.on_attach, bufnr, settings)
-	if not success then
-		log.error('Error attaching strategy to buffer %d: %s', bufnr, error)
-		lib.buffers[bufnr] = nil
-	end
-end
-
-function detach(bufnr)
-	log.trace('Detaching from buffer %d.', bufnr)
-	if not lib.buffers[bufnr] then
-		return
-	end
-
-	local strategy = lib.buffers[bufnr].strategy
-	local parser = lib.buffers[bufnr].parser
-
-	-- Clear all the namespaces for each language
-	parser:for_each_child(function(_, lang)
-		lib.clear_namespace(bufnr, lang)
-	end, true)
-	-- Finally release all resources the parser is holding on to
-	parser:destroy()
-
-	-- For now we silently discard errors, but in the future we should log
-	-- them.
-	local success, error = pcall(strategy.on_detach, bufnr)
-	if not success then
-		log.error('Error detaching strategy from buffer %d: %s', bufnr, error)
-	end
-	lib.buffers[bufnr] = nil
-end
-
-
 --- [ SET UP AUTOCOMMANDS ]----------------------------------------------------
 local hl_augroup = create_augroup('TSRainbowHighlight', {})
 local rb_augroup = create_augroup('TSRainbowDelimits', {})
@@ -154,14 +60,14 @@ create_autocmd('FileType', {
 		local lang = get_lang(args.match)
 		if not config.enabled_for(lang) then return end
 
-		attach(args.buf)
+		lib.attach(args.buf)
 	end,
 })
 
 create_autocmd('BufUnload', {
 	desc = 'Detach from the current buffer',
 	group = rb_augroup,
-	callback = function(args) detach(args.buf) end
+	callback = function(args) lib.detach(args.buf) end
 })
 
 vim.g.loaded_rainbow = true

@@ -1,0 +1,80 @@
+# We can use functions to turn rainbow delimiters off and on again.
+
+Execute lua (Set up the plugin):
+  the_strategy = require('rainbow-delimiters.strategy.global')
+  vim.g.rainbow_delimiters = {strategy = {[''] = the_strategy}}
+
+Given lua (A Lua buffer):
+  print((((('Hello, world!')))))
+
+Execute (Leave things as they are):
+  redraw!  " Without this there will be no extmarks at all
+
+Then (Rainbow delimiters are active):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertNotEqual [], extmarks
+
+Execute (Turn rainbow delimiters off):
+  call rainbow_delimiters#disable(0)
+  redraw!  " Without this there will be no extmarks at all
+
+Then (Rainbow delimiters are inactive):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertEqual [], extmarks
+
+Execute (Turn rainbow delimiters off a second time):
+  call rainbow_delimiters#disable(0)
+  redraw!  " Without this there will be no extmarks at all
+
+Then (Disabling is idempotent):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertEqual [], extmarks
+
+Execute (Turn rainbow delimiters back on):
+  call rainbow_delimiters#enable(0)
+  redraw!  " Without this there will be no extmarks at all
+
+Then (Rainbow delimiters are active):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertNotEqual [], extmarks
+
+Execute (Turn rainbow delimiters on a second time):
+  call rainbow_delimiters#enable(0)
+  redraw!  " Without this there will be no extmarks at all
+
+Then (Enabling is idempotent):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertNotEqual [], extmarks
+
+Execute (Toggle rainbow delimiters off):
+  call rainbow_delimiters#toggle(0)
+  redraw!  " Without this there will be no extmarks at all
+
+Then (Rainbow delimiters are inactive):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertEqual [], extmarks
+
+Execute (Toggle rainbow delimiters back on):
+  call rainbow_delimiters#toggle(0)
+  redraw!  " Without this there will be no extmarks at all
+
+Then (Rainbow delimiters are active):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertNotEqual [], extmarks
+
+
+# vim:tw=79:ts=2:sw=2:et:

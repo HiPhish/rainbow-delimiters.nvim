@@ -366,6 +366,36 @@ There is a utility library provided for people writing their own strategies.
 It is available as a table under the Lua module `'rainbow-delimiters'`.
 
 
+                                                        *rb-delimiters.enable*
+                                                        *rb_delimiters#enable*
+'rainbow-delimiters'.enable({bufnr})
+    Re-enable rainbow delimiters for the buffer {bufnr} (or the current buffer
+    if {bufnr} is `0`) after it has been disabled.
+
+rainbow_delimiters#enable({bufnr})
+    Vim script binding for the above function.
+
+
+                                                       *rb-delimiters.disable*
+                                                       *rb_delimiters#disable*
+'rainbow-delimiters'.disable({bufnr})
+    Disable rainbow delimiters for the buffer {bufnr} (or the current buffer
+    if {bufnr} is `0`).
+
+rainbow_delimiters#disable({bufnr})
+    Vim script binding for the above function.
+
+
+                                                        *rb-delimiters.toggle*
+                                                        *rb_delimiters#toggle*
+'rainbow-delimiters'.toggle({bufnr})
+    Toggle rainbow delimiters for the buffer {bufnr} (or the current buffer
+    if {bufnr} is `0`).
+
+rainbow_delimiters#toggle({bufnr})
+    Vim script binding for the above function.
+
+
                                                     *rb-delimiters.hlgroup_at*
                                                *rainbow-delimiters#hlgroup_at*
 'rainbow-delimiters'.hlgroup_at({nesting_level})

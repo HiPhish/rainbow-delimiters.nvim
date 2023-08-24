@@ -16,6 +16,7 @@
 --]]
 
 local get_query = vim.treesitter.query.get
+local get_parser= vim.treesitter.get_parser
 local log       = require 'rainbow-delimiters.log'
 local config    = require 'rainbow-delimiters.config'
 
@@ -118,6 +119,100 @@ function M.clear_namespace(bufnr, lang, line_start, line_end)
 	if vim.api.nvim_buf_is_valid(bufnr) then
 		vim.api.nvim_buf_clear_namespace(bufnr, nsid, line_start or 0, line_end or -1)
 	end
+end
+
+---Start rainbow highlighting for the given buffer
+function M.attach(bufnr)
+	-- Rainbow delimiters was explicitly disabled for this buffer
+	if M.buffers[bufnr] == false then return end
+
+	local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].ft)
+	if not lang then
+		log.trace('Cannot attach to buffer %d, no parser for %s', bufnr, lang)
+		return
+	end
+	log.trace('Attaching to buffer %d with language %s.', bufnr, lang)
+
+	if M.buffers[bufnr] then
+		if M.buffers[bufnr].lang == lang then return end
+		-- The file type of the buffer has change, so we need to detach first
+		-- before we re-attach
+		M.detach(bufnr)
+	end
+
+	local parser
+	do
+		local success
+		success, parser = pcall(get_parser, bufnr, lang)
+		if not success then return end
+	end
+
+	local strategy
+	do
+		strategy = config.strategy[lang]
+		if type(strategy) == 'function' then
+			strategy = strategy()
+		end
+	end
+	if not strategy or strategy == vim.NIL then return end
+
+	-- Intentionally abort; the user has explicitly disabled rainbow delimiters
+	-- for this buffer, usually by setting a strategy- or query function which
+	-- returned nil.
+	if not strategy then
+		log.warn('No strategy defined for %s', lang)
+	end
+
+	parser:register_cbs {
+		on_detach = function(bnr)
+			if not M.buffers[bnr] then return end
+			M.detach(bufnr)
+		end,
+		on_child_removed = function(child)
+			M.clear_namespace(bufnr, child:lang())
+		end,
+	}
+
+	local settings = {
+		strategy = strategy,
+		parser   = parser,
+		lang     = lang
+	}
+	M.buffers[bufnr] = settings
+
+	-- For now we silently discard errors, but in the future we should log
+	-- them.
+	local success, error = pcall(strategy.on_attach, bufnr, settings)
+	if not success then
+		log.error('Error attaching strategy to buffer %d: %s', bufnr, error)
+		M.buffers[bufnr] = nil
+	end
+end
+
+---Start rainbow highlighting for the given buffer
+function M.detach(bufnr)
+	log.trace('Detaching from buffer %d.', bufnr)
+	if not M.buffers[bufnr] then
+		return
+	end
+
+	local strategy = M.buffers[bufnr].strategy
+	local parser = M.buffers[bufnr].parser
+
+	-- Clear all the namespaces for each language
+	parser:for_each_child(function(_, lang)
+		M.clear_namespace(bufnr, lang)
+	end, true)
+	-- Finally release all resources the parser is holding on to
+	parser:destroy()
+
+	-- For now we silently discard errors, but in the future we should log
+	-- them.
+	local success, error = pcall(strategy.on_detach, bufnr)
+	if not success then
+		log.error('Error detaching strategy from buffer %d: %s', bufnr, error)
+	end
+	M.buffers[bufnr] = nil
 end
 
 return M

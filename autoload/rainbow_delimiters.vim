@@ -23,4 +23,22 @@ function! rainbow_delimiters#hlgroup_at(i)
 	return luaeval("require('rainbow-delimiters').hlgroup_at(_A)", a:i)
 endfunction
 
+" Disable highlighting for the given buffer. Buffer number zero means current
+" buffer.
+function! rainbow_delimiters#disable(bufnr)
+	call luaeval("require('rainbow-delimiters').disable(_A)", a:bufnr)
+endfunction
+
+" Enable highlighting for the given buffer. Buffer number zero means current
+" buffer.
+function! rainbow_delimiters#enable(bufnr)
+	call luaeval("require('rainbow-delimiters').enable(_A)", a:bufnr)
+endfunction
+
+" Toggle highlighting for the given buffer. Buffer number zero means current
+" buffer.
+function! rainbow_delimiters#toggle(bufnr)
+	call luaeval("require('rainbow-delimiters').toggle(_A)", a:bufnr)
+endfunction
+
 " vim:tw=79:ts=4:sw=4:noet:
