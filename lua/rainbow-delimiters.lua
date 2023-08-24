@@ -20,7 +20,7 @@ local lib = require 'rainbow-delimiters.lib'
 ---Disable rainbow delimiters for a given buffer.
 ---@param bufnr number  Buffer number, zero for current buffer.
 local function disable(bufnr)
-	bufnr = bufnr > 0 and bufnr or vim.api.nvim_get_current_buf()
+	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
 	lib.detach(bufnr)
 	lib.buffers[bufnr] = false
 end
@@ -28,18 +28,16 @@ end
 ---Enable rainbow delimiters for a given buffer.
 ---@param bufnr number  Buffer number, zero for current buffer.
 local function enable(bufnr)
-	bufnr = bufnr > 0 and bufnr or vim.api.nvim_get_current_buf()
+	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
 	lib.buffers[bufnr] = nil
 	lib.attach(bufnr)
 end
 
 local function toggle(bufnr)
-	bufnr = bufnr > 0 and bufnr or vim.api.nvim_get_current_buf()
+	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
 	if lib.buffers[bufnr] then
-		print 'turn off'
 		disable(bufnr)
 	else
-		print 'turn on'
 		enable(bufnr)
 	end
 end
