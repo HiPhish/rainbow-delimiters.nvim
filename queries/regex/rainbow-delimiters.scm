@@ -12,6 +12,6 @@
   "}" @closing) @container
 
 ;;; We should probably include the character after `?` like `=` as well
-(lookahead_assertion
+(lookaround_assertion
   "(?" @opening
   ")" @closing) @container
