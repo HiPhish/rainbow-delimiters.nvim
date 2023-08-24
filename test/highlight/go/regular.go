@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sort"
+	"regexp"
 )
 
 const (
@@ -41,6 +42,8 @@ func SumUp[K comparable, V float32](v1 V, v2 V) V {
 }
 
 func main() {
+	var re = regexp.MustCompile(`x`)
+
 	wines := []Wine{
 		{"Cabernet Sauvignon", 1991, 200.0, true},
 		{"Merlot", 1939, 500.0, true},
