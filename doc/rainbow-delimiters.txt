@@ -433,12 +433,13 @@ the strategy protocol.
 >
     strategy = {
         on_attach = function(bufnr: number, settings: table),
-        on_detach = function(bufnr: string)
+        on_detach = function(bufnr: string),
+        on_reset  = function(bufnr: number, settings: table),
     }
 <
 
 ------------------------------------------------------------------------------
-`on_attach`
+on_attach({bufnr}, {settings})
 
 This function takes two arguments: the number of the buffer and the table of
 settings used by the buffer.  This function is generally used to set up
@@ -455,11 +456,23 @@ internal table, or construct closures (e.g. for callback functions) around
 them.
 
 ------------------------------------------------------------------------------
-`on_detach`
+on_detach({bufnr})
 
 This function takes one argument: the number of the buffer.  This function is
 generally used to clean up any custom state, autocommands and callbacks set up
 in the `on_attach` function.
+
+------------------------------------------------------------------------------
+on_reset({bufnr}, {settings})
+
+Similar to `on_attach` with the same signature, except that this function is
+called when the buffer has been reset in some way, for example if the
+underlying file has been modified by a code formatter.  Usually the strategy
+should highlight the entire buffer from scratch again because we cannot rely
+on Tree-sitter to tell us what has changed.
+
+As a rule of thumb, `on_reset` should do the work of `on_attach`, minus all
+the initial setup.
 
 ------------------------------------------------------------------------------
 The logic within the strategy can vary wildly between strategies.  Usually you

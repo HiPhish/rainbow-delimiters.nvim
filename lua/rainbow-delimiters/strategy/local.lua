@@ -237,6 +237,11 @@ function M.on_detach(bufnr)
 	match_trees[bufnr] = nil
 end
 
+function M.on_reset(bufnr, settings)
+	local parser = settings.parser
+	local_rainbow(bufnr, parser)
+end
+
 return M
 
 -- vim:tw=79:ts=4:sw=4:noet:

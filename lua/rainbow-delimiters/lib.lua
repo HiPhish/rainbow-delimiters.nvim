@@ -133,9 +133,19 @@ function M.attach(bufnr)
 	end
 	log.trace('Attaching to buffer %d with language %s.', bufnr, lang)
 
-	if M.buffers[bufnr] then
-		if M.buffers[bufnr].lang == lang then return end
-		-- The file type of the buffer has change, so we need to detach first
+	local settings = M.buffers[bufnr]
+	if settings then
+		-- if M.buffers[bufnr].lang == lang then return end
+		-- TODO: If the language is the same reload the parser
+		if settings.lang == lang then
+			local parser = get_parser(bufnr, lang)
+			local strategy = settings.strategy
+			parser:invalidate(true)
+			parser:parse()
+			strategy.on_reset(bufnr, settings)
+			return
+		end
+		-- The file type of the buffer has changed, so we need to detach first
 		-- before we re-attach
 		M.detach(bufnr)
 	end
@@ -173,7 +183,7 @@ function M.attach(bufnr)
 		end,
 	}
 
-	local settings = {
+	settings = {
 		strategy = strategy,
 		parser   = parser,
 		lang     = lang

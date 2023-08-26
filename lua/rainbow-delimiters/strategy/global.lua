@@ -24,6 +24,19 @@ local ts    = vim.treesitter
 ---Strategy which highlights the entire buffer.
 local M = {}
 
+---Changes are range objects and come in two variants: one with four entries and
+---one with six entries.  We only want the four-entry variant.  See
+---`:h TSNode:range()`
+local function normalize_change(change)
+	local result
+	if #change == 4 then
+		result = change
+	else
+		result = {change[1], change[2], change[4], change[5]}
+	end
+	return result
+end
+
 local function highlight_matches(bufnr, lang, matches, level)
 	local hlgroup = lib.hlgroup_at(level)
 	for _, match in matches:iter() do
@@ -50,8 +63,9 @@ local function update_range(bufnr, changes, tree, lang)
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
-		lib.clear_namespace(bufnr, lang, change[1], change[3] + 1)
-		for _, match, _ in query:iter_matches(root_node, bufnr, change[1], change[3] + 1) do
+		local start_row, end_row = change[1], change[3] + 1
+		lib.clear_namespace(bufnr, lang, start_row, end_row)
+		for _, match, _ in query:iter_matches(root_node, bufnr, start_row, end_row) do
 			-- This is the match record, it lists all the relevant nodes from
 			-- the match.
 			local match_record = {
@@ -114,6 +128,9 @@ local function setup_parser(bufnr, parser)
 				-- callback, so we use this check to abort
 				if not lib.buffers[bufnr] then return end
 
+				-- Normalize the changes objects
+				changes = vim.tbl_map(normalize_change, changes)
+
 				-- If a line has been moved from another region it will still
 				-- carry with it the extmarks from the old region.  We need to
 				-- clear all extmarks which do not belong to the current
@@ -147,6 +164,11 @@ function M.on_attach(bufnr, settings)
 end
 
 function M.on_detach(bufnr)
+end
+
+function M.on_reset(bufnr, settings)
+	log.trace('global strategy on_reset')
+	full_update(bufnr, settings.parser)
 end
 
 return M

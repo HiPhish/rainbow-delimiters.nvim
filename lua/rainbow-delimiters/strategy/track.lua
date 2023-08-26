@@ -39,7 +39,10 @@ local function track(strategy)
 			buffers[bufnr] = nil
 			attachments[1] = attachments[1] - 1
 			strategy.on_detach(bufnr, ...)
-		end
+		end,
+		on_reset = function(...)
+			strategy.on_reset(...)
+		end,
 	}
 end
 
