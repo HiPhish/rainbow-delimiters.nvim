@@ -41,6 +41,14 @@
     )) @container
   )
 
+(method_or_prop_defn
+  (const 
+    (unit
+      "(" @opening
+      ")" @closing
+    )) @container
+ )
+
 (function_or_value_defn 
   body: (const 
     (unit
@@ -81,7 +89,10 @@
   ) @container
 
 (ce_expression
-  (long_identifier_or_op (long_identifier)) @intermediate
+  [ (return_expression (long_identifier_or_op (long_identifier)))
+    (long_identifier_or_op (long_identifier))
+  ] @intermediate
+
   "{" @opening
   "}" @closing
   ) @container
