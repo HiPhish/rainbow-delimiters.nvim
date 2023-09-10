@@ -41,7 +41,7 @@ let nested_list (x: int list list) = function
 let return_value =
     (Some (Ok (Some (2))))
 
-let type_argument<'a> (x: 'a) =
+let type_argument (x: seq<'a>) =
     x
 
 let nested_type_argument (x: seq<seq<seq<int>>>) =
