@@ -25,7 +25,7 @@ let array (x: int array) = function
 
 let nested_array (x: int array array) = function
     | [| [| [| x |] |] |] -> x
-    | [| [| x; y; z |] |] -> x + y + z
+    | [| [| [| x; y; z |] |] |] -> x + y + z
     | _ -> 0
 
 let list (x: int list) = function
@@ -35,7 +35,7 @@ let list (x: int list) = function
 
 let nested_list (x: int list list) = function
     | [ [ [ x ] ] ] -> x
-    | [ [ x; y; z ] ] -> x + y + x
+    | [ [ [ x; y; z ] ] ] -> x + y + x
     | _ -> 0
 
 let return_value =
@@ -73,23 +73,37 @@ let match_test x =
 let unit_args () () () = 
     ()
 
-let computation_expressions =
+let computation_expressions asyncFn (x: int) =
     async {
-        task {
-            async {
-                task {
-                    return ()
+        let t = 
+            task {
+                let a = 2
+                let b = 3
+                return async {
+                    let! res = asyncFn (x)
+                    return res + a + b
                 }
             }
-        }
+        return t
     }
 
-let if_tests x =
+let if_tests (x: int) =
     if x <> 0 then
         ()
-    else if x < 1 then
+    elif x < 1 then
         ()
-    else x > 10 then
+    else 
+        ()
+
+
+type Class(a: int) =
+    member _.A () = 
+        (a)
+
+    member this.Member () = 
+        ()
+
+    static member StaticMember () = 
         ()
 
 let main _ =
