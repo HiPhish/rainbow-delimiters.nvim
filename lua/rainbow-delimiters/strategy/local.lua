@@ -168,7 +168,7 @@ end
 ---Sets up all the callbacks and performs an initial highlighting
 local function setup_parser(bufnr, parser)
 	log.debug('Setting up parser for buffer %d', bufnr)
-	parser:for_each_child(function(p, lang)
+	local callback = function(p, lang)
 		log.debug("Setting up parser for '%s' in buffer %d", lang, bufnr)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
@@ -197,7 +197,11 @@ local function setup_parser(bufnr, parser)
 			end,
 		}
 		log.trace("Done with setting up parser for '%s' in buffer %d", lang, bufnr)
-	end, true)
+	end
+	callback(parser, parser:lang())
+	for l, p in pairs(parser:children()) do
+		callback(p, l)
+	end
 end
 
 function M.on_attach(bufnr, settings)
@@ -209,9 +213,9 @@ function M.on_attach(bufnr, settings)
 		buffer = bufnr,
 		callback = function(args)
 			lib.clear_namespace(bufnr, parser:lang())
-			parser:for_each_child(function(_, lang)
-				lib.clear_namespace(bufnr, lang)
-			end)
+			for l, _ in pairs(parser:children()) do
+				lib.clear_namespace(bufnr, l)
+			end
 			local_rainbow(args.buf, parser)
 		end
 	})
