@@ -17,6 +17,7 @@
 local Stack = require 'rainbow-delimiters.stack'
 local lib   = require 'rainbow-delimiters.lib'
 local log   = require 'rainbow-delimiters.log'
+local util  = require 'rainbow-delimiters.util'
 local api   = vim.api
 local ts    = vim.treesitter
 
@@ -168,7 +169,7 @@ end
 ---Sets up all the callbacks and performs an initial highlighting
 local function setup_parser(bufnr, parser)
 	log.debug('Setting up parser for buffer %d', bufnr)
-	parser:for_each_child(function(p, lang)
+	util.for_each_child(parser:lang(), parser, function(p, lang)
 		log.debug("Setting up parser for '%s' in buffer %d", lang, bufnr)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
@@ -197,7 +198,7 @@ local function setup_parser(bufnr, parser)
 			end,
 		}
 		log.trace("Done with setting up parser for '%s' in buffer %d", lang, bufnr)
-	end, true)
+	end)
 end
 
 function M.on_attach(bufnr, settings)
@@ -208,8 +209,7 @@ function M.on_attach(bufnr, settings)
 		group = augroup,
 		buffer = bufnr,
 		callback = function(args)
-			lib.clear_namespace(bufnr, parser:lang())
-			parser:for_each_child(function(_, lang)
+			util.for_each_child(parser:lang(), parser, function(_, lang)
 				lib.clear_namespace(bufnr, lang)
 			end)
 			local_rainbow(args.buf, parser)

@@ -19,6 +19,7 @@ local get_query = vim.treesitter.query.get
 local get_parser= vim.treesitter.get_parser
 local log       = require 'rainbow-delimiters.log'
 local config    = require 'rainbow-delimiters.config'
+local util      = require 'rainbow-delimiters.util'
 
 
 ---[ Internal ]----------------------------------------------------------------
@@ -210,9 +211,9 @@ function M.detach(bufnr)
 	local parser = M.buffers[bufnr].parser
 
 	-- Clear all the namespaces for each language
-	parser:for_each_child(function(_, lang)
+	util.for_each_child(parser:lang(), parser, function(_, lang)
 		M.clear_namespace(bufnr, lang)
-	end, true)
+	end)
 	-- Finally release all resources the parser is holding on to
 	parser:destroy()
 
