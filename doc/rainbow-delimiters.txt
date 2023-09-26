@@ -30,7 +30,7 @@ TABLE OF CONTENTS                                     *rb-delimiters-contents*
    2.3 Queries ............................... |rb-delimiters-query|
    2.4 Logging ............................... |rb-delimiters-logging|
 3. Extending ................................. |rb-delimiters-extending|
-   3.1 The library ........................... |rb-delimiters-custom-api|
+   3.1 The library ........................... |rb-delimiters-api|
    3.2 Custom queries ........................ |rb-delimiters-custom-query|
    3.3 Custom strategies ..................... |rb-delimiters-custom-strategy|
    3.4 Adding new languages .................. |rb-delimiters-custom-lang|
