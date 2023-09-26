@@ -54,6 +54,7 @@ end
 ---@param tree    table   TS tree
 ---@param lang    string  Language
 local function update_range(bufnr, changes, tree, lang)
+	log.debug('Updated range with changes ' .. vim.inspect(changes))
 	if not lib.enabled_for(lang) then return end
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
@@ -104,9 +105,7 @@ end
 local function full_update(bufnr, parser)
 	log.debug('Performing full updated on buffer %d', bufnr)
 	local function callback(tree, sub_parser)
-		local changes = {
-			{tree:root():range()}
-		}
+		local changes = {{tree:root():range()}}
 		update_range(bufnr, changes, tree, sub_parser:lang())
 	end
 
@@ -124,6 +123,11 @@ local function setup_parser(bufnr, parser)
 
 		p:register_cbs {
 			on_changedtree = function(changes, tree)
+				if #changes == 0 then
+					-- Hack: an empty change set results from an undo.  Force a
+					-- full update by setting the maximum possible range
+					table.insert(changes, {tree:root():range()})
+				end
 				log.trace('Changed tree in buffer %d with languages %s', bufnr, lang)
 				-- HACK: As of Neovim v0.9.1 there is no way of unregistering a
 				-- callback, so we use this check to abort
