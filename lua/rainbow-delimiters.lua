@@ -16,25 +16,49 @@
 --]]
 
 local lib = require 'rainbow-delimiters.lib'
+local get_current_buf = vim.api.nvim_get_current_buf
 
 ---Disable rainbow delimiters for a given buffer.
 ---@param bufnr number  Buffer number, zero for current buffer.
 local function disable(bufnr)
-	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
+	if not bufnr or bufnr == 0 then bufnr = get_current_buf() end
 	lib.detach(bufnr)
 	lib.buffers[bufnr] = false
 end
 
 ---Enable rainbow delimiters for a given buffer.
----@param bufnr number  Buffer number, zero for current buffer.
-local function enable(bufnr)
-	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
+---@param bufnr number         Buffer number, zero for current buffer.
+---@param what? boolean|table  For which languages to enable
+local function enable(bufnr, what)
+	if not bufnr or bufnr == 0 then bufnr = get_current_buf() end
+	local whitelist
+	if what == nil or what == true then
+		whitelist = true
+	elseif what == false then
+		whitelist = nil
+	elseif type(what) == 'table' and #what > 0 then
+		whitelist = {}
+		for _, lang in ipairs(what) do whitelist[lang] = true end
+	elseif type(what) == 'table' then
+		local pos = vim.fn.getpos('.')
+		local x, y = pos[2] - 1, pos[3] - 1
+		local cursor_lang = vim.treesitter
+			.get_parser()
+			:language_for_range({x, y, x, y})
+			:lang()
+		whitelist = {
+			[cursor_lang] = true
+		}
+	else
+		error(string.format("Invalid value '%s' of second parameter", tostring(what)))
+	end
+
 	lib.buffers[bufnr] = nil
-	lib.attach(bufnr)
+	lib.attach(bufnr, {whitelist = whitelist})
 end
 
 local function toggle(bufnr)
-	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
+	if not bufnr or bufnr == 0 then bufnr = get_current_buf() end
 	if lib.buffers[bufnr] then
 		disable(bufnr)
 	else

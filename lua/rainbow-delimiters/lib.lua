@@ -17,6 +17,7 @@
 
 local get_query = vim.treesitter.query.get
 local get_parser= vim.treesitter.get_parser
+local get_lang  = vim.treesitter.language.get_lang
 local log       = require 'rainbow-delimiters.log'
 local config    = require 'rainbow-delimiters.config'
 local util      = require 'rainbow-delimiters.util'
@@ -29,8 +30,6 @@ local util      = require 'rainbow-delimiters.util'
 
 ---Private library of shared internal functions and variables.
 local M = {}
-
-M.enabled_for = config.enabled_for
 
 ---Per-language namespaces. This table instantiates namespaces on demand, i.e.
 ---a namespace won't exist until we first try to get it from the table.
@@ -56,6 +55,20 @@ M.nsids = setmetatable({}, {
 ---query).  This also makes sure we keep track of all parsers in active use to
 ---prevent them from being garbage-collected.
 M.buffers = {}
+
+
+---Whether the given language is enabled for a buffer (if given) or globally.
+---@param lang   string  The language.
+---@param bufnr? number  The language.
+---@return boolean enabled  Whether the language is enabled.
+function M.enabled_for(lang, bufnr)
+	if not bufnr then return config.enabled_for(lang) end
+
+	local whitelist = M.buffers[bufnr].whitelist
+	if not whitelist then return config.enabled_for(lang) end
+	if whitelist == true then return true end
+	return whitelist[lang] == true
+end
 
 
 ---[ This stuff needs to be re-exported ]--------------------------------------
@@ -123,11 +136,13 @@ function M.clear_namespace(bufnr, lang, line_start, line_end)
 end
 
 ---Start rainbow highlighting for the given buffer
-function M.attach(bufnr)
+---@param bufnr              number  Number of the buffer to attach.
+---@param override_settings? table   Settings to override new settings with.
+function M.attach(bufnr, override_settings)
 	-- Rainbow delimiters was explicitly disabled for this buffer
 	if M.buffers[bufnr] == false then return end
 
-	local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].ft)
+	local lang = get_lang(vim.bo[bufnr].ft)
 	if not lang then
 		log.trace('Cannot attach to buffer %d, no parser for %s', bufnr, lang)
 		return
@@ -189,6 +204,11 @@ function M.attach(bufnr)
 		parser   = parser,
 		lang     = lang
 	}
+	if override_settings then
+		for key, value in pairs(override_settings) do
+			settings[key] = value
+		end
+	end
 	M.buffers[bufnr] = settings
 
 	-- For now we silently discard errors, but in the future we should log

@@ -31,8 +31,13 @@ endfunction
 
 " Enable highlighting for the given buffer. Buffer number zero means current
 " buffer.
-function! rainbow_delimiters#enable(bufnr)
-	call luaeval("require('rainbow-delimiters').enable(_A)", a:bufnr)
+function! rainbow_delimiters#enable(bufnr, ...)
+	if a:0 > 1
+		echoerr 'E118: Too many arguments for function: rainbow_delimiters#enable'
+		return
+	endif
+	let l:what = a:0 == 0 ? v:null : a:1
+	call luaeval("require('rainbow-delimiters').enable(_A[1], _A[2])", [a:bufnr, l:what])
 endfunction
 
 " Toggle highlighting for the given buffer. Buffer number zero means current

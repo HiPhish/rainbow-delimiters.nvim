@@ -1,0 +1,64 @@
+# Each buffer can have its own local whitelist.  Here we test that the local
+# local whitelist is properly respected with regards to the global white- and
+# blacklist.
+#
+# This test uses a fake buffer entry with the buffer number 1337.  This buffer
+# does not actually exist, but we only need a buffer entry, not a real buffer
+# anyway.
+
+
+Execute lua (Blacklist all languages):
+  vim.g.rainbow_delimiters = {whitelist = {}}
+  require('rainbow-delimiters.lib').buffers[1337] = {}
+
+Then (No language is enabled):
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('lua', 1337)")
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('vim', 1337)")
+
+
+Execute lua (Permit all languages in the buffer):
+  require('rainbow-delimiters.lib').buffers[1337].whitelist = true
+
+Then (Any language is enabled):
+  AssertEqual v:true, luaeval("require('rainbow-delimiters.lib').enabled_for('lua', 1337)")
+  AssertEqual v:true, luaeval("require('rainbow-delimiters.lib').enabled_for('vim', 1337)")
+
+
+Execute lua (Permit only Lua in the buffer):
+  require('rainbow-delimiters.lib').buffers[1337].whitelist = {lua = true}
+
+Then (Only Lua is enabled):
+  AssertEqual v:true,  luaeval("require('rainbow-delimiters.lib').enabled_for('lua', 1337)")
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('vim', 1337)")
+
+
+Execute lua (Permit nothing in the buffer):
+  require('rainbow-delimiters.lib').buffers[1337].whitelist = {}
+
+Then (No language is enabled):
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('lua', 1337)")
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('vim', 1337)")
+
+
+Execute lua (Whitelist Lua globally):
+  vim.g.rainbow_delimiters = {whitelist = {'lua'}}
+
+Then (No language is enabled because we override global settings):
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('lua', 1337)")
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('vim', 1337)")
+
+
+Execute lua (Remove local whitelist from buffer):
+  require('rainbow-delimiters.lib').buffers[1337].whitelist = nil
+
+Then (Only Lua is enabled because it is globally whitelisted):
+  AssertEqual v:true,  luaeval("require('rainbow-delimiters.lib').enabled_for('lua', 1337)")
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('vim', 1337)")
+
+
+Execute lua (Blacklist only Vim script):
+  vim.g.rainbow_delimiters = {blacklist = {'vim'}}
+
+Then (Only Lua is enabled because Vim script is globally blacklisted):
+  AssertEqual v:true,  luaeval("require('rainbow-delimiters.lib').enabled_for('lua', 1337)")
+  AssertEqual v:false, luaeval("require('rainbow-delimiters.lib').enabled_for('vim', 1337)")

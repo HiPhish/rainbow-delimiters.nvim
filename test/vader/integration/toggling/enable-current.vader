@@ -1,0 +1,46 @@
+# We can manually enable rainbow parentheses even for the language under the
+# cursor.
+
+
+Execute lua (Set up the plugin):
+  the_strategy = require('rainbow-delimiters.strategy.global')
+  -- By default nothing is whitelisted, i.e. everything is blacklisted
+  vim.g.rainbow_delimiters = {strategy = {[''] = the_strategy}, whitelist = {}}
+
+Given lua (A Lua buffer):
+  print((((('Hello, world!')))))
+  -- This is embedded Vim script
+  vim.cmd 'echo string(1 + (2 + (3 + 4)))'
+  vim.cmd 'echo string(5 + (6 + (7 + 8)))'
+
+Execute (Leave things as they are):
+  redraw!  " Without this there will be no extmarks at all
+
+Then (Rainbow delimiters are inactive):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertEqual [], extmarks
+
+Execute (Turn rainbow delimiters on):
+  call setcursorcharpos(3, 21)
+  redraw!
+  call rainbow_delimiters#enable(0, [])
+  redraw!
+
+Then (Rainbow delimiters are active for Vim script only):
+  let extmarks = luaeval('vim.inspect_pos(0, 0, 5)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.lua')})
+  AssertEqual [], extmarks
+  let extmarks = luaeval('vim.inspect_pos(0, 2, 20)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.vim')})
+  AssertNotEqual [], extmarks
+  let extmarks = luaeval('vim.inspect_pos(0, 3, 20)').extmarks
+    \->map('v:val["ns_id"]')
+    \->filter({_, nsid -> nsid == luaeval('require("rainbow-delimiters.lib").nsids.vim')})
+  AssertNotEqual [], extmarks
+
+
+# vim:tw=79:ts=2:sw=2:et:

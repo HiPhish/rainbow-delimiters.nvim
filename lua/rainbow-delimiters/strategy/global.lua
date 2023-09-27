@@ -55,7 +55,7 @@ end
 ---@param lang    string  Language
 local function update_range(bufnr, changes, tree, lang)
 	log.debug('Updated range with changes ' .. vim.inspect(changes))
-	if not lib.enabled_for(lang) then return end
+	if not lib.enabled_for(lang, bufnr) then return end
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
 	local query = lib.get_query(lang)

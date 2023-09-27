@@ -368,11 +368,17 @@ It is available as a table under the Lua module `'rainbow-delimiters'`.
 
                                                         *rb-delimiters.enable*
                                                         *rb_delimiters#enable*
-'rainbow-delimiters'.enable({bufnr})
+'rainbow-delimiters'.enable({bufnr}[, {what}])
     Re-enable rainbow delimiters for the buffer {bufnr} (or the current buffer
-    if {bufnr} is `0`) after it has been disabled.
+    if {bufnr} is `0`) after it has been disabled.  The {what} parameter
+    determines for which languages in the buffer highlighting will be enabled;
+    it can be `nil`, a boolean or a list.
 
-rainbow_delimiters#enable({bufnr})
+    - `nil`    The current language the cursor is on
+    - `true`   All languages in the buffer
+    - `{...}`  Only the languages in the list
+
+rainbow_delimiters#enable({bufnr}[, {what}])
     Vim script binding for the above function.
 
 
