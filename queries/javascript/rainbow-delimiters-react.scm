@@ -57,6 +57,12 @@
   close_tag: (jsx_closing_element
                name: (identifier) @closing)) @container
 
+(jsx_element
+  open_tag: (jsx_opening_element
+              name: (member_expression) @opening)
+  close_tag: (jsx_closing_element
+               name: (member_expression) @closing)) @container
+
 (jsx_self_closing_element
   name: (identifier) @opening
   "/>" @closing) @container

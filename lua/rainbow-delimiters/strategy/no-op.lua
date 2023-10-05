@@ -23,6 +23,9 @@ end
 M.on_detach = function()
 end
 
+M.on_reset = function()
+end
+
 return M
 
 -- vim:tw=79:ts=4:sw=4:noet:

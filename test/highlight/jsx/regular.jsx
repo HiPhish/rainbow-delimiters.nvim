@@ -34,6 +34,9 @@ function app() {
 			<ComponentWithChildren>
 				{someFunction().map((x) => <div></div>)}
 			</ComponentWithChildren>
+			<ComponentWith.property>
+				{someFunction().map((x) => <div></div>)}
+			</ComponentWith.property>
 			<button onClick={hello}>Click me!</button>
 		</div>
 	)

@@ -69,6 +69,9 @@ function app() {
 			<ComponentWithChildren>
 				{someFunction().map((x) => <div></div>)}
 			</ComponentWithChildren>
+			<ComponentWith.property>
+				{someFunction().map((x) => <div></div>)}
+			</ComponentWith.property>
 			<CustomComponent bool={true} arr={[1, 2, 3]} />
 		</div>
 	)

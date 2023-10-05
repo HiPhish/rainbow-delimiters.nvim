@@ -17,12 +17,26 @@
 
 local Stack = require 'rainbow-delimiters.stack'
 local lib   = require 'rainbow-delimiters.lib'
+local util  = require 'rainbow-delimiters.util'
 local log   = require 'rainbow-delimiters.log'
 local ts    = vim.treesitter
 
 
 ---Strategy which highlights the entire buffer.
 local M = {}
+
+---Changes are range objects and come in two variants: one with four entries and
+---one with six entries.  We only want the four-entry variant.  See
+---`:h TSNode:range()`
+local function normalize_change(change)
+	local result
+	if #change == 4 then
+		result = change
+	else
+		result = {change[1], change[2], change[4], change[5]}
+	end
+	return result
+end
 
 local function highlight_matches(bufnr, lang, matches, level)
 	local hlgroup = lib.hlgroup_at(level)
@@ -40,6 +54,7 @@ end
 ---@param tree    table   TS tree
 ---@param lang    string  Language
 local function update_range(bufnr, changes, tree, lang)
+	log.debug('Updated range with changes ' .. vim.inspect(changes))
 	if not lib.enabled_for(lang) then return end
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
@@ -50,8 +65,9 @@ local function update_range(bufnr, changes, tree, lang)
 
 	for _, change in ipairs(changes) do
 		local root_node = tree:root()
-		lib.clear_namespace(bufnr, lang, change[1], change[3] + 1)
-		for _, match, _ in query:iter_matches(root_node, bufnr, change[1], change[3] + 1) do
+		local start_row, end_row = change[1], change[3] + 1
+		lib.clear_namespace(bufnr, lang, start_row, end_row)
+		for _, match, _ in query:iter_matches(root_node, bufnr, start_row, end_row) do
 			-- This is the match record, it lists all the relevant nodes from
 			-- the match.
 			local match_record = {
@@ -89,9 +105,7 @@ end
 local function full_update(bufnr, parser)
 	log.debug('Performing full updated on buffer %d', bufnr)
 	local function callback(tree, sub_parser)
-		local changes = {
-			{tree:root():range()}
-		}
+		local changes = {{tree:root():range()}}
 		update_range(bufnr, changes, tree, sub_parser:lang())
 	end
 
@@ -101,7 +115,7 @@ end
 ---Sets up all the callbacks and performs an initial highlighting
 local function setup_parser(bufnr, parser)
 	log.debug('Setting up parser for buffer %d', bufnr)
-	parser:for_each_child(function(p, lang)
+	util.for_each_child(parser:lang(), parser, function(p, lang)
 		log.debug("Setting up parser for '%s' in buffer %d", lang, bufnr)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
@@ -109,10 +123,18 @@ local function setup_parser(bufnr, parser)
 
 		p:register_cbs {
 			on_changedtree = function(changes, tree)
+				if #changes == 0 then
+					-- Hack: an empty change set results from an undo.  Force a
+					-- full update by setting the maximum possible range
+					table.insert(changes, {tree:root():range()})
+				end
 				log.trace('Changed tree in buffer %d with languages %s', bufnr, lang)
 				-- HACK: As of Neovim v0.9.1 there is no way of unregistering a
 				-- callback, so we use this check to abort
 				if not lib.buffers[bufnr] then return end
+
+				-- Normalize the changes objects
+				changes = vim.tbl_map(normalize_change, changes)
 
 				-- If a line has been moved from another region it will still
 				-- carry with it the extmarks from the old region.  We need to
@@ -134,7 +156,7 @@ local function setup_parser(bufnr, parser)
 			end,
 		}
 		log.trace("Done with setting up parser for '%s' in buffer %d", lang, bufnr)
-	end, true)
+	end)
 
 	full_update(bufnr, parser)
 end
@@ -147,6 +169,11 @@ function M.on_attach(bufnr, settings)
 end
 
 function M.on_detach(bufnr)
+end
+
+function M.on_reset(bufnr, settings)
+	log.trace('global strategy on_reset')
+	full_update(bufnr, settings.parser)
 end
 
 return M

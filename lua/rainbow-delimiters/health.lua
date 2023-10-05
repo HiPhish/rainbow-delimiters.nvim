@@ -8,10 +8,26 @@ local info  = vim.health.info  or vim.health.report_info
 local warn  = vim.health.warn  or vim.health.report_warn
 local error = vim.health.error or vim.health.report_error
 
+local filewritable = vim.fn.filewritable
+local fnamemodify  = vim.fn.fnamemodify
+
 
 local STRATEGY_ADVICE = "See :h rb-delimiters-strategy for the strategy protocol"
 local    QUERY_ADVICE = "See :h rb-delimiters-query for included standard queries."
 local  HLGROUP_ADVICE = "Consecutive highlight groups make delimiter levels indistinguishable, use another highlight group."
+local   SCHEMA_ADVICE = "This might be a typo, see :h g:rainbow_delimiters for valid entries."
+
+---Specification of valid options.  The key is the name of an option, the value
+---is either true (no further validation) or a table containing the nested
+---schema for the option
+local schema = {
+	strategy = true,
+	query = true,
+	highlight = true,
+	blacklist = true,
+	whitelist = true,
+	log = {level = true, file = true},
+}
 
 
 ---Check whether there is a parser installed for the given language.
@@ -46,6 +62,39 @@ end
 local function check_query(lang, name)
 	local query = vim.treesitter.query.get(lang, name)
 	return query ~= nil
+end
+
+local function check_logging(settings)
+	local level, file = settings.level, settings.file
+	if level then
+		if type(level) ~= 'number' then
+			error('The log level must be a number', 'See :h vim.log.levels for valid log levels.')
+		else
+			ok('Valid log level.')
+		end
+	end
+	if file then
+		if type(file) ~= 'string' then
+			error('The log file path must be a string')
+		elseif filewritable(file) == 0 then
+			if filewritable(fnamemodify(file, ':h')) == 2 then
+				ok('Valid location for log file.')
+			else
+				local msg = string.format("Cannot write to file '%s'", file)
+				error(msg)
+			end
+		else
+			ok('Valid log file.')
+		end
+	end
+
+	local advice = "This might be a typo, see :h rb-delimiters-logging for valid entries."
+	for option in pairs(settings) do
+		if not schema.log[option] then
+			local msg = string.format("Unknown logging option '%s' in settings", option)
+			warn(msg, advice)
+		end
+	end
 end
 
 
@@ -137,6 +186,19 @@ function M.check()
 				warn(msg, HLGROUP_ADVICE)
 			end
 			previous = hlgroup
+		end
+	end
+
+	local logging = settings.log
+	if logging then
+		start 'Logging settings'
+		check_logging(logging)
+	end
+
+	for option in pairs(settings) do
+		if not schema[option] then
+			local msg = string.format("Unknown option '%s' in settings", option)
+			warn(msg, SCHEMA_ADVICE)
 		end
 	end
 end
