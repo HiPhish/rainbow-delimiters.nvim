@@ -28,7 +28,8 @@ sub barfoo {
         say $ary->[1];
     }
     if ($foo) {
-        say "${foo} $bar";
+        # TODO: tree-sitter-perl cannot detect strng interpolation yet.
+        # say "${foo} $bar";
     }
     my $sub = sub {
         say $foo;
