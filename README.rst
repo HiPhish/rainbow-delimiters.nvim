@@ -81,7 +81,22 @@ The equivalent code in Lua:
    }
 
 Please refer to the `manual`_ for more details.  For those who prefer a `setup`
-function there is the module `rainbow-delimiters.setup`.
+function there is the module `rainbow-delimiters.setup` that accepts all the
+same parameters as `g:rainbow-delimiters`.
+
+.. code:: lua
+
+   require('rainbow-delimiters.setup').setup({
+       strategy = { 
+           -- ...
+       },
+       query = {
+           -- ...
+       },
+       highlight = {
+           -- ...
+       },
+   })
 
 
 Help wanted
