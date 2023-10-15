@@ -145,8 +145,8 @@ Alternatively, the same configuration in Lua:
                                                     *rainbow-delimiters.setup*
 'rainbow-delimiters.setup'.setup({config})
 
-Some people prefer to call a Lua `setup` function, so a setup function is
-available as part of a Lua module.
+While |g:rainbow_delimiters| is the recommended configuration method, a Lua
+`setup` function is available for compatibility with common plugin managers.
 >lua
     require 'rainbow-delimiters.setup'.setup {
         strategy = {
@@ -172,9 +172,6 @@ available as part of a Lua module.
 The keys are exactly the same as for |g:rainbow_parentheses|.  If fact, this
 function does the same as setting the variable directly.
 
-As an aside, this is a bad practice carried over from a time when Lua support
-in Neovim still had issues with Vim script interoperability, but it has
-persisted through cargo-culting.  You are better off not using this function.
 
 ------------------------------------------------------------------------------
 HIGHLIGHT COLORS                                        *rb-delimiters-colors*
