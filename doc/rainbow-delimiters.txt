@@ -92,7 +92,7 @@ take precedence.
 
 
 Here is an example configuration:
->
+>vim
     let g:rainbow_delimiters = {
         \ 'strategy': {
             \ '': rainbow_delimiters#strategy.global,
@@ -116,7 +116,7 @@ Here is an example configuration:
 <
 
 Alternatively, the same configuration in Lua:
->
+>lua
     -- This module contains a number of default definitions
     local rainbow_delimiters = require 'rainbow-delimiters'
 
@@ -147,7 +147,7 @@ Alternatively, the same configuration in Lua:
 
 Some people prefer to call a Lua `setup` function, so a setup function is
 available as part of a Lua module.
->
+>lua
     require 'rainbow-delimiters.setup'.setup {
         strategy = {
             [''] = rainbow_delimiters.strategy['global'],
@@ -200,7 +200,7 @@ contrast between adjacent delimiters more noticeable.  Re-order the groups in
 your settings if you prefer a different order.
 
 Example highlight group definitions:
->
+>vim
     " Link to an existing highlight group
     highlight link RainbowDelimiterRed WarningMsg
 
@@ -210,7 +210,7 @@ Example highlight group definitions:
 You will probably want to have different colours per theme.  Since most themes
 will lack definitions for the above groups you will need to hook in somehow.
 A simple solution is to use an autocommand.
->
+>vim
     au ColorSchemePre MyTheme highlight link RainbowDelimiter MyThemeRed
     au ColorSchemePre MyTheme highlight link RainbowDelimiter MyThemeYellow
     " and so on...
@@ -234,7 +234,7 @@ so-called "thunk").  A function can be used to defer the decision to a later
 point in time.  If the function evaluates to `nil` (or |v:null|) rainbow
 delimiters will be disabled for that buffer.
 
->
+>lua
     local rainbow = require 'rainbow-delimiters'
 
     strategy = {
@@ -290,7 +290,7 @@ QUERIES                                                  *rb-delimiters-query*
 A query defines what to match.  Every language needs its own custom query.
 The query setting is a table where each entry maps a language name to a query
 name.  The empty string is the key for the default query.
->
+>lua
     -- Use parentheses by default, blocks for Lua
     query = {
         [''] = 'rainbow-delimiters',
@@ -431,7 +431,7 @@ CUSTOM STRATEGIES                              *rb-delimiters-custom-strategy*
 A strategy is a table which must contain a certain set of fields.  In
 object-oriented terminology we would say that a strategy table must implement
 the strategy protocol.
->
+>lua
     strategy = {
         on_attach = function(bufnr: number, settings: table),
         on_detach = function(bufnr: string),
@@ -514,14 +514,14 @@ integration.  If a capture matches multiple nodes (e.g. multiple `elseif`
 intermediate statements in an `if` block) only the last one will be used.
 
 Let's look at an example first.  Here is a snippet of HTML code:
->
+>html
     <a href="https://example.com">
         Example<br/>link
     </a>
 <
 
 The corresponding document tree including anonymous nodes is as follows:
->
+>query
     element [1, 4] - [3, 8]
       start_tag [1, 4] - [1, 34]
         "<" [1, 4] - [1, 5]
@@ -556,7 +556,7 @@ the entire link, not one of its delimiters.
 As you can see, it is up to interpretation as to what exactly constitutes a
 delimiter.  In this example for the sake of exhaustiveness we will consider
 the `<br/>` tag a delimiters.  The corresponding query is as follows:
->
+>query
     (element
       (start_tag) @opening
       (element
@@ -567,7 +567,7 @@ Highlighting the entire tag might be too vibrant though.  What if we want to
 highlight only the opening and closing angle brackets?  The query gets
 slightly more complex because we have to descend deeper into the document
 tree.
->
+>query
     (element
       ((start_tag
           ["<" ">"] @opening)
