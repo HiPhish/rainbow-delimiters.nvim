@@ -10,7 +10,7 @@ Adding support for a new language
 
 Languages are supported through language-specific queries.  Each language needs
 at lease one query which matches the most common delimiters, usually `(`, `)`,
-`[`, `]`, `{`, `}`, `<` and `>`.  Read `:h ts-rainbow-custom-queries` in the
+`[`, `]`, `{`, `}`, `<` and `>`.  Read `:h rb-delimiters-custom-query` in the
 manual first to understand how to write queries.  Your query should meet the
 following criteria:
 

@@ -21,4 +21,3 @@
 (tbl_lit
   "@{" @opening
   "}" @closing) @container
-
