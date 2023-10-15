@@ -34,3 +34,5 @@ function M.for_each_child(lang, language_tree, thunk)
 end
 
 return M
+
+-- vim:tw=79:ts=4:sw=4:noet:
