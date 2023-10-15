@@ -143,14 +143,12 @@ Alternatively, the same configuration in Lua:
 <
 
                                                     *rainbow-delimiters.setup*
-'rainbow-delimiters.setup'({config})
+'rainbow-delimiters.setup'.setup({config})
 
-Some people prefer to call a Lua `setup` function.  This is a bad practice
-carried over from a time when Lua support in Neovim still had issues with Vim
-script interoperability, but it has persisted through cargo-culting.
-Nevertheless, a setup function is available as a Lua module.
+Some people prefer to call a Lua `setup` function, so a setup function is
+available as part of a Lua module.
 >
-    require 'rainbow-delimiters.setup' {
+    require 'rainbow-delimiters.setup'.setup {
         strategy = {
             [''] = rainbow_delimiters.strategy['global'],
             commonlisp = rainbow_delimiters.strategy['local'],
@@ -172,8 +170,11 @@ Nevertheless, a setup function is available as a Lua module.
     }
 <
 The keys are exactly the same as for |g:rainbow_parentheses|.  If fact, this
-function does the same as setting the variable directly, except with more
-overhead.  Do yourself a favour and don't use it.
+function does the same as setting the variable directly.
+
+As an aside, this is a bad practice carried over from a time when Lua support
+in Neovim still had issues with Vim script interoperability, but it has
+persisted through cargo-culting.  You are better off not using this function.
 
 ------------------------------------------------------------------------------
 HIGHLIGHT COLORS                                        *rb-delimiters-colors*

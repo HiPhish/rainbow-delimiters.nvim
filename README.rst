@@ -86,7 +86,7 @@ same parameters as `g:rainbow-delimiters`.
 
 .. code:: lua
 
-   require('rainbow-delimiters.setup').setup({
+   require('rainbow-delimiters.setup').setup {
        strategy = { 
            -- ...
        },
@@ -96,7 +96,7 @@ same parameters as `g:rainbow-delimiters`.
        highlight = {
            -- ...
        },
-   })
+   }
 
 
 Help wanted
