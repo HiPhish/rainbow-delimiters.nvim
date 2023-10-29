@@ -61,3 +61,7 @@
 (type_arguments
   "[" @opening
   "]" @closing) @container
+
+(index_expression
+  "[" @opening
+  "]" @closing) @container
