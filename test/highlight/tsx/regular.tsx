@@ -72,6 +72,7 @@ function app() {
 			<ComponentWith.property>
 				{someFunction().map((x) => <div></div>)}
 			</ComponentWith.property>
+			<ComponentWith.property bool={true} arr={[1, 2, 3]} />
 			<CustomComponent bool={true} arr={[1, 2, 3]} />
 		</div>
 	)

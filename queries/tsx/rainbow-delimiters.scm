@@ -16,6 +16,11 @@
   name: (identifier) @opening
   "/>" @closing) @container
 
+(jsx_self_closing_element
+  "<" @delimiter
+  name: (member_expression) @delimiter
+  "/>" @delimiter @sentinel) @container
+
 (jsx_expression
   "{" @opening
   "}" @closing) @container
