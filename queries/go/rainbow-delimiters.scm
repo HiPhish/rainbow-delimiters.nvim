@@ -1,67 +1,67 @@
 (parenthesized_expression
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (import_spec_list
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (var_declaration
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (const_declaration
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (field_declaration_list
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (argument_list
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parameter_list
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (block
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (expression_switch_statement
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (type_switch_statement
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (literal_value
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (slice_type
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (map_type
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (interface_type
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (type_parameter_list
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (type_arguments
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (index_expression
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container

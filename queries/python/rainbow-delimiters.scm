@@ -1,47 +1,51 @@
 (list
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (list_comprehension
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (dictionary
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (dictionary_comprehension
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (set
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (set_comprehension
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (tuple
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (generator_expression
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parameters
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (argument_list
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parenthesized_expression
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (subscript
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(type_parameter
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container

@@ -1,125 +1,97 @@
 (ParamDeclList
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (FnCallArguments
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (IfPrefix
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (ForPrefix
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (WhilePrefix
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (LinkSection
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (CallConv
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (AsmExpr
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (ContainerDeclType
-   "(" @opening
-   ")" @closing) @container
-
-;;; BUG: regarding the next 3 pairs of queries:
-;;;      since both pairs of delimiters
-;;;      are direct children of the same `TSNode`
-;;;      they get highligthed in different colours
-
-;;; NOTE: https://github.com/neovim/neovim/pull/17099
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (AsmInputItem
-   "[" @opening
-   "]" @closing) @container
-
-(AsmInputItem
-   "(" @opening
-   ")" @closing) @container
+   "[" @delimiter
+   "]" @delimiter
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (AsmOutputItem
-   "[" @opening
-   "]" @closing) @container
-
-(AsmOutputItem
-   "(" @opening
-   ")" @closing) @container
+   "[" @delimiter
+   "]" @delimiter
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (SwitchExpr
-   "(" @opening
-   ")" @closing) @container
-
-(SwitchExpr
-   "{" @opening
-   "}" @closing) @container
-
-;;; TODO: (reo101) swap out the above queries
-;;;       for these (below) when 17099 (see NOTE) is merged
-
-;; (AsmInputItem
-;;    ["[" ")"]+ @opening
-;;    ["]" ")"]+ @closing) @container
-;;
-;; (AsmOutputItem
-;;    ["[" ")"]+ @opening
-;;    ["]" ")"]+ @closing) @container
-;;
-;; (SwitchExpr
-;;    ["(" "{"]+ @opening
-;;    [")" "}"]+ @closing) @container
+   "(" @delimiter
+   ")" @delimiter
+   "{" @delimiter
+   "}" @delimiter @sentinel) @container
 
 (ArrayTypeStart
-   "[" @opening
-   "]" @closing) @container
+   "[" @delimiter
+   "]" @delimiter @sentinel) @container
 
 (SliceTypeStart
-   "[" @opening
-   "]" @closing) @container
+   "[" @delimiter
+   "]" @delimiter @sentinel) @container
 
 (PtrTypeStart
-   "[" @opening
-   "]" @closing) @container
+   "[" @delimiter
+   "]" @delimiter @sentinel) @container
 
 (SuffixOp
-   "[" @opening
-   "]" @closing) @container
+   "[" @delimiter
+   "]" @delimiter @sentinel) @container
 
 (Block
-   "{" @opening
-   "}" @closing) @container
+   "{" @delimiter
+   "}" @delimiter @sentinel) @container
 
 (ContainerDecl
-   "{" @opening
-   "}" @closing) @container
+   "{" @delimiter
+   "}" @delimiter @sentinel) @container
 
 (InitList
-   "{" @opening
-   "}" @closing) @container
+   "{" @delimiter
+   "}" @delimiter @sentinel) @container
 
 (FormatSequence
-   "{" @opening
-   "}" @closing) @container
+   "{" @delimiter
+   "}" @delimiter @sentinel) @container
 
 (Payload
-  "|" @opening
-  "|" @closing) @container
+  "|" @delimiter
+  "|" @delimiter @sentinel) @container
 
 (PtrListPayload
-  "|" @opening
-  "|" @closing) @container
+  "|" @delimiter
+  "|" @delimiter @sentinel) @container
 
 (PtrIndexPayload
-  "|" @opening
-  "|" @closing) @container
+  "|" @delimiter
+  "|" @delimiter @sentinel) @container

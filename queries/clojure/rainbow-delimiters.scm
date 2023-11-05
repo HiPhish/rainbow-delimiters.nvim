@@ -1,19 +1,19 @@
 (list_lit
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (vec_lit
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (map_lit
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (set_lit
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (anon_fn_lit
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container

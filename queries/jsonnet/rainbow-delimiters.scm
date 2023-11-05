@@ -1,39 +1,39 @@
 (anonymous_function
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (functioncall
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (bind
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parenthesis
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (field
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (fieldname
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (array
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (forloop
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (indexing
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (object
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container

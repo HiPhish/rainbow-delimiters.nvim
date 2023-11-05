@@ -1,7 +1,15 @@
 (named_node
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(grouping
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (list
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(predicate
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container

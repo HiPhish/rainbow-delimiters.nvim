@@ -2,71 +2,85 @@
 
 ;; String interpolation inside template strings
 (template_substitution
-  "${" @opening
-  "}"  @closing) @container
+  "${" @delimiter
+  "}"  @delimiter @sentinel) @container
 
 (object
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (statement_block
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (class_body
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (arguments
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (formal_parameters
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parenthesized_expression
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (subscript_expression
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (named_imports
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (export_clause
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (object_pattern
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (array
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 
 ;;; React.js support
 (jsx_element
   open_tag: (jsx_opening_element
-              name: (identifier) @opening)
+              "<" @delimiter
+              name: (identifier) @delimiter
+              ">" @delimiter)
   close_tag: (jsx_closing_element
-               name: (identifier) @closing)) @container
+               "</" @delimiter
+               name: (identifier) @delimiter
+               ">" @delimiter @sentinel)) @container
 
 (jsx_element
   open_tag: (jsx_opening_element
-              name: (member_expression) @opening)
+              "<" @delimiter
+              name: (member_expression) @delimiter
+              ">" @delimiter)
   close_tag: (jsx_closing_element
-               name: (member_expression) @closing)) @container
+              "</" @delimiter
+               name: (member_expression) @delimiter
+              ">" @delimiter @sentinel)) @container
 
 (jsx_self_closing_element
-  name: (identifier) @opening
-  "/>" @closing) @container
+  "<" @delimiter
+  name: (identifier) @delimiter
+  "/>" @delimiter @sentinel) @container
+
+(jsx_self_closing_element
+  "<" @delimiter
+  name: (member_expression) @delimiter
+  "/>" @delimiter @sentinel) @container
 
 (jsx_expression
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container

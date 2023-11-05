@@ -1,8 +1,7 @@
 (flow_mapping
-  "{" @opening
-  (flow_pair ":" @intermediate)*
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (flow_sequence
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container

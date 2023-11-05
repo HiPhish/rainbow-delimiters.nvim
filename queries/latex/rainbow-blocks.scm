@@ -1,11 +1,11 @@
 (inline_formula
-  "$" @opening
-  "$" @closing) @container
+  "$" @delimiter
+  "$" @delimiter @sentinel) @container
 
 (generic_environment
-  (begin) @opening
-  (end)   @closing) @container
+  (begin) @delimiter
+  (end)   @delimiter @sentinel) @container
 
 (math_environment
-  (begin) @opening
-  (end)   @closing) @container
+  (begin) @delimiter
+  (end)   @delimiter @sentinel) @container

@@ -1,30 +1,48 @@
 (parameter_list
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (argument_list
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (parenthesized_expression
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (compound_statement
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (initializer_list
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
+; This highlights the nested levels in an array differently
+; although they are the same level in terms of the nesting
+; of delimiters
 (subscript_expression
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (field_declaration_list
-   "{" @opening
-   "}" @closing) @container
+   "{" @delimiter
+   "}" @delimiter @sentinel) @container
 
-;;; We could also add type casts, but those are not nested, so I don't think
-;;; they belong here.
+(array_declarator
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(sizeof_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(for_statement
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+; Comment out the following to not highlight type casts
+(cast_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+

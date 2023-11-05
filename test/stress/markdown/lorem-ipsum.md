@@ -7,6 +7,20 @@ print 'This is an injected language'
 print({{{{{{{}}}}}}})
 ```
 
+```markdown
+Injected markdown.
+~~~lua
+print 'Injected Lua'
+print({{{{}}}})
+vim.cmd[[echo str([])]]
+vim.cmd[[
+echo 'Injected vim in injected Lua'
+echo str([])
+]]
+~~~
+More injected markdown.
+```
+
 ## Cupit Phoce sonus
 
 Lorem markdownum acernas. **Ignis ore amplius** dixit, supremumque miserere
@@ -39,6 +53,14 @@ puts("This is an injected language")
         }
     }
 }
+```
+
+```c
+puts("This is a second c code block")
+```
+
+```c
+puts("This is a third c code block")
 ```
 
 > Delius irascere cuncti Argolis, femineis **ubi est** relatis Tityos supple

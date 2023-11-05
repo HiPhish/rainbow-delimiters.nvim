@@ -1,19 +1,61 @@
-;;; A pair of opening and closing tag with any content in-between. Excludes
-;;; self-closing tags or opening tags without closing tag.
+;;; A pair of delimiter tags with any content in-between.
+;;; Last tag should be a sentinel.
 
 (element
-  (start_tag (tag_name) @opening)
-  ; (element (self_closing_tag) @intermediate)*
-  (end_tag (tag_name) @closing)) @container
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
 
 (element
-  (self_closing_tag (tag_name) @opening)) @container
+  (self_closing_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    "/>" @delimiter @sentinel)) @container
+
+(element
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter @_tag_name
+    ">" @delimiter @sentinel)
+  (#any-of? @_tag_name
+   "area"
+   "base"
+   "br"
+   "col"
+   "embed"
+   "hr"
+   "img"
+   "input"
+   "link"
+   "meta"
+   "param"
+   "source"
+   "track"
+   "wbr")
+) @container
 
 (style_element
-  (start_tag (tag_name) @opening)
-  ; (element (self_closing_tag) @intermediate)*
-  (end_tag (tag_name) @closing)) @container
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (element (self_closing_tag) @delimiter)*
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
 
 (script_element
-  (start_tag (tag_name) @opening)
-  (end_tag (tag_name) @closing)) @container
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container

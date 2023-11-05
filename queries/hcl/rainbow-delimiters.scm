@@ -1,15 +1,15 @@
 (tuple
-  (tuple_start "[") @opening
-  (tuple_end   "]") @closing) @container
+  (tuple_start "[") @delimiter
+  (tuple_end   "]") @delimiter @sentinel) @container
 
 (function_call
-   "(" @opening
-   ")" @closing) @container
+   "(" @delimiter
+   ")" @delimiter @sentinel) @container
 
 (block
-  (block_start "{") @opening
-  (block_end   "}") @closing) @container
+  (block_start "{") @delimiter
+  (block_end   "}") @delimiter @sentinel) @container
 
 (object
-  (object_start "{") @opening
-  (object_end   "}") @closing) @container
+  (object_start "{") @delimiter
+  (object_end   "}") @delimiter @sentinel) @container

@@ -1,17 +1,17 @@
 ; inherits: javascript
 
 (type_arguments
-  "<" @opening
-  ">" @closing) @container
+  "<" @delimiter
+  ">" @delimiter @sentinel) @container
 
 (type_parameters
-  "<" @opening
-  ">" @closing) @container
+  "<" @delimiter
+  ">" @delimiter @sentinel) @container
 
 (lookup_type
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (object_type
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container

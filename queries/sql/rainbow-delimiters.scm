@@ -1,24 +1,28 @@
 (subquery
-    "(" @opening
-    ")" @closing) @container
+    "(" @delimiter
+    ")" @delimiter @sentinel) @container
 
 (invocation
-    "(" @opening
-    ")" @closing) @container
+    "(" @delimiter
+    ")" @delimiter @sentinel) @container
 
 (list
-    "(" @opening
-    ")" @closing) @container
+    "(" @delimiter
+    ")" @delimiter @sentinel) @container
 
-;; A parenthesized expression; the delimiters are actually outside the
-;; expression, but that's OK because the nesting level only looks at containers
-(
-    "(" @opening
-    .
-    [
-        (binary_expression)
-        (literal)
-    ] @container
-    .
-    ")" @closing
-)
+(where
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(binary_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel
+  ) @container
+
+; The following can cause problems with (((())))
+(term
+  "(" @delimiter
+  ; ("(" ")")* ; to fix _some_ problems, this can be uncommented
+  ")" @delimiter @sentinel
+  ) @container
+

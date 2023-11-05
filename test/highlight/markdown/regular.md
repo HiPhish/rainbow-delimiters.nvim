@@ -46,6 +46,8 @@ print(one[one[one[1]]])
 vim.cmd [[
    echo a(b(c(d(e(f())))))
 ]]
+-- Embedded Vim script on one line
+vim.cmd[[echo a(b(c(d())))]]
 ```
 
 ### Vim script

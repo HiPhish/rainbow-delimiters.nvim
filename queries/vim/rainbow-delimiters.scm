@@ -3,27 +3,27 @@
 ;;; one. All the parentheses and the integer literal are on the same level.
 ;;; This makes it impossible to apply alternating highlights.
 (list
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (dictionnary  ;; this is no typo, "dictionary" is misspelled in the parser
-  "{" @opening
+  "{" @delimiter
   (dictionnary_entry
-    ":" @intermediate)
-  "}" @closing) @container
+    ":" @delimiter)
+  "}" @delimiter @sentinel) @container
 
 (call_expression
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (unary_operation
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (binary_operation
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (ternary_expression
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container

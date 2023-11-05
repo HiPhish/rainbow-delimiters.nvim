@@ -1,17 +1,17 @@
 (anonymous_capturing_group
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 ;;; The inversion `^` should be an opening node as well
 (character_class
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (count_quantifier
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 ;;; We should probably include the character after `?` like `=` as well
 (lookaround_assertion
-  "(?" @opening
-  ")" @closing) @container
+  "(?" @delimiter
+  ")" @delimiter @sentinel) @container

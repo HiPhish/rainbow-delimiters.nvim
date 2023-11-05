@@ -1,23 +1,23 @@
 (par_tup_lit
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (par_arr_lit
-  "@(" @opening
-  ")" @closing) @container
+  "@(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (sqr_tup_lit
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (sqr_arr_lit
-  "@[" @opening
-  "]" @closing) @container
+  "@[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (struct_lit
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (tbl_lit
-  "@{" @opening
-  "}" @closing) @container
+  "@{" @delimiter
+  "}" @delimiter @sentinel) @container

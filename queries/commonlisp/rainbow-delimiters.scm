@@ -1,9 +1,9 @@
 (list_lit
-  "(" @opening
+  "(" @delimiter
    _*
-   ")" @closing) @container
+   ")" @delimiter @sentinel) @container
 
 (defun
-  "(" @opening
+  "(" @delimiter
    _*
-   ")" @closing) @container
+   ")" @delimiter @sentinel) @container

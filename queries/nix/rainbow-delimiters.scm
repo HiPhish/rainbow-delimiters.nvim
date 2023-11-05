@@ -1,19 +1,19 @@
 (attrset_expression
-  ("{" @opening)
-  ("}" @closing)) @container
+  ("{" @delimiter)
+  ("}" @delimiter @sentinel)) @container
 
 (formals
-  ("{" @opening)
-  ("}" @closing)) @container
+  ("{" @delimiter)
+  ("}" @delimiter @sentinel)) @container
 
 (list_expression
-  ("[" @opening)
-  ("]" @closing)) @container
+  ("[" @delimiter)
+  ("]" @delimiter @sentinel)) @container
 
 (parenthesized_expression
-  ("(" @opening)
-  (")" @closing)) @container
+  ("(" @delimiter)
+  (")" @delimiter @sentinel)) @container
 
 (interpolation
-  ("${" @opening)
-  ("}" @closing)) @container
+  ("${" @delimiter)
+  ("}" @delimiter @sentinel)) @container

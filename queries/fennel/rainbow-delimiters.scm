@@ -1,165 +1,124 @@
 (list
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (table
-  "{" @opening
-  (":" @intermediate)*
-  "}" @closing) @container
+  "{" @delimiter
+  (":" @delimiter _)*
+  "}" @delimiter @sentinel) @container
 
 (sequential_table
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (fn
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (lambda
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (let
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (set
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 
-;;; BUG: regarding the next 6 pairs of queries:
-;;;      since both pairs of delimiters
-;;;      are direct children of the same `TSNode`
-;;;      they get highligthed in different colours
-
-;;; NOTE: https://github.com/neovim/neovim/pull/17099
+;;; NOTE: The following queries contain one set of outer parentheses and one
+;;;       set of inner parentheses, but both are on the same level of the tree.
+;;;       Thus we cannot match the inner ones one level deeper than the outer
+;;;       ones.
 
 (each
-  "(" @opening
-  ")" @closing) @container
-
-(each
-  "[" @opening
-  "]" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (collect
-  "(" @opening
-  ")" @closing) @container
-
-(collect
-  "[" @opening
-  "]" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (icollect
-  "(" @opening
-  ")" @closing) @container
-
-(icollect
-  "[" @opening
-  "]" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 ;;; TODO: add these when treesitter parser
 ;;;       adds support for fennel 1.1.1
 
 ;; (fcollect
-;;   "(" @opening
-;;   ")" @closing) @container
+;;   "(" @delimiter
+;;   ")" @delimiter @sentinel) @container
 ;;
 ;; (fcollect
-;;   "[" @opening
-;;   "]" @closing) @container
+;;   "[" @delimiter
+;;   "]" @delimiter @sentinel) @container
 
 (accumulate
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (accumulate
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 ;;; TODO: add these when treesitter parser
 ;;;       adds support for fennel 1.3.0
 
 ;; (faccumulate
-;;   "(" @opening
-;;   ")" @closing) @container
+;;   "(" @delimiter
+;;   ")" @delimiter @sentinel) @container
 ;;
 ;; (faccumulate
-;;   "[" @opening
-;;   "]" @closing) @container
-
-;;; TODO: (reo101) swap out the above queries
-;;;       for these (below) when 17099 (see NOTE) is merged
-
-;; (each
-;;    ["[" ")"]+ @opening
-;;    ["]" ")"]+ @closing) @container
-;;
-;; (collect
-;;    ["[" ")"]+ @opening
-;;    ["]" ")"]+ @closing) @container
-;;
-;; (icollect
-;;    ["[" ")"]+ @opening
-;;    ["]" ")"]+ @closing) @container
-;;
-;; (fcollect
-;;    ["[" ")"]+ @opening
-;;    ["]" ")"]+ @closing) @container
-;;
-;; (accumulate
-;;    ["[" ")"]+ @opening
-;;    ["]" ")"]+ @closing) @container
-;;
-;; (faccumulate
-;;    ["[" ")"]+ @opening
-;;    ["]" ")"]+ @closing) @container
+;;   "[" @delimiter
+;;   "]" @delimiter @sentinel) @container
 
 (for
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (for_clause
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (var
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parameters
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (let_clause
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (quoted_list
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (local
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (multi_value_binding
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (hashfn
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (match
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (sequential_table_pattern
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (sequential_table_binding
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container

@@ -37,6 +37,7 @@ function app() {
 			<ComponentWith.property>
 				{someFunction().map((x) => <div></div>)}
 			</ComponentWith.property>
+			<ComponentWith.property bool={true} arr={[1, 2, 3]} />
 			<button onClick={hello}>Click me!</button>
 		</div>
 	)

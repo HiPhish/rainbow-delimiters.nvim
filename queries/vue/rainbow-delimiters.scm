@@ -2,20 +2,51 @@
 ;;; languages
 
 (element
-  (start_tag (tag_name) @opening)
-  (end_tag (tag_name)   @closing)) @container
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
 
 (element
-  (self_closing_tag (tag_name) @opening)) @container
+  (self_closing_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    "/>" @delimiter @sentinel)) @container
 
 (template_element
-  (start_tag (tag_name) @opening)
-  (end_tag (tag_name)   @closing)) @container
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
 
 (script_element
-  (start_tag (tag_name) @opening)
-  (end_tag (tag_name)   @closing)) @container
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
 
 (style_element
-  (start_tag (tag_name) @opening)
-  (end_tag (tag_name)   @closing)) @container
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
+
+(interpolation
+  "{{" @delimiter
+  "}}" @delimiter @sentinel) @container

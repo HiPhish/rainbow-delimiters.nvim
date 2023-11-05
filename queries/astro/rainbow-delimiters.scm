@@ -1,9 +1,13 @@
 (element
   (start_tag
-    (tag_name) @opening)
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
   (end_tag
-    (tag_name) @closing)) @container
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
 
 (interpolation
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container

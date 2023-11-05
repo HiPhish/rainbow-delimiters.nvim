@@ -2,20 +2,35 @@
 
 (jsx_element
   open_tag: (jsx_opening_element
-              name: (identifier) @opening)
+              "<" @delimiter
+              name: (identifier) @delimiter
+              ">" @delimiter)
   close_tag: (jsx_closing_element
-               name: (identifier) @closing)) @container
+               "</" @delimiter
+               name: (identifier) @delimiter
+               ">" @delimiter @sentinel)) @container
 
 (jsx_element
   open_tag: (jsx_opening_element
-              name: (member_expression) @opening)
+              "<" @delimiter
+              name: (member_expression) @delimiter
+              ">" @delimiter)
   close_tag: (jsx_closing_element
-               name: (member_expression) @closing)) @container
+              "</" @delimiter
+               name: (member_expression) @delimiter
+              ">" @delimiter @sentinel)) @container
 
 (jsx_self_closing_element
-  name: (identifier) @opening
-  "/>" @closing) @container
+  "<" @delimiter
+  name: (identifier) @delimiter
+  "/>" @delimiter @sentinel) @container
+
+
+(jsx_self_closing_element
+  "<" @delimiter
+  name: (member_expression) @delimiter
+  "/>" @delimiter @sentinel) @container
 
 (jsx_expression
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container

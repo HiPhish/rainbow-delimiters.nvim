@@ -1,71 +1,104 @@
 (exp_parens
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (exp_tuple
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (con_unit
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (exports
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (export_names
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (import_list
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (import_item
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (type_parens
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (type_tuple
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (pat_parens
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (pat_tuple
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(pat_list
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(exp_lambda
+  "\\" @delimiter
+  @sentinel) @container
 
 (type_tuple
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (deriving
-  (("(" @opening)
-   (")" @closing))) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (record_fields
-  (("{" @opening)
-   ("}" @closing))) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (exp_record
-  (("{" @opening)
-   ("}" @closing))) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (pat_fields
-  (("{" @opening)
-   ("}" @closing))) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (exp_list
-  (("[" @opening)
-   ("]" @closing))) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (type_list
-  (("[" @opening)
-   ("]" @closing))) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(exp_list_comprehension
+  "[" @delimiter
+  "|" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(exp_arithmetic_sequence
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(context
+  "(" @delimiter
+   ")" @delimiter @sentinel) @container
+
+(con_list
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(exp_section_right
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(exp_name
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container

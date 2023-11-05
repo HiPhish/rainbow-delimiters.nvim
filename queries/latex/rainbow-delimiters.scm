@@ -1,15 +1,15 @@
 (curly_group
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (curly_group_text
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (curly_group_text_list
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (inline_formula
-  "$" @opening
-  "$" @closing) @container
+  "$" @delimiter
+  "$" @delimiter @sentinel) @container

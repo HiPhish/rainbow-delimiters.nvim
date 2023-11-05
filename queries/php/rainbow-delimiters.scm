@@ -1,32 +1,31 @@
 (parenthesized_expression
-    "(" @opening
-    ")" @closing) @container
+    "(" @delimiter
+    ")" @delimiter @sentinel) @container
 
 (arguments
-    "(" @opening
-    ")" @closing) @container
+    "(" @delimiter
+    ")" @delimiter @sentinel) @container
 
 (formal_parameters
-    "(" @opening
-    ")" @closing) @container
+    "(" @delimiter
+    ")" @delimiter @sentinel) @container
 
 (declaration_list
-    "{" @opening
-    "}" @closing) @container
+    "{" @delimiter
+    "}" @delimiter @sentinel) @container
 
 (compound_statement
-    "{" @opening
-    "}" @closing) @container
+    "{" @delimiter
+    "}" @delimiter @sentinel) @container
 
-;; Commented out until https://github.com/neovim/neovim/pull/17099 is resolved
-; (encapsed_string
-;     "{" @opening
-;     "}" @closing) @container
+(encapsed_string
+    "{" @delimiter
+    "}" @delimiter @sentinel) @container
 
 (array_creation_expression
-    "[" @opening
-    "]" @closing) @container
+    "[" @delimiter
+    "]" @delimiter @sentinel) @container
 
 (subscript_expression
-    "[" @opening
-    "]" @closing) @container
+    "[" @delimiter
+    "]" @delimiter @sentinel) @container

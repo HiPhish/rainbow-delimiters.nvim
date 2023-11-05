@@ -4,59 +4,62 @@
 
 
 (function_declaration
-  "function" @opening
-  "end" @closing) @container
+  "function" @delimiter
+  "end" @delimiter @sentinel) @container
+
+(function_definition
+  "function" @delimiter
+  "end" @delimiter @sentinel) @container
 
 (if_statement
-  "if" @opening
-  ; "then" @opening
-  ; (elseif_statement
-  ;   "elseif" @intermediate
-  ;   "then" @intermediate)*
-  ; (else_statement
-  ;   "else" @intermediate)?
-  "end" @closing) @container
+  "if" @delimiter
+  "then" @delimiter
+  (elseif_statement
+    "elseif" @delimiter
+    "then" @delimiter)*
+  (else_statement
+    "else" @delimiter)?
+  "end" @delimiter @sentinel) @container
 
 (while_statement
-  "while" @opening
-  ; "do" @opening
-  "end" @closing) @container
+  "while" @delimiter
+  "do" @delimiter
+  "end" @delimiter @sentinel) @container
 
 (repeat_statement
-  "repeat" @opening
-  "until" @closing) @container
+  "repeat" @delimiter
+  "until" @delimiter @sentinel) @container
 
 (for_statement
-  "for" @opening
-  ; clause: [(for_generic_clause
-  ;            "in" @opening)
-  ;          (for_numeric_clause)]
-  ; "do" @opening
-  "end" @closing) @container
+  "for" @delimiter
+  (for_generic_clause
+    "in" @delimiter)?
+  "do" @delimiter
+  "end" @delimiter @sentinel) @container
 
 (do_statement
-  "do" @opening
-  "end" @closing) @container
+  "do" @delimiter
+  "end" @delimiter @sentinel) @container
 
 
 ;;; Copied over from rainbow-parens
 
 (arguments
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parameters
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parenthesized_expression
-  "(" @opening
-  ")" @closing) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (table_constructor
-  "{" @opening
-  "}" @closing) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (bracket_index_expression
-  "[" @opening
-  "]" @closing) @container
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container

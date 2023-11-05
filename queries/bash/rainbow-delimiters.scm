@@ -1,17 +1,17 @@
 (command_substitution
-  "$(" @opening
-  ")"  @closing) @container
+  "$(" @delimiter
+  ")"  @delimiter @sentinel) @container
 
 (expansion
-  "${" @opening
-  (":-" @intermediate)?
-  "}" @closing) @container
+  "${" @delimiter
+  (":-" @delimiter)?
+  "}" @delimiter @sentinel) @container
 
 ;;; The double-bracket variant is a bashism
 (test_command
-  ["[[" "["] @opening
-  ["]]" "]"] @closing) @container
+  ["[[" "["] @delimiter
+  ["]]" "]"] @delimiter @sentinel) @container
 
 (subshell
- "(" @opening
- ")" @closing) @container
+ "(" @delimiter
+ ")" @delimiter @sentinel) @container
