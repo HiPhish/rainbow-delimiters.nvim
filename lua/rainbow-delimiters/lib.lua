@@ -64,7 +64,7 @@ M.buffers = {}
 ---Fetches the query object for the given language from the settings.
 ---
 ---@param lang string  Name of the language to get the query for
----@return userdata query  The query object
+---@return Query? query  The query object
 function M.get_query(lang)
 	local name = config['query'][lang]
 	local query = get_query(lang, name)
@@ -211,7 +211,7 @@ function M.detach(bufnr)
 	local parser = M.buffers[bufnr].parser
 
 	-- Clear all the namespaces for each language
-	util.for_each_child(parser:lang(), parser, function(_, lang)
+	util.for_each_child(nil, parser:lang(), parser, function(_, lang)
 		M.clear_namespace(bufnr, lang)
 	end)
 	-- Finally release all resources the parser is holding on to

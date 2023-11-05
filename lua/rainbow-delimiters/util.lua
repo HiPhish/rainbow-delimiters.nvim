@@ -25,11 +25,16 @@ local M = {}
 ---
 ---See also https://github.com/neovim/neovim/pull/25154 for a better
 ---replacement.
-function M.for_each_child(lang, language_tree, thunk)
-	thunk(language_tree, lang)
+---@param parent_lang string? # Parent language or nil
+---@param lang string
+---@param language_tree LanguageTree
+---@param thunk fun(p: LanguageTree, lang: string, parent_lang: string?): nil
+---@return nil
+function M.for_each_child(parent_lang, lang, language_tree, thunk)
+	thunk(language_tree, lang, parent_lang)
 	local children = language_tree:children()
 	for child_lang, child in pairs(children) do
-		M.for_each_child(child_lang, child, thunk)
+		M.for_each_child(lang, child_lang, child, thunk)
 	end
 end
 

@@ -19,7 +19,6 @@ local Stack = require 'rainbow-delimiters.stack'
 local lib   = require 'rainbow-delimiters.lib'
 local util  = require 'rainbow-delimiters.util'
 local log   = require 'rainbow-delimiters.log'
-local ts    = vim.treesitter
 
 
 ---Strategy which highlights the entire buffer.
@@ -28,33 +27,52 @@ local M = {}
 ---Changes are range objects and come in two variants: one with four entries and
 ---one with six entries.  We only want the four-entry variant.  See
 ---`:h TSNode:range()`
+---@param change number[]
+---@return number[]
 local function normalize_change(change)
 	local result
 	if #change == 4 then
 		result = change
-	else
+	elseif #change == 6 then
 		result = {change[1], change[2], change[4], change[5]}
+	else
+		result = {}
 	end
 	return result
 end
 
+---@param bufnr number
+---@param lang string
+---@param matches Stack
+---@param level number
+---@return nil
 local function highlight_matches(bufnr, lang, matches, level)
 	local hlgroup = lib.hlgroup_at(level)
 	for _, match in matches:iter() do
-		for _, opening      in match.opening:iter()      do lib.highlight(bufnr, lang, opening,      hlgroup) end
-		for _, closing      in match.closing:iter()      do lib.highlight(bufnr, lang, closing,      hlgroup) end
-		for _, intermediate in match.intermediate:iter() do lib.highlight(bufnr, lang, intermediate, hlgroup) end
+		for _, delimiter in match.delimiter:iter() do lib.highlight(bufnr, lang, delimiter, hlgroup) end
 		highlight_matches(bufnr, lang, match.children, level + 1)
 	end
+end
+
+
+---Create a new empty match_record
+---@return table
+local function new_match_record()
+	return {
+		delimiter = Stack.new(),
+		children = Stack.new(),
+	}
 end
 
 ---Update highlights for a range. Called every time text is changed.
 ---@param bufnr   number  Buffer number
 ---@param changes table   List of node ranges in which the changes occurred
----@param tree    table   TS tree
+---@param tree    TSTree  TS tree
 ---@param lang    string  Language
+---@return nil
 local function update_range(bufnr, changes, tree, lang)
-	log.debug('Updated range with changes ' .. vim.inspect(changes))
+	log.debug('Updated range with changes %s', vim.inspect(changes))
+
 	if not lib.enabled_for(lang) then return end
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
@@ -64,35 +82,59 @@ local function update_range(bufnr, changes, tree, lang)
 	local matches = Stack.new()
 
 	for _, change in ipairs(changes) do
+		-- This is the match record, it lists all the relevant nodes from
+		-- each match.
+		---@type table?
+		local match_record
 		local root_node = tree:root()
 		local start_row, end_row = change[1], change[3] + 1
 		lib.clear_namespace(bufnr, lang, start_row, end_row)
-		for _, match, _ in query:iter_matches(root_node, bufnr, start_row, end_row) do
-			-- This is the match record, it lists all the relevant nodes from
-			-- the match.
-			local match_record = {
-				opening = Stack.new(),
-				closing = Stack.new(),
-				intermediate = Stack.new(),
-				children = Stack.new(),
-			}
-			for id, node in pairs(match) do
-				local name = query.captures[id]
-				if name == 'container' then
-					match_record.container = node
-				else
-					if match_record[name] then match_record[name]:push(node) end
-				end
-			end
 
-			for _, other in matches:iter() do
-				if not ts.is_ancestor(match_record.container, other.container) then
-					break
+		for qid, node, _ in query:iter_captures(root_node, bufnr, start_row, end_row) do
+			local name = query.captures[qid]
+			-- check for 'delimiter' first, since that should be the most
+			-- common name
+			if name == 'delimiter' and match_record then
+				match_record.delimiter:push(node)
+			elseif name == 'container' and not match_record then
+				match_record = new_match_record()
+			elseif name == 'container' then
+				-- temporarily push the match_record to matches to be retrieved
+				-- later, since we haven't closed it yet
+				matches:push(match_record)
+				match_record = new_match_record()
+				-- since we didn't close the previous match_record, it must
+				-- mean that the current match_record has it as an ancestor
+				match_record.has_ancestor = true
+			elseif name == 'sentinel' and match_record then
+				-- if we see the sentinel, then we are done with the current
+				-- container
+				if match_record.has_ancestor then
+					local prev_match_record = matches:pop()
+					if prev_match_record then
+						-- since we have an ancestor, it has to be the last
+						-- element of the stack
+						prev_match_record.children:push(match_record)
+						match_record = prev_match_record
+					else
+						-- since match_record.has_ancestor was true, we shouldn't
+						-- be able to get to here unless something went wrong
+						-- with the queries or treesitter itself
+						log.error([[You are missing a @container,
+									which should be impossible!
+									Please double check the queries.]])
+					end
+				else
+					-- if match_record doesn't have an ancestor, the sentinel
+					-- means that we are done with it
+					matches:push(match_record)
+					match_record = nil
 				end
-				match_record.children:push(other)
-				matches:pop()
-			end
-			matches:push(match_record)
+			elseif (name == 'delimiter' or name == 'sentinel') and not match_record then
+				log.error([[You query got the capture name %s.
+					But it didn't come with a container, which should be impossible!
+						Please double check your queries.]], name)
+			end -- do nothing with other capture names
 		end
 	end
 
@@ -101,6 +143,7 @@ end
 
 ---Update highlights for every tree in given buffer.
 ---@param bufnr number # Buffer number
+---@param parser LanguageTree
 ---@return nil
 local function full_update(bufnr, parser)
 	log.debug('Performing full updated on buffer %d', bufnr)
@@ -112,10 +155,16 @@ local function full_update(bufnr, parser)
 	parser:for_each_tree(callback)
 end
 
+
 ---Sets up all the callbacks and performs an initial highlighting
-local function setup_parser(bufnr, parser)
+---@param bufnr number # Buffer number
+---@param parser LanguageTree
+---@param start_parent_lang string? # Parent language or nil
+---@return nil
+local function setup_parser(bufnr, parser, start_parent_lang)
 	log.debug('Setting up parser for buffer %d', bufnr)
-	util.for_each_child(parser:lang(), parser, function(p, lang)
+
+	util.for_each_child(start_parent_lang, parser:lang(), parser, function(p, lang, parent_lang)
 		log.debug("Setting up parser for '%s' in buffer %d", lang, bufnr)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
@@ -123,36 +172,75 @@ local function setup_parser(bufnr, parser)
 
 		p:register_cbs {
 			on_changedtree = function(changes, tree)
-				if #changes == 0 then
-					-- Hack: an empty change set results from an undo.  Force a
-					-- full update by setting the maximum possible range
-					table.insert(changes, {tree:root():range()})
-				end
 				log.trace('Changed tree in buffer %d with languages %s', bufnr, lang)
 				-- HACK: As of Neovim v0.9.1 there is no way of unregistering a
 				-- callback, so we use this check to abort
 				if not lib.buffers[bufnr] then return end
 
-				-- Normalize the changes objects
-				changes = vim.tbl_map(normalize_change, changes)
+				-- HACK: changes can accidentally overwrite highlighting in injected code
+				-- blocks.
+				if not parent_lang then
+					-- If we have no parent language, then we use changes, otherwise we use the
+					-- whole tree's range.
+					-- Normalize the changes object if we have no parent language (the one we
+					-- get from on_changedtree)
+					changes = vim.tbl_map(normalize_change, changes)
+				elseif parent_lang ~= lang and changes[1] then
+					-- We have a parent language, so we are in an injected language code
+					-- block, thus we update all of the current code block
+					changes = {{tree:root():range()}}
+				else
+					-- some languages (like rust) use injections of the language itself for
+					-- certain functionality (e.g., macros in rust).  For these the
+					-- highlighting will be updated by the non-injected language part of the
+					-- code.
+					changes = {}
+				end
 
-				-- If a line has been moved from another region it will still
-				-- carry with it the extmarks from the old region.  We need to
-				-- clear all extmarks which do not belong to the current
-				-- language
+				-- If a line has been moved from another region it will still carry with it
+				-- the extmarks from the old region.  We need to clear all extmarks which
+				-- do not belong to the current language
 				for _, change in ipairs(changes) do
 					for key, nsid in pairs(lib.nsids) do
 						if key ~= lang then
-							vim.api.nvim_buf_clear_namespace(bufnr, nsid, change[1], change[3])
+							-- HACK: changes in the main language sometimes need to overwrite
+							-- highlighting on one more line
+							local line_end = change[3] + (parent_lang and 0 or 1)
+							vim.api.nvim_buf_clear_namespace(bufnr, nsid, change[1], line_end)
 						end
 					end
 				end
-				update_range(bufnr, changes, tree, lang)
+
+				-- only update highlighting if we have changes
+				if changes[1] then
+					update_range(bufnr, changes, tree, lang)
+				end
+
+				-- HACK: Since we update the whole tree when we have a parent
+				-- language, we need to make sure to then update all children
+				-- too, even if there is no change in them. This shouldn't
+				-- affect performance, since it only affects code nested at
+				-- least 2 injection languages deep.
+				if parent_lang then
+					local children = p:children()
+					for child_lang, child in pairs(children) do
+						if lang == child_lang then return end
+						child:for_each_tree(function(child_tree, child_p)
+							local child_changes = {{child_tree:root():range()}}
+
+							--  we don't need to remove old extmarks, since
+							--  the above code will handle that correctly
+							--  already, but we might have accidentally
+							--  removed extmarks that we need to set again
+							update_range(bufnr, child_changes, child_tree, child_p:lang())
+						end)
+					end
+				end
 			end,
 			-- New languages can be added into the text at some later time, e.g.
 			-- code snippets in Markdown
 			on_child_added = function(child)
-				setup_parser(bufnr, child)
+				setup_parser(bufnr, child, lang)
 			end,
 		}
 		log.trace("Done with setting up parser for '%s' in buffer %d", lang, bufnr)
@@ -165,10 +253,10 @@ end
 function M.on_attach(bufnr, settings)
 	log.trace('global strategy on_attach')
 	local parser = settings.parser
-	setup_parser(bufnr, parser)
+	setup_parser(bufnr, parser, nil)
 end
 
-function M.on_detach(bufnr)
+function M.on_detach(_bufnr)
 end
 
 function M.on_reset(bufnr, settings)

@@ -35,20 +35,23 @@ local M = {}
 -- match tree every time the cursor moves.
 
 
--- Cache of match trees. We compute the match tree on every change, so that
--- when the cursor moves without changing the tree we don't need to re-compute
--- it.
+---Cache of match trees, maps a buffer number to its match tree.  We compute
+---the match tree on every change, so that when the cursor moves without
+---changing the tree we don't need to re-compute it.
+---
+---Each match tree maps a language and TS Tree to the corresponding match tree.
+---We need TS Tree because there might be multiple trees per buffer, such as a
+---Markdown buffer which contains multiple code blocks.
 local match_trees = {}
 
--- Reusable autogroup for events in this strategy.
+---Reusable autogroup for events in this strategy.
+---@type number
 local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
 
 ---Highlights a single match with the given highlight group
 local function highlight_match(bufnr, lang, match, hlgroup)
-	for _, opening      in match.opening:iter()      do lib.highlight(bufnr, lang, opening,      hlgroup) end
-	for _, closing      in match.closing:iter()      do lib.highlight(bufnr, lang, closing,      hlgroup) end
-	for _, intermediate in match.intermediate:iter() do lib.highlight(bufnr, lang, intermediate, hlgroup) end
+	for _, delimiter in match.delimiter:iter() do lib.highlight(bufnr, lang, delimiter, hlgroup) end
 end
 
 ---Highlights all matches and their children on the stack of matches. All
@@ -75,43 +78,89 @@ local function find_container(matches, container, level)
 	end
 end
 
+--- Create a new empty match_record with an optionally set container
+---@param container TSNode?
+---@return table
+local function new_match_record(container)
+	return {
+		container = container,
+		delimiter = Stack.new(),
+		children = Stack.new(),
+	}
+end
+
 ---Assembles the match tree, usually called after the document tree has
 ---changed.
+---@param bufnr   number  Buffer number
+---@param changes table   List of node ranges in which the changes occurred
+---@param tree    TSTree  TS tree
+---@param lang    string  Language
+---@return Stack?
 local function build_match_tree(bufnr, changes, tree, lang)
+	if not lib.enabled_for(lang) then return end
+
 	local query = lib.get_query(lang)
+	if not query then return end
+
 	local matches = Stack.new()
 
 	for _, change in ipairs(changes) do
+		-- This is the match record, it lists all the relevant nodes from
+		-- each match.
+		---@type table?
+		local match_record
 		local root_node = tree:root()
-		for _, match, _ in query:iter_matches(root_node, bufnr, change[1], change[3] + 1) do
-			-- This is the match record, it lists all the relevant nodes from
-			-- the match.
-			local match_record = {
-				opening = Stack.new(),
-				closing = Stack.new(),
-				intermediate = Stack.new(),
-				children = Stack.new(),
-			}
-			for id, node in pairs(match) do
-				local name = query.captures[id]
-				if name == 'container' then
-					match_record.container = node
+		local start_row, end_row = change[1], change[3] + 1
+		lib.clear_namespace(bufnr, lang, start_row, end_row)
+		for qid, node, _ in query:iter_captures(root_node, bufnr, start_row, end_row) do
+			local name = query.captures[qid]
+			-- check for 'delimiter' first, since that should be the most
+			-- common name
+			if name == 'delimiter' and match_record then
+				match_record.delimiter:push(node)
+			elseif name == 'container' and not match_record then
+				match_record = new_match_record(node)
+			elseif name == 'container' then
+				local prev_match_record = match_record
+				-- temporarily push the match_record to matches to be retrieved
+				-- later, since we haven't closed it yet
+				matches:push(match_record)
+				match_record = new_match_record(node)
+				-- since we didn't close the previous match_record, it must
+				-- mean that the current match_record has it as an ancestor
+				match_record.ancestor = prev_match_record
+			elseif name == 'sentinel' and match_record then
+				-- if we see the sentinel, then we are done with the current
+				-- container
+				if match_record.ancestor then
+					local prev_match_record = matches:pop()
+					if prev_match_record then
+						-- since we have an ancestor, it has to be the last
+						-- element of the stack
+						prev_match_record.children:push(match_record)
+						match_record = prev_match_record
+					else
+						-- since match_record.has_ancestor was true, we shouldn't
+						-- be able to get to here unless something went wrong
+						-- with the queries or treesitter itself
+						log.error([[You are missing a @container,
+									which should be impossible!
+									Please double check the queries.]])
+					end
 				else
-					if match_record[name] then match_record[name]:push(node) end
+					-- if match_record doesn't have an ancestor, the sentinel
+					-- means that we are done with it
+					matches:push(match_record)
+					match_record = nil
 				end
-			end
-
-			for _, other in matches:iter() do
-				if not ts.is_ancestor(match_record.container, other.container) then
-					break
-				end
-				other.ancestor = match_record
-				match_record.children:push(other)
-				matches:pop()
-			end
-			matches:push(match_record)
+			elseif (name == 'delimiter' or name == 'sentinel') and not match_record then
+				log.error([[You query got the capture name: %s.
+					But it didn't come with a container, which should be impossible!
+					Please double check your queries.]], name)
+			end -- do nothing with other capture names
 		end
 	end
+
 	return matches
 end
 
@@ -126,7 +175,7 @@ local function update_local(bufnr, tree, lang)
 		local curpos = api.nvim_win_get_cursor(0)
 		-- The order of traversal guarantees that the first match which
 		-- contains the cursor is also the lowest one.
-		for _, match in query:iter_matches(tree:root(), bufnr) do
+		for _, match in query:iter_matches(tree:root(), bufnr, 0, -1) do
 			if cursor_container then break end
 			for id, node in pairs(match) do
 				local name = query.captures[id]
@@ -139,8 +188,16 @@ local function update_local(bufnr, tree, lang)
 	end
 	if not cursor_container then return end
 
-	local matches = match_trees[bufnr][lang]
-	if not matches then return end
+	local matches_lang = match_trees[bufnr][lang]
+	if not matches_lang then
+		log.debug("Did not build any matches Stack for language '%s'", lang)
+		return
+	end
+	local matches = matches_lang[tree]
+	if not matches then
+		log.debug("Did not build any matches Stack for tree '%s'", vim.inspect(tree:range()))
+		return
+	end
 
 	-- Find the correct container in the match tree
 	local cursor_match, level = find_container(matches, cursor_container, 1)
@@ -151,7 +208,8 @@ local function update_local(bufnr, tree, lang)
 
 	-- Starting with the cursor match travel up and highlight every ancestor as
 	-- well
-	local ancestor, level = cursor_match.ancestor, level - 1
+	local ancestor = cursor_match.ancestor
+	level = level - 1
 	while ancestor do
 		highlight_match(bufnr, lang, ancestor, lib.hlgroup_at(level))
 		ancestor, level = ancestor.ancestor, level - 1
@@ -167,9 +225,12 @@ local function local_rainbow(bufnr, parser)
 end
 
 ---Sets up all the callbacks and performs an initial highlighting
+---@param bufnr number # Buffer number
+---@param parser LanguageTree
+---@return nil
 local function setup_parser(bufnr, parser)
 	log.debug('Setting up parser for buffer %d', bufnr)
-	util.for_each_child(parser:lang(), parser, function(p, lang)
+	util.for_each_child(nil, parser:lang(), parser, function(p, lang, _parent_lang)
 		log.debug("Setting up parser for '%s' in buffer %d", lang, bufnr)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
@@ -187,9 +248,10 @@ local function setup_parser(bufnr, parser)
 				local fake_changes = {
 					{tree:root():range()}
 				}
-				match_trees[bufnr][lang] = build_match_tree(bufnr, fake_changes, tree, lang)
+				match_trees[bufnr][lang] = match_trees[bufnr][lang] or {}
+				match_trees[bufnr][lang][tree] = build_match_tree(bufnr, fake_changes, tree, lang)
 				-- Re-highlight after the change
-				local_rainbow(bufnr, parser)
+				local_rainbow(bufnr, p)
 			end,
 			-- New languages can be added into the text at some later time, e.g.
 			-- code snippets in Markdown
@@ -209,7 +271,7 @@ function M.on_attach(bufnr, settings)
 		group = augroup,
 		buffer = bufnr,
 		callback = function(args)
-			util.for_each_child(parser:lang(), parser, function(_, lang)
+			util.for_each_child(nil, parser:lang(), parser, function(_, lang, _)
 				lib.clear_namespace(bufnr, lang)
 			end)
 			local_rainbow(args.buf, parser)
@@ -223,7 +285,8 @@ function M.on_attach(bufnr, settings)
 		local changes = {
 			{tree:root():range()}
 		}
-		match_trees[bufnr][sub_lang] = build_match_tree(bufnr, changes, tree, sub_lang)
+		match_trees[bufnr][sub_lang] = {}
+		match_trees[bufnr][sub_lang][tree] = build_match_tree(bufnr, changes, tree, sub_lang)
 	end)
 	local_rainbow(bufnr, parser)
 end
