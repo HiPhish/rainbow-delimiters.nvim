@@ -200,4 +200,90 @@ If a match does not contain the cursor we can check whether it is a
 descendant of the cursor container match.
 
 
+The problem with nested languages
+#################################
+
+The language tree of a buffer is a tree of parsers.  Some languages like
+Markdown can contain other languages, which complicates things.
+
+
+Foreign extmarks
+================
+
+Extmarks move along with the text they belong to.  This is generally a good
+thing, but it can become a problem if we move text from one language to
+another.  Consider the following Markdown code:
+
+.. code:: markdown
+
+   Hello world
+
+   ```lua
+   print {{{{}}}}
+   print {{{{}}}}
+   ```
+
+We can move the cursor to line 4 and move that line out of the Lua block by
+executing `:move 1` to move it to the second line.  However, this will preserve
+the extmarks and we will end up with Lua delimiter highlighting inside
+Markdown.
+
+My solution is on every change to delete all rainbow delimiter extmarks which
+do not belong to the current language.
+
+
+Overwritten extmarks
+====================
+
+Take the following Markdown code:
+
+.. code:: markdown
+
+   Hello world
+
+   ```c
+   puts("This is an injected language")
+   {
+       {
+           {
+               {
+                   {
+                       return ((((((2)))))) + ((((3))))
+                   }
+               }
+           }
+       }
+   }
+   ```
+
+If we put the cursor on the line with the `puts` statement and move it up one
+line (`:move -2`) we get the following changes:
+
+- Markdown
+  - `{ 2, 0, 3, 0 }` 
+
+This means lines 3 and 4 of the Markdown tree have changed; we have changed the
+contents of the fifth line and added one more line.  This is all as expected.
+However, let us now move the line back down by executing `:move +1`.  We get
+the following changes:
+
+- Markdown
+  - `{ 3, 0, 15, 0 }`
+- C
+  - `{ 3, 0, 4, 0 }`
+
+The changes to the C tree are what we expect. However, the changes to the
+Markdown tree span the code block as well.  This is a problem when we start
+deleting foreign extmarks (see above).  If we work from the outside we wipe out
+all non-Markdown extmarks in the range, which includes the C extmarks.  Then we
+apply the C extmarks inside the C block, but the C change does not span the
+entire C tree.  Thus we will only apply highlighting to the changed C line, but
+not the remainder of the C block.
+
+The solution at the moment is to overwrite the changes of nested languages.  If
+the changes belong to a language tree with parent language we replace all the
+changes with a range that spans the entire tree for that language.
+
+
+
 .. _Vader: https://github.com/junegunn/vader.vim

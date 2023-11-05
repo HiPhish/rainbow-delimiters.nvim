@@ -13,7 +13,7 @@
                            | |_| |  __/ | | | | | | | | ||  __/ |  \__ \~
                            |____/ \___|_|_|_| |_| |_|_|\__\___|_|  |___/~
 
-                                                                 
+
 
 Author: Alejandro "HiPhish" Sanchez
 License: Apache-2.0
@@ -110,7 +110,7 @@ Here is an example configuration:
             \ 'RainbowDelimiterGreen',
             \ 'RainbowDelimiterViolet',
             \ 'RainbowDelimiterCyan',
-        \ ], 
+        \ ],
         \ 'blacklist': ['c', 'cpp'],
     \ }
 <
@@ -496,22 +496,22 @@ The queries need to define the following capture groups:
 
 - `@container`
   The entire delimited node.
-- `@opening`
-  The opening delimiter.
-- `@closing`
-  The closing delimiter.
-- `@intermediate`
-  Delimiters inside the block, such as a comma in an argument list or the
-  `elseif` of an `if`-`elseif`-`else` block in Lua.
+- `@delimiter`
+  Any delimiter you want to highlight in the current `@container`.
+- `@sentinel`
+  A marker used to signal that you are done with the `@container`.  This
+  should almost always be put right after the last `@delimiter` in the given
+  `@container`.
+- `@_<capture_name>`
+  Delimiters starting with `_` (underscore) are ignored for highlighting
+  purposes, but you can use them for treesitter predicates like
+  `#eq?`, `#any-eq?`, etc. (These are very rarely needed.)
 
-Only `@container` is mandatory, `@opening` and `@closing` will pretty much
-always be present as well.  The `@intermediate` capture group will be rarely
-used.  If we have too many `@intermediate` delimiters the code can become too
-vibrant and distracting.
+`@container` and `@sentinel` are mandatory, and `@delimiter` will always be
+present as well since `@delimiter` is what is highlighted.  The captures
+starting with underscore will be rarely used, since you only need them for
+predicates in a few special cases.
 
-WARNING: As of Neovim version 0.9.1 there is still a bug in the Tree-sitter
-integration.  If a capture matches multiple nodes (e.g. multiple `elseif`
-intermediate statements in an `if` block) only the last one will be used.
 
 Let's look at an example first.  Here is a snippet of HTML code:
 >
@@ -555,13 +555,13 @@ the entire link, not one of its delimiters.
 
 As you can see, it is up to interpretation as to what exactly constitutes a
 delimiter.  In this example for the sake of exhaustiveness we will consider
-the `<br/>` tag a delimiters.  The corresponding query is as follows:
+the `<br/>` tag a delimiter.  The corresponding query is as follows:
 >
     (element
-      (start_tag) @opening
+      (start_tag) @delimiter
       (element
-        (self_closing_tag) @intermediate)?  ;Optional!
-      (end_tag) @closing) @container
+        (self_closing_tag) @delimiter)?  ; Optional!
+      (end_tag) @delimiter @sentinel) @container
 <
 Highlighting the entire tag might be too vibrant though.  What if we want to
 highlight only the opening and closing angle brackets?  The query gets
@@ -570,19 +570,16 @@ tree.
 >
     (element
       ((start_tag
-          ["<" ">"] @opening)
+          ["<" ">"] @delimiter)
        (element
           (self_closing_tag
-            ["<" "/>"] @intermediate))?  ;Optional!
+            ["<" "/>"] @delimiter))?  ;Optional!
        (end_tag
-          ["</" ">"] @closing))) @container
+          "</" @delimiter
+          ">" @delimiter @sentinel))) @container
 <
-Both the opening and closing brackets are marked as one of either `@opening`,
-`@intermediate` or `@closing`.  This is because we care about delimiters at a
-semantic level: both ends of the brackets are considered opening if they are
-part of the opening tag.  This is just my opinion though, in your own query
-you might decide to capture all opening angle brackets as `@opening` and all
-closing angle brackets as `@closing`.
+Note that we don't want to put the `@sentinel` on the second to last `@delimiter`
+`"</"`, we need to be careful to put it on the last `@delimiter`.
 
 You might now see why we need the `@container` capture group: there is no way
 to know in general how deeply the delimiter is nested.  Even for one language
@@ -590,6 +587,49 @@ our understanding of what constitutes a delimiter is up for debate.  Therefore
 a human must decide for each query which node is the container and which nodes
 are the delimiters.  Capturing this information makes it available for use in
 strategies.
+
+We are not limited to only one opening and one closing delimiter.  The
+included default query captures the angle brackets and the tag name, but not
+attributes between the tag name and closing angle bracket.  This strikes a
+pleasant middle ground between the two above extremes.
+>
+    (element
+      (start_tag
+        "<" @delimiter
+        (tag_name) @delimiter
+        ">" @delimiter)
+      (end_tag
+        "</" @delimiter
+        (tag_name) @delimiter
+        ">" @delimiter @sentinel)) @container
+<
+Here both opening and closing tag have three delimiters each.
+
+In HTML the terminating slash in a self-closing tag is optional.  Instead of
+`<br/>` we can write `<br>`.  A naïve query would look like this:
+>
+    (element
+      (start_tag
+        "<" @delimiter
+        (tag_name) @delimiter @_tag_name
+        ">" @delimiter @sentinel)) @container
+<
+However, this query also matches the opening tag of regular tags like `<div>`.
+This is where the `@_tag_name` capture comes in.  The set of self-closing tags
+is finite, so we can list them explicitly.  This way a regular opening tag
+will not match this particular pattern.
+>
+    (element
+      (start_tag
+        "<" @delimiter
+        (tag_name) @delimiter @_tag_name
+        ">" @delimiter @sentinel)
+      ;; List abridged for brevity
+      (#any-of? @_tag_name "br" "hr" "input")) @container
+<
+We need the `@_tag_name` capture so that it can be used with the `#any-of?`
+predicate (|treesitter-predicate-any-of?|), but the capture itself is not used
+for highlighting.
 
 
 ------------------------------------------------------------------------------
