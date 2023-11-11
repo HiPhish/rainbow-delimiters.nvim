@@ -2,18 +2,6 @@
 
                                                           *rainbow-delimiters*
                                                                *rb-delimiters*
-           ____       _       _~
-          |  _ \ __ _(_)_ __ | |__   _____      __~
-          | |_) / _` | | '_ \| '_ \ / _ \ \ /\ / /____~
-          |  _ < (_| | | | | | |_) | (_) \ V  V /_____|~
-          |_| \_\__,_|_|_| |_|_.__/ \___/ \_/\_/~
-                            ____       _ _           _ _~
-                           |  _ \  ___| (_)_ __ ___ (_) |_ ___ _ __ ___~
-                           | | | |/ _ \ | | '_ ` _ \| | __/ _ \ '__/ __|~
-                           | |_| |  __/ | | | | | | | | ||  __/ |  \__ \~
-                           |____/ \___|_|_|_| |_| |_|_|\__\___|_|  |___/~
-
-
 
 Author: Alejandro "HiPhish" Sanchez
 License: Apache-2.0
@@ -44,7 +32,7 @@ INTRODUCTION                                             *rb-delimiters-intro*
 This plugin provides alternating highlighting for delimiters in Neovim, also
 known as "rainbow parentheses".  Thanks to the built-in |treesitter| support
 we are not limited to just parentheses.  We can match any part of the document
-tree, such as HTML tags or `do`/`end` pairs in Lua.  We can define new
+tree, such as HTML tags or `do` / `end` pairs in Lua.  We can define new
 patterns for existing languages, add support for new languages and even change
 the strategy used for highlighting.
 
