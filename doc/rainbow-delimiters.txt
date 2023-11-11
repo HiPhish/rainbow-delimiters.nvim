@@ -92,7 +92,7 @@ take precedence.
 
 
 Here is an example configuration:
->
+>vim
     let g:rainbow_delimiters = {
         \ 'strategy': {
             \ '': rainbow_delimiters#strategy.global,
@@ -116,7 +116,7 @@ Here is an example configuration:
 <
 
 Alternatively, the same configuration in Lua:
->
+>lua
     -- This module contains a number of default definitions
     local rainbow_delimiters = require 'rainbow-delimiters'
 
@@ -147,7 +147,7 @@ Alternatively, the same configuration in Lua:
 
 Some people prefer to call a Lua `setup` function, so a setup function is
 available as part of a Lua module.
->
+>lua
     require 'rainbow-delimiters.setup'.setup {
         strategy = {
             [''] = rainbow_delimiters.strategy['global'],
@@ -200,7 +200,7 @@ contrast between adjacent delimiters more noticeable.  Re-order the groups in
 your settings if you prefer a different order.
 
 Example highlight group definitions:
->
+>vim
     " Link to an existing highlight group
     highlight link RainbowDelimiterRed WarningMsg
 
@@ -210,7 +210,7 @@ Example highlight group definitions:
 You will probably want to have different colours per theme.  Since most themes
 will lack definitions for the above groups you will need to hook in somehow.
 A simple solution is to use an autocommand.
->
+>vim
     au ColorSchemePre MyTheme highlight link RainbowDelimiter MyThemeRed
     au ColorSchemePre MyTheme highlight link RainbowDelimiter MyThemeYellow
     " and so on...
@@ -234,7 +234,7 @@ so-called "thunk").  A function can be used to defer the decision to a later
 point in time.  If the function evaluates to `nil` (or |v:null|) rainbow
 delimiters will be disabled for that buffer.
 
->
+>lua
     local rainbow = require 'rainbow-delimiters'
 
     strategy = {
@@ -290,7 +290,7 @@ QUERIES                                                  *rb-delimiters-query*
 A query defines what to match.  Every language needs its own custom query.
 The query setting is a table where each entry maps a language name to a query
 name.  The empty string is the key for the default query.
->
+>lua
     -- Use parentheses by default, blocks for Lua
     query = {
         [''] = 'rainbow-delimiters',
@@ -514,7 +514,7 @@ predicates in a few special cases.
 
 
 Let's look at an example first.  Here is a snippet of HTML code:
->
+>html
     <a href="https://example.com">
         Example<br/>link
     </a>
@@ -556,7 +556,7 @@ the entire link, not one of its delimiters.
 As you can see, it is up to interpretation as to what exactly constitutes a
 delimiter.  In this example for the sake of exhaustiveness we will consider
 the `<br/>` tag a delimiter.  The corresponding query is as follows:
->
+>query
     (element
       (start_tag) @delimiter
       (element
@@ -567,7 +567,7 @@ Highlighting the entire tag might be too vibrant though.  What if we want to
 highlight only the opening and closing angle brackets?  The query gets
 slightly more complex because we have to descend deeper into the document
 tree.
->
+>query
     (element
       ((start_tag
           ["<" ">"] @delimiter)
@@ -592,7 +592,7 @@ We are not limited to only one opening and one closing delimiter.  The
 included default query captures the angle brackets and the tag name, but not
 attributes between the tag name and closing angle bracket.  This strikes a
 pleasant middle ground between the two above extremes.
->
+>query
     (element
       (start_tag
         "<" @delimiter
@@ -607,7 +607,7 @@ Here both opening and closing tag have three delimiters each.
 
 In HTML the terminating slash in a self-closing tag is optional.  Instead of
 `<br/>` we can write `<br>`.  A naïve query would look like this:
->
+>query
     (element
       (start_tag
         "<" @delimiter
@@ -618,7 +618,7 @@ However, this query also matches the opening tag of regular tags like `<div>`.
 This is where the `@_tag_name` capture comes in.  The set of self-closing tags
 is finite, so we can list them explicitly.  This way a regular opening tag
 will not match this particular pattern.
->
+>query
     (element
       (start_tag
         "<" @delimiter
