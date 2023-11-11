@@ -114,25 +114,6 @@ Tree-sitter support in Neovim is still experimental.  This plugin and its API
 should be considered stable insofar as breaking changes will only happen if
 changes to Neovim necessitates them.
 
-.. warning::
-
-   There is currently a shortcoming in Neovim's Tree-sitter API which makes it
-   so that only the first node of a capture group can be highlighted.  Please
-   see `neovim/neovim#17099`_ for details.  Affected queries:
-
-   - HTML `rainbow-delimiters`
-   - JSX (Javascript + React.js) `rainbow-delimiters-react` (affects React tags
-     only)
-   - Python (`rainbow-delimiters`) (affects only the `for ... in` inside
-     comprehensions)
-   - TSX (Typescript + React.js) `rainbow-delimiters-react` (affects React tags
-     only)
-   - Vue.js `rainbow-delimiters`
-
-   Most of these are related to HTML-like tags, so you can use an alternative
-   query instead.  See the manual_ (`:h ts-rainbow-query`) for a list of extra
-   queries.
-
 
 Screenshots
 ###########
@@ -164,7 +145,7 @@ Java
 LaTeX
 =====
 
-Using the `blocks` query to highlight the entire `\begin` and `\end`
+Using the `rainbow-blocks` query to highlight the entire `\begin` and `\end`
 instructions.
 
 .. image:: https://user-images.githubusercontent.com/4954650/212133427-46182f57-bfd8-4cbe-be1f-9aad5ddfd796.png
