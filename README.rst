@@ -115,43 +115,6 @@ should be considered stable insofar as breaking changes will only happen if
 changes to Neovim necessitates them.
 
 
-Screenshots
-###########
-
-Bash
-====
-
-.. image:: https://user-images.githubusercontent.com/4954650/212133420-4eec7fd3-9458-42ef-ba11-43c1ad9db26b.png
-   :alt: Screenshot of a Bash script with alternating coloured delimiters
-
-C
-=
-
-.. image:: https://user-images.githubusercontent.com/4954650/212133423-8b4f1f00-634a-42c1-9ebc-69f8057a63e6.png
-   :alt: Screenshot of a C program with alternating coloured delimiters
-
-Common Lisp
-===========
-
-.. image:: https://user-images.githubusercontent.com/4954650/212133425-85496400-4e24-4afd-805c-55ca3665c4d9.png
-   :alt: Screenshot of a Common Lisp program with alternating coloured delimiters
-
-Java
-====
-
-.. image:: https://user-images.githubusercontent.com/4954650/212133426-7615f902-e39f-4625-bb91-2e757233c7ba.png
-   :alt: Screenshot of a Java program with alternating coloured delimiters
-
-LaTeX
-=====
-
-Using the `rainbow-blocks` query to highlight the entire `\begin` and `\end`
-instructions.
-
-.. image:: https://user-images.githubusercontent.com/4954650/212133427-46182f57-bfd8-4cbe-be1f-9aad5ddfd796.png
-   :alt: Screenshot of a LaTeX document with alternating coloured delimiters
-
-
 License
 #######
 
@@ -202,3 +165,55 @@ Huge thanks to @vigoux, @theHamsta, @sogaiu, @bfredl and @sunjon and
 .. _neovim/neovim#17099: https://github.com/neovim/neovim/pull/17099
 .. _nvim-ts-rainbow2: https://gitlab.com/HiPhish/nvim-ts-rainbow2
 .. _nvim-treessiter: https://github.com/nvim-treesitter/nvim-treesitter
+
+
+Screenshots
+###########
+
+Bash
+====
+
+.. image:: https://github.com/HiPhish/rainbow-delimiters.nvim/assets/4954650/514ed2a2-68a4-427e-aef6-7ac3a02a2ba0
+   :alt: Screenshot of a Bash script with alternating coloured delimiters
+
+C
+=
+
+.. image:: https://github.com/HiPhish/rainbow-delimiters.nvim/assets/4954650/45f8e727-d507-43df-b112-a269e7262533
+   :alt: Screenshot of a C program with alternating coloured delimiters
+
+Common Lisp
+===========
+
+.. image:: https://github.com/HiPhish/rainbow-delimiters.nvim/assets/4954650/5e7e15bb-a4e3-41e5-b3fc-3c4150ffd252
+   :alt: Screenshot of a Common Lisp program with alternating coloured delimiters
+
+HTML
+====
+
+.. image:: https://github.com/HiPhish/rainbow-delimiters.nvim/assets/4954650/371d310c-d5a7-490d-bb55-d3fe4bd8b1a8
+   :alt: Screenshot of an HTML document with alternating coloured delimiters
+
+Java
+====
+
+.. image:: https://github.com/HiPhish/rainbow-delimiters.nvim/assets/4954650/bb372051-ec5f-4c0b-a9b9-3cd37edafa4f
+   :alt: Screenshot of a Java program with alternating coloured delimiters
+
+LaTeX
+=====
+
+Using the `rainbow-blocks` query to highlight the entire `\begin` and `\end`
+instructions.
+
+.. image:: https://github.com/HiPhish/rainbow-delimiters.nvim/assets/4954650/0176cc0d-b729-417e-8f85-c31da70d49f5
+   :alt: Screenshot of a LaTeX document with alternating coloured delimiters
+
+Lua
+===
+
+Using the `rainbow-blocks` query to highlight the entire `\begin` and `\end`
+block keywords.
+
+.. image:: https://github.com/HiPhish/rainbow-delimiters.nvim/assets/4954650/a915f7e0-b1c9-4af2-ae1d-f2f48aa325e5
+   :alt: Screenshot of a Lua script with alternating coloured delimiters
