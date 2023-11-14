@@ -1,6 +1,14 @@
 ;;; A pair of delimiter tags with any content in-between.
 ;;; Last tag should be a sentinel.
 
+;;; If instead you want rainbow-delimiters to only highlight
+;;; the tag names without any of "<", "</", ">" or "/>", then
+;;; you can make your own query file, e.g.,
+;;;   'rainbow-tag-names'
+;;; and use the following with
+;;;   x @delimiter
+;;; deleted for x equal to any of "<", "</", ">" or "/>".
+
 (element
   (start_tag
     "<" @delimiter
