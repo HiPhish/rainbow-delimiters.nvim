@@ -212,8 +212,8 @@ instructions.
 Lua
 ===
 
-Using the `rainbow-blocks` query to highlight the entire `\begin` and `\end`
-block keywords.
+Using the `rainbow-blocks` query to highlight the entire keywords like
+`function`, `if`, `else` and `end`.
 
 .. image:: https://github.com/HiPhish/rainbow-delimiters.nvim/assets/4954650/a915f7e0-b1c9-4af2-ae1d-f2f48aa325e5
    :alt: Screenshot of a Lua script with alternating coloured delimiters
