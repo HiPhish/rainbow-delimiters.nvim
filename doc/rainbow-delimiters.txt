@@ -157,7 +157,7 @@ available as part of a Lua module.
         blacklist = {'c', 'cpp'},
     }
 <
-The keys are exactly the same as for |g:rainbow_parentheses|.  If fact, this
+The keys are exactly the same as for |g:rainbow_delimiters|.  In fact, this
 function does the same as setting the variable directly.
 
 As an aside, this is a bad practice carried over from a time when Lua support
@@ -303,6 +303,8 @@ addition there are the following extra queries for certain languages:
   - `rainbow-parens` Only parentheses without React tags
 - `tsx`
   - `rainbow-parens` Just Typescript highlighting without React tags
+- `typescript`
+  - `rainbow-parens` Just Typescript highlighting without React tags
 - `verilog`
   - `rainbow-blocks` Matches keyword delimiters like `begin` and `end`, in
     addition to parentheses
@@ -439,6 +441,7 @@ The settings table contains the following entries:
 
   - `strategy`   Strategy in use
   - `parser`     Reference to the buffer parser (|treesitter-languagetree|)
+  - `lang`       Language of the current parser
 
 A strategy should pick the settings it needs and either cache them in an
 internal table, or construct closures (e.g. for callback functions) around
