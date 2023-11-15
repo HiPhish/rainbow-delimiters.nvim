@@ -165,7 +165,6 @@ function M.attach(bufnr)
 			strategy = strategy()
 		end
 	end
-	if not strategy or strategy == vim.NIL then return end
 
 	-- Intentionally abort; the user has explicitly disabled rainbow delimiters
 	-- for this buffer, usually by setting a strategy- or query function which
@@ -173,6 +172,7 @@ function M.attach(bufnr)
 	if not strategy then
 		log.warn('No strategy defined for %s', lang)
 	end
+	if not strategy or strategy == vim.NIL then return end
 
 	parser:register_cbs {
 		on_detach = function(bnr)

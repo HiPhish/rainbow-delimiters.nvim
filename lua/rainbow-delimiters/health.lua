@@ -53,6 +53,9 @@ local function check_strategy(strategy)
 		if type(strategy.on_detach) ~= 'function' then
 			return false
 		end
+		if type(strategy.on_reset) ~= 'function' then
+			return false
+		end
 		return true
 	end
 	return false

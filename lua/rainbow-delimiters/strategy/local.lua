@@ -195,7 +195,7 @@ local function update_local(bufnr, tree, lang)
 	end
 	local matches = matches_lang[tree]
 	if not matches then
-		log.debug("Did not build any matches Stack for tree '%s'", vim.inspect(tree:range()))
+		log.debug("Did not build any matches Stack for tree '%s'", vim.inspect(tree:root():range()))
 		return
 	end
 
