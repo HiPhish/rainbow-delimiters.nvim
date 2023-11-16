@@ -27,8 +27,8 @@ local M = {}
 ---Changes are range objects and come in two variants: one with four entries and
 ---one with six entries.  We only want the four-entry variant.  See
 ---`:h TSNode:range()`
----@param change number[]
----@return number[]
+---@param change integer[]
+---@return integer[]
 local function normalize_change(change)
 	local result
 	if #change == 4 then
@@ -41,11 +41,10 @@ local function normalize_change(change)
 	return result
 end
 
----@param bufnr number
+---@param bufnr integer
 ---@param lang string
 ---@param matches Stack
----@param level number
----@return nil
+---@param level integer
 local function highlight_matches(bufnr, lang, matches, level)
 	local hlgroup = lib.hlgroup_at(level)
 	for _, match in matches:iter() do
@@ -65,11 +64,10 @@ local function new_match_record()
 end
 
 ---Update highlights for a range. Called every time text is changed.
----@param bufnr   number  Buffer number
+---@param bufnr   integer  Buffer number
 ---@param changes table   List of node ranges in which the changes occurred
 ---@param tree    TSTree  TS tree
 ---@param lang    string  Language
----@return nil
 local function update_range(bufnr, changes, tree, lang)
 	log.debug('Updated range with changes %s', vim.inspect(changes))
 
@@ -142,9 +140,8 @@ local function update_range(bufnr, changes, tree, lang)
 end
 
 ---Update highlights for every tree in given buffer.
----@param bufnr number # Buffer number
+---@param bufnr integer # Buffer number
 ---@param parser LanguageTree
----@return nil
 local function full_update(bufnr, parser)
 	log.debug('Performing full updated on buffer %d', bufnr)
 	local function callback(tree, sub_parser)
@@ -157,10 +154,9 @@ end
 
 
 ---Sets up all the callbacks and performs an initial highlighting
----@param bufnr number # Buffer number
+---@param bufnr integer # Buffer number
 ---@param parser LanguageTree
 ---@param start_parent_lang string? # Parent language or nil
----@return nil
 local function setup_parser(bufnr, parser, start_parent_lang)
 	log.debug('Setting up parser for buffer %d', bufnr)
 
@@ -171,6 +167,8 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 		if not lib.get_query(lang) then return end
 
 		p:register_cbs {
+			---@param changes table
+			---@param tree TSTree
 			on_changedtree = function(changes, tree)
 				log.trace('Changed tree in buffer %d with languages %s', bufnr, lang)
 				-- HACK: As of Neovim v0.9.1 there is no way of unregistering a
@@ -239,6 +237,7 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 			end,
 			-- New languages can be added into the text at some later time, e.g.
 			-- code snippets in Markdown
+			---@param child LanguageTree
 			on_child_added = function(child)
 				setup_parser(bufnr, child, lang)
 			end,
@@ -250,20 +249,28 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 end
 
 
+---on_attach implementation for the global strategy
+---@param bufnr integer
+---@param settings rainbow_delimiters.buffer_settings
 function M.on_attach(bufnr, settings)
 	log.trace('global strategy on_attach')
 	local parser = settings.parser
 	setup_parser(bufnr, parser, nil)
 end
 
+---on_detach implementation for the global strategy
+---@param _bufnr integer
 function M.on_detach(_bufnr)
 end
 
+---on_reset implementation for the global strategy
+---@param bufnr integer
+---@param settings rainbow_delimiters.buffer_settings
 function M.on_reset(bufnr, settings)
 	log.trace('global strategy on_reset')
 	full_update(bufnr, settings.parser)
 end
 
-return M
+return M --[[@as rainbow_delimiters.strategy]]
 
 -- vim:tw=79:ts=4:sw=4:noet:

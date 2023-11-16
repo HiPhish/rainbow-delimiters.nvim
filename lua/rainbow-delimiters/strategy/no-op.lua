@@ -17,15 +17,23 @@
 ---A dummy strategy which does nothing; can be used in testing.
 local M = {}
 
-M.on_attach = function()
+---on_attach implementation for the noop strategy
+---@param _bufnr integer
+---@param _settings rainbow_delimiters.buffer_settings
+M.on_attach = function(_bufnr, _settings)
 end
 
-M.on_detach = function()
+---on_detach implementation for the noop strategy
+---@param _bufnr integer
+M.on_detach = function(_bufnr)
 end
 
-M.on_reset = function()
+---on_reset implementation for the noop strategy
+---@param _bufnr integer
+---@param _settings rainbow_delimiters.buffer_settings
+M.on_reset = function(_bufnr, _settings)
 end
 
-return M
+return M --[[@as rainbow_delimiters.strategy]]
 
 -- vim:tw=79:ts=4:sw=4:noet:
