@@ -16,6 +16,7 @@ Added
 =====
 
 - Nim support
+- templ support
 
 Fixed
 =====
