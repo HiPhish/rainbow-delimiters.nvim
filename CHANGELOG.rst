@@ -16,6 +16,7 @@ Added
 =====
 
 - Nim support
+- Cue support
 
 Fixed
 =====
