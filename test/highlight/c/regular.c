@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define MACRO 0
+
 /* A function declaration */
 int add(int, int);
 

@@ -195,7 +195,9 @@ local function update_local(bufnr, tree, lang)
 	end
 	local matches = matches_lang[tree]
 	if not matches then
-		log.debug("Did not build any matches Stack for tree '%s'", vim.inspect(tree:root():range()))
+		-- Note: vim.inspect(tree:root():range()) errors, so we need
+		-- to make it into a table instead of a list of numbers
+		log.debug("Did not build any matches Stack for tree '%s'", vim.inspect( {tree:root():range()} ))
 		return
 	end
 
@@ -285,7 +287,7 @@ function M.on_attach(bufnr, settings)
 		local changes = {
 			{tree:root():range()}
 		}
-		match_trees[bufnr][sub_lang] = {}
+		match_trees[bufnr][sub_lang] = match_trees[bufnr][sub_lang] or {}
 		match_trees[bufnr][sub_lang][tree] = build_match_tree(bufnr, changes, tree, sub_lang)
 	end)
 	local_rainbow(bufnr, parser)
