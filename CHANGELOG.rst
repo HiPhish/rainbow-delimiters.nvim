@@ -15,6 +15,7 @@ Unreleased
 Added
 =====
 
+- Cue support
 - Nim support
 - templ support
 
