@@ -1,0 +1,70 @@
+package main
+
+import "fmt"
+import "time"
+
+templ headerTemplate(name string) {
+	<header data-testid="headerTemplate">
+		switch name {
+			case "Alice", "Bob":
+				<h1>{ name }</h1>
+			default:
+				<h1>{ "Unknown" }</h1>
+		}
+		<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+		<style type="text/css">
+			p {
+				font-family: sans-serif;
+			}
+		</style>
+	</header>
+}
+
+templ footerTemplate() {
+	<footer data-testid="footerTemplate">
+		<div>&copy; { fmt.Sprintf("%d", time.Now().Year()) }</div>
+	</footer>
+}
+
+templ layout(name string) {
+	<html>
+		<head><title>{ name }</title></head>
+		<body>
+			@headerTemplate(name)
+			@navTemplate()
+			<main>
+				{ children... }
+			</main>
+		</body>
+		@footerTemplate()
+	</html>
+}
+
+templ navTemplate() {
+	<nav data-testid="navTemplate">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/posts">Posts</a></li>
+		</ul>
+	</nav>
+}
+
+templ posts(posts []Post) {
+	@layout("Posts") {
+		@postsTemplate(posts)
+		if len(posts) > 0 {
+			<div>{ "Not empty" }</div>
+		}
+	}
+}
+
+templ postsTemplate(posts []Post) {
+	<div data-testid="postsTemplate">
+		for _, p := range posts {
+			<div data-testid="postsTemplatePost">
+				<div data-testid="postsTemplatePostName">{ p.Name }</div>
+				<div data-testid="postsTemplatePostAuthor">{ p.Author }</div>
+			</div>
+		}
+	</div>
+}
