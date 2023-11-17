@@ -40,6 +40,14 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(script_block
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
+(css_declaration
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
 (component_switch_statement
   "{" @delimiter
   "}" @delimiter @sentinel) @container
