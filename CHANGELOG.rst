@@ -24,6 +24,7 @@ Fixed
 
 - Type error in local strategy
 - Log error in local strategy (Neovim <0.10 only)
+- Missing `rec_attrset_expression` and `inherit_from` patterns in Nix
 
 
 [0.1.0] - 2023-11-12
