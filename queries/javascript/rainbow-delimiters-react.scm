@@ -17,6 +17,10 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(switch_body
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
 (arguments
   "(" @delimiter
   ")" @delimiter @sentinel) @container
