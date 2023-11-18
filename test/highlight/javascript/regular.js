@@ -41,5 +41,12 @@ console.log(zeroes[zeroes[zeroes[0]]])
 // Parenthesized expressions
 console.log(1 + (2 + (3 + 4)))
 
+let a = 1
+
+switch(a) {
+    case 1:
+        break;
+}
+
 // export clause
 export { zeroes }

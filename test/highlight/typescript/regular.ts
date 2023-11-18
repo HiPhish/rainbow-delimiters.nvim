@@ -56,5 +56,12 @@ let some_object = {
 const zeroes = [0];
 console.log(zeroes[zeroes[zeroes[0]]])
 
+let a = 1
+
+switch(a) {
+    case 1:
+        break;
+}
+
 // Parenthesized expressions
 console.log(1 + (2 + (3 + (4 + (5 + 6)))))
