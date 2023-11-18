@@ -25,6 +25,7 @@ Fixed
 - Type error in local strategy
 - Log error in local strategy (Neovim <0.10 only)
 - Missing `switch_body` pattern for Javascript and Typescript
+- Missing `rec_attrset_expression` and `inherit_from` patterns for Nix
 
 
 [0.1.0] - 2023-11-12

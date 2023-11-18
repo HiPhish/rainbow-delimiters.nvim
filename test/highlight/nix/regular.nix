@@ -23,9 +23,11 @@
     ];
   in
     flake-utils.lib.eachSystem supportedSystems (system: let
+      inherit (nixpkgs) lib;
+      pkgs = nixpkgs.legacyPackages.${system};
 
       formatting = pre-commit-hooks.lib.${system}.run {
-        src = self;
+        src = lib.cleanSource self;
         hooks = {
           alejandra.enable = true;
           markdownlint.enable = true;
@@ -37,6 +39,14 @@
         };
       };
     in {
+      apps = rec {
+        hi = with pkgs; flake-utils.lib.mkApp {
+          drv = writeShellScriptBin "hi" ''
+            echo "Hello, world"
+          '';
+        };
+        default = hi;
+      };
       packages = {
       };
       checks = {
