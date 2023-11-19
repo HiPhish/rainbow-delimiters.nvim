@@ -1,0 +1,19 @@
+@mixin admon($fg, $sign, $title) {
+  border-top: 2.25rem solid $fg;
+  background: color-mix(in srgb, $fg 50%, var(--color-bg));
+
+  &::before {
+    position: absolute;
+    content: $sign;
+    top: 0.4rem;
+    left: 0.75rem;
+  }
+
+  &::after {
+    position: absolute;
+    content: $title;
+    font-weight: bold;
+    top: 0.5rem;
+    left: 2.25rem;
+  }
+}
