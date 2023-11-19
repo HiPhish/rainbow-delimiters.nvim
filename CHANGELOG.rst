@@ -18,6 +18,7 @@ Added
 - Cue support
 - Nim support
 - templ support
+- TOML support
 
 Fixed
 =====
