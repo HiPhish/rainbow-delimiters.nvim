@@ -35,9 +35,12 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(when_subject
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
+(when_expression
+  subject: (when_subject
+    "(" @delimiter
+    ")" @delimiter)
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (indexing_suffix
   "[" @delimiter
