@@ -1,0 +1,20 @@
+[table]
+[table.sub]
+people.names = [ "John", "Joe" ]
+
+inline-table = { x = 0.1, y = 2 }
+
+array-of-table = [
+  { name = "Alice", level = 2 },
+  { name = "Bob", level = 1 },
+]
+
+[[array-of-table2]]
+z = 3
+
+[[array-of-table2.t]]
+desc = "Index 1"
+
+[[array-of-table2]]
+z = 30
+t.desc = "Index 2"
