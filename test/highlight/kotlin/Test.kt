@@ -85,6 +85,11 @@ when (x) {
     else -> println("x is neither 1 nor 2")
 }
 
+when {
+    1 == 1 -> print("1")
+    else -> print("not")
+}
+
 val rows = 2
 val cols = 3
 val matrix = Array(rows) { IntArray(cols) }
@@ -104,4 +109,6 @@ for (row in matrix) {
     }
     println()
 }
+
+
 

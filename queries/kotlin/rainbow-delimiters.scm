@@ -42,6 +42,10 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(when_expression
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
 (indexing_suffix
   "[" @delimiter
   "]" @delimiter @sentinel) @container
