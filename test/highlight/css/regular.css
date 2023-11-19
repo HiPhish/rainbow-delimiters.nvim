@@ -1,3 +1,16 @@
+:root {
+	@media (prefers-color-scheme: dark) {
+		--color-bg: #3b4252;
+		--color-fg: #eceff4;
+		--color-gray: #434c5e;
+		--color-blue: #81a1c1;
+	}
+}
+
+li:has(input[type="checkbox"]) {
+	list-style-type: none;
+}
+
 .foo {
 	color: #ffffff;
 }
