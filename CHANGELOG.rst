@@ -17,6 +17,7 @@ Added
 
 - Cue support
 - Nim support
+- Kotlin support
 - templ support
 - TOML support
 

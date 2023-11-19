@@ -31,6 +31,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(for_statement
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (when_subject
   "(" @delimiter
   ")" @delimiter @sentinel) @container
