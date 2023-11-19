@@ -36,9 +36,9 @@
   ")" @delimiter @sentinel) @container
 
 (when_expression
-  subject: (when_subject
+  (when_subject
     "(" @delimiter
-    ")" @delimiter)
+    ")" @delimiter)?
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
