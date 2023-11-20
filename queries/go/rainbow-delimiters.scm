@@ -42,6 +42,10 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(array_type
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
 (slice_type
   "[" @delimiter
   "]" @delimiter @sentinel) @container
@@ -63,5 +67,9 @@
   "]" @delimiter @sentinel) @container
 
 (index_expression
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(slice_expression
   "[" @delimiter
   "]" @delimiter @sentinel) @container

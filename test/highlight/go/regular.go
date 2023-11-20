@@ -50,6 +50,9 @@ func main() {
 		{"Zinfandel", 1982, 120.0, false},
 	}
 
+	fmt.Println(len(wines[:2]))
+	stringArr := [4]string{"a", "b", "c", "d"}
+
 	addons := map[string]struct {
 		Item  string
 		Price float32
