@@ -27,3 +27,11 @@ following criteria:
 
 If there are many test cases or if the code becomes too verbose feel free to
 create multiple test files.
+
+In addition to the queries and test file(s), please consider adding the type
+annotations in `lua/rainbow-delimiters.types.lua` if you are adding queries
+for a new language. You will need to update:
+
+- `@class rainbow_delimiters.config.strategies`
+- `@class rainbow_delimiters.config.queries`
+- `@alias rainbow_delimiters.language`
