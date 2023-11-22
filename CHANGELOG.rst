@@ -16,6 +16,7 @@ Added
 =====
 
 - Cue support
+- Luadoc support
 - Nim support
 - Kotlin support
 - templ support
