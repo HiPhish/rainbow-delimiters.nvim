@@ -15,6 +15,7 @@ Unreleased
 Added
 =====
 
+- Luadoc support
 - Nim support
 
 
