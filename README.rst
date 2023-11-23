@@ -50,7 +50,7 @@ Configuration is done by setting entries in the Vim script dictionary
            \ 'RainbowDelimiterGreen',
            \ 'RainbowDelimiterViolet',
            \ 'RainbowDelimiterCyan',
-       \ ], 
+       \ ],
    \ }
 
 The equivalent code in Lua:
@@ -60,6 +60,7 @@ The equivalent code in Lua:
    -- This module contains a number of default definitions
    local rainbow_delimiters = require 'rainbow-delimiters'
 
+   ---@type rainbow_delimiters.config
    vim.g.rainbow_delimiters = {
        strategy = {
            [''] = rainbow_delimiters.strategy['global'],
@@ -87,7 +88,7 @@ same parameters as `g:rainbow-delimiters`.
 .. code:: lua
 
    require('rainbow-delimiters.setup').setup {
-       strategy = { 
+       strategy = {
            -- ...
        },
        query = {

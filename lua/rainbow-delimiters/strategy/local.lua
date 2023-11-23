@@ -45,11 +45,15 @@ local M = {}
 local match_trees = {}
 
 ---Reusable autogroup for events in this strategy.
----@type number
+---@type integer
 local augroup = api.nvim_create_augroup('TSRainbowLocalCursor', {})
 
 
 ---Highlights a single match with the given highlight group
+---@param bufnr integer
+---@param lang string
+---@param match table
+---@param hlgroup string
 local function highlight_match(bufnr, lang, match, hlgroup)
 	for _, delimiter in match.delimiter:iter() do lib.highlight(bufnr, lang, delimiter, hlgroup) end
 end
@@ -57,9 +61,9 @@ end
 ---Highlights all matches and their children on the stack of matches. All
 ---matches must be on the same level of the match tree.
 ---
----@param bufnr   number  Number of the buffer
+---@param bufnr   integer  Number of the buffer
 ---@param matches Stack   Stack of matches
----@param level   number  Level of the matches
+---@param level   integer  Level of the matches
 local function highlight_matches(bufnr, lang, matches, level)
 	local hlgroup = lib.hlgroup_at(level)
 	for _, match in matches:iter() do
@@ -70,6 +74,13 @@ end
 
 ---Finds a match (and its level) in the match tree whose container node is the
 ---given container node.
+---@param matches Stack
+---@param container TSNode
+---@param level integer
+---@return table
+---@return integer
+---If no match is found, return nil.
+---@overload fun(matches: Stack, container: TSNode, level: integer)
 local function find_container(matches, container, level)
 	for _, match in matches:iter() do
 		if match.container == container then return match, level end
@@ -79,7 +90,7 @@ local function find_container(matches, container, level)
 end
 
 --- Create a new empty match_record with an optionally set container
----@param container TSNode?
+---@param container TSNode
 ---@return table
 local function new_match_record(container)
 	return {
@@ -91,7 +102,7 @@ end
 
 ---Assembles the match tree, usually called after the document tree has
 ---changed.
----@param bufnr   number  Buffer number
+---@param bufnr   integer  Buffer number
 ---@param changes table   List of node ranges in which the changes occurred
 ---@param tree    TSTree  TS tree
 ---@param lang    string  Language
@@ -164,6 +175,9 @@ local function build_match_tree(bufnr, changes, tree, lang)
 	return matches
 end
 
+---@param bufnr integer
+---@param tree TSTree
+---@param lang string
 local function update_local(bufnr, tree, lang)
 	if not lib.enabled_for(lang) then return end
 	local query = lib.get_query(lang)
@@ -220,6 +234,8 @@ end
 
 ---Callback function to re-highlight the buffer according to the current cursor
 ---position.
+---@param bufnr integer
+---@param parser LanguageTree
 local function local_rainbow(bufnr, parser)
 	parser:for_each_tree(function(tree, sub_parser)
 		update_local(bufnr, tree, sub_parser:lang())
@@ -227,9 +243,8 @@ local function local_rainbow(bufnr, parser)
 end
 
 ---Sets up all the callbacks and performs an initial highlighting
----@param bufnr number # Buffer number
+---@param bufnr integer # Buffer number
 ---@param parser LanguageTree
----@return nil
 local function setup_parser(bufnr, parser)
 	log.debug('Setting up parser for buffer %d', bufnr)
 	util.for_each_child(nil, parser:lang(), parser, function(p, lang, _parent_lang)
@@ -238,6 +253,8 @@ local function setup_parser(bufnr, parser)
 		-- nil-reference error
 		if not lib.get_query(lang) then return end
 		p:register_cbs {
+			---@param _changes table
+			---@param tree TSTree
 			on_changedtree = function(_changes, tree)
 				-- HACK: As of Neovim v0.9.1 there is no way of unregistering a
 				-- callback, so we use this check to abort
@@ -257,6 +274,7 @@ local function setup_parser(bufnr, parser)
 			end,
 			-- New languages can be added into the text at some later time, e.g.
 			-- code snippets in Markdown
+			---@param child LanguageTree
 			on_child_added = function(child)
 				setup_parser(bufnr, child)
 			end,
@@ -265,6 +283,9 @@ local function setup_parser(bufnr, parser)
 	end)
 end
 
+---on_attach implementation for the local strategy
+---@param bufnr integer
+---@param settings rainbow_delimiters.buffer_settings
 function M.on_attach(bufnr, settings)
 	local parser = settings.parser
 	setup_parser(bufnr, parser)
@@ -293,6 +314,8 @@ function M.on_attach(bufnr, settings)
 	local_rainbow(bufnr, parser)
 end
 
+---on_detach implementation for the local strategy
+---@param bufnr integer
 function M.on_detach(bufnr)
 	-- Uninstall autocommand and delete cached match tree
 	api.nvim_clear_autocmds {
@@ -302,11 +325,14 @@ function M.on_detach(bufnr)
 	match_trees[bufnr] = nil
 end
 
+---on_reset implementation for the local strategy
+---@param bufnr integer
+---@param settings rainbow_delimiters.buffer_settings
 function M.on_reset(bufnr, settings)
 	local parser = settings.parser
 	local_rainbow(bufnr, parser)
 end
 
-return M
+return M --[[@as rainbow_delimiters.strategy]]
 
 -- vim:tw=79:ts=4:sw=4:noet:

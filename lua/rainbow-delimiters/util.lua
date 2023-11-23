@@ -28,8 +28,7 @@ local M = {}
 ---@param parent_lang string? # Parent language or nil
 ---@param lang string
 ---@param language_tree LanguageTree
----@param thunk fun(p: LanguageTree, lang: string, parent_lang: string?): nil
----@return nil
+---@param thunk fun(p: LanguageTree, lang: string, parent_lang: string?)
 function M.for_each_child(parent_lang, lang, language_tree, thunk)
 	thunk(language_tree, lang, parent_lang)
 	local children = language_tree:children()

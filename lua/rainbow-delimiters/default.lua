@@ -15,6 +15,7 @@
 --]]
 
 ---Default plugin configuration.
+---@type rainbow_delimiters.config
 local M = {
 	---Query names by file type
 	query = {

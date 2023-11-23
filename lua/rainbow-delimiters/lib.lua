@@ -55,6 +55,7 @@ M.nsids = setmetatable({}, {
 ---is a table of information about that buffer (e.g. language, strategy,
 ---query).  This also makes sure we keep track of all parsers in active use to
 ---prevent them from being garbage-collected.
+---@type table<integer, rainbow_delimiters.buffer_settings | false>
 M.buffers = {}
 
 
@@ -78,11 +79,10 @@ function M.get_query(lang)
 end
 
 ---Apply highlighting to a single node.
----@param bufnr   number  Buffer which contains the node
+---@param bufnr   integer  Buffer which contains the node
 ---@param lang    string  Language of the node (to group HL into namespaces)
 ---@param node    table   Node to highlight
 ---@param hlgroup string  Name of the highlight group to  apply.
----@return nil
 function M.highlight(bufnr, lang, node, hlgroup)
 	-- range of the capture, zero-indexed
 	local startRow, startCol, endRow, endCol = node:range()
@@ -103,7 +103,7 @@ end
 
 
 ---Get the appropriate highlight group for the given level of nesting.
----@param i number  One-based index into the highlight groups
+---@param i integer  One-based index into the highlight groups
 ---@return string hlgroup  Name of the highlight groups
 function M.hlgroup_at(i)
 	local hlgroups = config.highlight
@@ -113,8 +113,10 @@ end
 
 ---Clears the reserved Rainbow namespace.
 ---
----@param bufnr number  Number of the buffer for which to clear the namespace
----@return nil
+---@param bufnr integer  Number of the buffer for which to clear the namespace
+---@param lang string
+---@param line_start integer?
+---@param line_end integer?
 function M.clear_namespace(bufnr, lang, line_start, line_end)
 	local nsid = M.nsids[lang]
 	if vim.api.nvim_buf_is_valid(bufnr) then
@@ -123,6 +125,7 @@ function M.clear_namespace(bufnr, lang, line_start, line_end)
 end
 
 ---Start rainbow highlighting for the given buffer
+---@param bufnr integer
 function M.attach(bufnr)
 	-- Rainbow delimiters was explicitly disabled for this buffer
 	if M.buffers[bufnr] == false then return end
@@ -175,10 +178,12 @@ function M.attach(bufnr)
 	if not strategy or strategy == vim.NIL then return end
 
 	parser:register_cbs {
+		---@param bnr integer
 		on_detach = function(bnr)
 			if not M.buffers[bnr] then return end
 			M.detach(bufnr)
 		end,
+		---@param child LanguageTree
 		on_child_removed = function(child)
 			M.clear_namespace(bufnr, child:lang())
 		end,
@@ -201,6 +206,7 @@ function M.attach(bufnr)
 end
 
 ---Start rainbow highlighting for the given buffer
+---@param bufnr integer
 function M.detach(bufnr)
 	log.trace('Detaching from buffer %d.', bufnr)
 	if not M.buffers[bufnr] then

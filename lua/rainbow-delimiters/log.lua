@@ -30,6 +30,7 @@ end
 
 ---Dynamically determines the module from which the log function was called.
 ---If it was called from somewhere else return the name of the plugin.
+---@return string
 local function get_module()
 	local module = debug.getinfo(4, 'S').source:match('^.+rainbow%-delimiters/(.+).lua$')
 	if not module then
@@ -38,6 +39,11 @@ local function get_module()
 	return module:gsub('/', '.')
 end
 
+---@param file file*
+---@param level integer
+---@param module string
+---@param message any
+---@param ... any
 local function write_log(file, level, module, message, ...)
 	local msg
 	local timestamp = date('%FT%H:%M%z')
@@ -50,6 +56,9 @@ local function write_log(file, level, module, message, ...)
 	file:write(string.format('%s	%s	%s	%s\n', timestamp, level, module, msg))
 end
 
+---@param level integer
+---@param message any
+---@param ... any
 local function log(level, message, ...)
 	if level < config.log.level then return end
 

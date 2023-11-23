@@ -17,18 +17,22 @@
 ---Helper library for stack-like tables.
 local M = {}
 
----@class Stack
----@field public  size    fun(self: Stack): number
+---@class (exact) Stack
+---@field public  size    fun(self: Stack): integer
 ---@field public  peek    fun(self: Stack): any
 ---@field public  push    fun(self: Stack, item: any): Stack
 ---@field public  pop     fun(self: Stack): any
----@field public  iter    fun(self: Stack): (fun(i: number, item: any): number, any), Stack, number
----@field private content any[]
+---@field public  iter    fun(self: Stack): ((fun(i: integer, item: any): integer?, any), Stack, integer)
+---@field package content any[]
 
 ---The stack metatable.
 local mt = {}
 
 ---The actual iterator implementation, hidden behind the iter-method.
+---@param stack Stack
+---@param i integer
+---@return integer?
+---@return any
 local function iter_stack(stack, i)
 	if i <= 1 then return end
 	return i - 1, stack.content[i - 1]
@@ -39,7 +43,7 @@ end
 local function stack_tostring(stack)
 	local items = {}
 	for _, item in ipairs(stack.content) do
-		items[#items+1] = tostring(item)
+		items[#items + 1] = tostring(item)
 	end
 	return string.format('[%s]', table.concat(items, ', '))
 end
@@ -48,7 +52,8 @@ end
 ---[ Methods ]-----------------------------------------------------------------
 
 ---Returns the current number of items in the stack.
----@return number size  Current size of the stack
+---@param self Stack
+---@return integer size  Current size of the stack
 local function size(self)
 	return #self.content
 end
@@ -57,9 +62,9 @@ end
 ---returns the current index (one-based, counting from the bottom) and the
 ---current item.
 ---@param self Stack  The stack instance
----@return fun(i: number, stack: Stack): number, any
+---@return fun(i: integer, stack: Stack): integer?, any
 ---@return Stack
----@return number
+---@return integer
 local function iter(self)
 	return iter_stack, self, self:size() + 1
 end
@@ -98,12 +103,12 @@ end
 function M.new(items)
 	---@type Stack
 	local result = {
-		content = {},  ---@type any[]
-		size = size,   ---@type fun(self: Stack): number
-		iter = iter,
-		push = push,   ---@type fun(self: Stack, item: any): Stack
-		pop  = pop,    ---@type fun(self: Stack): any
-		peek = peek,   ---@type fun(self: Stack): any
+		content = {},
+		size    = size,
+		iter    = iter,
+		push    = push,
+		pop     = pop,
+		peek    = peek,
 	}
 	setmetatable(result, mt)
 	for _, item in ipairs(items or {}) do result:push(item) end

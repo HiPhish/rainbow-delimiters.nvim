@@ -31,6 +31,8 @@ local schema = {
 
 
 ---Check whether there is a parser installed for the given language.
+---@param lang string
+---@return boolean
 local function check_parser_installed(lang)
 	local success = pcall(vim.treesitter.language.inspect, lang)
 	return success
@@ -41,6 +43,8 @@ end
 ---This is not a 100% reliable check; we only test the type of the argument and
 ---whether the table has the correct fields, but not what the callback
 ---functions actually do.
+---@param strategy rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?
+---@return boolean
 local function check_strategy(strategy)
 	if type(strategy) == 'function' then
 		local finfo = debug.getinfo(strategy)
@@ -62,14 +66,20 @@ local function check_strategy(strategy)
 end
 
 ---Check whether the given query is defined for the given language.
+---@param lang string
+---@param name string
+---@return boolean
 local function check_query(lang, name)
 	local query = vim.treesitter.query.get(lang, name)
 	return query ~= nil
 end
 
+---@param settings rainbow_delimiters.logging
 local function check_logging(settings)
 	local level, file = settings.level, settings.file
 	if level then
+		-- Note: although the log level is an integer, Lua 5.1 only has the
+		-- number type
 		if type(level) ~= 'number' then
 			error('The log level must be a number', 'See :h vim.log.levels for valid log levels.')
 		else
@@ -102,7 +112,7 @@ end
 
 
 function M.check()
-	local settings = vim.g.rainbow_delimiters
+	local settings = vim.g.rainbow_delimiters --[[@as rainbow_delimiters.config]]
 	if not settings then
 		return
 		info("No custom configuration; see :h rb-delimiters-setup for information.")

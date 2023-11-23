@@ -18,7 +18,7 @@
 local lib = require 'rainbow-delimiters.lib'
 
 ---Disable rainbow delimiters for a given buffer.
----@param bufnr number  Buffer number, zero for current buffer.
+---@param bufnr integer  Buffer number, zero for current buffer.
 local function disable(bufnr)
 	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
 	lib.detach(bufnr)
@@ -26,13 +26,15 @@ local function disable(bufnr)
 end
 
 ---Enable rainbow delimiters for a given buffer.
----@param bufnr number  Buffer number, zero for current buffer.
+---@param bufnr integer  Buffer number, zero for current buffer.
 local function enable(bufnr)
 	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
 	lib.buffers[bufnr] = nil
 	lib.attach(bufnr)
 end
 
+---Toggle rainbow delimiters for a given buffer.
+---@param bufnr integer  Buffer number, zero for current buffer.
 local function toggle(bufnr)
 	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
 	if lib.buffers[bufnr] then
@@ -47,8 +49,11 @@ local M = {
 	hlgroup_at = lib.hlgroup_at,
 	---Available default highlight strategies
 	strategy = {
+		---Global highlighting strategy
 		['global'] = require 'rainbow-delimiters.strategy.global',
+		---Local highlighting strategy
 		['local']  = require 'rainbow-delimiters.strategy.local',
+		---Empty highlighting strategy for testing
 		['noop']   = require 'rainbow-delimiters.strategy.no-op',
 	},
 	enable  = enable,
