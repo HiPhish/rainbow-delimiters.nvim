@@ -89,6 +89,7 @@
 ---@field scss (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field sql (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field templ (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field terraform (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field toml (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field tsx (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field typescript (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
@@ -152,6 +153,7 @@
 ---@field scss ('rainbow-delimiters' | string)?
 ---@field sql ('rainbow-delimiters' | string)?
 ---@field templ ('rainbow-delimiters' | string)?
+---@field terraform ('rainbow-delimiters' | string)?
 ---@field toml ('rainbow-delimiters' | string)?
 ---@field tsx ('rainbow-delimiters' | 'rainbow-parens' | string)?
 ---@field typescript ('rainbow-delimiters' | 'rainbow-parens' | string)?
@@ -215,6 +217,7 @@
 ---@field scss         (integer | fun(): integer?)?
 ---@field sql          (integer | fun(): integer?)?
 ---@field templ        (integer | fun(): integer?)?
+---@field terraform    (integer | fun(): integer?)?
 ---@field toml         (integer | fun(): integer?)?
 ---@field tsx          (integer | fun(): integer?)?
 ---@field typescript   (integer | fun(): integer?)?
@@ -278,6 +281,7 @@
 ---| 'scss'
 ---| 'sql'
 ---| 'templ'
+---| 'terraform'
 ---| 'toml'
 ---| 'tsx'
 ---| 'typescript'
