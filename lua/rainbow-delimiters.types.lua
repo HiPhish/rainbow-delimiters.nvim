@@ -27,6 +27,8 @@
 ---@field strategy rainbow_delimiters.config.strategies?
 ---Query to use for highlighting
 ---@field query rainbow_delimiters.config.queries?
+---Highlight priority of rainbow delimiters
+---@field priority rainbow_delimiters.config.priorities?
 ---Highlight colors
 ---@field highlight string[]?
 ---Whitelist for languages to highlight
@@ -161,6 +163,70 @@
 ---@field zig ('rainbow-delimiters' | string)?
 ---User defined language, not part of rainbow_delimiters support
 ---@field [string] string?
+
+---@class rainbow_delimiters.config.priorities
+---@field ['']         (integer | fun(): integer?)?
+---@field astro        (integer | fun(): integer?)?
+---@field bash         (integer | fun(): integer?)?
+---@field c            (integer | fun(): integer?)?
+---@field c_sharp      (integer | fun(): integer?)?
+---@field clojure      (integer | fun(): integer?)?
+---@field commonlisp   (integer | fun(): integer?)?
+---@field cpp          (integer | fun(): integer?)?
+---@field css          (integer | fun(): integer?)?
+---@field cuda         (integer | fun(): integer?)?
+---@field cue          (integer | fun(): integer?)?
+---@field dart         (integer | fun(): integer?)?
+---@field elixir       (integer | fun(): integer?)?
+---@field elm          (integer | fun(): integer?)?
+---@field fennel       (integer | fun(): integer?)?
+---@field fish         (integer | fun(): integer?)?
+---@field go           (integer | fun(): integer?)?
+---@field haskell      (integer | fun(): integer?)?
+---@field hcl          (integer | fun(): integer?)?
+---@field html         (integer | fun(): integer?)?
+---@field janet_simple (integer | fun(): integer?)?
+---@field java         (integer | fun(): integer?)?
+---@field javascript   (integer | fun(): integer?)?
+---@field json         (integer | fun(): integer?)?
+---@field json5        (integer | fun(): integer?)?
+---@field jsonc        (integer | fun(): integer?)?
+---@field jsonnet      (integer | fun(): integer?)?
+---@field julia        (integer | fun(): integer?)?
+---@field kotlin       (integer | fun(): integer?)?
+---@field latex        (integer | fun(): integer?)?
+---@field lua          (integer | fun(): integer?)?
+---@field luadoc       (integer | fun(): integer?)?
+---@field make         (integer | fun(): integer?)?
+---@field markdown     (integer | fun(): integer?)?
+---@field nim          (integer | fun(): integer?)?
+---@field nix          (integer | fun(): integer?)?
+---@field perl         (integer | fun(): integer?)?
+---@field php          (integer | fun(): integer?)?
+---@field python       (integer | fun(): integer?)?
+---@field query        (integer | fun(): integer?)?
+---@field r            (integer | fun(): integer?)?
+---@field racket       (integer | fun(): integer?)?
+---@field regex        (integer | fun(): integer?)?
+---@field rst          (integer | fun(): integer?)?
+---@field ruby         (integer | fun(): integer?)?
+---@field rust         (integer | fun(): integer?)?
+---@field scheme       (integer | fun(): integer?)?
+---@field scss         (integer | fun(): integer?)?
+---@field sql          (integer | fun(): integer?)?
+---@field templ        (integer | fun(): integer?)?
+---@field toml         (integer | fun(): integer?)?
+---@field tsx          (integer | fun(): integer?)?
+---@field typescript   (integer | fun(): integer?)?
+---@field verilog      (integer | fun(): integer?)?
+---@field vim          (integer | fun(): integer?)?
+---@field vimdoc       (integer | fun(): integer?)?
+---@field vue          (integer | fun(): integer?)?
+---@field yaml         (integer | fun(): integer?)?
+---@field zig          (integer | fun(): integer?)?
+---User defined language, not part of rainbow_delimiters support
+---@field [integer] (integer | fun(): integer?)?
+
 
 ---@alias rainbow_delimiters.language
 ---| 'astro'

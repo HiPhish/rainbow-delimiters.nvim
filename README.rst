@@ -28,8 +28,9 @@ for each language you want to use rainbow delimiters with.
 Setup
 =====
 
-Configuration is done by setting entries in the Vim script dictionary
-`g:rainbow_delimiters`.  Here is an example configuration:
+No configuration is needed to get started, this plugin has reasonable defaults
+which you can override.  Configuration is done by setting entries in the Vim
+script dictionary `g:rainbow_delimiters`.  Here is an example configuration:
 
 .. code:: vim
 
@@ -41,6 +42,10 @@ Configuration is done by setting entries in the Vim script dictionary
        \ 'query': {
            \ '': 'rainbow-delimiters',
            \ 'lua': 'rainbow-blocks',
+       \ },
+       \ 'priority': {
+           \ '': 110,
+           \ 'lua': 210,
        \ },
        \ 'highlight': [
            \ 'RainbowDelimiterRed',
@@ -69,6 +74,10 @@ The equivalent code in Lua:
        query = {
            [''] = 'rainbow-delimiters',
            lua = 'rainbow-blocks',
+       },
+       priority = {
+           [''] = 110,
+           lua = 210,
        },
        highlight = {
            'RainbowDelimiterRed',

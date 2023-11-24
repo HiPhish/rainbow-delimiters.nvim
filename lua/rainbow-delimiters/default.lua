@@ -26,6 +26,9 @@ local M = {
 	strategy = {
 		[''] = require 'rainbow-delimiters.strategy.global',
 	},
+	priority = {
+		[''] = 110,
+	},
 	---Event logging settings
 	log = {
 		---Log level of the module, see `:h log_levels`.
@@ -60,6 +63,11 @@ setmetatable(M.query, {
 setmetatable(M.strategy, {
 	__index = get_with_fallback,
 })
+
+setmetatable(M.priority, {
+	__index = get_with_fallback,
+})
+
 
 return M
 

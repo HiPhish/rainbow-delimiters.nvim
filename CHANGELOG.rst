@@ -15,6 +15,7 @@ Unreleased
 Added
 =====
 
+- Ability to set highlight priority
 - Cue support
 - Luadoc support
 - Nim support
@@ -29,6 +30,12 @@ Fixed
 - Log error in local strategy (Neovim <0.10 only)
 - Missing `switch_body` pattern for Javascript and Typescript
 - Missing `rec_attrset_expression` and `inherit_from` patterns for Nix
+
+Changed
+=======
+
+- Default highlight priority is 110 instead of 210, which is between
+  Tree-sitter and LSP semantic tokens
 
 
 [0.1.0] - 2023-11-12

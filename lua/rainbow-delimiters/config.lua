@@ -52,6 +52,11 @@ local M = {
 			return get_nested(table, 'strategy', key)
 		end
 	}),
+	priority = setmetatable({}, {
+		__index = function(table, key)
+			return get_nested(table, 'priority', key)
+		end
+	}),
 	log = setmetatable({}, {
 		__index = function(table, key)
 			return get_nested(table, 'log', key)

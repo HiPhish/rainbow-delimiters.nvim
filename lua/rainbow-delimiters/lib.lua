@@ -91,7 +91,7 @@ function M.highlight(bufnr, lang, node, hlgroup)
 	local opts = {
 		regtype = 'c',
 		inclusive = true,
-		priority = 210,
+		priority = config.priority[lang],
 	}
 
 	local nsid = M.nsids[lang]

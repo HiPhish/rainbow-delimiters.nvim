@@ -52,5 +52,9 @@ int main(int argc, char *argv[]) {
 	printf("The sum of %d and %d is %d", ((((a)))), b, result);
 	int indices[] = {0, };
 	int i = indices[indices[indices[indices[indices[indices[0]]]]]];
+	#if 0
+		/* A language server may mark this block semantically as a comment */
+		printf("The sum of %d and %d is %d", ((((a)))), b, result);
+	#endif
 	return 0;
 }

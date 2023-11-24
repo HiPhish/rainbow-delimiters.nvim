@@ -58,6 +58,12 @@ keys are recognized:
   is the key for the default query.  See |rb-delimiters-query| for more
   information about queries.
 
+`priority`
+  Dictionary mapping Tree-sitter language names to highlight priority values.
+  The empty string is the key for the default priority.  See
+  |vim.highlight.priorities| and |treesitter-highlight-priority| for more
+  information on priorities.
+
 `highlight`
   List of names of the highlight groups to use for highlighting, for more
   information see |rb-delimiters-colors|.
@@ -90,6 +96,10 @@ Here is an example configuration:
             \ '': 'rainbow-delimiters',
             \ 'lua': 'rainbow-blocks',
         \ },
+        \ 'priority': {
+            \ '': 110,
+            \ 'lua': 210,
+        \ },
         \ 'highlight': [
             \ 'RainbowDelimiterRed',
             \ 'RainbowDelimiterYellow',
@@ -117,6 +127,10 @@ Alternatively, the same configuration in Lua:
         query = {
             [''] = 'rainbow-delimiters',
             lua = 'rainbow-blocks',
+        },
+        priority = {
+            [''] = 110,
+            lua = 210,
         },
         highlight = {
             'RainbowDelimiterRed',

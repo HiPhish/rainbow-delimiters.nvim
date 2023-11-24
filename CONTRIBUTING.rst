@@ -34,4 +34,5 @@ for a new language. You will need to update:
 
 - `@class rainbow_delimiters.config.strategies`
 - `@class rainbow_delimiters.config.queries`
+- `@class rainbow_delimiters.config.priorities`
 - `@alias rainbow_delimiters.language`
