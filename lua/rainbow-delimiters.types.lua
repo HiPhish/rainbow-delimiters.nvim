@@ -39,132 +39,132 @@
 ---@field log rainbow_delimiters.logging?
 
 ---@class rainbow_delimiters.config.strategies
----@field [''] (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field astro (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field bash (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field c (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field c_sharp (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field clojure (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field commonlisp (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field cpp (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field css (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field cuda (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field cue (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field dart (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field elixir (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field elm (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field fennel (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field fish (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field go (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field haskell (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field hcl (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field html (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field ['']         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field astro        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field bash         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field c            (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field c_sharp      (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field clojure      (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field commonlisp   (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field cpp          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field css          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field cuda         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field cue          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field dart         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field elixir       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field elm          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field fennel       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field fish         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field go           (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field haskell      (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field hcl          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field html         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field janet_simple (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field java (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field javascript (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field json (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field json5 (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field jsonc (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field jsonnet (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field julia (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field kotlin (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field latex (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field lua (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field luadoc (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field make (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field markdown (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field nim (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field nix (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field perl (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field php (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field python (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field query (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field r (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field racket (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field regex (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field rst (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field ruby (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field rust (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field scheme (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field scss (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field sql (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field templ (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field terraform (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field toml (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field tsx (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field typescript (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field verilog (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field vim (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field vimdoc (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field vue (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field yaml (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
----@field zig (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field java         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field javascript   (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field json         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field json5        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field jsonc        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field jsonnet      (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field julia        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field kotlin       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field latex        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field lua          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field luadoc       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field make         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field markdown     (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field nim          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field nix          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field perl         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field php          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field python       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field query        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field r            (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field racket       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field regex        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field rst          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field ruby         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field rust         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field scheme       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field scss         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field sql          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field templ        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field terraform    (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field toml         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field tsx          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field typescript   (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field verilog      (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field vim          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field vimdoc       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field vue          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field yaml         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field zig          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---User defined language, not part of rainbow_delimiters support
----@field [string] (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field [string]     (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 
 ---@class rainbow_delimiters.config.queries
----@field [''] ('rainbow-delimiters' | string)?
----@field astro ('rainbow-delimiters' | string)?
----@field bash ('rainbow-delimiters' | string)?
----@field c ('rainbow-delimiters' | string)?
----@field c_sharp ('rainbow-delimiters' | string)?
----@field clojure ('rainbow-delimiters' | string)?
----@field commonlisp ('rainbow-delimiters' | string)?
----@field cpp ('rainbow-delimiters' | string)?
----@field css ('rainbow-delimiters' | string)?
----@field cuda ('rainbow-delimiters' | string)?
----@field cue ('rainbow-delimiters' | string)?
----@field dart ('rainbow-delimiters' | string)?
----@field elixir ('rainbow-delimiters' | string)?
----@field elm ('rainbow-delimiters' | string)?
----@field fennel ('rainbow-delimiters' | string)?
----@field fish ('rainbow-delimiters' | string)?
----@field go ('rainbow-delimiters' | string)?
----@field haskell ('rainbow-delimiters' | string)?
----@field hcl ('rainbow-delimiters' | string)?
----@field html ('rainbow-delimiters' | string)?
+---@field ['']         ('rainbow-delimiters' | string)?
+---@field astro        ('rainbow-delimiters' | string)?
+---@field bash         ('rainbow-delimiters' | string)?
+---@field c            ('rainbow-delimiters' | string)?
+---@field c_sharp      ('rainbow-delimiters' | string)?
+---@field clojure      ('rainbow-delimiters' | string)?
+---@field commonlisp   ('rainbow-delimiters' | string)?
+---@field cpp          ('rainbow-delimiters' | string)?
+---@field css          ('rainbow-delimiters' | string)?
+---@field cuda         ('rainbow-delimiters' | string)?
+---@field cue          ('rainbow-delimiters' | string)?
+---@field dart         ('rainbow-delimiters' | string)?
+---@field elixir       ('rainbow-delimiters' | string)?
+---@field elm          ('rainbow-delimiters' | string)?
+---@field fennel       ('rainbow-delimiters' | string)?
+---@field fish         ('rainbow-delimiters' | string)?
+---@field go           ('rainbow-delimiters' | string)?
+---@field haskell      ('rainbow-delimiters' | string)?
+---@field hcl          ('rainbow-delimiters' | string)?
+---@field html         ('rainbow-delimiters' | string)?
 ---@field janet_simple ('rainbow-delimiters' | string)?
----@field java ('rainbow-delimiters' | string)?
----@field javascript ('rainbow-delimiters' | 'rainbow-parens' | 'rainbow-delimiters-react' | string)?
----@field json ('rainbow-delimiters' | string)?
----@field json5 ('rainbow-delimiters' | string)?
----@field jsonc ('rainbow-delimiters' | string)?
----@field jsonnet ('rainbow-delimiters' | string)?
----@field julia ('rainbow-delimiters' | string)?
----@field kotlin ('rainbow-delimiters' | string)?
----@field latex ('rainbow-delimiters' | 'rainbow-blocks' | string)?
----@field lua ('rainbow-delimiters' | 'rainbow-blocks' | string)?
----@field luadoc ('rainbow-delimiters' | string)?
----@field make ('rainbow-delimiters' | string)?
----@field markdown ('rainbow-delimiters' | string)?
----@field nim ('rainbow-delimiters' | string)?
----@field nix ('rainbow-delimiters' | string)?
----@field perl ('rainbow-delimiters' | string)?
----@field php ('rainbow-delimiters' | string)?
----@field python ('rainbow-delimiters' | string)?
----@field query ('rainbow-delimiters' | string)?
----@field r ('rainbow-delimiters' | string)?
----@field racket ('rainbow-delimiters' | string)?
----@field regex ('rainbow-delimiters' | string)?
----@field rst ('rainbow-delimiters' | string)?
----@field ruby ('rainbow-delimiters' | string)?
----@field rust ('rainbow-delimiters' | string)?
----@field scheme ('rainbow-delimiters' | string)?
----@field scss ('rainbow-delimiters' | string)?
----@field sql ('rainbow-delimiters' | string)?
----@field templ ('rainbow-delimiters' | string)?
----@field terraform ('rainbow-delimiters' | string)?
----@field toml ('rainbow-delimiters' | string)?
----@field tsx ('rainbow-delimiters' | 'rainbow-parens' | string)?
----@field typescript ('rainbow-delimiters' | 'rainbow-parens' | string)?
----@field verilog ('rainbow-delimiters' | 'rainbow-blocks' | string)?
----@field vim ('rainbow-delimiters' | string)?
----@field vimdoc ('rainbow-delimiters' | string)?
----@field vue ('rainbow-delimiters' | string)?
----@field yaml ('rainbow-delimiters' | string)?
----@field zig ('rainbow-delimiters' | string)?
+---@field java         ('rainbow-delimiters' | string)?
+---@field javascript   ('rainbow-delimiters' | 'rainbow-parens' | 'rainbow-delimiters-react' | string)?
+---@field json         ('rainbow-delimiters' | string)?
+---@field json5        ('rainbow-delimiters' | string)?
+---@field jsonc        ('rainbow-delimiters' | string)?
+---@field jsonnet      ('rainbow-delimiters' | string)?
+---@field julia        ('rainbow-delimiters' | string)?
+---@field kotlin       ('rainbow-delimiters' | string)?
+---@field latex        ('rainbow-delimiters' | 'rainbow-blocks' | string)?
+---@field lua          ('rainbow-delimiters' | 'rainbow-blocks' | string)?
+---@field luadoc       ('rainbow-delimiters' | string)?
+---@field make         ('rainbow-delimiters' | string)?
+---@field markdown     ('rainbow-delimiters' | string)?
+---@field nim          ('rainbow-delimiters' | string)?
+---@field nix          ('rainbow-delimiters' | string)?
+---@field perl         ('rainbow-delimiters' | string)?
+---@field php          ('rainbow-delimiters' | string)?
+---@field python       ('rainbow-delimiters' | string)?
+---@field query        ('rainbow-delimiters' | string)?
+---@field r            ('rainbow-delimiters' | string)?
+---@field racket       ('rainbow-delimiters' | string)?
+---@field regex        ('rainbow-delimiters' | string)?
+---@field rst          ('rainbow-delimiters' | string)?
+---@field ruby         ('rainbow-delimiters' | string)?
+---@field rust         ('rainbow-delimiters' | string)?
+---@field scheme       ('rainbow-delimiters' | string)?
+---@field scss         ('rainbow-delimiters' | string)?
+---@field sql          ('rainbow-delimiters' | string)?
+---@field templ        ('rainbow-delimiters' | string)?
+---@field terraform    ('rainbow-delimiters' | string)?
+---@field toml         ('rainbow-delimiters' | string)?
+---@field tsx          ('rainbow-delimiters' | 'rainbow-parens' | string)?
+---@field typescript   ('rainbow-delimiters' | 'rainbow-parens' | string)?
+---@field verilog      ('rainbow-delimiters' | 'rainbow-blocks' | string)?
+---@field vim          ('rainbow-delimiters' | string)?
+---@field vimdoc       ('rainbow-delimiters' | string)?
+---@field vue          ('rainbow-delimiters' | string)?
+---@field yaml         ('rainbow-delimiters' | string)?
+---@field zig          ('rainbow-delimiters' | string)?
 ---User defined language, not part of rainbow_delimiters support
----@field [string] string?
+---@field [string]     string?
 
 ---@class rainbow_delimiters.config.priorities
 ---@field ['']         (integer | fun(): integer?)?
@@ -228,7 +228,7 @@
 ---@field yaml         (integer | fun(): integer?)?
 ---@field zig          (integer | fun(): integer?)?
 ---User defined language, not part of rainbow_delimiters support
----@field [integer] (integer | fun(): integer?)?
+---@field [string]     (integer | fun(): integer?)?
 
 
 ---@alias rainbow_delimiters.language

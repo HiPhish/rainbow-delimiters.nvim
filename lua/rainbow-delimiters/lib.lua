@@ -15,11 +15,11 @@
    limitations under the License.
 --]]
 
-local get_query = vim.treesitter.query.get
-local get_parser= vim.treesitter.get_parser
-local log       = require 'rainbow-delimiters.log'
-local config    = require 'rainbow-delimiters.config'
-local util      = require 'rainbow-delimiters.util'
+local get_query  = vim.treesitter.query.get
+local get_parser = vim.treesitter.get_parser
+local log        = require 'rainbow-delimiters.log'
+local config     = require 'rainbow-delimiters.config'
+local util       = require 'rainbow-delimiters.util'
 
 
 ---[ Internal ]----------------------------------------------------------------
