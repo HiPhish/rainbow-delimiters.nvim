@@ -21,6 +21,7 @@ Added
 - Nim support
 - Kotlin support
 - templ support
+- Terraform support
 - TOML support
 
 Fixed
@@ -30,6 +31,13 @@ Fixed
 - Log error in local strategy (Neovim <0.10 only)
 - Missing `switch_body` pattern for Javascript and Typescript
 - Missing `rec_attrset_expression` and `inherit_from` patterns for Nix
+- Missing `array_type` and `slice_expression` patterns for Go
+- Missing `feature_query`, `arguments` and `attribute_selector` patterns for
+  CSS
+- Missing `for_tuple_expr`, `new_index`, `expression`, `binary_operation`,
+  `for_object_expr`, `template_interpolation` and `unary_operation` patterns
+  for HCL
+- Missing `parameters` pattern for SCSS
 
 Changed
 =======
