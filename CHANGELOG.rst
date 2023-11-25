@@ -29,15 +29,28 @@ Fixed
 
 - Type error in local strategy
 - Log error in local strategy (Neovim <0.10 only)
-- Missing `switch_body` pattern for Javascript and Typescript
-- Missing `rec_attrset_expression` and `inherit_from` patterns for Nix
-- Missing `array_type` and `slice_expression` patterns for Go
-- Missing `feature_query`, `arguments` and `attribute_selector` patterns for
-  CSS
-- Missing `for_tuple_expr`, `new_index`, `expression`, `binary_operation`,
-  `for_object_expr`, `template_interpolation` and `unary_operation` patterns
-  for HCL
-- Missing `parameters` pattern for SCSS
+- Missing patterns for CSS
+   - `feature_query`
+   - `arguments`
+   - `attribute_selector`
+- Missing patterns for Go
+   - `array_type`
+   - `slice_expression`
+- Missing patterns for HCL
+   - `for_tuple_expr`
+   - `new_index`
+   - `expression`
+   - `binary_operation`
+   - `for_object_expr`
+   - `template_interpolation`
+   - `unary_operation`
+- Missing pattern for Javascript and Typescript
+   - `switch_body`
+- Missing patterns for Nix
+   - `rec_attrset_expression`
+   - `inherit_from`
+- Missing pattern for SCSS
+   - `parameters`
 
 Changed
 =======
