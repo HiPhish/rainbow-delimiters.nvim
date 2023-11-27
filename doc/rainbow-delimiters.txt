@@ -160,6 +160,10 @@ available as part of a Lua module.
             [''] = 'rainbow-delimiters',
             latex = 'rainbow-blocks',
         },
+        priority = {
+            [''] = 110,
+            lua = 210,
+        },
         highlight = {
             'RainbowDelimiterRed',
             'RainbowDelimiterYellow',
@@ -617,7 +621,7 @@ In HTML the terminating slash in a self-closing tag is optional.  Instead of
     (element
       (start_tag
         "<" @delimiter
-        (tag_name) @delimiter @_tag_name
+        (tag_name) @delimiter
         ">" @delimiter @sentinel)) @container
 <
 However, this query also matches the opening tag of regular tags like `<div>`.
