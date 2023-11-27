@@ -1,5 +1,6 @@
 (named_node
   "(" @delimiter
+  (identifier) @delimiter
   ")" @delimiter @sentinel) @container
 
 (grouping
