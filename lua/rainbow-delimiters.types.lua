@@ -103,68 +103,68 @@
 ---@field [string]     (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 
 ---@class rainbow_delimiters.config.queries
----@field ['']         ('rainbow-delimiters' | string)?
----@field astro        ('rainbow-delimiters' | string)?
----@field bash         ('rainbow-delimiters' | string)?
----@field c            ('rainbow-delimiters' | string)?
----@field c_sharp      ('rainbow-delimiters' | string)?
----@field clojure      ('rainbow-delimiters' | string)?
----@field commonlisp   ('rainbow-delimiters' | string)?
----@field cpp          ('rainbow-delimiters' | string)?
----@field css          ('rainbow-delimiters' | string)?
----@field cuda         ('rainbow-delimiters' | string)?
----@field cue          ('rainbow-delimiters' | string)?
----@field dart         ('rainbow-delimiters' | string)?
----@field elixir       ('rainbow-delimiters' | string)?
----@field elm          ('rainbow-delimiters' | string)?
----@field fennel       ('rainbow-delimiters' | string)?
----@field fish         ('rainbow-delimiters' | string)?
----@field go           ('rainbow-delimiters' | string)?
----@field haskell      ('rainbow-delimiters' | string)?
----@field hcl          ('rainbow-delimiters' | string)?
----@field html         ('rainbow-delimiters' | string)?
----@field janet_simple ('rainbow-delimiters' | string)?
----@field java         ('rainbow-delimiters' | string)?
----@field javascript   ('rainbow-delimiters' | 'rainbow-parens' | 'rainbow-delimiters-react' | string)?
----@field json         ('rainbow-delimiters' | string)?
----@field json5        ('rainbow-delimiters' | string)?
----@field jsonc        ('rainbow-delimiters' | string)?
----@field jsonnet      ('rainbow-delimiters' | string)?
----@field julia        ('rainbow-delimiters' | string)?
----@field kotlin       ('rainbow-delimiters' | string)?
----@field latex        ('rainbow-delimiters' | 'rainbow-blocks' | string)?
----@field lua          ('rainbow-delimiters' | 'rainbow-blocks' | string)?
----@field luadoc       ('rainbow-delimiters' | string)?
----@field make         ('rainbow-delimiters' | string)?
----@field markdown     ('rainbow-delimiters' | string)?
----@field nim          ('rainbow-delimiters' | string)?
----@field nix          ('rainbow-delimiters' | string)?
----@field perl         ('rainbow-delimiters' | string)?
----@field php          ('rainbow-delimiters' | string)?
----@field python       ('rainbow-delimiters' | string)?
----@field query        ('rainbow-delimiters' | string)?
----@field r            ('rainbow-delimiters' | string)?
----@field racket       ('rainbow-delimiters' | string)?
----@field regex        ('rainbow-delimiters' | string)?
----@field rst          ('rainbow-delimiters' | string)?
----@field ruby         ('rainbow-delimiters' | string)?
----@field rust         ('rainbow-delimiters' | string)?
----@field scheme       ('rainbow-delimiters' | string)?
----@field scss         ('rainbow-delimiters' | string)?
----@field sql          ('rainbow-delimiters' | string)?
----@field templ        ('rainbow-delimiters' | string)?
----@field terraform    ('rainbow-delimiters' | string)?
----@field toml         ('rainbow-delimiters' | string)?
----@field tsx          ('rainbow-delimiters' | 'rainbow-parens' | string)?
----@field typescript   ('rainbow-delimiters' | 'rainbow-parens' | string)?
----@field verilog      ('rainbow-delimiters' | 'rainbow-blocks' | string)?
----@field vim          ('rainbow-delimiters' | string)?
----@field vimdoc       ('rainbow-delimiters' | string)?
----@field vue          ('rainbow-delimiters' | string)?
----@field yaml         ('rainbow-delimiters' | string)?
----@field zig          ('rainbow-delimiters' | string)?
+---@field ['']         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field astro        (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field bash         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field c            (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field c_sharp      (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field clojure      (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field commonlisp   (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field cpp          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field css          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field cuda         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field cue          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field dart         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field elixir       (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field elm          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field fennel       (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field fish         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field go           (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field haskell      (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field hcl          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field html         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field janet_simple (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field java         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field javascript   (('rainbow-delimiters' | 'rainbow-parens' | 'rainbow-delimiters-react' | string) | fun(): ('rainbow-delimiters' | 'rainbow-parens' | 'rainbow-delimiters-react' | string))?
+---@field json         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field json5        (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field jsonc        (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field jsonnet      (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field julia        (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field kotlin       (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field latex        (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
+---@field lua          (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
+---@field luadoc       (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field make         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field markdown     (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field nim          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field nix          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field perl         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field php          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field python       (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field query        (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
+---@field r            (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field racket       (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field regex        (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field rst          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field ruby         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field rust         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field scheme       (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field scss         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field sql          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field templ        (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field terraform    (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field toml         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field tsx          (('rainbow-delimiters' | 'rainbow-parens' | string) | fun(): ('rainbow-delimiters' | 'rainbow-parens' | string))?
+---@field typescript   (('rainbow-delimiters' | 'rainbow-parens' | string) | fun(): ('rainbow-delimiters' | 'rainbow-parens' | string))?
+---@field verilog      (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
+---@field vim          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field vimdoc       (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field vue          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field yaml         (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
+---@field zig          (('rainbow-delimiters' | string) | fun(): ('rainbow-delimiters' | string))?
 ---User defined language, not part of rainbow_delimiters support
----@field [string]     string?
+---@field [string]     (string | fun(): string)?
 
 ---@class rainbow_delimiters.config.priorities
 ---@field ['']         (integer | fun(): integer?)?

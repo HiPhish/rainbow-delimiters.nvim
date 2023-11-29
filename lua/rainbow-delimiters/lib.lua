@@ -68,6 +68,9 @@ M.buffers = {}
 ---@return Query? query  The query object
 function M.get_query(lang)
 	local name = config['query'][lang]
+	if type(name) == "function" then
+		name = name()
+	end
 	local query = get_query(lang, name)
 
 	if not query then
@@ -88,10 +91,14 @@ function M.highlight(bufnr, lang, node, hlgroup)
 	local startRow, startCol, endRow, endCol = node:range()
 
 	local start, finish = {startRow, startCol}, {endRow, endCol - 1}
+	local priority = config.priority[lang]
+	if type(priority) == "function" then
+		priority = priority()
+	end
 	local opts = {
 		regtype = 'c',
 		inclusive = true,
-		priority = config.priority[lang],
+		priority = priority,
 	}
 
 	local nsid = M.nsids[lang]
