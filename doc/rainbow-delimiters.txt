@@ -293,15 +293,32 @@ QUERIES                                                  *rb-delimiters-query*
 A query defines what to match.  Every language needs its own custom query.
 The query setting is a table where each entry maps a language name to a query
 name.  The empty string is the key for the default query.
+
+Each value in the table can be either the name of a query file or a function of
+zero arguments which evaluates to the name of a query file (a so-called
+"thunk").  A function can be used to defer the decision to a later
+point in time.
 >lua
     -- Use parentheses by default, blocks for Lua
     query = {
         [''] = 'rainbow-delimiters',
         lua = 'rainbow-blocks',
+        query = function()
+            if vim.b.dev_base then
+                -- if we are in `InspectTree`
+                return 'rainbow-blocks'
+            else
+                -- if we are not in `InspectTree`
+                return 'rainbow-delimiters'
+            end
+        end
     }
 <
 If you wish to define your own custom query or add support for a new language,
 consult |rb-delimiters-custom-query| for details.
+
+(Note: `b:dev_base` is not a documented variable, so it might change in the
+future.)
 
 For every language the query `rainbow-delimiters` is defined, which matches a
 reasonable set of parentheses and similar delimiters for each language.  In
@@ -316,6 +333,9 @@ addition there are the following extra queries for certain languages:
   - `rainbow-delimiters-react` Includes React support, set by default for
     Javascript files
   - `rainbow-parens` Only parentheses without React tags
+- `query`
+  - `rainbow-blocks` Highlight named nodes and identifiers in addition to
+    parentheses (useful for `InspectTree`)
 - `tsx`
   - `rainbow-parens` Just Typescript highlighting without React tags
 - `typescript`
