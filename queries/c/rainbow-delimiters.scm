@@ -46,3 +46,6 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(enumerator_list
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container

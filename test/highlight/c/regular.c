@@ -2,6 +2,13 @@
 
 #define MACRO 0
 
+typedef enum {
+  E1,
+  E2,
+  E3
+  // comment
+} Myenum;
+
 /* A function declaration */
 int add(int, int);
 
