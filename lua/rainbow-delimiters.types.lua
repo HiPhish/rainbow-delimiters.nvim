@@ -88,6 +88,7 @@
 ---@field scheme       (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field scss         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field sql          (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
+---@field starlark     (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field templ        (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field terraform    (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
 ---@field toml         (rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?)?
@@ -152,6 +153,7 @@
 ---@field scheme       ('rainbow-delimiters' | string)?
 ---@field scss         ('rainbow-delimiters' | string)?
 ---@field sql          ('rainbow-delimiters' | string)?
+---@field starlark     ('rainbow-delimiters' | string)?
 ---@field templ        ('rainbow-delimiters' | string)?
 ---@field terraform    ('rainbow-delimiters' | string)?
 ---@field toml         ('rainbow-delimiters' | string)?
@@ -216,6 +218,7 @@
 ---@field scheme       (integer | fun(): integer?)?
 ---@field scss         (integer | fun(): integer?)?
 ---@field sql          (integer | fun(): integer?)?
+---@field starlark     (integer | fun(): integer?)?
 ---@field templ        (integer | fun(): integer?)?
 ---@field terraform    (integer | fun(): integer?)?
 ---@field toml         (integer | fun(): integer?)?
@@ -280,6 +283,7 @@
 ---| 'scheme'
 ---| 'scss'
 ---| 'sql'
+---| 'starlark'
 ---| 'templ'
 ---| 'terraform'
 ---| 'toml'
