@@ -9,6 +9,22 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Added
+=====
+
+- New query for language `query`:
+  - `rainbow-blocks`
+
+Fixed
+=====
+
+- Query can be a thunk in configuration
+- Priority can be a thunk in configuration
+
+
 [0.2.0] - 2023-11-26
 ####################
 
