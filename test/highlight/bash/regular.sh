@@ -18,3 +18,13 @@ fi
 
 # Sub-shells
 (true; false; (true; true; (false; true)))
+
+person() {
+	array=(
+		[Alice]="$((2 ^ 10))"
+		[Bob]=2048
+	)
+	echo "${array[$1]}"
+}
+
+person "Alice"
