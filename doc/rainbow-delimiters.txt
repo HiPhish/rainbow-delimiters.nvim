@@ -237,6 +237,9 @@ so-called "thunk").  A function can be used to defer the decision to a later
 point in time.  If the function evaluates to `nil` (or |v:null|) rainbow
 delimiters will be disabled for that buffer.
 
+NOTE
+Thunks can only be used from Lua.
+
 >lua
     local rainbow = require 'rainbow-delimiters'
 
@@ -296,29 +299,29 @@ name.  The empty string is the key for the default query.
 
 Each value in the table can be either the name of a query file or a function of
 zero arguments which evaluates to the name of a query file (a so-called
-"thunk").  A function can be used to defer the decision to a later
-point in time.
+"thunk").  A function can be used to defer the decision to a later point in
+time.
+
+NOTE
+Thunks can only be used from Lua.
+
 >lua
     -- Use parentheses by default, blocks for Lua
     query = {
+        -- Use parentheses by default
         [''] = 'rainbow-delimiters',
+        -- Use blocks for Lua
         lua = 'rainbow-blocks',
-        query = function()
-            if vim.b.dev_base then
-                -- if we are in `InspectTree`
-                return 'rainbow-blocks'
-            else
-                -- if we are not in `InspectTree`
-                return 'rainbow-delimiters'
-            end
+        -- Determine the query dynamically
+        query = function ()
+            -- Use blocks for read-only buffers like in `:InspectTree`
+            local is_nofile = vim.bo.buftype == 'nofile'
+            return is_nofile and 'rainbow-blocks' or 'rainbow-delimiters'
         end
     }
 <
 If you wish to define your own custom query or add support for a new language,
 consult |rb-delimiters-custom-query| for details.
-
-(Note: `b:dev_base` is not a documented variable, so it might change in the
-future.)
 
 For every language the query `rainbow-delimiters` is defined, which matches a
 reasonable set of parentheses and similar delimiters for each language.  In
@@ -335,7 +338,7 @@ addition there are the following extra queries for certain languages:
   - `rainbow-parens` Only parentheses without React tags
 - `query`
   - `rainbow-blocks` Highlight named nodes and identifiers in addition to
-    parentheses (useful for `InspectTree`)
+    parentheses (useful for |:InspectTree|)
 - `tsx`
   - `rainbow-parens` Just Typescript highlighting without React tags
 - `typescript`
