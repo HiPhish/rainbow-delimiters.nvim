@@ -9,6 +9,16 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Added
+=====
+
+- Missing patterns for C:
+  - `enumerator_list`
+
+
 [0.2.0] - 2023-11-26
 ####################
 
