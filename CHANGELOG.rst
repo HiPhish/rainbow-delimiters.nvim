@@ -15,6 +15,7 @@ Unreleased
 Added
 =====
 
+- Starlark support
 - Missing patterns for Bash:
    - `array`
    - `function_definition`
