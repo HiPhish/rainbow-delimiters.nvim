@@ -101,7 +101,7 @@ function M.highlight(bufnr, lang, node, hlgroup)
 	local start, finish = {startRow, startCol}, {endRow, endCol - 1}
 	local priority = config.priority[lang]
 	if type(priority) == "function" then
-		priority = priority()
+		priority = api.nvim_buf_call(bufnr, priority)
 	end
 	local opts = {
 		regtype = 'c',
@@ -180,7 +180,7 @@ function M.attach(bufnr)
 	do
 		strategy = config.strategy[lang]
 		if type(strategy) == 'function' then
-			strategy = strategy()
+			strategy = api.nvim_buf_call(bufnr, strategy)
 		end
 	end
 

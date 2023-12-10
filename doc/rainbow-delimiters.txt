@@ -234,8 +234,10 @@ dictionary where the empty string is the key for the default strategy and the
 overrides use the name of the language as keys.  Each value can be either a
 strategy or a function of zero arguments which evaluates to a strategy (a
 so-called "thunk").  A function can be used to defer the decision to a later
-point in time.  If the function evaluates to `nil` (or |v:null|) rainbow
-delimiters will be disabled for that buffer.
+point in time.  The highlighted buffer is temporarily set as the current
+buffer context, so buffer-local variables and options can be used.  If the
+function evaluates to `nil` (or |v:null|) rainbow delimiters will be disabled
+for that buffer.
 
 NOTE
 Thunks can only be used from Lua.
@@ -297,16 +299,16 @@ A query defines what to match.  Every language needs its own custom query.
 The query setting is a table where each entry maps a language name to a query
 name.  The empty string is the key for the default query.
 
-Each value in the table can be either the name of a query file or a function of
-zero arguments which evaluates to the name of a query file (a so-called
-"thunk").  A function can be used to defer the decision to a later point in
-time.
+Each value in the table can be either the name of a query file or a function
+of zero arguments which evaluates to the name of a query file (a so-called
+"thunk").  The highlighted buffer is temporarily set as the current buffer
+context, so buffer-local variables and options can be used.  A function can be
+used to defer the decision to a later point in time.
 
 NOTE
 Thunks can only be used from Lua.
 
 >lua
-    -- Use parentheses by default, blocks for Lua
     query = {
         -- Use parentheses by default
         [''] = 'rainbow-delimiters',
