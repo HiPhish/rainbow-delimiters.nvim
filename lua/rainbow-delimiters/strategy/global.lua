@@ -74,7 +74,7 @@ local function update_range(bufnr, changes, tree, lang)
 	if not lib.enabled_for(lang) then return end
 	if vim.fn.pumvisible() ~= 0 or not lang then return end
 
-	local query = lib.get_query(lang)
+	local query = lib.get_query(lang, bufnr)
 	if not query then return end
 
 	local matches = Stack.new()
@@ -164,7 +164,7 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 		log.debug("Setting up parser for '%s' in buffer %d", lang, bufnr)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
-		if not lib.get_query(lang) then return end
+		if not lib.get_query(lang, bufnr) then return end
 
 		p:register_cbs {
 			---@param changes table

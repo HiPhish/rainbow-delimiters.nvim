@@ -15,6 +15,7 @@
    limitations under the License.
 --]]
 
+local api        = vim.api
 local get_query  = vim.treesitter.query.get
 local get_parser = vim.treesitter.get_parser
 local log        = require 'rainbow-delimiters.log'
@@ -62,14 +63,21 @@ M.buffers = {}
 ---[ This stuff needs to be re-exported ]--------------------------------------
 -- The following entries can be used in the public API as well.
 
----Fetches the query object for the given language from the settings.
+---Fetches the query object for the given language from the settings.  If a
+---buffer number is given it will be used as the current buffer, otherwise the
+---actual current buffer is used.
 ---
----@param lang string  Name of the language to get the query for
+---@param lang  string    Name of the language to get the query for
+---@param bufnr integer?  Use this buffer as the current buffer
 ---@return Query? query  The query object
-function M.get_query(lang)
+function M.get_query(lang, bufnr)
 	local name = config['query'][lang]
 	if type(name) == "function" then
-		name = name()
+		if bufnr then
+			name = api.nvim_buf_call(bufnr, name)
+		else
+			name = name()
+		end
 	end
 	local query = get_query(lang, name)
 

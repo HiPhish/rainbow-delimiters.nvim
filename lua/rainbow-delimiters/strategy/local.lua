@@ -110,7 +110,7 @@ end
 local function build_match_tree(bufnr, changes, tree, lang)
 	if not lib.enabled_for(lang) then return end
 
-	local query = lib.get_query(lang)
+	local query = lib.get_query(lang, bufnr)
 	if not query then return end
 
 	local matches = Stack.new()
@@ -180,7 +180,7 @@ end
 ---@param lang string
 local function update_local(bufnr, tree, lang)
 	if not lib.enabled_for(lang) then return end
-	local query = lib.get_query(lang)
+	local query = lib.get_query(lang, bufnr)
 	if not query then return end
 
 	-- Find the lowest container node which contains the cursor
@@ -251,7 +251,7 @@ local function setup_parser(bufnr, parser)
 		log.debug("Setting up parser for '%s' in buffer %d", lang, bufnr)
 		-- Skip languages which are not supported, otherwise we get a
 		-- nil-reference error
-		if not lib.get_query(lang) then return end
+		if not lib.get_query(lang, bufnr) then return end
 		p:register_cbs {
 			---@param _changes table
 			---@param tree TSTree
