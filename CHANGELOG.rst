@@ -17,6 +17,14 @@ Added
 
 - Missing patterns for C:
   - `enumerator_list`
+- New query for language `query`:
+  - `rainbow-blocks`
+
+Fixed
+=====
+
+- Query can be a thunk in configuration
+- Priority can be a thunk in configuration
 
 
 [0.2.0] - 2023-11-26
