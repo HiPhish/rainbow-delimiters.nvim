@@ -1,8 +1,6 @@
-# NOTE: When updating this file update the Starlark test file as well if
-# applicable.
-
-from typing import Dict, List
-
+# This is mostly identical to Python, without the generator comprehension
+# NOTE: if you update queries for Python, please consider adding the changes
+# to this file as well
 
 def sum_list(lst: List[Dict[int, int]]) -> int:
     result = 0
@@ -21,7 +19,6 @@ list_comp = [i for i in [j for j in range(5)] if i % 2 == 0]
 dict_comp = {k: v for k, v in {k: v for k, v in {'k': 'v'}.items()}
              if k == 'k'}
 set_comp = {i for i in {j for j in range(5)} if i % 2 == 0}
-gen_comp = (i for i in (j for j in range(5)) if i % 2 == 0)
 
 zero = [0]
 

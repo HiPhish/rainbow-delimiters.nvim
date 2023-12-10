@@ -1,3 +1,6 @@
+;; NOTE: When updating this file update the Starlark test file as well if
+;; applicable.
+
 (list
   "[" @delimiter
   "]" @delimiter @sentinel) @container
