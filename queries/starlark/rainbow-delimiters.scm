@@ -1,5 +1,7 @@
-;; NOTE: When updating this file update the Starlark test file as well if
-;; applicable.
+;; This is mostly identical to Python, without `generator_expression`.
+;; NOTE: if you update queries for Python, please consider adding the changes
+;; to this file as well, given that the tree-sitter's node types exist. See
+;; https://github.com/amaanq/tree-sitter-starlark/blob/master/src/node-types.json
 
 (list
   "[" @delimiter
@@ -26,10 +28,6 @@
   "}" @delimiter @sentinel) @container
 
 (tuple
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(generator_expression
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
