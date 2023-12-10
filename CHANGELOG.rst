@@ -15,10 +15,16 @@ Unreleased
 Added
 =====
 
+- Missing patterns for Bash:
+   - `array`
+   - `function_definition`
+   - `arithmetic_expansion`
+   - `compound_statement`
+   - `subscript`
 - Missing patterns for C:
-  - `enumerator_list`
+   - `enumerator_list`
 - New query for language `query`:
-  - `rainbow-blocks`
+   - `rainbow-blocks`
 
 Fixed
 =====
