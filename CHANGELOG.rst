@@ -30,8 +30,9 @@ Added
 Fixed
 =====
 
-- Query can be a thunk in configuration
-- Priority can be a thunk in configuration
+- Query can be a function in configuration
+- Priority can be a function in configuration
+- Functions in configuration take buffer number as argument
 
 
 [0.2.0] - 2023-11-26

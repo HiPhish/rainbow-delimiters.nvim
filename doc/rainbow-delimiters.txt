@@ -231,16 +231,23 @@ contains the cursor and is updated whenever the cursor moves.
 
 The strategy is set globally with per-language overrides.  The setting is a
 dictionary where the empty string is the key for the default strategy and the
-overrides use the name of the language as keys.  Each value can be either a
-strategy or a function of zero arguments which evaluates to a strategy (a
-so-called "thunk").  A function can be used to defer the decision to a later
-point in time.  The highlighted buffer is temporarily set as the current
-buffer context, so buffer-local variables and options can be used.  If the
-function evaluates to `nil` (or |v:null|) rainbow delimiters will be disabled
-for that buffer.
+overrides use the name of the language as keys.
+
+Each value can be either a strategy or a function which evaluates to a
+strategy.  A function can be used to defer the decision to a later point in
+time.
+
+The function has the following signature:
+
+    Parameters: ~
+      • {bufnr}  Number of the buffer to highlight
+
+    Return: ~
+      Either a strategy or `nil` (or |v:null|).  If `nil`, rainbow delimiters
+      will be disabled for that buffer.
 
 NOTE
-Thunks can only be used from Lua.
+Functions can only be used from Lua.
 
 >lua
     local rainbow = require 'rainbow-delimiters'
@@ -251,12 +258,13 @@ Thunks can only be used from Lua.
         -- Use local for HTML
         html = rainbow.strategy['local'],
         -- Pick the strategy for LaTeX dynamically based on the buffer size
-        latex = function()
+        latex = function(bufnr)
             -- Disabled for very large files, global strategy for large files,
             -- local strategy otherwise
-            if vim.fn.line('$') > 10000 then
+            local line_count = vim.api.nvim_buf_line_count(bufnr)
+            if line_count > 10000 then
                 return nil
-            elseif vim.fn.line('$') > 1000 then
+            elseif line_count > 1000 then
                 return rainbow.strategy['global']
             end
             return rainbow.strategy['local']
@@ -300,13 +308,20 @@ The query setting is a table where each entry maps a language name to a query
 name.  The empty string is the key for the default query.
 
 Each value in the table can be either the name of a query file or a function
-of zero arguments which evaluates to the name of a query file (a so-called
-"thunk").  The highlighted buffer is temporarily set as the current buffer
-context, so buffer-local variables and options can be used.  A function can be
-used to defer the decision to a later point in time.
+which evaluates to the name of a query file.  A function can be used to defer
+the decision to a later point in time.
+
+The function has the following signature:
+
+    Parameters: ~
+      • {bufnr}  Number of the buffer to highlight
+
+    Return: ~
+      The name of the query as a string.
+
 
 NOTE
-Thunks can only be used from Lua.
+Functions can only be used from Lua.
 
 >lua
     query = {
@@ -315,9 +330,9 @@ Thunks can only be used from Lua.
         -- Use blocks for Lua
         lua = 'rainbow-blocks',
         -- Determine the query dynamically
-        query = function ()
+        query = function(bufnr)
             -- Use blocks for read-only buffers like in `:InspectTree`
-            local is_nofile = vim.bo.buftype == 'nofile'
+            local is_nofile = vim.bo[bufnr].buftype == 'nofile'
             return is_nofile and 'rainbow-blocks' or 'rainbow-delimiters'
         end
     }

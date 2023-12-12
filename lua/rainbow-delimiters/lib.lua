@@ -73,11 +73,7 @@ M.buffers = {}
 function M.get_query(lang, bufnr)
 	local name = config['query'][lang]
 	if type(name) == "function" then
-		if bufnr then
-			name = api.nvim_buf_call(bufnr, name)
-		else
-			name = name()
-		end
+		name = name(bufnr)
 	end
 	local query = get_query(lang, name)
 
@@ -101,7 +97,7 @@ function M.highlight(bufnr, lang, node, hlgroup)
 	local start, finish = {startRow, startCol}, {endRow, endCol - 1}
 	local priority = config.priority[lang]
 	if type(priority) == "function" then
-		priority = api.nvim_buf_call(bufnr, priority)
+		priority = priority(bufnr)
 	end
 	local opts = {
 		regtype = 'c',
@@ -180,7 +176,7 @@ function M.attach(bufnr)
 	do
 		strategy = config.strategy[lang]
 		if type(strategy) == 'function' then
-			strategy = api.nvim_buf_call(bufnr, strategy)
+			strategy = strategy(bufnr)
 		end
 	end
 
