@@ -67,8 +67,8 @@ M.buffers = {}
 ---buffer number is given it will be used as the current buffer, otherwise the
 ---actual current buffer is used.
 ---
----@param lang  string    Name of the language to get the query for
----@param bufnr integer?  Use this buffer as the current buffer
+---@param lang  string   Name of the language to get the query for
+---@param bufnr integer  Use this buffer as the current buffer
 ---@return Query? query  The query object
 function M.get_query(lang, bufnr)
 	local name = config['query'][lang]
