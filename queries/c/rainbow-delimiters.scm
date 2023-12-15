@@ -1,10 +1,10 @@
 (parameter_list
-   "(" @delimiter
-   ")" @delimiter @sentinel) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (argument_list
-   "(" @delimiter
-   ")" @delimiter @sentinel) @container
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (parenthesized_expression
   "(" @delimiter
@@ -26,8 +26,8 @@
   "]" @delimiter @sentinel) @container
 
 (field_declaration_list
-   "{" @delimiter
-   "}" @delimiter @sentinel) @container
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (array_declarator
   "[" @delimiter
@@ -49,3 +49,19 @@
 (enumerator_list
   "{" @delimiter
   "}" @delimiter @sentinel) @container
+
+(macro_type_specifier
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(preproc_params
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(compound_literal_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(parenthesized_declarator
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
