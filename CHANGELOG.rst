@@ -33,6 +33,7 @@ Fixed
 - Query can be a function in configuration
 - Priority can be a function in configuration
 - Functions in configuration take buffer number as argument
+- Updated Nim queries
 
 
 [0.2.0] - 2023-11-26
