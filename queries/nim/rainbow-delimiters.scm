@@ -34,10 +34,10 @@
   "]" @delimiter @sentinel) @container
 
 (cast
-  type: "[" @delimiter
-  type: "]" @delimiter
-  value: "(" @delimiter
-  value: ")" @delimiter @sentinel) @container
+  "[" @delimiter
+  "]" @delimiter
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (term_rewriting_pattern
   "{" @delimiter
