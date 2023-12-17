@@ -1,9 +1,13 @@
 (print (.. "foo" "bar"))
 
-{ :a { :b { :c { :d {}}}}}
+(local abcd { :a { :b { :c { :d {}}}}})
 
 (let [one 1 two 2 tbl { : one : two}]
   tbl)
+
+;;; Destructuring a table binding
+(let [{:a {:b {:c {:d d}}}} abcd]
+  (print d))
 
 [0 [1 [2 [3 []]]]]
 

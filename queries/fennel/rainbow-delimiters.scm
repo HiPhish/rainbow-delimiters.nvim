@@ -115,6 +115,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(table_binding
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
 (sequential_table_pattern
   "[" @delimiter
   "]" @delimiter @sentinel) @container
