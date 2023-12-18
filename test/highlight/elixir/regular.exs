@@ -22,6 +22,10 @@ defmodule Regular do
         IO.puts "The first value is #{head}"
         head + (((1 + (2 + 3))))
     end
+
+    defp accessLookup(map, x) do
+        map[map[map[map[x]]]]
+    end
 end
 
 # Keyword list syntactic sugar

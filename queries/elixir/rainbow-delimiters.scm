@@ -20,6 +20,10 @@
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
+(access_call
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
 (bitstring
   "<<" @delimiter
   ">>" @delimiter @sentinel) @container
