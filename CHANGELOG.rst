@@ -24,6 +24,8 @@ Added
    - `subscript`
 - Missing patterns for C:
    - `enumerator_list`
+- Missing patterns for Elixir:
+   - `access_call`
 - Missing patterns for Fennel:
    - `table_binding`
 - New query for language `query`:
