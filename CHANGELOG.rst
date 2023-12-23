@@ -24,6 +24,10 @@ Added
    - `subscript`
 - Missing patterns for C:
    - `enumerator_list`
+   - `macro_type_specifier`
+   - `preproc_params`
+   - `compound_literal_expression`
+   - `parenthesized_declarator`
 - Missing patterns for Elixir:
    - `access_call`
 - Missing patterns for Fennel:

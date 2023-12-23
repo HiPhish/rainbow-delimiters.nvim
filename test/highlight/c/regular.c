@@ -1,6 +1,19 @@
 #include <stdio.h>
 
-#define MACRO 0
+
+#define PI 3.14
+/* These aren't highlight correctly. A problem with the parser? */
+#define TESTMACRO (-1)
+#define min(X,Y) ((X) < (Y) ? (X) : (Y))
+
+
+/* Declaration with parentheses, a function pointer */
+static void (*callback)(int);
+int c_init() { return 1; }
+
+/* Macro type specifier */
+#define Map int Foo
+static Map(char *c_str) {return 4;}
 
 typedef enum {
   E1,
@@ -17,6 +30,8 @@ struct Point2D {
 	int y;
 };
 
+/* Compound literal expression */
+struct Point2D v = (struct Point2D){ 0, 0 };
 
 /* A function definition */
 int add(int x, int y) {
