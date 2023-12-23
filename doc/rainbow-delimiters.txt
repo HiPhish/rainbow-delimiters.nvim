@@ -353,11 +353,13 @@ addition there are the following extra queries for certain languages:
   - `rainbow-delimiters-react` Includes React support, set by default for
     Javascript files
   - `rainbow-parens` Only parentheses without React tags
+  - `rainbow-tags-react` Only React tags without parentheses
 - `query`
   - `rainbow-blocks` Highlight named nodes and identifiers in addition to
     parentheses (useful for |:InspectTree|)
 - `tsx`
   - `rainbow-parens` Just Typescript highlighting without React tags
+  - `rainbow-tags-react` Only React tags without Typescript highlighting
 - `typescript`
   - `rainbow-parens` Just Typescript highlighting without React tags
 - `verilog`
