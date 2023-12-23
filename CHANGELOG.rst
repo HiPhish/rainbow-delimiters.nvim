@@ -24,6 +24,10 @@ Added
    - `subscript`
 - Missing patterns for C:
    - `enumerator_list`
+   - `macro_type_specifier`
+   - `preproc_params`
+   - `compound_literal_expression`
+   - `parenthesized_declarator`
 - New query for language `query`:
    - `rainbow-blocks`
 
