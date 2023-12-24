@@ -34,6 +34,10 @@ Added
    - `table_binding`
 - New query for language `query`:
    - `rainbow-blocks`
+- New query for language `javascript`:
+   - `rainbow-tags-react`
+- New query for language `tsx`:
+   - `rainbow-tags-react`
 
 Fixed
 =====
