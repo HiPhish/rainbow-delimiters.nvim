@@ -9,8 +9,18 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
-Unreleased
-##########
+[0.3.0] 2023-12-24
+##################
+
+This release brings a plethora of missing patterns to existing queries and lets
+you specify priorities and queries dynamically at runtime.  This means that it
+is possible to set different queries for the same language depending on
+external conditions, such as whether a buffer is read-only.
+
+And as a little extra given the date of this release, there is a new Christmas
+strategy module.  This will let you decorate your syntax tree in an especially
+festive mood.  The module is just a joke, so it will not be loaded by default
+and you will have to figure out yourself how to set it up.
 
 Added
 =====
