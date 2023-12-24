@@ -38,6 +38,8 @@ Added
    - `rainbow-tags-react`
 - New query for language `tsx`:
    - `rainbow-tags-react`
+- New Christmas strategy module `rainbow-delimiters.strategy.christmas` (not
+  loaded by default)
 
 Fixed
 =====
