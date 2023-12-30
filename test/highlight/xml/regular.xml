@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
+	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Example of MathML embedded in an XHTML file</title>
+		<meta name="description" content="Example of MathML embedded in an XHTML file"/>
+	</head>
+	<body>
+		<h1>Example of MathML embedded in an XHTML file</h1>
+		<p>
+			The area of a circle is
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>&#x03C0;<!-- π --></mi>
+				<mo>&#x2062;<!-- &InvisibleTimes; --></mo>
+				<msup>
+					<mi>r</mi>
+					<mn>2</mn>
+				</msup>
+			</math>
+			.
+		</p>
+	</body>
+</html>
