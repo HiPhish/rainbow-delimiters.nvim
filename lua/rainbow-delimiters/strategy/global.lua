@@ -175,6 +175,10 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 				-- callback, so we use this check to abort
 				if not lib.buffers[bufnr] then return end
 
+				-- HACK: mutliple languages can inject themselves in code (e.g.
+				-- macros), but only some inject themselves as if it is a
+				-- different language. We keep these here.
+				local proper_self_injecting_languages = {c=true, cpp=true}
 				-- HACK: changes can accidentally overwrite highlighting in injected code
 				-- blocks.
 				if not parent_lang then
@@ -183,15 +187,17 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 					-- Normalize the changes object if we have no parent language (the one we
 					-- get from on_changedtree)
 					changes = vim.tbl_map(normalize_change, changes)
-				elseif parent_lang ~= lang and changes[1] then
+				elseif (parent_lang ~= lang or proper_self_injecting_languages[parent_lang]) and changes[1] then
 					-- We have a parent language, so we are in an injected language code
 					-- block, thus we update all of the current code block
+					-- Some languages (like c, cpp and rust) use injections of the
+					-- language itself for certain functionality (e.g. macros in c,
+					-- cpp or rust). For c and cpp the highlighting needs to be
+					-- updated by the injected language part of the code.
 					changes = {{tree:root():range()}}
 				else
-					-- some languages (like rust) use injections of the language itself for
-					-- certain functionality (e.g., macros in rust).  For these the
-					-- highlighting will be updated by the non-injected language part of the
-					-- code.
+					-- For rust and other languages the highlighting will be updated by the
+					-- non-injected language part of the code.
 					changes = {}
 				end
 
