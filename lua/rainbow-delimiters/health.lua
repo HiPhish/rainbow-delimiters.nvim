@@ -24,6 +24,7 @@ local schema = {
 	strategy = true,
 	query = true,
 	highlight = true,
+	priority = true,
 	blacklist = true,
 	whitelist = true,
 	log = {level = true, file = true},
@@ -43,12 +44,12 @@ end
 ---This is not a 100% reliable check; we only test the type of the argument and
 ---whether the table has the correct fields, but not what the callback
 ---functions actually do.
----@param strategy rainbow_delimiters.strategy | fun(): rainbow_delimiters.strategy?
+---@param strategy rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?
 ---@return boolean
 local function check_strategy(strategy)
 	if type(strategy) == 'function' then
 		local finfo = debug.getinfo(strategy)
-		return finfo.nparams == 0
+		return finfo.nparams == 0 or finfo.nparams == 1
 	end
 	if type(strategy) == 'table' then
 		if type(strategy.on_attach) ~= 'function' then
@@ -67,11 +68,32 @@ end
 
 ---Check whether the given query is defined for the given language.
 ---@param lang string
----@param name string
+---@param name string | fun(bufnr: integer): string
 ---@return boolean
 local function check_query(lang, name)
-	local query = vim.treesitter.query.get(lang, name)
-	return query ~= nil
+	if type(name) == 'function' then
+		local finfo = debug.getinfo(name)
+		return finfo.nparams == 0 or finfo.nparams == 1
+	end
+	if type(name) == 'string' then
+		local query = vim.treesitter.query.get(lang, name)
+		return query ~= nil
+	end
+	return false
+end
+
+---Check whether the given priority is defined for the given language.
+---@param priority integer | fun(bufnr: integer): integer
+---@return boolean
+local function check_priority(priority)
+	if type(priority) == 'function' then
+		local finfo = debug.getinfo(priority)
+		return finfo.nparams == 0 or finfo.nparams == 1
+	end
+	if type(priority) == 'number' then
+		return true
+	end
+	return false
 end
 
 ---@param settings rainbow_delimiters.logging
@@ -124,10 +146,10 @@ function M.check()
 		for _, lang in ipairs(whitelist) do
 			local success = check_parser_installed(lang)
 			if success then
-				local msg =string.format("Parser installed for '%s'", lang)
+				local msg = string.format("Parser installed for '%s'", lang)
 				ok(msg)
 			else
-				local msg =string.format("No parser installed for '%s'", lang)
+				local msg = string.format("No parser installed for '%s'", lang)
 				warn(msg)
 			end
 		end
@@ -168,7 +190,19 @@ function M.check()
 	if queries then
 		start 'Custom queries'
 		for lang, query in pairs(queries) do
-			if lang ~= '' then
+			if lang == '' then
+				if query ~= 'rainbow-delimiters' then
+					local msg = string.format(
+						"User-defined default query '%s'\
+						If you meant 'rainbow-delimiters' check for typos",
+						query
+					)
+					ok(msg)
+				else
+					local msg = "Valid custom default query"
+					ok(msg)
+				end
+			else
 				local has_lang = check_parser_installed(lang)
 				local has_query = check_query(lang, query)
 				if not has_lang then
@@ -178,6 +212,35 @@ function M.check()
 				if not has_query then
 					local msg = string.format("No query named '%s' for '%s' found.", query, lang)
 					warn(msg, QUERY_ADVICE)
+				end
+				if has_lang and has_query then
+					local msg = string.format("Valid custom query for '%s'", lang)
+					ok(msg)
+				end
+			end
+		end
+	end
+
+	local priorities = settings.priority
+	if priorities then
+		start 'Custom priorities'
+		for lang, priority in pairs(priorities) do
+			local is_valid_prirority = check_priority(priority)
+			if lang == '' then
+				if is_valid_prirority then
+					local msg = "Valid custom default priority"
+					ok(msg)
+				else
+					local msg = "Invalid custom default priority"
+					error(msg)
+				end
+			else
+				if is_valid_prirority then
+					local msg = string.format("Valid custom priority for '%s'", lang)
+					ok(msg)
+				else
+					local msg = string.format("Invalid custom priority for '%s'", lang)
+					error(msg)
 				end
 			end
 		end
