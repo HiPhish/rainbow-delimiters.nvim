@@ -34,6 +34,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(annotation_argument_list
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (for_statement
   "(" @delimiter
   ")" @delimiter @sentinel) @container
