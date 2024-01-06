@@ -16,6 +16,17 @@ Added
 =====
 
 - XML support
+- Missing patterns for Java:
+   - `array_initializer`
+   - `annotation_argument_list`
+   - `catch_clause`
+   - `condition`
+   - `constructor_body`
+   - `dimensions_expr`
+   - `enhanced_for_statement`
+   - `for_statement`
+   - `inferred_parameters`
+   - `parenthesized_expression`
 
 
 [0.3.0] 2023-12-24

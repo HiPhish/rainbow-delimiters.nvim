@@ -50,8 +50,11 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+;; FIXME: This is broken for type declarations like 'Integer[][]' because both
+;; "]" will be sentinels when only the last one should be.
 (dimensions
   "[" @delimiter
+  ("]" @delimiter "[" @delimiter)*
   "]" @delimiter @sentinel) @container
 
 (dimensions_expr
