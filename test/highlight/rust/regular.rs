@@ -56,6 +56,12 @@ macro_rules! inefficient_vec {
 
 pub(crate) struct VisibilityModifier;
 
+
+pub const NAMES: &'static [(&'static str, u32)] = &[
+    ("TEST NAME 1", 1),
+    ("TEST NAME 2", 2),
+];
+
 fn main() {
     let nested_vec: Vec<Vec<Vec<Vec<Vec<Vec<()>>>>>> = Vec::<_>::new();
     let arr_arr_arr = [[[0; 4]; 4]; 4];
