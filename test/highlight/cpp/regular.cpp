@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cstdio>
 
+#define TEST (-1)
+
 namespace herp {
 	const int derpiness = 9000;
 	int get_derpiness() {
