@@ -103,6 +103,9 @@ same parameters as `g:rainbow-delimiters`.
        query = {
            -- ...
        },
+       priority = {
+           -- ...
+       },
        highlight = {
            -- ...
        },
