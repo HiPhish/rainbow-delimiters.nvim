@@ -1,0 +1,14 @@
+; vim:ft=gitconfig
+[user]
+    name = JohnDoe
+    email = JohnDoe@example.com
+
+[core]
+    editor = nvim
+
+; include for all repositories inside /path/to/group
+[includeIf "gitdir:/path/to/group/"]
+	path = /path/to/foo.inc
+
+[remote "origin"]
+	url = https://example.com/git
