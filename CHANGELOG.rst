@@ -28,6 +28,8 @@ Added
    - `inferred_parameters`
    - `parenthesized_expression`
    - `resource_specification`
+- Missing patterns for Rust:
+   - `array_type`
 
 
 [0.3.0] 2023-12-24
