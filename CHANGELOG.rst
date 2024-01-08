@@ -27,6 +27,7 @@ Added
    - `for_statement`
    - `inferred_parameters`
    - `parenthesized_expression`
+   - `resource_specification`
 
 
 [0.3.0] 2023-12-24
