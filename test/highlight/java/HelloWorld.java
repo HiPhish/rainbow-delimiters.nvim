@@ -49,5 +49,13 @@ public class HelloWorld {
 				}
 			}
 		}
+
+        // Try resource specification
+        try (FileWriter fw = new FileWriter("test");
+                BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
 	}
 }

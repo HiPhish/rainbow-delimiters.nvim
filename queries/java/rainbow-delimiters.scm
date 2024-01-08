@@ -18,6 +18,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(resource_specification 
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (catch_clause 
   "(" @delimiter
   ")" @delimiter @sentinel) @container
