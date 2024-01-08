@@ -14,7 +14,7 @@ public class HelloWorld {
 		// Array initializer
 		String[] names = {"Alice", "Bob", "Carol", "Dan"};
 		// Multi-dimensional dimensions and a dimensions expression
-		var inputArrays = new Integer[3][];
+		Integer[][] inputArrays = new Integer[3][];
 
 		// Enhanced for statement (for-each)
 		for (var name: names) {
