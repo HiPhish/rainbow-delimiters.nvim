@@ -27,6 +27,8 @@ Added
    - `for_statement`
    - `inferred_parameters`
    - `parenthesized_expression`
+- Missing patterns for Rust:
+   - `array_type`
 
 
 [0.3.0] 2023-12-24
