@@ -1,16 +1,16 @@
-@Author(name="John Doe")
+@Author(name = "John Doe")
 public class HelloWorld {
-	// Constructor body
-	public HelloWorld() {
-	}
+    // Constructor body
+    public HelloWorld() {
+    }
 
-	// Method with formal parameters
-	public static void main(String[] args) {
-		System.out.println("Hello, world!");
-		System.out.println(args[0]);
-	}
+    // Method with formal parameters
+    public static void main(String[] args) {
+        System.out.println("Hello, world!");
+        System.out.println(args[0]);
+    }
 
-	public static void printList(List<List<List<T>>> l) {
+    public static void printList(List<List<List<T>>> l) {
 		// Array initializer
 		String[] names = {"Alice", "Bob", "Carol", "Dan"};
 		// Multi-dimensional dimensions and a dimensions expression
@@ -57,5 +57,8 @@ public class HelloWorld {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+
+        double d = 13.37;
+        int i = (int) d; // cast expression
 	}
 }

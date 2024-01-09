@@ -28,6 +28,9 @@ Added
    - `inferred_parameters`
    - `parenthesized_expression`
    - `resource_specification`
+   - `cast_expression`
+- Missing patterns for Lua:
+   - `field`
 - Missing patterns for Rust:
    - `array_type`
 

@@ -60,3 +60,7 @@ print(one[one[one[1]]])
 vim.cmd [[
 	echo a(b(c(d(e(f())))))
 ]]
+
+local tbl = {
+	["highlight me"] = {}
+}

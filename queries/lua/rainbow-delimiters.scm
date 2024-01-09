@@ -17,3 +17,7 @@
 (bracket_index_expression
   "[" @delimiter
   "]" @delimiter @sentinel) @container
+
+(field
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
