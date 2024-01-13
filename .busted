@@ -33,7 +33,11 @@ return {
 	},
 	unit = {
 		ROOT = {'./test/unit/'},
-	}
+	},
+	e2e = {
+		ROOT = {'./test/e2e/'},
+		pattern = '',  -- No fancy names for E2E tests
+	},
 }
 
 -- vim:ft=lua
