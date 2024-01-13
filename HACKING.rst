@@ -5,6 +5,26 @@
 #################################
 
 
+Testing
+#######
+
+Unit testing
+============
+
+We use busted_ for unit testing.  A unit is a self-contained module which can
+be used on its own independent of the editor.  Execute `make check` to run unit
+tests.  The `busted` binary must be available on the system `$PATH`.
+
+End to end testing
+==================
+
+We use Vader_ for testing the entire plugin.  Execute `:Vader test/vader/**/*`
+to run all Vader tests.  As of the time of writing this there is a bug in
+Vader: tests contain Lua code, which will set the file type of the Vader result
+buffer to `lua`. This is annoying, but it does not affect the test results.
+
+
+
 Design decisions
 ################
 
@@ -56,15 +76,6 @@ are arguments which returns the strategy table.
            }
        }
    }
-
-
-Testing
-#######
-
-We use Vader_ for testing.  Execute `:Vader test/vader/**/*` to run all Vader
-tests.  As of the time of writing this there is a bug in Vader: tests contain
-Lua code, which will set the file type of the Vader result buffer to `lua`.
-This is annoying, but it does not affect the test results.
 
 
 Strategies
@@ -286,4 +297,5 @@ changes with a range that spans the entire tree for that language.
 
 
 
+.. _busted: https://lunarmodules.github.io/busted/#defining-tests
 .. _Vader: https://github.com/junegunn/vader.vim
