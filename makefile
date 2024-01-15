@@ -28,7 +28,7 @@
 check: unit-test e2e-test
 
 unit-test:
-	eval $$(luarocks path --lua-version 5.1 --bin) && busted --run unit
+	@eval $$(luarocks path --lua-version 5.1 --bin) && busted --run unit
 
 e2e-test:
-	eval $$(luarocks path --lua-version 5.1 --bin) && busted --run e2e
+	@eval $$(luarocks path --lua-version 5.1 --bin) && busted --run e2e
