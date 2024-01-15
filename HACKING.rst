@@ -45,16 +45,9 @@ unit tests.  The `busted` binary must be available on the system `$PATH`.
 End to end testing
 ==================
 
-We use Vader_ or busted or busted for testing the entire plugin.  Eventually
-all testing should be done by Busted because Vader runs all tests in the same
-process.
-
-For Vader Execute `:Vader test/vader/**/*` to run all Vader tests.  As of the
-time of writing this there is a bug in Vader: tests contain Lua code, which
-will set the file type of the Vader result buffer to `lua`. This is annoying,
-but it does not affect the test results.
-
-For busted execute `make e2e-test` to run all end to end tests.
+End-to-end tests run in a separate Neovim instance which we control via RPC.
+These are tests which mutate the state of the editor, such as adding
+highlighting on changes.  Execute `make e2e-test` to run all end to end tests.
 
 
 
@@ -331,5 +324,4 @@ changes with a range that spans the entire tree for that language.
 
 
 .. _busted: https://lunarmodules.github.io/busted/#defining-tests
-.. _Vader: https://github.com/junegunn/vader.vim
 .. _nvim-treesitter: https://github.com/nvim-treesitter/nvim-treesitter
