@@ -1,6 +1,7 @@
 # Tag file created by Vim
 doc/tags
-test/xdg/config/nvim/
+
+# Fake user directory structures
 test/xdg/local/share/nvim/
 test/xdg/local/state/nvim/
 !test/xdg/local/share/nvim/site/pack/testing/start/rainbow-delimiters
