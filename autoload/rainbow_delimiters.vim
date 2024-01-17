@@ -41,4 +41,10 @@ function! rainbow_delimiters#toggle(bufnr)
 	call luaeval("require('rainbow-delimiters').toggle(_A)", a:bufnr)
 endfunction
 
+" Check if highlighting is enabled for the given buffer. Buffer number zero
+" means current buffer.
+function! rainbow_delimiters#is_enabled(bufnr)
+	return luaeval("require('rainbow-delimiters').is_enabled(_A)", a:bufnr)
+endfunction
+
 " vim:tw=79:ts=4:sw=4:noet:

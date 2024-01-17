@@ -44,6 +44,14 @@ local function toggle(bufnr)
 	end
 end
 
+---Check if rainbow delimiters are enabled for a given buffer.
+---@param bufnr integer  Buffer number, zero for current buffer.
+---@return boolean # Whether or not rainbow delimiters is enabled
+local function is_enabled(bufnr)
+	if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
+	return lib.buffers[bufnr] ~= nil and lib.buffers[bufnr] ~= false
+end
+
 ---Public API for use in writing strategies or other custom code.
 local M = {
 	hlgroup_at = lib.hlgroup_at,
@@ -59,6 +67,7 @@ local M = {
 	enable  = enable,
 	disable = disable,
 	toggle  = toggle,
+	is_enabled  = is_enabled,
 }
 
 

@@ -15,6 +15,7 @@ Unreleased
 Added
 =====
 
+- Public API function `is_enabled`
 - XML support
 - Missing patterns for Java:
    - `array_initializer`

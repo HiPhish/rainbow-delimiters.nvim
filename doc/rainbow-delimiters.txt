@@ -444,6 +444,16 @@ rainbow_delimiters#toggle({bufnr})
     Vim script binding for the above function.
 
 
+                                                    *rb-delimiters.is_enabled*
+                                                    *rb_delimiters#is_enabled*
+'rainbow-delimiters'.is_enabled({bufnr})
+    Check if rainbow delimiters are enabled for the buffer {bufnr} (or the
+    current buffer if {bufnr} is `0`).
+
+rainbow_delimiters#is_enabled({bufnr})
+    Vim script binding for the above function.
+
+
                                                     *rb-delimiters.hlgroup_at*
                                                *rainbow-delimiters#hlgroup_at*
 'rainbow-delimiters'.hlgroup_at({nesting_level})
