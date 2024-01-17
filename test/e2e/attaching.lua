@@ -8,6 +8,7 @@ local jobopts = {
 
 local call_function = 'nvim_call_function'
 local exec_lua = 'nvim_exec_lua'
+local buf_set_lines = 'nvim_buf_set_lines'
 local cmd = 'nvim_cmd'
 
 describe('Attaching a strategy to a buffer', function()
@@ -22,6 +23,20 @@ describe('Attaching a strategy to a buffer', function()
 		-- Neovim through RPC, the `--headless` flag tells it not to wait for a
 		-- UI to attach and start loading plugins and configuration immediately
 		nvim = vim.fn.jobstart({'nvim', '--embed', '--headless'}, jobopts)
+
+		-- Set up a tracking strategy
+		request(exec_lua, [[
+			TSEnsure('lua')
+			do
+				local track = require('rainbow-delimiters.strategy.track')
+				local noop  = require('rainbow-delimiters.strategy.no-op')
+				the_strategy = track(noop)
+			end
+    		vim.g.rainbow_delimiters = {
+    			strategy = {
+    				[''] = the_strategy
+    			}
+    		}]], {})
 	end)
 
 	after_each(function()
@@ -29,21 +44,6 @@ describe('Attaching a strategy to a buffer', function()
 	end)
 
 	it('Does not attach a second time if the buffer is already attached', function()
-		-- Set up a tracking strategy
-		request(exec_lua, 'TSEnsure(...)', {'lua'})
-		request(exec_lua, [[
-			do
-				local track = require('rainbow-delimiters.strategy.track')
-				local noop  = require('rainbow-delimiters.strategy.no-op')
-				the_strategy = track(noop)
-			end]], {})
-    	request(exec_lua, [[
-    		vim.g.rainbow_delimiters = {
-    			strategy = {
-    				[''] = the_strategy
-    			}
-    		}]], {})
-
 		-- Write buffer to a file
 		local tempfile = request(call_function, 'tempname', {})
 		request(call_function, 'writefile', {{'print((((("Hello, world!")))))', '-- vim:ft=lua'}, tempfile})
@@ -56,5 +56,20 @@ describe('Attaching a strategy to a buffer', function()
 
 		local count = request(exec_lua, 'return the_strategy.attachments[1]', {})
 		assert.is.equal(1, count, 'Buffer attached multiple times')
+	end)
+
+	it('Performs cleanup after a buffer is deleted', function()
+		local is_attached
+
+		request(buf_set_lines, 0, 0, -1, true, {'print((((("Hello, world!")))))', '-- vim:ft=lua'})
+		request(cmd, {cmd = 'filetype', args = {'detect'}}, {})
+
+		is_attached = request(exec_lua, 'return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
+		assert.is_true(is_attached, 'Strategy must be attach to buffer')
+
+		-- Delete the buffer
+		request(cmd, {cmd = 'bdelete', bang = true}, {})
+		is_attached = request(exec_lua, 'return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
+		assert.is_false(is_attached, 'Strategy must not be attach to buffer')
 	end)
 end)
