@@ -72,4 +72,18 @@ describe('Attaching a strategy to a buffer', function()
 		is_attached = request(exec_lua, 'return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
 		assert.is_false(is_attached, 'Strategy must not be attach to buffer')
 	end)
+
+	it('Detaches from the buffer and re-attached with the new language', function()
+		-- Switching the file type preserves the number of attachments, but
+		-- changes the language
+		for _, expected in ipairs({'lua', 'vim'}) do
+			request('nvim_buf_set_option', 0, 'filetype', expected)
+
+			local lang = request(exec_lua, 'return the_strategy.buffers[vim.fn.bufnr()].lang', {})
+			local attachments = request(exec_lua, 'return the_strategy.attachments[1]', {})
+
+			assert.is.equal(1, attachments)
+			assert.is.equal(lang, expected)
+		end
+	end)
 end)
