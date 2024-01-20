@@ -9,6 +9,7 @@ local jobopts = {
 local call_function = 'nvim_call_function'
 local exec_lua = 'nvim_exec_lua'
 local buf_set_lines = 'nvim_buf_set_lines'
+local buf_set_option = 'nvim_buf_set_option'
 local cmd = 'nvim_cmd'
 
 describe('Attaching a strategy to a buffer', function()
@@ -85,5 +86,20 @@ describe('Attaching a strategy to a buffer', function()
 			assert.is.equal(1, attachments)
 			assert.is.equal(lang, expected)
 		end
+	end)
+
+	it('Unloads a buffer without raising errors', function()
+		-- Create two windows with different buffers, but with same file type
+		request(buf_set_option, 0, 'filetype', 'lua')
+		request(buf_set_lines, 0, 0, -1, true, {'print(((("Hello world"))))', '-- vim:ft=lua'})
+		request(cmd, {cmd = 'new'}, {})
+		request(buf_set_option, 0, 'filetype', 'lua')
+		request(buf_set_lines, 0, 0, -1, true, {'print(((("Goodbye world"))))', '-- vim:ft=lua'})
+
+		local secondbuf = request(call_function, 'bufnr', {})
+		request(cmd, {cmd = 'bdelete', args = {secondbuf}, bang = true}, {})
+		local errmsg = request('nvim_get_vvar', 'errmsg')
+
+		assert.is.equal('', errmsg)
 	end)
 end)
