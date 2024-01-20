@@ -15,7 +15,7 @@ local buf_set_option = 'nvim_buf_set_option'
 
 local filter = vim.fn.filter
 
-describe('The global strategy', function()
+describe('The local strategy', function()
 	local nvim
 
 	local function request(method, ...)
@@ -45,9 +45,9 @@ describe('The global strategy', function()
 		request(exec_lua, [[
 			local rb = require 'rainbow-delimiters'
 			local track = require('rainbow-delimiters.strategy.track')
-			local global = rb.strategy.global
-			assert(nil ~= global)
-			the_strategy = track(global)
+			local strategy = rb.strategy['local']
+			assert(nil ~= strategy)
+			the_strategy = track(strategy)
 			vim.g.rainbow_delimiters = {
 				strategy = {
 					[''] = the_strategy
@@ -62,6 +62,7 @@ describe('The global strategy', function()
 
 	it('Does not reactivate when making changes', function()
 		request(buf_set_lines, 0, 0, -1, true, {'print({{{{{}}}}})', '-- vim:ft=lua'})
+		request('nvim_win_set_cursor', 0, {1, 5})
 		request(buf_set_option, 0, 'filetype', 'lua')
 		assert.has_extmarks_at(0, 5)
 
@@ -77,36 +78,5 @@ describe('The global strategy', function()
 		assert.Not.has_extmarks_at(0, 5)
 		assert.is.equal(0, request(exec_lua, 'return the_strategy.attachments[1]', {}))
 	end)
-
-	it('Ignores blacklisted injected languages', function()
-		request(exec_lua, 'vim.g.rainbow_delimiters.blacklist = {...}', {'vim'})
-		request(buf_set_lines, 0, 0, -1, true, {
-			'print {{{{{}}}}}',
-			'vim.cmd [[',
-			'	echo string(1 + (2 + (3 + 4)))',
-			']]',
-			'-- vim:ft=lua'
-		})
-		request(buf_set_option, 0, 'filetype', 'lua')
-
-		-- The Lua code is highlighted, the Vim code not
-		assert.has_extmarks_at(0, 6, 'lua')
-		assert.Not.has_extmarks_at(2, 13, 'vim')
-	end)
-
-	it('Ignores non-whitelisted injected languages', function()
-		request(exec_lua, 'vim.g.rainbow_delimiters.whitelist = {...}', {'lua'})
-		request(buf_set_lines, 0, 0, -1, true, {
-			'print {{{{{}}}}}',
-			'vim.cmd [[',
-			'	echo string(1 + (2 + (3 + 4)))',
-			']]',
-			'-- vim:ft=lua'
-		})
-		request(buf_set_option, 0, 'filetype', 'lua')
-
-		-- The Lua code is highlighted, the Vim code not
-		assert.has_extmarks_at(0, 6, 'lua')
-		assert.Not.has_extmarks_at(2, 13, 'vim')
-	end)
 end)
+
