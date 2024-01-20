@@ -5,6 +5,59 @@
 #################################
 
 
+Testing
+#######
+
+A test setup must meet the following criteria:
+
+- Test definitions must be run by with Neovim as the Lua interpreter to get
+  access to all Neovim APIs
+- Tests must not be affected by the user's own plugins and configuration
+- Each test which mutates editor state must run in its own Neovim process
+
+The first two points are achieved through a small command-line interface
+adapter script (a shim).  The shim exposes the command-line interface of a Lua
+interpreter, and internally it sets up environment variable to point Neovim at
+a prepared blank directory structure.  Neovim is then called with the `-l`
+flag.
+
+We do have to use some plugins though:
+
+- This plugin itself
+- nvim-treesitter_ to install parsers for some languages
+
+Both plugins are stored under the `$XDG_DATA_HOME` directory, the former as a
+symlink and the latter as a Git submodule.
+
+As for process isolation, this is achieved inside the tests.  We start a
+headless embedded Neovim instance which we control through MsgPack RPC from
+inside the test.  We can control and probe this process only indirectly, which
+is awkward, but this is the best solution I could find.
+
+
+Unit testing
+============
+
+We use busted_ for unit testing.  A unit is a self-contained module which can
+be used on its own independent of the editor.  Execute `make unit-test` to run
+unit tests.  The `busted` binary must be available on the system `$PATH`.
+
+End to end testing
+==================
+
+We use Vader_ or busted or busted for testing the entire plugin.  Eventually
+all testing should be done by Busted because Vader runs all tests in the same
+process.
+
+For Vader Execute `:Vader test/vader/**/*` to run all Vader tests.  As of the
+time of writing this there is a bug in Vader: tests contain Lua code, which
+will set the file type of the Vader result buffer to `lua`. This is annoying,
+but it does not affect the test results.
+
+For busted execute `make e2e-test` to run all end to end tests.
+
+
+
 Design decisions
 ################
 
@@ -56,15 +109,6 @@ are arguments which returns the strategy table.
            }
        }
    }
-
-
-Testing
-#######
-
-We use Vader_ for testing.  Execute `:Vader test/vader/**/*` to run all Vader
-tests.  As of the time of writing this there is a bug in Vader: tests contain
-Lua code, which will set the file type of the Vader result buffer to `lua`.
-This is annoying, but it does not affect the test results.
 
 
 Strategies
@@ -286,4 +330,6 @@ changes with a range that spans the entire tree for that language.
 
 
 
+.. _busted: https://lunarmodules.github.io/busted/#defining-tests
 .. _Vader: https://github.com/junegunn/vader.vim
+.. _nvim-treesitter: https://github.com/nvim-treesitter/nvim-treesitter
