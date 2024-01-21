@@ -23,7 +23,7 @@
 # For more information, please refer to <https://unlicense.org/>
 
 
-.PHONY: check unit-test
+.PHONY: check unit-test e2e-test clean
 
 check: unit-test e2e-test
 
@@ -32,3 +32,7 @@ unit-test:
 
 e2e-test:
 	@eval $$(luarocks path --lua-version 5.1 --bin) && busted --run e2e
+
+clean:
+	@rm -r test/xdg/local/state/nvim/*
+	@rm -r test/xdg/local/share/nvim/site/pack/testing/start/nvim-treesitter/parser/*

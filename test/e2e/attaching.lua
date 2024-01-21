@@ -27,7 +27,7 @@ describe('Attaching a strategy to a buffer', function()
 
 		-- Set up a tracking strategy
 		request(exec_lua, [[
-			TSEnsure('lua')
+			TSEnsure('lua', 'vim')
 			do
 				local track = require('rainbow-delimiters.strategy.track')
 				local noop  = require('rainbow-delimiters.strategy.no-op')
