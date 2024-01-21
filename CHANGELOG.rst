@@ -31,6 +31,8 @@ Added
    - `cast_expression`
 - Missing patterns for Lua:
    - `field`
+- Missing patterns for Python:
+   - `tuple_pattern`
 - Missing patterns for Rust:
    - `array_type`
 
