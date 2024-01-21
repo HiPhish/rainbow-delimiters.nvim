@@ -25,6 +25,8 @@ gen_comp = (i for i in (j for j in range(5)) if i % 2 == 0)
 
 zero = [0]
 
+(a,b) = (1,2)
+
 print(zero[zero[zero[0]]])
 
 

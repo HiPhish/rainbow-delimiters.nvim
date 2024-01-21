@@ -29,6 +29,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(tuple_pattern
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (generator_expression
   "(" @delimiter
   ")" @delimiter @sentinel) @container
