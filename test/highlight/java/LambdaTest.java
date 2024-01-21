@@ -5,3 +5,5 @@ class LambdaTest {
 		(record, b) -> record + b;
 	}
 }
+
+// vim:noexpandtab
