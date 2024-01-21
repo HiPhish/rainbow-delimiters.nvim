@@ -1,4 +1,4 @@
-@Author(name="John Doe")
+@Author(name = "John Doe")
 public class HelloWorld {
 	// Constructor body
 	public HelloWorld() {
@@ -25,7 +25,7 @@ public class HelloWorld {
 		// Regular for-statement
 		for (var i = 0; i < 3; ++i) {
 			System.out.print(i);
-		} 
+		}
 
 		// Parentheses around condition
 		if (false) {
@@ -57,5 +57,10 @@ public class HelloWorld {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+
+		double d = 13.37;
+		int i = (int) d; // cast expression
 	}
 }
+
+// vim:noexpandtab
