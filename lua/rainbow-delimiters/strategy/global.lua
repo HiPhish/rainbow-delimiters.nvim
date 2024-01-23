@@ -134,7 +134,31 @@ local function update_range(bufnr, changes, tree, lang)
 						Please double check your queries.]], name)
 			end -- do nothing with other capture names
 		end
+		if match_record then
+			-- we might have a dangling match_record, so we push it back into
+			-- matches
+			-- this should only happen when the query is on a proper subset
+			-- of the full tree (usually just one line)
+			matches:push(match_record)
+		end
 	end
+
+	-- when we capture on a row and not the full tree, we get the previous
+	-- containers (on earlier rows) included in the above, but not the
+	-- delimiters and sentinels from them, so we push them up as long as
+	-- we know they have an ancestor
+	local last_match = matches:pop()
+	while last_match and last_match.has_ancestor do
+		local prev_match = matches:pop()
+
+		if prev_match then
+			prev_match.children:push(last_match)
+		else
+			log.error('You are in what should be an unreachable position.')
+		end
+		last_match = prev_match
+	end
+	matches:push(last_match)
 
 	highlight_matches(bufnr, lang, matches, 1)
 end
