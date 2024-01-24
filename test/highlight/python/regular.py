@@ -1,7 +1,10 @@
 # NOTE: When updating this file update the Starlark test file as well if
 # applicable.
 
-from typing import Dict, List
+from typing import (
+    Dict,
+    List,
+)
 
 
 def sum_list(lst: List[Dict[int, int]]) -> int:

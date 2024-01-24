@@ -56,3 +56,7 @@
 (type_parameter
   "[" @delimiter
   "]" @delimiter @sentinel) @container
+
+(import_from_statement
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
