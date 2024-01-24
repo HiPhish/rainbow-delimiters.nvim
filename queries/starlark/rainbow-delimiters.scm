@@ -31,6 +31,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(tuple_pattern
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (parameters
   "(" @delimiter
   ")" @delimiter @sentinel) @container
