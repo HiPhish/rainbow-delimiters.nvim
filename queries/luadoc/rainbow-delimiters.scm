@@ -29,6 +29,16 @@
   "}" @delimiter @sentinel
 ) @container
 
+(indexed_field
+  "[" @delimiter
+  "]" @delimiter @sentinel
+) @container
+
+(tuple_type
+  "(" @delimiter
+  ")" @delimiter @sentinel
+) @container
+
 (_
   "[" @delimiter
   .
