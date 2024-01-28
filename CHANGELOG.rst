@@ -32,6 +32,9 @@ Added
    - `cast_expression`
 - Missing patterns for Lua:
    - `field`
+- Missing patterns for Luadoc:
+   - `indexed_field`
+   - `tuple_type`
 - Missing patterns for Python:
    - `tuple_pattern`
 - Missing patterns for Rust:
