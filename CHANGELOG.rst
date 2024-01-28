@@ -43,6 +43,12 @@ Added
 - Missing patterns for Starlark:
    - `tuple_pattern`
 
+Fixed
+=====
+
+- Default configuration settings override custom settings if the configuration
+  value was used before setting the custom value
+
 
 [0.3.0] 2023-12-24
 ##################

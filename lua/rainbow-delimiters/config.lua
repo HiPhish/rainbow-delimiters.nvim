@@ -33,9 +33,7 @@ local function get_nested(table, index, key)
 	result = rawget(table, key)
 	if result ~= nil then return result end
 
-	-- Cache the result in table so we don't need a require lookup the next time
 	result = require('rainbow-delimiters.default')[index][key]
-	table[key] = result
 	return result
 end
 
