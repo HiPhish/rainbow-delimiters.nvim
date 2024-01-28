@@ -1,12 +1,10 @@
 (function_type
   "(" @delimiter
-  ")" @delimiter @sentinel
-) @container
+  ")" @delimiter @sentinel) @container
 
 (parenthesized_type
   "(" @delimiter
-  ")" @delimiter @sentinel
-) @container
+  ")" @delimiter @sentinel) @container
 
 ;;; I wanted to use something like
 ; (union_type
@@ -16,24 +14,27 @@
 
 (array_type
   "[" @delimiter
-  "]" @delimiter @sentinel
-) @container
+  "]" @delimiter @sentinel) @container
 
 (table_type
   "<" @delimiter
-  ">" @delimiter @sentinel
-) @container
+  ">" @delimiter @sentinel) @container
 
 (table_literal_type
   "{" @delimiter
-  "}" @delimiter @sentinel
-) @container
+  "}" @delimiter @sentinel) @container
+
+(indexed_field
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(tuple_type
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (_
   "[" @delimiter
   .
   field: (_)
   .
-  "]" @delimiter @sentinel
-) @container
-
+  "]" @delimiter @sentinel) @container
