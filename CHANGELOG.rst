@@ -33,9 +33,12 @@ Added
 - Missing patterns for Lua:
    - `field`
 - Missing patterns for Python:
+   - `import_from_statement`
    - `tuple_pattern`
 - Missing patterns for Rust:
    - `array_type`
+- Missing patterns for Starlark:
+   - `tuple_pattern`
 
 
 [0.3.0] 2023-12-24
