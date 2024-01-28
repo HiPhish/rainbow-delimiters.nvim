@@ -51,7 +51,8 @@ describe('The global strategy', function()
 			vim.g.rainbow_delimiters = {
 				strategy = {
 					[''] = the_strategy
-				}
+				}, query = {
+				},
 			}
 		]], {})
 	end)
@@ -108,5 +109,27 @@ describe('The global strategy', function()
 		-- The Lua code is highlighted, the Vim code not
 		assert.has_extmarks_at(0, 6, 'lua')
 		assert.Not.has_extmarks_at(2, 13, 'vim')
+	end)
+
+	it('Applies highlighting to nested code', function()
+		-- See also https://github.com/HiPhish/rainbow-delimiters.nvim/pull/92
+		local content = [[local function foo()
+	return {
+		a = print('a'),
+	}
+end
+
+return foo]]
+
+		request(exec_lua, 'vim.g.rainbow_delimiters.query.lua = "rainbow-blocks"', {})
+		request(buf_set_lines, 0, 0, -1, true, vim.fn.split(content, '\n'))
+		request(buf_set_option, 0, 'filetype', 'lua')
+		-- Insert the line "		b = print('b'),"
+		request('nvim_win_set_cursor', 0, {3, 0})
+		local keys = vim.api.nvim_replace_termcodes("ob = print('b'),<esc>", true, false, true)
+		vim.fn.rpcrequest(nvim,'nvim_feedkeys', keys, '', false)
+
+		assert.has_extmarks_at(2, 11, 'lua')
+		assert.has_extmarks_at(3, 11, 'lua')
 	end)
 end)
