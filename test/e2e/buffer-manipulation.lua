@@ -1,5 +1,5 @@
 local say = require 'say'
-local rpcrequest = vim.fn.rpcrequest
+local rpcrequest = vim.rpcrequest
 
 local exec_lua = 'nvim_exec_lua'
 
@@ -71,7 +71,8 @@ describe('Buffer Manipulation', function()
 	end)
 
 	after_each(function()
-		vim.fn.jobstop(nvim)
+		vim.rpcnotify(nvim, 'nvim_cmd', {cmd = 'quitall', bang = true}, {})
+		vim.fn.jobwait({nvim})
 	end)
 
 	it('Clears extmarks when moving line out of injected langauge', function()

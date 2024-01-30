@@ -1,4 +1,4 @@
-local rpcrequest = vim.fn.rpcrequest
+local rpcrequest = vim.rpcrequest
 
 local jobopts = {
 	rpc = true,
@@ -37,7 +37,8 @@ describe('The Rainbow Delimiters public API', function()
 	end)
 
 	after_each(function()
-		vim.fn.jobstop(nvim)
+		vim.rpcnotify(nvim, 'nvim_cmd', {cmd = 'quitall', bang = true}, {})
+		vim.fn.jobwait({nvim})
 	end)
 
 	describe('Whether RB is enabled for a buffer at startup', function()

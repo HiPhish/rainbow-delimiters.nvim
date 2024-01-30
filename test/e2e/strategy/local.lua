@@ -1,5 +1,5 @@
 local say = require 'say'
-local rpcrequest = vim.fn.rpcrequest
+local rpcrequest = vim.rpcrequest
 
 local jobopts = {
 	rpc = true,
@@ -57,7 +57,8 @@ describe('The local strategy', function()
 	end)
 
 	after_each(function()
-		vim.fn.jobstop(nvim)
+		vim.rpcnotify(nvim, 'nvim_cmd', {cmd = 'quitall', bang = true}, {})
+		vim.fn.jobwait({nvim})
 	end)
 
 	it('Does not reactivate when making changes', function()

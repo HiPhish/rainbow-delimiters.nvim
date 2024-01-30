@@ -1,5 +1,5 @@
 local say = require 'say'
-local rpcrequest = vim.fn.rpcrequest
+local rpcrequest = vim.rpcrequest
 
 local filter = vim.fn.filter
 
@@ -47,7 +47,8 @@ describe('We can use functions to turn rainbow delimiters off and on again.', fu
 	end)
 
 	after_each(function()
-		vim.fn.jobstop(nvim)
+		vim.rpcnotify(nvim, 'nvim_cmd', {cmd = 'quitall', bang = true}, {})
+		vim.fn.jobwait({nvim})
 	end)
 
 	it('Does highlighting initially', function()

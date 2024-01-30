@@ -1,4 +1,4 @@
-local rpcrequest = vim.fn.rpcrequest
+local rpcrequest = vim.rpcrequest
 
 local jobopts = {
 	rpc = true,
@@ -41,7 +41,8 @@ describe('Attaching a strategy to a buffer', function()
 	end)
 
 	after_each(function()
-		vim.fn.jobstop(nvim)
+		vim.rpcnotify(nvim, 'nvim_cmd', {cmd = 'quitall', bang = true}, {})
+		vim.fn.jobwait({nvim})
 	end)
 
 	it('Does not attach a second time if the buffer is already attached', function()
