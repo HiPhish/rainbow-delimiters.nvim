@@ -1,10 +1,5 @@
 local rpcrequest = vim.rpcrequest
-
-local jobopts = {
-	rpc = true,
-	width = 80,
-	height = 24,
-}
+local test_utils = require 'testing.utils'
 
 local exec_lua = 'nvim_exec_lua'
 local exec_vim = 'nvim_exec2'
@@ -19,15 +14,11 @@ describe('User settings are respected', function()
 	end
 
 	before_each(function()
-		-- Start the remote Neovim process.  The `--embed` flag lets us control
-		-- Neovim through RPC, the `--headless` flag tells it not to wait for a
-		-- UI to attach and start loading plugins and configuration immediately
-		nvim = vim.fn.jobstart({'nvim', '--embed', '--headless'}, jobopts)
+		nvim = test_utils.start_embedded()
 	end)
 
 	after_each(function()
-		vim.rpcnotify(nvim, 'nvim_cmd', {cmd = 'quitall', bang = true}, {})
-		vim.fn.jobwait({nvim})
+		test_utils.stop_embedded(nvim)
 	end)
 
 	describe('Strategy settings', function()

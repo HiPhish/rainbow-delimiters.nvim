@@ -1,13 +1,8 @@
 local say = require 'say'
 local rpcrequest = vim.rpcrequest
+local test_utils = require 'testing.utils'
 
 local filter = vim.fn.filter
-
-local jobopts = {
-	rpc = true,
-	width = 80,
-	height = 24,
-}
 
 local call_function = 'nvim_call_function'
 local exec_lua = 'nvim_exec_lua'
@@ -36,10 +31,7 @@ describe('We can use functions to turn rainbow delimiters off and on again.', fu
 	assert:register('assertion', 'extmarks_at', has_extmarks_at, 'assertion.extmarks_at.positive', 'assertion.extmarks_at.negative')
 
 	before_each(function()
-		-- Start the remote Neovim process.  The `--embed` flag lets us control
-		-- Neovim through RPC, the `--headless` flag tells it not to wait for a
-		-- UI to attach and start loading plugins and configuration immediately
-		nvim = vim.fn.jobstart({'nvim', '--embed', '--headless'}, jobopts)
+		nvim = test_utils.start_embedded()
 		request(exec_lua, 'the_strategy = require("rainbow-delimiters.strategy.global")', {})
 		request(exec_lua, 'TSEnsure(...)', {'lua'})
 		request(buf_set_lines, 0, 0, -1, true, {'print((((("Hello, world!")))))'})
@@ -47,8 +39,7 @@ describe('We can use functions to turn rainbow delimiters off and on again.', fu
 	end)
 
 	after_each(function()
-		vim.rpcnotify(nvim, 'nvim_cmd', {cmd = 'quitall', bang = true}, {})
-		vim.fn.jobwait({nvim})
+		test_utils.stop_embedded(nvim)
 	end)
 
 	it('Does highlighting initially', function()
