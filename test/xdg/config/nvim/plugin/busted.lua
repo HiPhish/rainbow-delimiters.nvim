@@ -3,7 +3,6 @@
 local say = require 'say'
 local assert = require 'luassert'
 local filter = vim.fn.filter
-local rpcrequest = vim.rpcrequest
 
 
 local NVIM_STATE_KEY = {}
@@ -21,8 +20,8 @@ local function has_extmarks_at(_state, arguments, lang)
 	local nvim = rawget(_state, NVIM_STATE_KEY)
 	assert(nvim ~= nil, 'No Neovim channel set, use the nvim modifier to set the channel')
 	local row, column = arguments[1], arguments[2]
-	local nsid = rpcrequest(nvim, 'nvim_exec_lua', 'return require("rainbow-delimiters.lib").nsids[...]', {lang})
-	local extmarks = rpcrequest(nvim, 'nvim_exec_lua', 'return vim.inspect_pos(...).extmarks', {0, row, column})
+	local nsid = nvim:exec_lua('return require("rainbow-delimiters.lib").nsids[...]', {lang})
+	local extmarks = nvim:exec_lua('return vim.inspect_pos(...).extmarks', {0, row, column})
 	filter(extmarks, function(_, v) return v.ns_id == nsid end)
 	return #extmarks > 0
 end

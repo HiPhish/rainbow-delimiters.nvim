@@ -1,32 +1,22 @@
-local rpcrequest = vim.rpcrequest
-local test_utils = require 'testing.utils'
-
-local exec_lua = 'nvim_exec_lua'
-local exec_vim = 'nvim_exec2'
-local set_var  = 'nvim_set_var'
-local buf_set_lines = 'nvim_buf_set_lines'
+local yd = require 'yo-dawg'
 
 describe('User settings are respected', function()
 	local nvim
 
-	local function request(method, ...)
-		return rpcrequest(nvim, method, ...)
-	end
-
 	before_each(function()
-		nvim = test_utils.start_embedded()
+		nvim = yd.start()
 	end)
 
 	after_each(function()
-		test_utils.stop_embedded(nvim)
+		yd.stop(nvim)
 	end)
 
 	describe('Strategy settings', function()
 		it('Applies the default strategy to all languages', function()
 			local strategy = 'default strategy'
-			request(exec_vim, 'let g:rainbow_delimiters = {"strategy": {"": "default strategy"}}', {})
-			local lua_strategy = request(exec_lua, 'return require("rainbow-delimiters.config").strategy.lua', {})
-			local   c_strategy = request(exec_lua, 'return require("rainbow-delimiters.config").strategy.c', {})
+			nvim:exec2('let g:rainbow_delimiters = {"strategy": {"": "default strategy"}}', {})
+			local lua_strategy = nvim:exec_lua('return require("rainbow-delimiters.config").strategy.lua', {})
+			local   c_strategy = nvim:exec_lua('return require("rainbow-delimiters.config").strategy.c', {})
 			assert.is.equal(strategy, lua_strategy)
 			assert.is.equal(strategy,   c_strategy)
 		end)
@@ -35,13 +25,13 @@ describe('User settings are respected', function()
 			-- I had to use a trick here because we cannot compare dictionaries or
 			-- functions for identity between Vim script and Lua.  Instead I
 			-- set a string as the strategy and compare for that equality.
-			request( exec_lua, 'require("rainbow-delimiters.default").strategy[""] = "default strategy"', {})
+			nvim:exec_lua('require("rainbow-delimiters.default").strategy[""] = "default strategy"', {})
 
 			-- Override the strategy for Vim only
-			request(set_var, 'rainbow_delimiters', {strategy = {vim = 'vim strategy'}})
+			nvim:set_var('rainbow_delimiters', {strategy = {vim = 'vim strategy'}})
 
-			local lua_strategy = request(exec_lua, 'return require("rainbow-delimiters.config").strategy.lua', {})
-			local vim_strategy = request(exec_lua, 'return require("rainbow-delimiters.config").strategy.vim', {})
+			local lua_strategy = nvim:exec_lua('return require("rainbow-delimiters.config").strategy.lua', {})
+			local vim_strategy = nvim:exec_lua('return require("rainbow-delimiters.config").strategy.vim', {})
 
 			assert.is.equal('vim strategy',     vim_strategy, 'Wrong strategy found for Vim')
 			assert.is.equal('default strategy', lua_strategy, 'Wrong strategy found for Lua')
@@ -50,10 +40,10 @@ describe('User settings are respected', function()
 		describe('Strategies can be thunks', function()
 			before_each(function()
 				-- Store strategies in global variables for later reference
-				request(exec_lua, 'noop = require("rainbow-delimiters").strategy.noop', {})
-				request(exec_lua, 'the_strategy = require("rainbow-delimiters.strategy.track")(noop)', {})
+				nvim:exec_lua('noop = require("rainbow-delimiters").strategy.noop', {})
+				nvim:exec_lua('the_strategy = require("rainbow-delimiters.strategy.track")(noop)', {})
 				-- Set a thunk as the strategy
-				request(exec_lua, [[
+				nvim:exec_lua([[
 				vim.g.rainbow_delimiters = {
 					strategy = {
 						[""] = function() return the_strategy end,
@@ -63,18 +53,18 @@ describe('User settings are respected', function()
 			end)
 
 			it('Uses the strategy returned by the thunk', function()
-				request(exec_lua, 'TSEnsure(...)', {'lua'})
-				request(buf_set_lines, 0, 0, -1, true, {'print "Hello world"', '-- vim:ft=lua'})
-				request('nvim_command', 'filetype detect')
-				local attachments = request(exec_lua, 'return the_strategy.attachments[1]', {})
+				nvim:exec_lua('TSEnsure(...)', {'lua'})
+				nvim:buf_set_lines(0, 0, -1, true, {'print "Hello world"', '-- vim:ft=lua'})
+				nvim:command('filetype detect')
+				local attachments = nvim:exec_lua('return the_strategy.attachments[1]', {})
 				assert.is.equal(1, attachments, 'The strategy should be attached to the Lua buffer')
 			end)
 
 			it('Does nothing if the thunk returns nil', function()
-				request(exec_lua, 'TSEnsure(...)', {'vim'})
-				request(buf_set_lines, 0, 0, -1, true, {'echo "Hello world"', '" vim:ft=vim'})
-				request('nvim_command', 'filetype detect')
-				local attachments = request(exec_lua, 'return the_strategy.attachments[1]', {})
+				nvim:exec_lua('TSEnsure(...)', {'vim'})
+				nvim:buf_set_lines(0, 0, -1, true, {'echo "Hello world"', '" vim:ft=vim'})
+				nvim:command('filetype detect')
+				local attachments = nvim:exec_lua('return the_strategy.attachments[1]', {})
 				assert.is.equal(0, attachments, 'The strategy should not be attached to the Vim buffer')
 			end)
 		end)
@@ -82,10 +72,10 @@ describe('User settings are respected', function()
 
 	it('Overrides the query for an individual language', function()
 		-- Override the query for one language only
-		request(set_var, 'rainbow_delimiters', {query = {c = 'other-query'}})
+		nvim:set_var('rainbow_delimiters', {query = {c = 'other-query'}})
 
-		local   c_query = request(exec_lua, 'return require("rainbow-delimiters.config").query.c', {})
-		local lua_query = request(exec_lua, 'return require("rainbow-delimiters.config").query.lua', {})
+		local   c_query = nvim:exec_lua('return require("rainbow-delimiters.config").query.c', {})
+		local lua_query = nvim:exec_lua('return require("rainbow-delimiters.config").query.lua', {})
 
 		assert.is.equal('other-query', c_query)
 		assert.is.equal('rainbow-delimiters', lua_query)
@@ -104,49 +94,49 @@ describe('User settings are respected', function()
 		}
 
 		-- Set highlight to empty list
-		request(set_var, 'rainbow_delimiters', {highlight = {}})
+		nvim:set_var('rainbow_delimiters', {highlight = {}})
 
 		for i, expected in ipairs(hlgroups) do
-			local given = request(exec_lua, 'return require("rainbow-delimiters.config").highlight[...]', {i})
+			local given = nvim:exec_lua('return require("rainbow-delimiters.config").highlight[...]', {i})
 			assert.is.equal(expected, given, string.format('Wrong highlight group at index %d', i))
 		end
 	end)
 
 	describe('White- and blacklist individual languages', function()
 		it('Has all languages enabled without configuration', function()
-			request(exec_lua, 'rbc = require("rainbow-delimiters.config")', {})
-			local lua_enabled = request(exec_lua, 'return rbc.enabled_for("lua")', {})
-			local vim_enabled = request(exec_lua, 'return rbc.enabled_for("vim")', {})
+			nvim:exec_lua('rbc = require("rainbow-delimiters.config")', {})
+			local lua_enabled = nvim:exec_lua('return rbc.enabled_for("lua")', {})
+			local vim_enabled = nvim:exec_lua('return rbc.enabled_for("vim")', {})
 
 			assert.is_true(lua_enabled, 'Lua should be enabled')
 			assert.is_true(vim_enabled, 'Vim script should be enabled')
 		end)
 
 		it('Has all languages enabled in blank configuration', function()
-			request(set_var, 'rainbow_delimiters', {})
-			request(exec_lua, 'rbc = require("rainbow-delimiters.config")', {})
-			local lua_enabled = request(exec_lua, 'return rbc.enabled_for("lua")', {})
-			local vim_enabled = request(exec_lua, 'return rbc.enabled_for("vim")', {})
+			nvim:set_var('rainbow_delimiters', {})
+			nvim:exec_lua('rbc = require("rainbow-delimiters.config")', {})
+			local lua_enabled = nvim:exec_lua('return rbc.enabled_for("lua")', {})
+			local vim_enabled = nvim:exec_lua('return rbc.enabled_for("vim")', {})
 
 			assert.is_true(lua_enabled, 'Lua should be enabled')
 			assert.is_true(vim_enabled, 'Vim script should be enabled')
 		end)
 
 		it('Can whitelist individual file types by adding them to our configuration', function()
-			request(set_var, 'rainbow_delimiters', {whitelist = {'lua'}})
-			request(exec_lua, 'rbc = require("rainbow-delimiters.config")', {})
-			local lua_enabled = request(exec_lua, 'return rbc.enabled_for("lua")', {})
-			local vim_enabled = request(exec_lua, 'return rbc.enabled_for("vim")', {})
+			nvim:set_var('rainbow_delimiters', {whitelist = {'lua'}})
+			nvim:exec_lua('rbc = require("rainbow-delimiters.config")', {})
+			local lua_enabled = nvim:exec_lua('return rbc.enabled_for("lua")', {})
+			local vim_enabled = nvim:exec_lua('return rbc.enabled_for("vim")', {})
 
 			assert.is_true( lua_enabled, 'Lua should be enabled')
 			assert.is_false(vim_enabled, 'Vim script should be disabled')
 		end)
 
 		it('Can blacklist individual file types by adding them to our configuration', function()
-			request(set_var, 'rainbow_delimiters', {blacklist = {'vim'}})
-			request(exec_lua, 'rbc = require("rainbow-delimiters.config")', {})
-			local lua_enabled = request(exec_lua, 'return rbc.enabled_for("lua")', {})
-			local vim_enabled = request(exec_lua, 'return rbc.enabled_for("vim")', {})
+			nvim:set_var('rainbow_delimiters', {blacklist = {'vim'}})
+			nvim:exec_lua('rbc = require("rainbow-delimiters.config")', {})
+			local lua_enabled = nvim:exec_lua('return rbc.enabled_for("lua")', {})
+			local vim_enabled = nvim:exec_lua('return rbc.enabled_for("vim")', {})
 
 			assert.is_true( lua_enabled, 'Lua should be enabled')
 			assert.is_false(vim_enabled, 'Vim script should be disabled')
@@ -155,26 +145,26 @@ describe('User settings are respected', function()
 
 	describe('The setup function sets configuration indirectly', function()
 		it('Can call the setup function', function()
-			request(exec_lua, [[
+			nvim:exec_lua([[
 			require('rainbow-delimiters.setup').setup {
 				query = {
 					lua = 'rainbow-blocks'
 				}
 			}
 			]], {})
-			local lua_query = request('nvim_eval', 'g:rainbow_delimiters.query.lua')
+			local lua_query = nvim:eval('g:rainbow_delimiters.query.lua')
 			assert.is.equal('rainbow-blocks', lua_query)
 		end)
 
 		it('Can call the table itset', function()
-			request(exec_lua, [[
+			nvim:exec_lua([[
 			require('rainbow-delimiters.setup') {
 				query = {
 					lua = 'rainbow-blocks'
 				}
 			}
 			]], {})
-			local lua_query = request('nvim_eval', 'g:rainbow_delimiters.query.lua')
+			local lua_query = nvim:eval('g:rainbow_delimiters.query.lua')
 			assert.is.equal('rainbow-blocks', lua_query)
 		end)
 	end)

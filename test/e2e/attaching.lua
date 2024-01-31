@@ -1,24 +1,13 @@
-local rpcrequest = vim.rpcrequest
-local test_utils = require 'testing.utils'
-
-local call_function = 'nvim_call_function'
-local exec_lua = 'nvim_exec_lua'
-local buf_set_lines = 'nvim_buf_set_lines'
-local buf_set_option = 'nvim_buf_set_option'
-local cmd = 'nvim_cmd'
+local yd = require 'yo-dawg'
 
 describe('Attaching a strategy to a buffer', function()
 	local nvim
 
-	local function request(method, ...)
-		return rpcrequest(nvim, method, ...)
-	end
-
 	before_each(function()
-		nvim = test_utils.start_embedded()
+		nvim = yd.start()
 
 		-- Set up a tracking strategy
-		request(exec_lua, [[
+		nvim:exec_lua([[
 			TSEnsure('lua', 'vim')
 			do
 				local track = require('rainbow-delimiters.strategy.track')
@@ -33,36 +22,36 @@ describe('Attaching a strategy to a buffer', function()
 	end)
 
 	after_each(function()
-		test_utils.stop_embedded(nvim)
+		yd.stop(nvim)
 	end)
 
 	it('Does not attach a second time if the buffer is already attached', function()
 		-- Write buffer to a file
-		local tempfile = request(call_function, 'tempname', {})
-		request(call_function, 'writefile', {{'print((((("Hello, world!")))))', '-- vim:ft=lua'}, tempfile})
+		local tempfile = nvim:call_function('tempname', {})
+		nvim:call_function('writefile', {{'print((((("Hello, world!")))))', '-- vim:ft=lua'}, tempfile})
 
 		-- Edit the buffer multiple times, this will trigger attachment
 		for _ = 1, 3 do
-			request(cmd, {cmd = 'edit', args = {tempfile}}, {})
-			request(cmd, {cmd = 'filetype', args = {'detect'}}, {})
+			nvim:cmd({cmd = 'edit', args = {tempfile}}, {})
+			nvim:cmd({cmd = 'filetype', args = {'detect'}}, {})
 		end
 
-		local count = request(exec_lua, 'return the_strategy.attachments[1]', {})
+		local count = nvim:exec_lua('return the_strategy.attachments[1]', {})
 		assert.is.equal(1, count, 'Buffer attached multiple times')
 	end)
 
 	it('Performs cleanup after a buffer is deleted', function()
 		local is_attached
 
-		request(buf_set_lines, 0, 0, -1, true, {'print((((("Hello, world!")))))', '-- vim:ft=lua'})
-		request(cmd, {cmd = 'filetype', args = {'detect'}}, {})
+		nvim:buf_set_lines(0, 0, -1, true, {'print((((("Hello, world!")))))', '-- vim:ft=lua'})
+		nvim:cmd({cmd = 'filetype', args = {'detect'}}, {})
 
-		is_attached = request(exec_lua, 'return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
+		is_attached = nvim:exec_lua('return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
 		assert.is_true(is_attached, 'Strategy must be attach to buffer')
 
 		-- Delete the buffer
-		request(cmd, {cmd = 'bdelete', bang = true}, {})
-		is_attached = request(exec_lua, 'return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
+		nvim:cmd({cmd = 'bdelete', bang = true}, {})
+		is_attached = nvim:exec_lua('return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
 		assert.is_false(is_attached, 'Strategy must not be attach to buffer')
 	end)
 
@@ -70,10 +59,10 @@ describe('Attaching a strategy to a buffer', function()
 		-- Switching the file type preserves the number of attachments, but
 		-- changes the language
 		for _, expected in ipairs({'lua', 'vim'}) do
-			request('nvim_buf_set_option', 0, 'filetype', expected)
+			nvim:buf_set_option(0, 'filetype', expected)
 
-			local lang = request(exec_lua, 'return the_strategy.buffers[vim.fn.bufnr()].lang', {})
-			local attachments = request(exec_lua, 'return the_strategy.attachments[1]', {})
+			local lang = nvim:exec_lua('return the_strategy.buffers[vim.fn.bufnr()].lang', {})
+			local attachments = nvim:exec_lua('return the_strategy.attachments[1]', {})
 
 			assert.is.equal(1, attachments)
 			assert.is.equal(lang, expected)
@@ -82,15 +71,15 @@ describe('Attaching a strategy to a buffer', function()
 
 	it('Unloads a buffer without raising errors', function()
 		-- Create two windows with different buffers, but with same file type
-		request(buf_set_option, 0, 'filetype', 'lua')
-		request(buf_set_lines, 0, 0, -1, true, {'print(((("Hello world"))))', '-- vim:ft=lua'})
-		request(cmd, {cmd = 'new'}, {})
-		request(buf_set_option, 0, 'filetype', 'lua')
-		request(buf_set_lines, 0, 0, -1, true, {'print(((("Goodbye world"))))', '-- vim:ft=lua'})
+		nvim:buf_set_option(0, 'filetype', 'lua')
+		nvim:buf_set_lines(0, 0, -1, true, {'print(((("Hello world"))))', '-- vim:ft=lua'})
+		nvim:cmd({cmd = 'new'}, {})
+		nvim:buf_set_option(0, 'filetype', 'lua')
+		nvim:buf_set_lines(0, 0, -1, true, {'print(((("Goodbye world"))))', '-- vim:ft=lua'})
 
-		local secondbuf = request(call_function, 'bufnr', {})
-		request(cmd, {cmd = 'bdelete', args = {secondbuf}, bang = true}, {})
-		local errmsg = request('nvim_get_vvar', 'errmsg')
+		local secondbuf = nvim:call_function('bufnr', {})
+		nvim:cmd({cmd = 'bdelete', args = {secondbuf}, bang = true}, {})
+		local errmsg = nvim:get_vvar('errmsg')
 
 		assert.is.equal('', errmsg)
 	end)
