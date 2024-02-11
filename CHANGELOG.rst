@@ -30,6 +30,8 @@ Added
    - `parenthesized_expression`
    - `resource_specification`
    - `cast_expression`
+- Missing patterns for Go:
+   - `type_assertion_expression`
 - Missing patterns for Lua:
    - `field`
 - Missing patterns for Luadoc:
