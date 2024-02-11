@@ -81,6 +81,7 @@
 ---@field query        (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field r            (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field racket       (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
+---@field rasi         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field regex        (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field rst          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field ruby         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
@@ -146,6 +147,7 @@
 ---@field query        (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(bufnr: integer): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
 ---@field r            (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field racket       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field rasi         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field regex        (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field rst          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field ruby         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -211,6 +213,7 @@
 ---@field query        (integer | fun(bufnr: integer): integer)?
 ---@field r            (integer | fun(bufnr: integer): integer)?
 ---@field racket       (integer | fun(bufnr: integer): integer)?
+---@field rasi         (integer | fun(bufnr: integer): integer)?
 ---@field regex        (integer | fun(bufnr: integer): integer)?
 ---@field rst          (integer | fun(bufnr: integer): integer)?
 ---@field ruby         (integer | fun(bufnr: integer): integer)?
@@ -276,6 +279,7 @@
 ---| 'query'
 ---| 'r'
 ---| 'racket'
+---| 'rasi'
 ---| 'regex'
 ---| 'rst'
 ---| 'ruby'
