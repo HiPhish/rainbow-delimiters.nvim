@@ -7,6 +7,10 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(environ_value
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (list_value
   "[" @delimiter
   "]" @delimiter @sentinel) @container
@@ -20,10 +24,6 @@
   ")" @delimiter @sentinel) @container
 
 (reference_value
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(environ_value
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 

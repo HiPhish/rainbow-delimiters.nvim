@@ -1,7 +1,7 @@
 // Ref: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown
 
 * {
-  background-image: url("a.jpg", width);;
+  background-image: url("a.jpg", width);
   background-color: env(ROFI_BACKGROUND_COLOR, transparent);
   text-color: rgba(256, 256, 256, 0.9);
   text-color-2: var(text-color, hsl(20, 1, 1));
