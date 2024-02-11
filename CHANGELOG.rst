@@ -36,7 +36,9 @@ Added
    - `indexed_field`
    - `tuple_type`
 - Missing patterns for Python:
+   - `dict_pattern`
    - `import_from_statement`
+   - `list_pattern`
    - `tuple_pattern`
 - Missing patterns for Rust:
    - `array_type`
