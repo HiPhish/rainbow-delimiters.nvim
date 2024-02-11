@@ -30,6 +30,7 @@ func (a ByProduced) Less(i, j int) bool { return a[i].Produced < a[j].Produced }
 func isFloat32(i interface{}) bool {
 	switch v := i.(type) {
 	case float32:
+		fmt.Printf("%v is a float32", i.(float32))
 		return true
 	default:
 		fmt.Printf("%v is not a float32", v)

@@ -14,6 +14,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(type_assertion_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (field_declaration_list
   "{" @delimiter
   "}" @delimiter @sentinel) @container
