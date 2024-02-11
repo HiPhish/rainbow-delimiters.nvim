@@ -1,0 +1,20 @@
+// Ref: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown
+
+* {
+  background-image: url("a.jpg", width);
+  background-color: env(ROFI_BACKGROUND_COLOR, transparent);
+  text-color: rgba(256, 256, 256, 0.9);
+  text-color-2: var(text-color, hsl(20, 1, 1));
+  text-color-3: hwb(20, 1, 10);
+  text-color-4: cmyk(20, 15, 10, 5);
+  width: 1024px
+}
+
+@media (monitor-id: ${ROFI_MAIN_MONITOR}) {
+  width: calc(120% * 1024px);
+}
+
+mainbox {
+  background-image: linear-gradient(to bottom, darkgreen/50%, black/70%);
+  children: [inputbar, listview];
+}
