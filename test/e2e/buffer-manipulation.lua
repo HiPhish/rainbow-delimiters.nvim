@@ -53,10 +53,6 @@ describe('Buffer Manipulation', function()
 		local given = vim.fn.join(nvim:buf_get_lines(0, 0, -2, true), '\n')
 		assert.is.equal(markdown_without_injected_lua, given)
 
-		-- Skip this test for now; calling `move` via RPC does not trigger the
-		-- `on_tree_changed` callback on the parser and the extmarks will
-		-- remain uncleared
-		if true then return end
 		assert.nvim(nvim).Not.has_extmarks_at(4, 5, 'lua')
 	end)
 
@@ -72,10 +68,6 @@ describe('Buffer Manipulation', function()
 		local given = vim.fn.join(nvim:buf_get_lines(0, 0, -2, true), '\n')
 		assert.is.equal(markdown_with_injected_lua, given)
 
-		-- Skip this test for now; calling `move` via RPC does not trigger the
-		-- `on_tree_changed` callback on the parser and the extmarks will
-		-- remain uncleared
-		if true then return end
-		assert.nvim.has_extmarks_at(3, 5, 'lua')
+		assert.nvim(nvim).has_extmarks_at(3, 5, 'lua')
 	end)
 end)
