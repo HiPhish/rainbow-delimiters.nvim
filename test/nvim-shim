@@ -33,5 +33,18 @@ export XDG_CONFIG_HOME='test/xdg/config/'
 export XDG_STATE_HOME='test/xdg/local/state/'
 export XDG_DATA_HOME='test/xdg/local/share/'
 
+# We need to add this plugin to the custom configuration.  The easiest way is
+# to create a symlink.  Why not always have a symlink in the project?  The Lua
+# language server will search for Lua files in every directory, so if it enters
+# the symlink it will be trapped in a cycle.  What we do instead is create the
+# symlink only for the duration of a test session and remove it again
+# afterwards.
+ln -s $(pwd) ${XDG_DATA_HOME}/nvim/site/pack/testing/start/rainbow-delimiters
+
 # We have to explicitly enable plugins, see ':h -l'
 nvim --cmd 'set loadplugins' -l $@
+exit_code=$?
+
+rm ${XDG_DATA_HOME}/nvim/site/pack/testing/start/rainbow-delimiters
+
+exit $exit_code
