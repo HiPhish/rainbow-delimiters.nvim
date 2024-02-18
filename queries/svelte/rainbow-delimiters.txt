@@ -1,0 +1,53 @@
+(script_element
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
+
+(style_element
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
+
+(element
+  (self_closing_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    "/>" @delimiter @sentinel)) @container
+
+(element
+  (start_tag
+    "<" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter)
+  (end_tag
+    "</" @delimiter
+    (tag_name) @delimiter
+    ">" @delimiter @sentinel)) @container
+
+(const_expr
+  "{" @delimiter
+  "@" @delimiter
+  (special_block_keyword) @delimiter
+  "}" @delimiter @sentinel) @container
+
+(each_statement
+  (each_start_expr
+    "{" @delimiter
+    "#" @delimiter
+    (special_block_keyword) @delimiter
+    "}" @delimiter) @container
+  (each_end_expr
+    "{" @delimiter
+    "/" @delimiter
+    (special_block_keyword) @delimiter
+    "}" @delimiter @sentinel)) @container

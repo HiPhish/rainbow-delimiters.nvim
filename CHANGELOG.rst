@@ -17,6 +17,7 @@ Added
 
 - Public API function `is_enabled`
 - Rasi support
+- Svelte support
 - XML support
 - Missing patterns for Java:
    - `array_initializer`
