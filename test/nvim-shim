@@ -33,6 +33,16 @@ export XDG_CONFIG_HOME='test/xdg/config/'
 export XDG_STATE_HOME='test/xdg/local/state/'
 export XDG_DATA_HOME='test/xdg/local/share/'
 
+# Handle Lua command-line arguments; not all options are supported
+while getopts 'ilEve:' opt; do
+	case $opt in
+		e) lua_expr=$OPTARG;;
+		v) nvim --version; exit;;
+		i | l | E) echo "Option '$opt' not supported by shim"; exit 1;;
+	esac
+done
+
+
 # We need to add this plugin to the custom configuration.  The easiest way is
 # to create a symlink.  Why not always have a symlink in the project?  The Lua
 # language server will search for Lua files in every directory, so if it enters
@@ -41,8 +51,14 @@ export XDG_DATA_HOME='test/xdg/local/share/'
 # afterwards.
 ln -s $(pwd) ${XDG_DATA_HOME}/nvim/site/pack/testing/start/rainbow-delimiters
 
-# We have to explicitly enable plugins, see ':h -l'
-nvim --cmd 'set loadplugins' -l $@
+
+if [ -n "$lua_expr" ]; then
+	nvim --headless -c "lua $lua_expr" -c 'quitall!'
+else
+	# We have to explicitly enable plugins, see ':h -l'
+	nvim --cmd 'set loadplugins' -l $@
+fi
+
 exit_code=$?
 
 rm ${XDG_DATA_HOME}/nvim/site/pack/testing/start/rainbow-delimiters
