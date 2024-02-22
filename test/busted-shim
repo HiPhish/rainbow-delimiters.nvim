@@ -1,3 +1,4 @@
+#!/bin/sh
 # SPDX-License-Identifier: Unlicense
 
 # This is free and unencumbered software released into the public domain.
@@ -23,18 +24,9 @@
 # For more information, please refer to <https://unlicense.org/>
 
 
-.PHONY: check unit-test e2e-test clean
+# A shim which acts as a command-line interface adapter for the busted test
+# framework.  If busted is installed using LuaRocks we cannot invoke it
+# directly, but some tools might want to do so.  This thin adapter can be used
+# as a drop-in replacement for the busted executable.
 
-check: unit-test e2e-test
-
-unit-test:
-	@./test/busted-shim --run unit
-
-e2e-test:
-	@./test/busted-shim --run e2e
-
-clean:
-	@rm -rf test/xdg/local/state/nvim/*
-	@rm -rf test/xdg/local/share/nvim/site/pack/testing/start/nvim-treesitter/parser/*
-	@# The symlink might have been left over from a failed test run
-	@rm -f test/xdg/local/share/nvim/site/pack/testing/start/rainbow-delimiters
+eval $(luarocks path --lua-version 5.1 --bin) && busted $@
