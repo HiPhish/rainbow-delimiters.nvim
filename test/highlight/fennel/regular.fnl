@@ -11,6 +11,10 @@
 
 [0 [1 [2 [3 []]]]]
 
+;; NOTE: the single ":" on the second line could also be a delimiter
+{:a :b
+ : abcd}
+
 ;;; Get AST root
 (fn get-root [bufnr]
   ;;; Get current buffer
