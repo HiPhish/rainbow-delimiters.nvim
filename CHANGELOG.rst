@@ -54,6 +54,9 @@ Fixed
 
 - Default configuration settings override custom settings if the configuration
   value was used before setting the custom value
+- Switched Fennel queries to new upstream grammar (`#6132`_)
+
+.. _#6132: https://github.com/nvim-treesitter/nvim-treesitter/pull/6132
 
 
 [0.3.0] 2023-12-24
