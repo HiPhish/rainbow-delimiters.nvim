@@ -49,8 +49,13 @@ done
 # the symlink it will be trapped in a cycle.  What we do instead is create the
 # symlink only for the duration of a test session and remove it again
 # afterwards.
-ln -s $(pwd) ${XDG_DATA_HOME}/nvim/site/pack/testing/start/rainbow-delimiters
 
+# We need separate symlinks if we want to run different tasks in parallel.
+# Otherwise the one the finishes first would delete the symlink from underneath
+# the one that is still running.
+uuid=$(uuidgen)
+mkdir -p ${XDG_DATA_HOME}/nvim/site/pack/self-${uuid}/start/
+ln -fs $(pwd) ${XDG_DATA_HOME}/nvim/site/pack/self-${uuid}/start/
 
 if [ -n "$lua_expr" ]; then
 	nvim --headless -c "lua $lua_expr" -c 'quitall!'
@@ -61,6 +66,6 @@ fi
 
 exit_code=$?
 
-rm ${XDG_DATA_HOME}/nvim/site/pack/testing/start/rainbow-delimiters
+rm -rf ${XDG_DATA_HOME}/nvim/site/pack/self-${uuid}/
 
 exit $exit_code
