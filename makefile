@@ -28,10 +28,10 @@
 check: unit-test e2e-test
 
 unit-test:
-	@./test/busted-shim --run unit
+	@./test/busted --run unit
 
 e2e-test:
-	@./test/busted-shim --run e2e
+	@./test/busted --run e2e
 
 clean:
 	@rm -rf test/xdg/local/state/nvim/*
