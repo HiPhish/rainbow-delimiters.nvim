@@ -95,6 +95,7 @@
 ---@field toml         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field tsx          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field typescript   (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
+---@field typst        (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field verilog      (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field vim          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field vimdoc       (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
@@ -161,6 +162,7 @@
 ---@field toml         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field tsx          (('rainbow-delimiters' | 'rainbow-parens' | string) | fun(bufnr: integer): ('rainbow-delimiters' | 'rainbow-parens' | string))?
 ---@field typescript   (('rainbow-delimiters' | 'rainbow-parens' | string) | fun(bufnr: integer): ('rainbow-delimiters' | 'rainbow-parens' | string))?
+---@field typst        (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field verilog      (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(bufnr: integer): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
 ---@field vim          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field vimdoc       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -227,6 +229,7 @@
 ---@field toml         (integer | fun(bufnr: integer): integer)?
 ---@field tsx          (integer | fun(bufnr: integer): integer)?
 ---@field typescript   (integer | fun(bufnr: integer): integer)?
+---@field typst        (integer | fun(bufnr: integer): integer)?
 ---@field verilog      (integer | fun(bufnr: integer): integer)?
 ---@field vim          (integer | fun(bufnr: integer): integer)?
 ---@field vimdoc       (integer | fun(bufnr: integer): integer)?
@@ -293,6 +296,7 @@
 ---| 'toml'
 ---| 'tsx'
 ---| 'typescript'
+---| 'typst'
 ---| 'verilog'
 ---| 'vim'
 ---| 'vimdoc'
