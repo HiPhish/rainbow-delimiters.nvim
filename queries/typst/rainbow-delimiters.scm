@@ -13,3 +13,7 @@
 (math
   "$" @delimiter
   "$" @delimiter @sentinel) @container
+
+(call
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container

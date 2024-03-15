@@ -1,4 +1,3 @@
-
 #let template(doc) = {
   set page(paper: "a4", margin: (x: 2cm, y: 3cm))
   set heading(numbering: "1.1")
@@ -25,3 +24,6 @@ Maths can either be typeset inline: $A = pi r^2$; or as a separate block:
 $ frac(a^(2x), (5x + (3))) $
 
 We can also put #[maths inside other content blocks: $V = 4/3 (pi r^3)$].
+
+
+// vim:ft=typst
