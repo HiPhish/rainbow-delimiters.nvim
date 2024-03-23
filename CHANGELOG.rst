@@ -43,6 +43,7 @@ Added
 - Missing patterns for Python:
    - `dict_pattern`
    - `import_from_statement`
+   - `interpolation` (literal string interpolation)
    - `list_pattern`
    - `tuple_pattern`
 - Missing patterns for Rust:

@@ -44,3 +44,6 @@ print(zero[zero[zero[0]]])
 
 print(2 + ((((3)))))
 print(len(my_list))
+
+# Format-string with embedded delimiters
+print(f'The sum of 2 and 3 is {2 + (1 + 2)}')

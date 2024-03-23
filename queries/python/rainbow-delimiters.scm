@@ -68,3 +68,8 @@
 (import_from_statement
   "(" @delimiter
   ")" @delimiter @sentinel) @container
+
+(string
+  (interpolation
+    "{" @delimiter
+    "}" @delimiter @sentinel) @container)
