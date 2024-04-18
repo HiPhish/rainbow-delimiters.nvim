@@ -35,6 +35,9 @@ Added
    - `cast_expression`
 - Missing patterns for Go:
    - `type_assertion_expression`
+- Missing patterns for Julia:
+   - `curly_expression`
+   - `tuple_expression`
 - Missing patterns for Lua:
    - `field`
 - Missing patterns for Luadoc:
@@ -57,6 +60,7 @@ Fixed
 - Default configuration settings override custom settings if the configuration
   value was used before setting the custom value
 - Switched Fennel queries to new upstream grammar (`#6132`_)
+- Deleted obsolete Julia pattern `parameter_list`
 
 .. _#6132: https://github.com/nvim-treesitter/nvim-treesitter/pull/6132
 
