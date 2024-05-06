@@ -49,6 +49,11 @@ Added
    - `interpolation` (literal string interpolation)
    - `list_pattern`
    - `tuple_pattern`
+- Missing patterns for R:
+   -  `for`
+   -  `while`
+   -  `switch`
+   -  `function_definition`
 - Missing patterns for Rust:
    - `array_type`
 - Missing patterns for Starlark:
