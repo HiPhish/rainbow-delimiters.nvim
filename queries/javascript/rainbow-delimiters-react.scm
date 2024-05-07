@@ -33,6 +33,14 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(for_statement
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(for_in_statement
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (subscript_expression
   "[" @delimiter
   "]" @delimiter @sentinel) @container
@@ -50,6 +58,10 @@
   "}" @delimiter @sentinel) @container
 
 (array
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(array_pattern
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 

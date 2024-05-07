@@ -16,6 +16,18 @@ function add(x, y) {
 	return iter(y, x)
 }
 
+// Loops
+function iterate() {
+	for (let i = 0; i <= 2; i++) {
+		break;
+	}
+
+	let list = []
+	for (let element of list) {
+		console.log(element);
+	}
+}
+
 // Arrow function definition
 const multiply = (x, y) => x * y;
 
@@ -37,6 +49,9 @@ const destructuredFunction = ({ value }) => {
 // Subscript expressions
 const zeroes = [0];
 console.log(zeroes[zeroes[zeroes[0]]])
+
+// Destructuring assignment
+const [x, y] = array;
 
 // Parenthesized expressions
 console.log(1 + (2 + (3 + 4)))
