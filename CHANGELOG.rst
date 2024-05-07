@@ -18,6 +18,7 @@ Added
 - Public API function `is_enabled`
 - Rasi support
 - Svelte support
+- Teal support
 - Typst support
 - XML support
 - Missing patterns for Java:
