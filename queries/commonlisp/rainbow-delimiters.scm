@@ -7,3 +7,7 @@
   "(" @delimiter
    _*
    ")" @delimiter @sentinel) @container
+
+(loop_macro
+  "(" @delimiter
+  ")" @delimiter @sentinel ) @container

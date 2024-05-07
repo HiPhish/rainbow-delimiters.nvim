@@ -8,5 +8,9 @@
 (defmacro foo (a &rest rest)
   `(format t "~A~%" (list ,a ,@rest)))
 
+;;; The LOOP macro has its own node type
+(loop repeat 3
+      do (print "Hello world"))
+
 '(((a . b)))
 '((((a b . c))))

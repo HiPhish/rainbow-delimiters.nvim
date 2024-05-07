@@ -9,6 +9,13 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+- Missing patterns for Common Lisp:
+   - `loop_macro`
+
+
 [0.4.0] - 2024-05-07
 ####################
 
