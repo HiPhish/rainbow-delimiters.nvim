@@ -8,6 +8,7 @@
 Testing
 #######
 
+
 A test setup must meet the following criteria:
 
 - Test definitions must be run by with Neovim as the Lua interpreter to get
@@ -48,6 +49,13 @@ End to end testing
 End-to-end tests run in a separate Neovim instance which we control via RPC.
 These are tests which mutate the state of the editor, such as adding
 highlighting on changes.  Execute `make e2e-test` to run all end to end tests.
+
+Running tests with Neotest-busted
+=================================
+
+To run tests the `g:bustedprg` variable must be set to `'./test/busted'`, which
+is the path to the shim script.  If the `exrc` option is set the variable will
+be set automatically.
 
 
 
