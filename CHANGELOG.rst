@@ -14,6 +14,10 @@ Unreleased
 
 - Missing patterns for Common Lisp:
    - `loop_macro`
+- Missing patterns for Javascript:
+   - `array_pattern`
+   - `for_in_statement`
+   - `for_statement`
 
 
 [0.4.0] - 2024-05-07
