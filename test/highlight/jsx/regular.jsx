@@ -23,6 +23,8 @@ function hello() {
 }
 
 function app() {
+	const [x, y] = array;
+
 	return (
 		<div>
 			<p>
