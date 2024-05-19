@@ -39,6 +39,10 @@ interface Request {
 	body: RequestProp['body'];
 }
 
+enum A {
+	Foo = "Bar",
+}
+
 // Template strings
 const who = 'world';
 console.log(`Hello, ${who}`);
