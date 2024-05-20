@@ -12,12 +12,21 @@ Versioning`_.
 Unreleased
 ##########
 
+Added
+=====
+
 - Missing patterns for Common Lisp:
    - `loop_macro`
 - Missing patterns for Javascript:
    - `array_pattern`
    - `for_in_statement`
    - `for_statement`
+
+Removed
+=======
+
+- Deprecated patterns for Java:
+  - `condition`
 
 
 [0.4.0] - 2024-05-07
