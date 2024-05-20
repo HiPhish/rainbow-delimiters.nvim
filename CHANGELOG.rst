@@ -21,6 +21,9 @@ Added
    - `array_pattern`
    - `for_in_statement`
    - `for_statement`
+- Missing patterns for Typescript:
+   - `enum_body`
+   - `interface_body`
 
 Removed
 =======
