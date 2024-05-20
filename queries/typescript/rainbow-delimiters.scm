@@ -1,5 +1,13 @@
 ; inherits: javascript
 
+(interface_body
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
+(enum_body
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
 (type_arguments
   "<" @delimiter
   ">" @delimiter @sentinel) @container
