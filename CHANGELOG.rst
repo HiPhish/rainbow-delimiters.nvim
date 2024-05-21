@@ -34,8 +34,20 @@ Added
   - `tuple`
   - `unit`
 
+Changed
+=======
+
+- Renamed C# patterns:
+  - `for_each_statement` to `foreach_statement`
+  - `type_of_expression` to `typeof_expression`
+  - `size_of_expression` to `sizeof_expression`
+  - `implicit_stack_alloc_array_creation_expression` to `implicit_stackalloc_expression`
+
 Removed
 =======
+
+- Deprecated patterns for C#:
+  - `interpolation`
 
 - Deprecated patterns for Java:
   - `condition`
