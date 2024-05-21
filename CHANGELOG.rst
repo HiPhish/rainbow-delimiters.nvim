@@ -24,12 +24,41 @@ Added
 - Missing patterns for Typescript:
    - `enum_body`
    - `interface_body`
+- Missing patterns for Haskell:
+  - `children`
+  - `fields`
+  - `list`
+  - `parens`
+  - `prefix_id`
+  - `record`
+  - `tuple`
+  - `unit`
 
 Removed
 =======
 
 - Deprecated patterns for Java:
   - `condition`
+- Deprecated patterns for Haskell:
+  - `con_list`
+  - `context`
+  - `deriving`
+  - `exp_arithmetic_sequence`
+  - `exp_lambda`
+  - `exp_list_comprehension`
+  - `exp_list`
+  - `exp_name`
+  - `exp_record`
+  - `exp_section_right`
+  - `pat_fields`
+  - `pat_list`
+  - `pat_parens`
+  - `pat_tuple`
+  - `record_fields`
+  - `type_list`
+  - `type_parens`
+  - `type_tuple`
+  - `type_tuple`
 
 
 [0.4.0] - 2024-05-07
