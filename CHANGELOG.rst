@@ -16,15 +16,22 @@ Added
 =====
 
 - Missing patterns for Common Lisp:
-   - `loop_macro`
+
+  - `loop_macro`
+
 - Missing patterns for Javascript:
-   - `array_pattern`
-   - `for_in_statement`
-   - `for_statement`
+
+  - `array_pattern`
+  - `for_in_statement`
+  - `for_statement`
+
 - Missing patterns for Typescript:
+
    - `enum_body`
    - `interface_body`
+
 - Missing patterns for Haskell:
+
   - `children`
   - `fields`
   - `list`
@@ -38,6 +45,7 @@ Changed
 =======
 
 - Renamed C# patterns:
+
   - `for_each_statement` to `foreach_statement`
   - `type_of_expression` to `typeof_expression`
   - `size_of_expression` to `sizeof_expression`
@@ -47,11 +55,15 @@ Removed
 =======
 
 - Deprecated patterns for C#:
+
   - `interpolation`
 
 - Deprecated patterns for Java:
+
   - `condition`
+
 - Deprecated patterns for Haskell:
+
   - `con_list`
   - `context`
   - `deriving`
@@ -86,43 +98,60 @@ Added
 - Typst support
 - XML support
 - Missing patterns for Java:
-   - `array_initializer`
-   - `annotation_argument_list`
-   - `catch_clause`
-   - `condition`
-   - `constructor_body`
-   - `dimensions_expr`
-   - `enhanced_for_statement`
-   - `for_statement`
-   - `inferred_parameters`
-   - `parenthesized_expression`
-   - `resource_specification`
-   - `cast_expression`
+
+  - `array_initializer`
+  - `annotation_argument_list`
+  - `catch_clause`
+  - `condition`
+  - `constructor_body`
+  - `dimensions_expr`
+  - `enhanced_for_statement`
+  - `for_statement`
+  - `inferred_parameters`
+  - `parenthesized_expression`
+  - `resource_specification`
+  - `cast_expression`
+
 - Missing patterns for Go:
-   - `type_assertion_expression`
+
+  - `type_assertion_expression`
+
 - Missing patterns for Julia:
-   - `curly_expression`
-   - `tuple_expression`
+
+  - `curly_expression`
+  - `tuple_expression`
+
 - Missing patterns for Lua:
-   - `field`
+
+  - `field`
+
 - Missing patterns for Luadoc:
-   - `indexed_field`
-   - `tuple_type`
+
+  - `indexed_field`
+  - `tuple_type`
+
 - Missing patterns for Python:
-   - `dict_pattern`
-   - `import_from_statement`
-   - `interpolation` (literal string interpolation)
-   - `list_pattern`
-   - `tuple_pattern`
+
+  - `dict_pattern`
+  - `import_from_statement`
+  - `interpolation` (literal string interpolation)
+  - `list_pattern`
+  - `tuple_pattern`
+
 - Missing patterns for R:
-   -  `for`
-   -  `while`
-   -  `switch`
-   -  `function_definition`
+
+  -  `for`
+  -  `while`
+  -  `switch`
+  -  `function_definition`
+
 - Missing patterns for Rust:
-   - `array_type`
+
+  - `array_type`
+
 - Missing patterns for Starlark:
-   - `tuple_pattern`
+
+  - `tuple_pattern`
 
 Fixed
 =====
@@ -153,27 +182,41 @@ Added
 
 - Starlark support
 - Missing patterns for Bash:
-   - `array`
-   - `function_definition`
-   - `arithmetic_expansion`
-   - `compound_statement`
-   - `subscript`
+
+  - `array`
+  - `function_definition`
+  - `arithmetic_expansion`
+  - `compound_statement`
+  - `subscript`
+
 - Missing patterns for C:
-   - `enumerator_list`
-   - `macro_type_specifier`
-   - `preproc_params`
-   - `compound_literal_expression`
-   - `parenthesized_declarator`
+
+  - `enumerator_list`
+  - `macro_type_specifier`
+  - `preproc_params`
+  - `compound_literal_expression`
+  - `parenthesized_declarator`
+
 - Missing patterns for Elixir:
-   - `access_call`
+
+  - `access_call`
+
 - Missing patterns for Fennel:
-   - `table_binding`
+
+  - `table_binding`
+
 - New query for language `query`:
-   - `rainbow-blocks`
+
+  - `rainbow-blocks`
+
 - New query for language `javascript`:
-   - `rainbow-tags-react`
+
+  - `rainbow-tags-react`
+
 - New query for language `tsx`:
-   - `rainbow-tags-react`
+
+  - `rainbow-tags-react`
+
 - New Christmas strategy module `rainbow-delimiters.strategy.christmas` (not
   loaded by default)
 
@@ -207,27 +250,38 @@ Fixed
 - Type error in local strategy
 - Log error in local strategy (Neovim <0.10 only)
 - Missing patterns for CSS
-   - `feature_query`
-   - `arguments`
-   - `attribute_selector`
+
+  - `feature_query`
+  - `arguments`
+  - `attribute_selector`
+
 - Missing patterns for Go
-   - `array_type`
-   - `slice_expression`
+
+  - `array_type`
+  - `slice_expression`
+
 - Missing patterns for HCL
-   - `for_tuple_expr`
-   - `new_index`
-   - `expression`
-   - `binary_operation`
-   - `for_object_expr`
-   - `template_interpolation`
-   - `unary_operation`
+
+  - `for_tuple_expr`
+  - `new_index`
+  - `expression`
+  - `binary_operation`
+  - `for_object_expr`
+  - `template_interpolation`
+  - `unary_operation`
+
 - Missing pattern for Javascript and Typescript
-   - `switch_body`
+
+  - `switch_body`
+
 - Missing patterns for Nix
-   - `rec_attrset_expression`
-   - `inherit_from`
+
+  - `rec_attrset_expression`
+  - `inherit_from`
+
 - Missing pattern for SCSS
-   - `parameters`
+
+  - `parameters`
 
 Changed
 =======
