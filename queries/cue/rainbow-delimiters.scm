@@ -2,6 +2,10 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(index_expression
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
 (list_lit
   "[" @delimiter
   "]" @delimiter @sentinel) @container
@@ -15,6 +19,10 @@
   ")" @delimiter @sentinel) @container
 
 (attribute
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(dynamic
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 

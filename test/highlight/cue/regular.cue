@@ -23,3 +23,5 @@ elems: {
 
 _env:  string | *"dev" @tag(env,type=string)
 host: "\(_env).example.com"
+
+environments: (_env): "\(numList[1])"
