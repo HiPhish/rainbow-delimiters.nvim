@@ -15,6 +15,13 @@ Unreleased
 Added
 =====
 
+- Missing patterns for C++:
+
+  - `condition_clause`
+  - `for_statement`
+  - `cast_expression`
+  - `array_declarator`
+
 - Missing patterns for Common Lisp:
 
   - `loop_macro`

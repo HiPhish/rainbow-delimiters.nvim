@@ -8,6 +8,10 @@
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
+(condition_clause
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (parenthesized_expression
   "(" @delimiter
   ")" @delimiter @sentinel) @container
@@ -16,9 +20,21 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(for_statement
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(cast_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel)
+
 (initializer_list
   "{" @delimiter
   "}" @delimiter @sentinel) @container
+
+(array_declarator
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (subscript_argument_list
   "[" @delimiter
