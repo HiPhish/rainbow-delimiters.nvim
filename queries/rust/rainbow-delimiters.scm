@@ -131,3 +131,7 @@
 (visibility_modifier
   "(" @delimiter
   ")" @delimiter @sentinel) @container
+
+(bracketed_type
+  "<" @delimiter
+  ">" @delimiter @sentinel) @container

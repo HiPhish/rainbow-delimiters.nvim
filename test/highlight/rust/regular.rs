@@ -130,6 +130,8 @@ fn main() {
 
     let test_tuple: (u32, u32) = (0, 1);
     tuple_param(test_tuple);
+
+    let a = <u32 as From<u8>>::from(1u8);
 }
 
 use level_1::{
