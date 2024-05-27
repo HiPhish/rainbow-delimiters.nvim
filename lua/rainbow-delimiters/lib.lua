@@ -15,12 +15,13 @@
    limitations under the License.
 --]]
 
-local api = vim.api
-local get_query = vim.treesitter.query.get
+local api        = vim.api
+local get_query  = vim.treesitter.query.get
 local get_parser = vim.treesitter.get_parser
-local log = require("rainbow-delimiters.log")
-local config = require("rainbow-delimiters.config")
-local util = require("rainbow-delimiters.util")
+local log        = require 'rainbow-delimiters.log'
+local config     = require 'rainbow-delimiters.config'
+local util       = require 'rainbow-delimiters.util'
+
 
 ---[ Internal ]----------------------------------------------------------------
 -- The following symbols should only be used internally. In particular, they
@@ -38,7 +39,7 @@ M.nsids = setmetatable({}, {
 	__index = function(t, k)
 		local result = rawget(t, k)
 		if result == nil then
-			result = vim.api.nvim_create_namespace("")
+			result = vim.api.nvim_create_namespace('')
 			rawset(t, k, result)
 		end
 		return result
@@ -46,9 +47,10 @@ M.nsids = setmetatable({}, {
 	-- Note: this will only catch new indices, not assignment to an already
 	-- existing key
 	__newindex = function(_, _, _)
-		error("Table is immutable")
-	end,
+		error('Table is immutable')
+	end
 })
+
 
 ---Keeps track of attached buffers.  The key is the buffer number and the value
 ---is a table of information about that buffer (e.g. language, strategy,
@@ -56,6 +58,7 @@ M.nsids = setmetatable({}, {
 ---prevent them from being garbage-collected.
 ---@type table<integer, rainbow_delimiters.buffer_settings | false>
 M.buffers = {}
+
 
 ---[ This stuff needs to be re-exported ]--------------------------------------
 -- The following entries can be used in the public API as well.
@@ -68,16 +71,16 @@ M.buffers = {}
 ---@param bufnr integer  Use this buffer as the current buffer
 ---@return Query? query  The query object
 function M.get_query(lang, bufnr)
-	local name = config["query"][lang]
+	local name = config['query'][lang]
 	if type(name) == "function" then
 		name = name(bufnr)
 	end
 	local query = get_query(lang, name)
 
 	if not query then
-		log.debug("Query %s not found for %s", name, lang)
+		log.debug('Query %s not found for %s', name, lang)
 	else
-		log.trace("Query %s found for %s", name, lang)
+		log.trace('Query %s found for %s', name, lang)
 	end
 	return query
 end
@@ -91,15 +94,15 @@ function M.highlight(bufnr, lang, node, hlgroup)
 	-- range of the capture, zero-indexed
 	local startRow, startCol, endRow, endCol = node:range()
 
-	local start, finish = { startRow, startCol }, { endRow, endCol - 1 }
+	local start, finish = {startRow, startCol}, {endRow, endCol - 1}
 	local priority = config.priority[lang]
 	if type(priority) == "function" then
 		priority = priority(bufnr)
 	end
 	local opts = {
-		regtype = "v",
+		regtype   = 'v',
 		inclusive = true,
-		priority = priority,
+		priority  = priority,
 	}
 
 	local nsid = M.nsids[lang]
@@ -109,6 +112,7 @@ function M.highlight(bufnr, lang, node, hlgroup)
 	end
 end
 
+
 ---Get the appropriate highlight group for the given level of nesting.
 ---@param i integer  One-based index into the highlight groups
 ---@return string hlgroup  Name of the highlight groups
@@ -116,6 +120,7 @@ function M.hlgroup_at(i)
 	local hlgroups = config.highlight
 	return hlgroups[(i - 1) % #hlgroups + 1]
 end
+
 
 ---Clears the reserved Rainbow namespace.
 ---
@@ -134,16 +139,14 @@ end
 ---@param bufnr integer
 function M.attach(bufnr)
 	-- Rainbow delimiters was explicitly disabled for this buffer
-	if M.buffers[bufnr] == false then
-		return
-	end
+	if M.buffers[bufnr] == false then return end
 
 	local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].ft)
 	if not lang then
-		log.trace("Cannot attach to buffer %d, no parser for %s", bufnr, lang)
+		log.trace('Cannot attach to buffer %d, no parser for %s', bufnr, lang)
 		return
 	end
-	log.trace("Attaching to buffer %d with language %s.", bufnr, lang)
+	log.trace('Attaching to buffer %d with language %s.', bufnr, lang)
 
 	local settings = M.buffers[bufnr]
 	if settings then
@@ -166,15 +169,13 @@ function M.attach(bufnr)
 	do
 		local success
 		success, parser = pcall(get_parser, bufnr, lang)
-		if not success then
-			return
-		end
+		if not success then return end
 	end
 
 	local strategy
 	do
 		strategy = config.strategy[lang]
-		if type(strategy) == "function" then
+		if type(strategy) == 'function' then
 			strategy = strategy(bufnr)
 		end
 	end
@@ -183,30 +184,26 @@ function M.attach(bufnr)
 	-- for this buffer, usually by setting a strategy- or query function which
 	-- returned nil.
 	if not strategy then
-		log.warn("No strategy defined for %s", lang)
+		log.warn('No strategy defined for %s', lang)
 	end
-	if not strategy or strategy == vim.NIL then
-		return
-	end
+	if not strategy or strategy == vim.NIL then return end
 
-	parser:register_cbs({
+	parser:register_cbs {
 		---@param bnr integer
 		on_detach = function(bnr)
-			if not M.buffers[bnr] then
-				return
-			end
+			if not M.buffers[bnr] then return end
 			M.detach(bufnr)
 		end,
 		---@param child LanguageTree
 		on_child_removed = function(child)
 			M.clear_namespace(bufnr, child:lang())
 		end,
-	})
+	}
 
 	settings = {
 		strategy = strategy,
-		parser = parser,
-		lang = lang,
+		parser   = parser,
+		lang     = lang
 	}
 	M.buffers[bufnr] = settings
 
@@ -214,7 +211,7 @@ function M.attach(bufnr)
 	-- them.
 	local success, error = pcall(strategy.on_attach, bufnr, settings)
 	if not success then
-		log.error("Error attaching strategy to buffer %d: %s", bufnr, error)
+		log.error('Error attaching strategy to buffer %d: %s', bufnr, error)
 		M.buffers[bufnr] = nil
 	end
 end
@@ -222,7 +219,7 @@ end
 ---Start rainbow highlighting for the given buffer
 ---@param bufnr integer
 function M.detach(bufnr)
-	log.trace("Detaching from buffer %d.", bufnr)
+	log.trace('Detaching from buffer %d.', bufnr)
 	if not M.buffers[bufnr] then
 		return
 	end
@@ -241,7 +238,7 @@ function M.detach(bufnr)
 	-- them.
 	local success, error = pcall(strategy.on_detach, bufnr)
 	if not success then
-		log.error("Error detaching strategy from buffer %d: %s", bufnr, error)
+		log.error('Error detaching strategy from buffer %d: %s', bufnr, error)
 	end
 	M.buffers[bufnr] = nil
 end
