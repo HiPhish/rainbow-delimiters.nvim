@@ -26,6 +26,12 @@ Added
 
   - `loop_macro`
 
+- Missing patterns for Cue:
+
+  - `dynamic`
+  - `index_expression`
+
+
 - Missing patterns for Javascript:
 
   - `array_pattern`
