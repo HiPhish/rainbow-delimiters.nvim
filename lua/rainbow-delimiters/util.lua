@@ -27,8 +27,8 @@ local M = {}
 ---replacement.
 ---@param parent_lang string? # Parent language or nil
 ---@param lang string
----@param language_tree LanguageTree
----@param thunk fun(p: LanguageTree, lang: string, parent_lang: string?)
+---@param language_tree vim.treesitter.LanguageTree
+---@param thunk fun(p: vim.treesitter.LanguageTree, lang: string, parent_lang: string?)
 function M.for_each_child(parent_lang, lang, language_tree, thunk)
 	thunk(language_tree, lang, parent_lang)
 	local children = language_tree:children()

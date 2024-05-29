@@ -15,7 +15,7 @@
 
 ---@class (exact) rainbow_delimiters.buffer_settings
 ---@field strategy rainbow_delimiters.strategy
----@field parser LanguageTree
+---@field parser vim.treesitter.LanguageTree
 ---@field lang string
 
 

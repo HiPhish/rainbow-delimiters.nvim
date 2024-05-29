@@ -165,7 +165,7 @@ end
 
 ---Update highlights for every tree in given buffer.
 ---@param bufnr integer # Buffer number
----@param parser LanguageTree
+---@param parser vim.treesitter.LanguageTree
 local function full_update(bufnr, parser)
 	log.debug('Performing full updated on buffer %d', bufnr)
 	local function callback(tree, sub_parser)
@@ -179,7 +179,7 @@ end
 
 ---Sets up all the callbacks and performs an initial highlighting
 ---@param bufnr integer # Buffer number
----@param parser LanguageTree
+---@param parser vim.treesitter.LanguageTree
 ---@param start_parent_lang string? # Parent language or nil
 local function setup_parser(bufnr, parser, start_parent_lang)
 	log.debug('Setting up parser for buffer %d', bufnr)
@@ -261,7 +261,7 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 			end,
 			-- New languages can be added into the text at some later time, e.g.
 			-- code snippets in Markdown
-			---@param child LanguageTree
+			---@param child vim.treesitter.LanguageTree
 			on_child_added = function(child)
 				setup_parser(bufnr, child, lang)
 			end,

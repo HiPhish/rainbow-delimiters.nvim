@@ -15,7 +15,6 @@
    limitations under the License.
 --]]
 
-local api        = vim.api
 local get_query  = vim.treesitter.query.get
 local get_parser = vim.treesitter.get_parser
 local log        = require 'rainbow-delimiters.log'
@@ -69,7 +68,7 @@ M.buffers = {}
 ---
 ---@param lang  string   Name of the language to get the query for
 ---@param bufnr integer  Use this buffer as the current buffer
----@return Query? query  The query object
+---@return vim.treesitter.Query? query  The query object
 function M.get_query(lang, bufnr)
 	local name = config['query'][lang]
 	if type(name) == "function" then
@@ -194,7 +193,7 @@ function M.attach(bufnr)
 			if not M.buffers[bnr] then return end
 			M.detach(bufnr)
 		end,
-		---@param child LanguageTree
+		---@param child vim.treesitter.LanguageTree
 		on_child_removed = function(child)
 			M.clear_namespace(bufnr, child:lang())
 		end,

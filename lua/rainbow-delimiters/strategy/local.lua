@@ -235,7 +235,7 @@ end
 ---Callback function to re-highlight the buffer according to the current cursor
 ---position.
 ---@param bufnr integer
----@param parser LanguageTree
+---@param parser vim.treesitter.LanguageTree
 local function local_rainbow(bufnr, parser)
 	parser:for_each_tree(function(tree, sub_parser)
 		update_local(bufnr, tree, sub_parser:lang())
@@ -244,7 +244,7 @@ end
 
 ---Sets up all the callbacks and performs an initial highlighting
 ---@param bufnr integer # Buffer number
----@param parser LanguageTree
+---@param parser vim.treesitter.LanguageTree
 local function setup_parser(bufnr, parser)
 	log.debug('Setting up parser for buffer %d', bufnr)
 	util.for_each_child(nil, parser:lang(), parser, function(p, lang, _parent_lang)
@@ -274,7 +274,7 @@ local function setup_parser(bufnr, parser)
 			end,
 			-- New languages can be added into the text at some later time, e.g.
 			-- code snippets in Markdown
-			---@param child LanguageTree
+			---@param child vim.treesitter.LanguageTree
 			on_child_added = function(child)
 				setup_parser(bufnr, child)
 			end,
