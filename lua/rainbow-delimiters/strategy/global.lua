@@ -88,7 +88,30 @@ local function update_range(bufnr, changes, tree, lang)
 		local start_row, end_row = change[1], change[3] + 1
 		lib.clear_namespace(bufnr, lang, start_row, end_row)
 
-		for qid, node, _ in query:iter_captures(root_node, bufnr, start_row, end_row) do
+		local root_start, _, root_end, _ = root_node:range()
+		local not_root = start_row ~= root_start or end_row ~= root_end + 1
+		local sentinels = {}
+		if not_root then
+			for _, match, _ in query:iter_matches(root_node, bufnr, start_row, end_row, { all = true }) do
+				local sentinel_row
+				local container_id
+				for id, nodes in pairs(match) do
+					local name = query.captures[id]
+					if name == 'sentinel' then
+						for _, node in ipairs(nodes) do
+							sentinel_row, _, _ = node:end_()
+						end
+					elseif name == 'container' then
+						for _, node in ipairs(nodes) do
+							container_id = node:id()
+						end
+					end
+				end
+				sentinels[container_id] = sentinel_row
+			end
+		end
+
+		for qid, node, _, _ in query:iter_captures(root_node, bufnr, start_row, end_row) do
 			local name = query.captures[qid]
 			-- check for 'delimiter' first, since that should be the most
 			-- common name
@@ -99,11 +122,22 @@ local function update_range(bufnr, changes, tree, lang)
 			elseif name == 'container' then
 				-- temporarily push the match_record to matches to be retrieved
 				-- later, since we haven't closed it yet
-				matches:push(match_record)
-				match_record = new_match_record()
-				-- since we didn't close the previous match_record, it must
-				-- mean that the current match_record has it as an ancestor
-				match_record.has_ancestor = true
+				if not_root and match_record and match_record.delimiter:size() == 0 then
+					local sentinel_row = sentinels[node:id()]
+					-- only push the match_record if the new match is relevant
+					-- otherwise ignore this container
+					if sentinel_row >= start_row then
+						matches:push(match_record)
+						match_record = new_match_record()
+						match_record.has_ancestor = true
+					end
+				else
+					matches:push(match_record)
+					match_record = new_match_record()
+					-- since we didn't close the previous match_record, it must
+					-- mean that the current match_record has it as an ancestor
+					match_record.has_ancestor = true
+				end
 			elseif name == 'sentinel' and match_record then
 				-- if we see the sentinel, then we are done with the current
 				-- container
