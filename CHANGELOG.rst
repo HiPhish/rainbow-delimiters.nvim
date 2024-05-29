@@ -15,6 +15,8 @@ Unreleased
 Added
 =====
 
+- WebGL Shading Language (WGSL) support
+
 - Missing patterns for C++:
 
   - `condition_clause`
@@ -37,6 +39,10 @@ Added
   - `array_pattern`
   - `for_in_statement`
   - `for_statement`
+
+- Missing patterns for Rust:
+
+  - `bracketed_type`
 
 - Missing patterns for Typescript:
 
