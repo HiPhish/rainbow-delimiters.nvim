@@ -22,8 +22,9 @@ TABLE OF CONTENTS                                     *rb-delimiters-contents*
    3.2 Custom queries ........................ |rb-delimiters-custom-query|
    3.3 Custom strategies ..................... |rb-delimiters-custom-strategy|
    3.4 Adding new languages .................. |rb-delimiters-custom-lang|
-4. Acknowledgements .......................... |rb-delimiters-credit|
-5. Further reading ........................... |rb-delimiters-reading|
+4. Recipes ................................... |rb-delimiters-recipes|
+5. Acknowledgements .......................... |rb-delimiters-credit|
+6. Further reading ........................... |rb-delimiters-reading|
 
 
 ==============================================================================
@@ -696,6 +697,24 @@ ADDING SUPPORT FOR NEW LANGUAGES                   *rb-delimiters-custom-lang*
 Supporting a new new language requires creating one or more queries for the
 language.  If the query is mature enough please consider upstreaming it so
 everyone can benefit.
+
+
+==============================================================================
+RECIPES                                                *rb-delimiters-recipes*
+
+Various tricks and hacks which have accumulated over time.
+
+
+------------------------------------------------------------------------------
+DISABLE WITHOUT BLACKLISTING
+
+If you wish to disable rainbow delimiters for a language but for whatever
+reason you do not want to blacklist this language you can create a custom
+query (|rb-delimiters-custom-query|) without any patterns.  Then set the name
+of that query as the query for that language (|rb-delimiters-query|).
+
+Or you could name your custom query the same as the default query (by default
+`rainbow-delimiters`), then you do not have to change your configuration.
 
 
 ==============================================================================

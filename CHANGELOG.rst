@@ -15,6 +15,8 @@ Unreleased
 Added
 =====
 
+- Recipes section in the manual
+
 - WebGL Shading Language (WGSL) support
 
 - Missing patterns for C++:
