@@ -1,0 +1,26 @@
+{# This is a comment #}
+
+{% extends 'some/other/template.html' %}
+{% load some_lib %}
+
+
+{% block content %}
+<ul>
+	{% for user in users %}
+		<li>
+			{{ user.name }}
+			{% if user == current_user %}
+				(you)
+			{% endif %}
+		</li>
+	{% endfor %}
+</ul>
+
+<div>
+	<h3>Some title</h3>
+	<p>
+		This is some <em><strong>dummy</strong></em> template for testing.
+	</p>
+	<hr />
+</div>
+{% endblock %}
