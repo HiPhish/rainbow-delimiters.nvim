@@ -1,5 +1,14 @@
 local yd = require 'yo-dawg'
 
+---Convenience wrapper around `vim.api.nvim_replace_termcodes` which turns a
+---string of key sequences with special keys into a regular Lua string.
+---@param keys string
+---@return string s  A regular Lua string
+local function rtc(keys)
+	return vim.api.nvim_replace_termcodes(keys, true, false, true)
+end
+
+
 describe('The global strategy', function()
 	local nvim
 
@@ -35,8 +44,7 @@ describe('The global strategy', function()
 
 		-- Add a new pair of curly braces
 		-- (jump to first column, find the first closing brace, insert new pair)
-		local keys = vim.api.nvim_replace_termcodes('gg0f}i{}<esc>', true, false, true)
-		nvim:feedkeys(keys, 'n', false)
+		nvim:feedkeys(rtc'gg0f}i{}<esc>', 'n', false)
 		assert.is.same({'print({{{{{{}}}}}})'}, nvim:buf_get_lines(0, 0, 1, true))
 
 		assert.nvim(nvim).Not.has_extmarks_at(0, 5, 'lua')
@@ -90,10 +98,28 @@ return foo]]
 		nvim:buf_set_option(0, 'filetype', 'lua')
 		-- Insert the line "		b = print('b'),"
 		nvim:win_set_cursor(0, {3, 0})
-		local keys = vim.api.nvim_replace_termcodes("ob = print('b'),<esc>", true, false, true)
-		nvim:feedkeys(keys, '', false)
+		nvim:feedkeys(rtc"ob = print('b'),<esc>", '', false)
 
 		assert.nvim(nvim).has_extmarks_at(2, 11, 'lua')
 		assert.nvim(nvim).has_extmarks_at(3, 11, 'lua')
+	end)
+
+	it('Preserves nested highlighting when entering insert mode', function()
+		-- See https://github.com/HiPhish/rainbow-delimiters.nvim/pull/121
+
+		local content = [[local tmp = {
+	[1] = { 1 },
+	[2] = {
+		a = print(),
+	},
+}]]
+		nvim:buf_set_lines(0, 0, -1, true, vim.fn.split(content, '\n'))
+		nvim:buf_set_option(0, 'filetype', 'lua')
+		-- Make a change inside the parentheses
+		nvim:win_set_cursor(0, {4, 11})
+		nvim:feedkeys(rtc'a <esc>', '', false)
+
+		local hl_group = require('rainbow-delimiters.config').highlight[3]
+		assert.nvim(nvim).has_extmarks_at(3, 11, 'lua', hl_group)
 	end)
 end)
