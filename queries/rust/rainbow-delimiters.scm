@@ -62,6 +62,10 @@
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
+(token_tree
+  "<" @delimiter
+  ">" @delimiter @sentinel) @container
+
 (token_tree_pattern
   "(" @delimiter
   ")" @delimiter @sentinel) @container
