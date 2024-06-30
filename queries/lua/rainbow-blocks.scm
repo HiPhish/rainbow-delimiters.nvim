@@ -42,7 +42,7 @@
   "end" @delimiter @sentinel) @container
 
 
-;;; Copied over from rainbow-parens
+;;; Copied over from rainbow-delimiters
 
 (arguments
   "(" @delimiter

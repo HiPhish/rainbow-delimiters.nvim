@@ -19,7 +19,7 @@ local Stack = require 'rainbow-delimiters.stack'
 local lib   = require 'rainbow-delimiters.lib'
 local util  = require 'rainbow-delimiters.util'
 local log   = require 'rainbow-delimiters.log'
-local ts    = vim.treesitter
+-- local ts    = vim.treesitter
 
 
 ---Strategy which highlights the entire buffer.
@@ -54,6 +54,46 @@ local function highlight_matches(bufnr, lang, matches, level)
 	end
 end
 
+---@param child table
+---@param parent Stack
+local function put_child_into_parent(child, parent)
+	local child_range = child.container
+	local child_start_row, child_start_col = child_range[1], child_range[2]
+	local child_sentinel = child.sentinel
+	local child_sentinel_row, child_sentinel_col = child_sentinel[1], child_sentinel[2]
+
+	for _, current_child in parent:iter() do
+		local cur_child_range = current_child.container
+		local cur_start_row, cur_start_col = cur_child_range[1], cur_child_range[2]
+		local cur_sentinel = current_child.sentinel
+		local cur_sentinel_row, cur_sentinel_col = cur_sentinel[1], cur_sentinel[2]
+
+		if
+			(cur_start_row < child_start_row
+				or (cur_start_row == child_start_row and cur_start_col <= child_start_col))
+			and
+			(child_sentinel_row < cur_sentinel_row
+				or (child_sentinel_row == cur_sentinel_row and child_sentinel_col <= cur_sentinel_col))
+		then
+			put_child_into_parent(child, current_child.children)
+			return
+		elseif
+			(child_start_row < cur_start_row
+				or (child_start_row == cur_start_row and child_start_col <= cur_start_col))
+			and
+			(cur_sentinel_row < child_sentinel_row
+				or (cur_sentinel_row == child_sentinel_row and cur_sentinel_col <= child_sentinel_col))
+		then
+			put_child_into_parent(current_child, child.children)
+			parent:pop()
+		else
+			break
+		end
+	end
+
+	parent:push(child)
+end
+
 ---Update highlights for a range. Called every time text is changed.
 ---@param bufnr   integer  Buffer number
 ---@param changes table   List of node ranges in which the changes occurred
@@ -80,7 +120,7 @@ local function update_range(bufnr, changes, tree, lang)
 			-- each match. We start with the root_node as the container, but
 			-- we will update this later.
 			local match_record = {
-				container = root_node,
+				container = {root_node:range()},
 				delimiter = Stack.new(),
 				children = Stack.new(),
 				sentinel = nil, ---@type integer[]?
@@ -94,7 +134,7 @@ local function update_range(bufnr, changes, tree, lang)
 						match_record.delimiter:push(node)
 					elseif name == 'container' then
 						-- we update the container here
-						match_record.container = node
+						match_record.container = {node:range()}
 					elseif name == 'sentinel' then
 						-- if a sentinel is given, we save the position here
 						local sentinel_row, sentinel_col, _ = node:end_()
@@ -102,30 +142,44 @@ local function update_range(bufnr, changes, tree, lang)
 					end
 				end
 			end
+			if match_record.sentinel == nil then
+				match_record.sentinel  = { match_record.container[3], match_record.container[4] }
+			end
 
-			-- if sentinel_row is not nil, then sentinel_col is also
-			-- not nil
 			for _, other in matches:iter() do
-				local sentinel = other.sentinel ---@type integer[]?
-				if sentinel then
-					local this_row, this_col, _ = match_record.container:start()
-					local sentinel_row, sentinel_col = sentinel[1], sentinel[2]
-					if this_row > sentinel_row or (this_row == sentinel_row and this_col > sentinel_col) then
-						-- if other starts after the sentinel, then it should
-						-- not be included with the children of the current
-						-- match_record
-						break
-					end
+				local match_range = match_record.container
+				local other_range = other.container
+				local match_start_row, match_start_col = match_range[1], match_range[2]
+				local other_start_row, other_start_col = other_range[1], other_range[2]
+
+				local match_sentinel = match_record.sentinel ---@type integer[]
+				local match_sentinel_row, match_sentinel_col = match_sentinel[1], match_sentinel[2]
+				local other_sentinel = other.sentinel ---@type integer[]
+				local other_sentinel_row, other_sentinel_col = other_sentinel[1], other_sentinel[2]
+
+				if
+					(match_start_row < other_start_row
+						or (match_start_row == other_start_row and match_start_col <= other_start_col))
+					and
+					(other_sentinel_row < match_sentinel_row
+						or (other_sentinel_row == match_sentinel_row and other_sentinel_col <= match_sentinel_col))
+				then
+					put_child_into_parent(other, match_record.children)
+					matches:pop()
+				elseif
+					(other_start_row < match_start_row
+						or (other_start_row == match_start_row and other_start_col <= match_start_col))
+					and
+					(match_sentinel_row < other_sentinel_row
+						or (match_sentinel_row == other_sentinel_row and match_sentinel_col <= other_sentinel_col))
+				then
+					local child = match_record
+					match_record = other
+					put_child_into_parent(child, match_record.children)
+					matches:pop()
 				else
-					if not ts.is_ancestor(match_record.container, other.container) then
-						-- if other is not in the match_record container, then it
-						-- should not be included with the children of the current
-						-- match_record
-						break
-					end
+					break
 				end
-				match_record.children:push(other)
-				matches:pop()
 			end
 			matches:push(match_record)
 		end
