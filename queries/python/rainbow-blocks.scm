@@ -1,7 +1,7 @@
 ; Block specific
 (function_definition
   "def" @delimiter
-  "->" @delimiter
+  "->"? @delimiter
   ":" @delimiter) @container
 
 (for_statement

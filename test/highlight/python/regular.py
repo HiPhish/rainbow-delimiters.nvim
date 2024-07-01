@@ -44,6 +44,7 @@ dict_comp = {k: v for k, v in {k: v for k, v in {'k': 'v'}.items()}
              if k == 'k'}
 set_comp = {i for i in {j for j in range(5)} if i % 2 == 0}
 gen_comp = (i for i in (j for j in range(5)) if i % 2 == 0)
+tuple_in_list_comp = [(i,j) for i in range(5) for j in range(5)]
 
 match my_dict:
     case {'x': {'x': {'x': message}}}:
