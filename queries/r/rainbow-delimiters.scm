@@ -1,36 +1,36 @@
-(call
+(arguments
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(subset
+(arguments
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
-(subset2
+(arguments
   "[[" @delimiter
   "]]" @delimiter @sentinel) @container
 
-(if
+(if_statement
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(for
+(for_statement
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(while
+(while_statement
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(switch
+(arguments
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
 (function_definition
-  (formal_parameters
+  (parameters
     "(" @delimiter
     ")" @delimiter @sentinel)) @container
 
-(brace_list
+(braced_expression
   "{" @delimiter
   "}" @delimiter @sentinel) @container
