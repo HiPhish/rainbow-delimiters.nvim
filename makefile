@@ -25,13 +25,16 @@
 
 .PHONY: check unit-test e2e-test clean
 
-check: unit-test e2e-test
+check: unit-test e2e-test highlight-test
 
 unit-test:
 	@./test/busted --run unit
 
 e2e-test:
 	@./test/busted --run e2e
+
+highlight-test:
+	@./test/busted --run highlight
 
 clean:
 	@rm -rf test/xdg/local/state/nvim/*

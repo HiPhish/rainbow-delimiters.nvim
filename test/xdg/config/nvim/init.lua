@@ -6,9 +6,11 @@ vim.opt.runtimepath:append(vim.fn.getcwd())
 -- every file type change.
 
 
-local function on_file_type(_args)
-	vim.treesitter.start()
+local function on_buf_win_enter(_args)
+	if vim.bo.filetype ~= '' then
+		vim.treesitter.start()
+	end
 end
 
 
-vim.api.nvim_create_autocmd('FileType', {pattern = '*', callback = on_file_type})
+vim.api.nvim_create_autocmd('BufWinEnter', {pattern = '*', callback = on_buf_win_enter})

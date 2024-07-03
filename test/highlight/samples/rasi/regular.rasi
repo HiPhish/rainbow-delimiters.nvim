@@ -18,3 +18,6 @@ mainbox {
   background-image: linear-gradient(to bottom, darkgreen/50%, black/70%);
   children: [inputbar, listview];
 }
+
+
+// vim:ft=rasi

@@ -1,6 +1,11 @@
 -- Custom configuration for Busted
 
-local say = require 'say'
+-- If busted is not available this configuration is not running as part of a
+-- test, so there is nothing to do.
+local success, say = pcall(require, 'say')
+if not success then
+	return
+end
 local assert = require 'luassert'
 
 
