@@ -74,6 +74,8 @@ Changed
   - `size_of_expression` to `sizeof_expression`
   - `implicit_stack_alloc_array_creation_expression` to `implicit_stackalloc_expression`
 
+- Updated R patterns for current parser
+
 Removed
 =======
 
