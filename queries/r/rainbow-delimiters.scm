@@ -22,10 +22,6 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(arguments
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
 (function_definition
   (parameters
     "(" @delimiter
