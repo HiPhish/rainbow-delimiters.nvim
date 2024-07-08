@@ -17,6 +17,16 @@ union TestUnion {
     val_2: u32,
 }
 
+struct Generic<T> {
+    t: T,
+}
+
+impl<T> Generic<T> {
+    fn new(t: T) -> Generic<T> {
+        Generic { t }
+    }
+}
+
 #[derive(Default, Debug)]
 struct TupleStruct(u32);
 
@@ -131,7 +141,10 @@ fn main() {
     let test_tuple: (u32, u32) = (0, 1);
     tuple_param(test_tuple);
 
-    let a = <u32 as From<u8>>::from(1u8);
+    let bracketed_type = <u32 as From<u8>>::from(1u8);
+
+    let generic = Generic::<u8>::new(1);
+    let generic_in_macro = vec![Generic::<u8>::new(1)];
 }
 
 use level_1::{
