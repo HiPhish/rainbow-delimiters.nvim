@@ -19,6 +19,7 @@ local Stack = require 'rainbow-delimiters.stack'
 local lib   = require 'rainbow-delimiters.lib'
 local util  = require 'rainbow-delimiters.util'
 local log   = require 'rainbow-delimiters.log'
+-- local ts    = vim.treesitter
 
 
 ---Strategy which highlights the entire buffer.
@@ -34,7 +35,7 @@ local function normalize_change(change)
 	if #change == 4 then
 		result = change
 	elseif #change == 6 then
-		result = {change[1], change[2], change[4], change[5]}
+		result = { change[1], change[2], change[4], change[5] }
 	else
 		result = {}
 	end
@@ -53,14 +54,44 @@ local function highlight_matches(bufnr, lang, matches, level)
 	end
 end
 
+---@param child table
+---@param parent Stack
+local function put_child_into_parent(child, parent)
+	local child_range = child.container
+	local child_start_row, child_start_col = child_range[1], child_range[2]
+	local child_sentinel = child.sentinel
+	local child_sentinel_row, child_sentinel_col = child_sentinel[1], child_sentinel[2]
 
----Create a new empty match_record
----@return table
-local function new_match_record()
-	return {
-		delimiter = Stack.new(),
-		children = Stack.new(),
-	}
+	for _, current_child in parent:iter() do
+		local cur_child_range = current_child.container
+		local cur_start_row, cur_start_col = cur_child_range[1], cur_child_range[2]
+		local cur_sentinel = current_child.sentinel
+		local cur_sentinel_row, cur_sentinel_col = cur_sentinel[1], cur_sentinel[2]
+
+		if
+			(cur_start_row < child_start_row
+				or (cur_start_row == child_start_row and cur_start_col <= child_start_col))
+			and
+			(child_sentinel_row < cur_sentinel_row
+				or (child_sentinel_row == cur_sentinel_row and child_sentinel_col <= cur_sentinel_col))
+		then
+			put_child_into_parent(child, current_child.children)
+			return
+		elseif
+			(child_start_row < cur_start_row
+				or (child_start_row == cur_start_row and child_start_col <= cur_start_col))
+			and
+			(cur_sentinel_row < child_sentinel_row
+				or (cur_sentinel_row == child_sentinel_row and cur_sentinel_col <= child_sentinel_col))
+		then
+			put_child_into_parent(current_child, child.children)
+			parent:pop()
+		else
+			break
+		end
+	end
+
+	parent:push(child)
 end
 
 ---Update highlights for a range. Called every time text is changed.
@@ -80,85 +111,78 @@ local function update_range(bufnr, changes, tree, lang)
 	local matches = Stack.new()
 
 	for _, change in ipairs(changes) do
-		-- This is the match record, it lists all the relevant nodes from
-		-- each match.
-		---@type table?
-		local match_record
 		local root_node = tree:root()
 		local start_row, end_row = change[1], change[3] + 1
 		lib.clear_namespace(bufnr, lang, start_row, end_row)
 
-		for qid, node, _ in query:iter_captures(root_node, bufnr, start_row, end_row) do
-			local name = query.captures[qid]
-			-- check for 'delimiter' first, since that should be the most
-			-- common name
-			if name == 'delimiter' and match_record then
-				match_record.delimiter:push(node)
-			elseif name == 'container' and not match_record then
-				match_record = new_match_record()
-			elseif name == 'container' then
-				-- temporarily push the match_record to matches to be retrieved
-				-- later, since we haven't closed it yet
-				matches:push(match_record)
-				match_record = new_match_record()
-				-- since we didn't close the previous match_record, it must
-				-- mean that the current match_record has it as an ancestor
-				match_record.has_ancestor = true
-			elseif name == 'sentinel' and match_record then
-				-- if we see the sentinel, then we are done with the current
-				-- container
-				if match_record.has_ancestor then
-					local prev_match_record = matches:pop()
-					if prev_match_record then
-						-- since we have an ancestor, it has to be the last
-						-- element of the stack
-						prev_match_record.children:push(match_record)
-						match_record = prev_match_record
-					else
-						-- since match_record.has_ancestor was true, we shouldn't
-						-- be able to get to here unless something went wrong
-						-- with the queries or treesitter itself
-						log.error([[You are missing a @container,
-									which should be impossible!
-									Please double check the queries.]])
+		for _pattern, match, _metadata in query:iter_matches(root_node, bufnr, start_row, end_row, { all = true }) do
+			-- This is the match record, it lists all the relevant nodes from
+			-- each match. We start with the root_node as the container, but
+			-- we will update this later.
+			local match_record = {
+				container = {root_node:range()},
+				delimiter = Stack.new(),
+				children = Stack.new(),
+				sentinel = nil, ---@type integer[]?
+			}
+			for id, nodes in pairs(match) do
+				local name = query.captures[id]
+				for _, node in ipairs(nodes) do
+					-- check for 'delimiter' first, since that should be the most
+					-- common name
+					if name == 'delimiter' then
+						match_record.delimiter:push(node)
+					elseif name == 'container' then
+						-- we update the container here
+						match_record.container = {node:range()}
+					elseif name == 'sentinel' then
+						-- if a sentinel is given, we save the position here
+						local sentinel_row, sentinel_col, _ = node:end_()
+						match_record.sentinel = { sentinel_row, sentinel_col }
 					end
-				else
-					-- if match_record doesn't have an ancestor, the sentinel
-					-- means that we are done with it
-					matches:push(match_record)
-					match_record = nil
 				end
-			elseif (name == 'delimiter' or name == 'sentinel') and not match_record then
-				log.error([[You query got the capture name %s.
-					But it didn't come with a container, which should be impossible!
-						Please double check your queries.]], name)
-			end -- do nothing with other capture names
-		end
-		if match_record then
-			-- we might have a dangling match_record, so we push it back into
-			-- matches
-			-- this should only happen when the query is on a proper subset
-			-- of the full tree (usually just one line)
+			end
+			if match_record.sentinel == nil then
+				match_record.sentinel  = { match_record.container[3], match_record.container[4] }
+			end
+
+			for _, other in matches:iter() do
+				local match_range = match_record.container
+				local other_range = other.container
+				local match_start_row, match_start_col = match_range[1], match_range[2]
+				local other_start_row, other_start_col = other_range[1], other_range[2]
+
+				local match_sentinel = match_record.sentinel ---@type integer[]
+				local match_sentinel_row, match_sentinel_col = match_sentinel[1], match_sentinel[2]
+				local other_sentinel = other.sentinel ---@type integer[]
+				local other_sentinel_row, other_sentinel_col = other_sentinel[1], other_sentinel[2]
+				if
+					(match_start_row < other_start_row
+						or (match_start_row == other_start_row and match_start_col <= other_start_col))
+					and
+					(other_sentinel_row < match_sentinel_row
+						or (other_sentinel_row == match_sentinel_row and other_sentinel_col <= match_sentinel_col))
+				then
+					put_child_into_parent(other, match_record.children)
+					matches:pop()
+				elseif
+					(other_start_row < match_start_row
+						or (other_start_row == match_start_row and other_start_col <= match_start_col))
+					and
+					(match_sentinel_row < other_sentinel_row
+						or (match_sentinel_row == other_sentinel_row and match_sentinel_col <= other_sentinel_col))
+				then
+					local child = match_record
+					match_record = other
+					put_child_into_parent(child, match_record.children)
+					matches:pop()
+				else
+					break
+				end
+			end
 			matches:push(match_record)
 		end
 	end
-
-	-- when we capture on a row and not the full tree, we get the previous
-	-- containers (on earlier rows) included in the above, but not the
-	-- delimiters and sentinels from them, so we push them up as long as
-	-- we know they have an ancestor
-	local last_match = matches:pop()
-	while last_match and last_match.has_ancestor do
-		local prev_match = matches:pop()
-
-		if prev_match then
-			prev_match.children:push(last_match)
-		else
-			log.error('You are in what should be an unreachable position.')
-		end
-		last_match = prev_match
-	end
-	matches:push(last_match)
 
 	highlight_matches(bufnr, lang, matches, 1)
 end
@@ -201,21 +225,26 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 
 				-- HACK: changes can accidentally overwrite highlighting in injected code
 				-- blocks.
+
+				-- maybe change self_injecting_languages to { rust = true },
+				-- since that seems to be the main different one
 				if not parent_lang then
 					-- If we have no parent language, then we use changes, otherwise we use the
 					-- whole tree's range.
 					-- Normalize the changes object if we have no parent language (the one we
 					-- get from on_changedtree)
 					changes = vim.tbl_map(normalize_change, changes)
-				elseif parent_lang ~= lang and changes[1] then
+				elseif parent_lang ~= lang or lang ~= 'rust' then
 					-- We have a parent language, so we are in an injected language code
-					-- block, thus we update all of the current code block
+					-- block, thus we update all of the current code block.
 					changes = {{tree:root():range()}}
 				else
-					-- some languages (like rust) use injections of the language itself for
+					-- Some languages (like rust) use injections of the language itself for
 					-- certain functionality (e.g., macros in rust).  For these the
 					-- highlighting will be updated by the non-injected language part of the
-					-- code.
+					-- code. Note that some self_injecting_languages don't
+					-- highlight the injected part this way, so they are
+					-- covered above.
 					changes = {}
 				end
 
