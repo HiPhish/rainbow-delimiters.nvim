@@ -63,6 +63,7 @@ local M = {
 		['local']  = require 'rainbow-delimiters.strategy.local',
 		---Empty highlighting strategy for testing
 		['noop']   = require 'rainbow-delimiters.strategy.no-op',
+		['window'] = require 'rainbow-delimiters.strategy.window',
 	},
 	enable  = enable,
 	disable = disable,

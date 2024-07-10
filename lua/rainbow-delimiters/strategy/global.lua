@@ -156,7 +156,6 @@ local function update_range(bufnr, changes, tree, lang)
 				local match_sentinel_row, match_sentinel_col = match_sentinel[1], match_sentinel[2]
 				local other_sentinel = other.sentinel ---@type integer[]
 				local other_sentinel_row, other_sentinel_col = other_sentinel[1], other_sentinel[2]
-
 				if
 					(match_start_row < other_start_row
 						or (match_start_row == other_start_row and match_start_col <= other_start_col))
@@ -229,14 +228,13 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 
 				-- maybe change self_injecting_languages to { rust = true },
 				-- since that seems to be the main different one
-				local self_injecting_languages = { c = true, cpp = true, markdown = true, }
 				if not parent_lang then
 					-- If we have no parent language, then we use changes, otherwise we use the
 					-- whole tree's range.
 					-- Normalize the changes object if we have no parent language (the one we
 					-- get from on_changedtree)
 					changes = vim.tbl_map(normalize_change, changes)
-				elseif parent_lang ~= lang or self_injecting_languages[parent_lang] then
+				elseif parent_lang ~= lang or lang ~= 'rust' then
 					-- We have a parent language, so we are in an injected language code
 					-- block, thus we update all of the current code block.
 					changes = {{tree:root():range()}}
