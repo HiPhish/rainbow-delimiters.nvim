@@ -57,6 +57,60 @@ To run tests the `g:bustedprg` variable must be set to `'./test/busted'`, which
 is the path to the shim script.  If the `exrc` option is set the variable will
 be set automatically.
 
+Highlight testing
+=================
+
+Highlights are tested by comparing the current highlights of a sample file with
+previously recorded highlights known to be correct.  Of course this does
+nothing when defining new patterns or making changes to a sample file; in this
+case a human has to initially approve of the highlighting.  Once that is done
+the current state can be recorded.  Automated highlighting tests are useful
+when making changes to the highlighting logic itself to ensure the results
+remain unchanged.
+
+Execute `make highlight-test` to run highlighting tests.
+
+Definitions
+-----------
+
+Sample file
+    A file in the language we want to highlight.  The contents have to be
+    syntactically correct, and ideally the file should compile, but it does not
+    have to make sense.  Sample files are stored under an arbitrary name
+    (although `regular` is the most common) in `test/highlight/samples/<lang>`.
+
+Specification or spec
+    A Lua file which records all rainbow delimiter extmarks for a given
+    combination of sample file and query.  Why Lua?  It could have been JSON,
+    but generating nicely formatted Lua was simpler, that's all.  Each spec is
+    just a table, there is no logic.
+
+Recording
+    The act of reading a sample file, extracting all highlighting information
+    and writing it to a spec.  You could write all the specs by hand, but there
+    is a helper function for that instead.
+
+
+Recording highlighting
+----------------------
+
+First make the necessary changes to the sample file or query.  Then call the
+`record_extmarks` function from the `rainbow-delimiters._test.highlight`
+module.  This module is not part of the runtime plugin code, so it is
+undocumented.  The function takes three optional arguments (all strings):
+
+- `language`: The language in question
+- `sample`: Name of the sample file
+- `query`: Name of the query
+
+If any one of these is missing the specs for all applicable languages, samples
+or queries are recorded.  You should at least specify the language, otherwise
+the function can take a lot of time.
+
+
+Running highlight tests
+-----------------------
+
 
 
 Design decisions
