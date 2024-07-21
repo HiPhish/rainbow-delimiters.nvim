@@ -1,0 +1,5 @@
+return {
+  css = {},
+  javascript = {},
+  templ = {}
+}

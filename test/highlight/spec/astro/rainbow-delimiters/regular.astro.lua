@@ -1,0 +1,4 @@
+return {
+  astro = {},
+  typescript = {}
+}
