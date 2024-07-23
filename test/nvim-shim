@@ -43,29 +43,13 @@ while getopts 'ilEve:' opt; do
 done
 
 
-# We need to add this plugin to the custom configuration.  The easiest way is
-# to create a symlink.  Why not always have a symlink in the project?  The Lua
-# language server will search for Lua files in every directory, so if it enters
-# the symlink it will be trapped in a cycle.  What we do instead is create the
-# symlink only for the duration of a test session and remove it again
-# afterwards.
-
-# We need separate symlinks if we want to run different tasks in parallel.
-# Otherwise the one the finishes first would delete the symlink from underneath
-# the one that is still running.
-uuid=$(uuidgen)
-mkdir -p ${XDG_DATA_HOME}/nvim/site/pack/self-${uuid}/start/
-ln -fs $(pwd) ${XDG_DATA_HOME}/nvim/site/pack/self-${uuid}/start/
-
 if [ -n "$lua_expr" ]; then
 	nvim --headless -c "lua $lua_expr" -c 'quitall!'
 else
-	# We have to explicitly enable plugins, see ':h -l'
-	nvim --cmd 'set loadplugins' -l $@
+	# We have to explicitly enable plugins and user configuration, see ':h -l'
+	nvim --cmd 'set loadplugins' -u "${XDG_CONFIG_HOME}/nvim/init.lua" -l $@
 fi
 
 exit_code=$?
-
-rm -rf ${XDG_DATA_HOME}/nvim/site/pack/self-${uuid}/
 
 exit $exit_code

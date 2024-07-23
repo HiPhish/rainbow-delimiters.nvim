@@ -45,6 +45,7 @@ describe('Buffer Manipulation', function()
 		nvim:exec_lua('TSEnsure(...)', {'lua', 'markdown'})
 		nvim:buf_set_lines(0, 0, -2, true, vim.fn.split(markdown_with_injected_lua, '\n'))
 		nvim:buf_set_option(0, 'filetype', 'markdown')
+		nvim:exec_lua('vim.treesitter.start()', {})
 		assert.nvim(nvim).has_extmarks_at(3, 5, 'lua')
 
 		-- Move Lua line out of code block
@@ -60,6 +61,7 @@ describe('Buffer Manipulation', function()
 		nvim:exec_lua('TSEnsure(...)', {'lua', 'markdown'})
 		nvim:buf_set_lines(0, 0, -2, true, vim.fn.split(markdown_without_injected_lua, '\n'))
 		nvim:buf_set_option(0, 'filetype', 'markdown')
+		nvim:exec_lua('vim.treesitter.start()', {})
 		assert.nvim(nvim).Not.has_extmarks_at(4, 5, 'lua')
 
 		-- Move Lua line out of code block
