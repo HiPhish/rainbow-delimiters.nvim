@@ -15,6 +15,8 @@ Unreleased
 Added
 =====
 
+- Awk support
+
 - Recipes section in the manual
 
 - Django HTML support (preliminary, will only pass through injected languages)
