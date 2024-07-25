@@ -35,6 +35,8 @@
 ---@field whitelist rainbow_delimiters.language[]?
 ---Blacklist for languages not to highlight
 ---@field blacklist rainbow_delimiters.language[]?
+---Dynamic condition whether to enable rainbow highlighting
+---@field condition (fun(bufnr: number): boolean)?
 ---Logging with log file and log level
 ---@field log rainbow_delimiters.logging?
 

@@ -9,6 +9,16 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Added
+=====
+
+- New option `condition`: allows users to dynamically enable or disable rainbow
+  delimiters for a buffer.
+
+
 [0.5.0] - 2024-07-29
 ####################
 

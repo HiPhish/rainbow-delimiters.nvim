@@ -58,9 +58,11 @@ create_autocmd('FileType', {
 	group = rb_augroup,
 	callback = function(args)
 		local lang = get_lang(args.match)
+		local bufnr = args.buf
 		if not config.enabled_for(lang) then return end
+		if not config.enabled_when(bufnr) then return end
 
-		lib.attach(args.buf)
+		lib.attach(bufnr)
 	end,
 })
 

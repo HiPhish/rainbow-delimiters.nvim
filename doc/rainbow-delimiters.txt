@@ -78,6 +78,17 @@ keys are recognized:
   List of Tree-sitter languages for which to disabled rainbow delimiters.
   Rainbow delimiters will be enabled for all other languages.
 
+`condition`
+  Function which receives the current buffer number and returns a boolean; can
+  be used to dynamically decide whether to enable (true) or disable (false)
+  rainbow delimiters for a given buffer.  You could for example use this
+  predicate to disable rainbow delimiters for large files.
+
+  Superceeded by the blacklist, but superceedes the whitelist.  This means if
+  the file type is blacklisted the condtion is ignored, but if the file type
+  is whitelisted or not blacklisted the condition will be evaluated and
+  honoured.
+
 `log`
   Settings for logging information.  This is a dictionary which contains
   further settings.  See |rb-delimiters-logging| for details.

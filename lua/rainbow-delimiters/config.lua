@@ -81,6 +81,13 @@ local M = {
 		end
 
 		return true
+	end,
+	enabled_when = function(bufnr)
+		local conf = vim.g.rainbow_delimiters
+		if not conf or not conf.condition then
+			return true
+		end
+		return conf.condition(bufnr)
 	end
 }
 
