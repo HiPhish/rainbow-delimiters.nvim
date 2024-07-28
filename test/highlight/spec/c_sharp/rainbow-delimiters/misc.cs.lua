@@ -426,10 +426,106 @@ return {
       start_col = 4,
       start_row = 37
     }, {
+      end_col = 13,
+      end_row = 13,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 12,
+      start_row = 39
+    }, {
+      end_col = 22,
+      end_row = 22,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 21,
+      start_row = 39
+    }, {
+      end_col = 37,
+      end_row = 37,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 36,
+      start_row = 39
+    }, {
+      end_col = 38,
+      end_row = 38,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 37,
+      start_row = 39
+    }, {
+      end_col = 5,
+      end_row = 5,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 4,
+      start_row = 40
+    }, {
+      end_col = 16,
+      end_row = 16,
+      hl_group = "RainbowDelimiterBlue",
+      start_col = 15,
+      start_row = 41
+    }, {
+      end_col = 21,
+      end_row = 21,
+      hl_group = "RainbowDelimiterBlue",
+      start_col = 20,
+      start_row = 41
+    }, {
+      end_col = 5,
+      end_row = 5,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 4,
+      start_row = 42
+    }, {
+      end_col = 34,
+      end_row = 34,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 33,
+      start_row = 44
+    }, {
+      end_col = 35,
+      end_row = 35,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 34,
+      start_row = 44
+    }, {
+      end_col = 5,
+      end_row = 5,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 4,
+      start_row = 45
+    }, {
+      end_col = 13,
+      end_row = 13,
+      hl_group = "RainbowDelimiterBlue",
+      start_col = 12,
+      start_row = 46
+    }, {
+      end_col = 18,
+      end_row = 18,
+      hl_group = "RainbowDelimiterBlue",
+      start_col = 17,
+      start_row = 46
+    }, {
+      end_col = 35,
+      end_row = 35,
+      hl_group = "RainbowDelimiterBlue",
+      start_col = 34,
+      start_row = 46
+    }, {
+      end_col = 36,
+      end_row = 36,
+      hl_group = "RainbowDelimiterBlue",
+      start_col = 35,
+      start_row = 46
+    }, {
+      end_col = 5,
+      end_row = 5,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 4,
+      start_row = 47
+    }, {
       end_col = 1,
       end_row = 1,
       hl_group = "RainbowDelimiterRed",
       start_col = 0,
-      start_row = 38
+      start_row = 48
     } }
 }

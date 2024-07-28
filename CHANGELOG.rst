@@ -30,6 +30,10 @@ Added
   - `cast_expression`
   - `array_declarator`
 
+- Missing patterns for C#:
+
+   - `tuple_pattern`
+
 - Missing patterns for Common Lisp:
 
   - `loop_macro`
