@@ -36,4 +36,14 @@ public class TestClass
     {
         return (1, 2, (3, 4));
     }
+
+    private (int, int) GetTupleValue()
+    {
+        return (1, 2);
+    }
+
+    private void TestConsumeTuple()
+    {
+        var (a, b) = GetTupleValue();
+    }
 }
