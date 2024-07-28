@@ -9,111 +9,118 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
-Unreleased
-##########
+[0.5.0] - 2024-07-29
+####################
+
+Mostly a maintenance support with added support for a few new languages.
 
 Added
 =====
-
-- Awk support
-
+   
 - Recipes section in the manual
 
-- Django HTML support (preliminary, will only pass through injected languages)
+- New languages:
 
-- WebGL Shading Language (WGSL) support
+  - Awk
+  - WebGL Shading Language (WGSL)
+  - Django HTML (preliminary, will only pass through injected languages)
 
-- Missing patterns for C++:
+- Missing patterns:
 
-  - `condition_clause`
-  - `for_statement`
-  - `cast_expression`
-  - `array_declarator`
+  - C++
 
-- Missing patterns for C#:
+    - `condition_clause`
+    - `for_statement`
+    - `cast_expression`
+    - `array_declarator`
 
-   - `tuple_pattern`
-
-- Missing patterns for Common Lisp:
-
-  - `loop_macro`
-
-- Missing patterns for Cue:
-
-  - `dynamic`
-  - `index_expression`
-
-
-- Missing patterns for Javascript:
-
-  - `array_pattern`
-  - `for_in_statement`
-  - `for_statement`
-
-- Missing patterns for Rust:
-
-  - `bracketed_type`
-
-- Missing patterns for Typescript:
-
-   - `enum_body`
-   - `interface_body`
-
-- Missing patterns for Haskell:
-
-  - `children`
-  - `fields`
-  - `list`
-  - `parens`
-  - `prefix_id`
-  - `record`
-  - `tuple`
-  - `unit`
+  - C#:
+  
+    - `tuple_pattern`
+  
+  - Common Lisp:
+  
+    - `loop_macro`
+  
+  - Cue:
+  
+    - `dynamic`
+    - `index_expression`
+  
+  - Javascript:
+  
+    - `array_pattern`
+    - `for_in_statement`
+    - `for_statement`
+  
+  - Rust:
+  
+    - `bracketed_type`
+  
+  - Typescript:
+  
+    - `enum_body`
+    - `interface_body`
+  
+  - Haskell:
+  
+    - `children`
+    - `fields`
+    - `list`
+    - `parens`
+    - `prefix_id`
+    - `record`
+    - `tuple`
+    - `unit`
 
 Changed
 =======
 
-- Renamed C# patterns:
+- Renamed patterns:
 
-  - `for_each_statement` to `foreach_statement`
-  - `type_of_expression` to `typeof_expression`
-  - `size_of_expression` to `sizeof_expression`
-  - `implicit_stack_alloc_array_creation_expression` to `implicit_stackalloc_expression`
+  - C#:
+  
+    - `for_each_statement` to `foreach_statement`
+    - `type_of_expression` to `typeof_expression`
+    - `size_of_expression` to `sizeof_expression`
+    - `implicit_stack_alloc_array_creation_expression` to `implicit_stackalloc_expression`
 
 - Updated R patterns for current parser
 
 Removed
 =======
 
-- Deprecated patterns for C#:
+- Deprecated patterns:
 
-  - `interpolation`
+  - C#:
 
-- Deprecated patterns for Java:
+    - `interpolation`
 
-  - `condition`
+  - Java:
 
-- Deprecated patterns for Haskell:
+    - `condition`
 
-  - `con_list`
-  - `context`
-  - `deriving`
-  - `exp_arithmetic_sequence`
-  - `exp_lambda`
-  - `exp_list_comprehension`
-  - `exp_list`
-  - `exp_name`
-  - `exp_record`
-  - `exp_section_right`
-  - `pat_fields`
-  - `pat_list`
-  - `pat_parens`
-  - `pat_tuple`
-  - `record_fields`
-  - `type_list`
-  - `type_parens`
-  - `type_tuple`
-  - `type_tuple`
+  - Haskell:
+
+    - `con_list`
+    - `context`
+    - `deriving`
+    - `exp_arithmetic_sequence`
+    - `exp_lambda`
+    - `exp_list_comprehension`
+    - `exp_list`
+    - `exp_name`
+    - `exp_record`
+    - `exp_section_right`
+    - `pat_fields`
+    - `pat_list`
+    - `pat_parens`
+    - `pat_tuple`
+    - `record_fields`
+    - `type_list`
+    - `type_parens`
+    - `type_tuple`
+    - `type_tuple`
 
 
 [0.4.0] - 2024-05-07
