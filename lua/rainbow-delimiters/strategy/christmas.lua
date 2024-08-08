@@ -35,10 +35,11 @@ end
 
 ---Wraps the given strategy with a new strategy that switches colours like a
 ---chain of Christmas lights.
----@param strategy rainbow_delimiters.strategy  The original strategy
+---@param strategy rainbow_delimiters.strategy?  Original strategy (default global)
 ---@param delay    integer?  Time between switches in milliseconds (default 500)
 ---@return rainbow_delimiters.strategy christmas_lights  A new strategy object
 function M.lights(strategy, delay)
+	strategy = strategy or require 'rainbow-delimiters.strategy.global'
 	delay = delay or 500
 	local timer = uv.new_timer()
 
