@@ -103,4 +103,24 @@ return foo]]
 		assert.nvim(nvim).has_extmarks_at(2, 11, 'lua')
 		assert.nvim(nvim).has_extmarks_at(3, 11, 'lua')
 	end)
+
+	it('Preserves nested highlighting when entering insert mode #skip', function()
+		-- This is broken on Neovim 0.10+, so we skip it for the time being.
+		-- See https://github.com/HiPhish/rainbow-delimiters.nvim/pull/121
+
+		local content = [[local tmp = {
+	[1] = { 1 },
+	[2] = {
+		a = print(),
+	},
+}]]
+		nvim:buf_set_lines(0, 0, -1, true, vim.fn.split(content, '\n'))
+		nvim:buf_set_option(0, 'filetype', 'lua')
+		-- Make a change inside the parentheses
+		nvim:win_set_cursor(0, {4, 11})
+		nvim:feedkeys(rtc'a <esc>', '', false)
+
+		local hl_group = require('rainbow-delimiters.config').highlight[3]
+		assert.nvim(nvim).has_extmarks_at(3, 11, 'lua', hl_group)
+	end)
 end)

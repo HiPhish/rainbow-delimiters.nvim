@@ -26,7 +26,8 @@
 return {
 	_all = {
 		coverage = false,
-		lua = './test/nvim-shim'
+		lua = './test/nvim-shim',
+		['exclude-tags'] = {'skip'},
 	},
 	default = {
 		verbose = true,
