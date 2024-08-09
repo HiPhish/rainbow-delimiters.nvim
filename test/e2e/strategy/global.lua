@@ -104,8 +104,7 @@ return foo]]
 		assert.nvim(nvim).has_extmarks_at(3, 11, 'lua')
 	end)
 
-	it('Preserves nested highlighting when entering insert mode #skip', function()
-		-- This is broken on Neovim 0.10+, so we skip it for the time being.
+	it('Preserves nested highlighting when entering insert mode', function()
 		-- See https://github.com/HiPhish/rainbow-delimiters.nvim/pull/121
 
 		local content = [[local tmp = {
