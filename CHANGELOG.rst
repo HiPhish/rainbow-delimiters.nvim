@@ -9,8 +9,8 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
-Unreleased
-##########
+[0.6.1] - 2024-08-11
+####################
 
 Fixed
 =====
