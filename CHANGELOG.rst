@@ -9,6 +9,16 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Fixed
+=====
+
+- Make a better effort to make parentheses in Vim scrip expressions work (there
+  is only so much that can be done though)
+
+
 [0.6.1] - 2024-08-11
 ####################
 
