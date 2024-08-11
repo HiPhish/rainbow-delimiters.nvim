@@ -26,7 +26,7 @@
 return {
 	_all = {
 		coverage = false,
-		lua = './test/lua',
+		lua = './test/bin/lua',
 		['exclude-tags'] = {'skip'},
 	},
 	default = {
