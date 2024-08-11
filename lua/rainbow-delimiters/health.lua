@@ -27,6 +27,7 @@ local schema = {
 	priority = true,
 	blacklist = true,
 	whitelist = true,
+	condition = true,
 	log = {level = true, file = true},
 }
 

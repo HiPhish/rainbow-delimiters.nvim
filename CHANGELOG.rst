@@ -9,6 +9,15 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Fixed
+=====
+
+- Health check is not aware of new `condition` configuration option
+
+
 [0.6.0] - 2024-08-07
 ####################
 
