@@ -89,6 +89,8 @@
   "|" @delimiter @sentinel) @container
 
 (PtrListPayload
+  ;; Without the anchor the @delimiter will be matched three times
+  .
   "|" @delimiter
   "|" @delimiter @sentinel) @container
 

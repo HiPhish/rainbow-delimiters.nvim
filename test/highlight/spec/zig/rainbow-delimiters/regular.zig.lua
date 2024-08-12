@@ -564,12 +564,6 @@ return {
       start_col = 32,
       start_row = 61
     }, {
-      end_col = 33,
-      end_row = 61,
-      hl_group = "RainbowDelimiterBlue",
-      start_col = 32,
-      start_row = 61
-    }, {
       end_col = 35,
       end_row = 61,
       hl_group = "RainbowDelimiterBlue",
