@@ -29,7 +29,7 @@ local function reduce_extmark(extmark)
 	return {
 		start_row = extmark[2],
 		start_col = extmark[3],
-		end_row   = extmark[4].end_col,
+		end_row   = extmark[4].end_row,
 		end_col   = extmark[4].end_col,
 		hl_group  = extmark[4].hl_group,
 	}
