@@ -17,7 +17,7 @@ local function verify(language, sample, query)
 	end
 	for lang, extmarks in pairs(spec) do
 		local result = results[lang]
-		assert.are_equal(#extmarks, #result, string.format('Discrepancy in %s', lang))
+		assert.are_equal(#extmarks, #result, string.format('Length discrepancy in %s', lang))
 		for i, expected in ipairs(extmarks) do
 			local given = result[i]
 			for key, value in pairs(expected) do
