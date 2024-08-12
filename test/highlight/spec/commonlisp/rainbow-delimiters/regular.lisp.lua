@@ -6,12 +6,6 @@ return {
       start_col = 0,
       start_row = 0
     }, {
-      end_col = 1,
-      end_row = 1,
-      hl_group = "RainbowDelimiterRed",
-      start_col = 0,
-      start_row = 0
-    }, {
       end_col = 12,
       end_row = 12,
       hl_group = "RainbowDelimiterYellow",

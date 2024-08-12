@@ -15,7 +15,8 @@ Unreleased
 Fixed
 =====
 
-- Make a better effort to make parentheses in Vim scrip expressions work (there
+- Common Lisp query: duplicate extmarks on some delimiters
+- Make a better effort to make parentheses in Vim script expressions work (there
   is only so much that can be done though)
 
 
