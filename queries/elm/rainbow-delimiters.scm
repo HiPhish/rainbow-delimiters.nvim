@@ -10,6 +10,7 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+;;; Broken by design, see https://github.com/elm-tooling/tree-sitter-elm/issues/159
 (_
   "(" @delimiter
   .
@@ -18,6 +19,7 @@
   ")" @delimiter @sentinel
 ) @container
 
+;;; Broken by design, see https://github.com/elm-tooling/tree-sitter-elm/issues/159
 (_
 "(" @delimiter
   .

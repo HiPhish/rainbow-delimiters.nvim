@@ -374,13 +374,13 @@ return {
     }, {
       end_col = 18,
       end_row = 28,
-      hl_group = "RainbowDelimiterRed",
+      hl_group = "RainbowDelimiterYellow",
       start_col = 17,
       start_row = 28
     }, {
       end_col = 22,
       end_row = 28,
-      hl_group = "RainbowDelimiterRed",
+      hl_group = "RainbowDelimiterYellow",
       start_col = 21,
       start_row = 28
     }, {
