@@ -93,5 +93,7 @@
   "|" @delimiter @sentinel) @container
 
 (PtrIndexPayload
+  ;; Without the anchor the @delimiter will be matched three times
+  .
   "|" @delimiter
   "|" @delimiter @sentinel) @container
