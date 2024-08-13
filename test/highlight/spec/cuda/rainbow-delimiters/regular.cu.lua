@@ -380,15 +380,21 @@ return {
     }, {
       end_col = 9,
       end_row = 57,
-      hl_group = "RainbowDelimiterRed",
+      hl_group = "RainbowDelimiterYellow",
       start_col = 8,
       start_row = 57
     }, {
       end_col = 15,
       end_row = 57,
-      hl_group = "RainbowDelimiterRed",
+      hl_group = "RainbowDelimiterYellow",
       start_col = 14,
       start_row = 57
+    }, {
+      end_col = 1,
+      end_row = 58,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 0,
+      start_row = 58
     }, {
       end_col = 28,
       end_row = 60,
