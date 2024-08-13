@@ -15,5 +15,6 @@
   ")" @delimiter @sentinel) @container
 
 (block_parameters
+  .
   "|" @delimiter
   "|" @delimiter @sentinel) @container
