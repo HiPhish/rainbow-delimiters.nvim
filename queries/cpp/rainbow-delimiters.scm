@@ -26,7 +26,7 @@
 
 (cast_expression
   "(" @delimiter
-  ")" @delimiter @sentinel)
+  ")" @delimiter @sentinel) @container
 
 (initializer_list
   "{" @delimiter

@@ -15,6 +15,7 @@ Unreleased
 Fixed
 =====
 
+- C++ query: missing `@container` capture in one pattern
 - Common Lisp query: duplicate extmarks on some delimiters
 - Ruby query: duplicate extmarks on some delimiters
 - Zig query: duplicate extmarks on some delimiters
