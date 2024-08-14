@@ -94,6 +94,7 @@
 
 (closure_parameters
   "|" @delimiter
+  (_)?
   "|" @delimiter @sentinel) @container
 
 (array_expression
