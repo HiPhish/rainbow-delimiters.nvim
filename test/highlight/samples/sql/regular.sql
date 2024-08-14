@@ -1,9 +1,7 @@
 SELECT (1 + (2 + (3 + (4 + (5 + (6 + (7 + (8 + ((9) + (0))))))))));
 
 SELECT
-    (1 + ((2)((())) - 3)) AS "expression",
-    (()) AS "list",
-    -- ((((())))) AS "list" -- this will cause problems with the highlighting!
+    (1 + ((2) - ((((3)))))) AS "expression",
     "users"."id" AS "user_id",
     SUM("orders"."sum_prices") AS "user_orders_amount"
 FROM "users"

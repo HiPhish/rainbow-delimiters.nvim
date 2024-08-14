@@ -20,6 +20,7 @@ Fixed
 - Common Lisp query: duplicate extmarks on some delimiters
 - Luadoc query: Remove broken pattern for dictionary key type
 - Ruby query: duplicate extmarks on some delimiters
+- SQL query: Remove broken patterns
 - Zig query: duplicate extmarks on some delimiters
 - Make a better effort to make parentheses in Vim script expressions work (there
   is only so much that can be done though)
