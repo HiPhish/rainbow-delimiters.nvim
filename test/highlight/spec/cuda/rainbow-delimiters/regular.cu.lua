@@ -630,16 +630,16 @@ return {
       start_col = 11,
       start_row = 79
     }, {
-      end_col = 9,
-      end_row = 80,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 8,
-      start_row = 80
-    }, {
       end_col = 11,
       end_row = 80,
       hl_group = "RainbowDelimiterYellow",
       start_col = 10,
+      start_row = 80
+    }, {
+      end_col = 13,
+      end_row = 80,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 12,
       start_row = 80
     }, {
       end_col = 19,

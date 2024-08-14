@@ -78,7 +78,7 @@ void call_device() {
 
 int main(int argc, char *argv[]) {
 	auto a {10};
-	auto b (5);
+	auto b = (5);
 	auto result = add(a, b);
 	printf("The sum of %d and %d is %d", ((((a)))), b, result);
 	int indices[] = {0, };
