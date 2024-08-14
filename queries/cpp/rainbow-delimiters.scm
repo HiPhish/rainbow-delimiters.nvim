@@ -52,10 +52,6 @@
   "<" @delimiter
   ">" @delimiter @sentinel) @container
 
-(initializer_list
-  "{" @delimiter
-  "}" @delimiter @sentinel) @container
-
 (template_argument_list
   "<" @delimiter
   ">" @delimiter @sentinel) @container

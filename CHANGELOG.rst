@@ -16,6 +16,7 @@ Fixed
 =====
 
 - C++ query: missing `@container` capture in one pattern
+- C++ query: duplicate pattern for `initializer_list`
 - Common Lisp query: duplicate extmarks on some delimiters
 - Ruby query: duplicate extmarks on some delimiters
 - Zig query: duplicate extmarks on some delimiters
