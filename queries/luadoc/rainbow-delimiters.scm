@@ -32,9 +32,17 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(_
-  "[" @delimiter
-  .
-  field: (_)
-  .
-  "]" @delimiter @sentinel) @container
+;;; Dictionary-type tables cannot be matched.  Their syntax is 
+;;;    { [string]: VALUE_TYPE }
+;;; The type of the key is written in square brackets.  The square brackets and
+;;; their contents need to be their own node, but instead they are all on the
+;;; same level without any container node.
+;;;
+;;; See also https://github.com/tree-sitter-grammars/tree-sitter-luadoc/issues/11
+;;;          https://luals.github.io/wiki/annotations/#documenting-types
+; (_
+;   "[" @delimiter
+;   .
+;   field: (_)
+;   .
+;   "]" @delimiter @sentinel) @container
