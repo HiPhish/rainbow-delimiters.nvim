@@ -6,7 +6,7 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(var_declaration
+(var_spec_list
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
