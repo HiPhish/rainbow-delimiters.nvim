@@ -29,7 +29,8 @@ Fixed
 - Ruby query: duplicate extmarks on some delimiters
 - Rust query: duplicate pattern for `closure_parameters`
 - SQL query: Remove broken patterns
-- Zig query: duplicate extmarks on some delimiters
+- Zig query: duplicate extmarks on some delimiters, renamed nodes in updated
+  parser
 - Make a better effort to make parentheses in Vim script expressions work (there
   is only so much that can be done though)
 

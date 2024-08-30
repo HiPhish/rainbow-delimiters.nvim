@@ -1,101 +1,100 @@
-(ParamDeclList
+(parameters
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(FnCallArguments
+(arguments
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(IfPrefix
+(if_statement
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(ForPrefix
+(for_statement
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(WhilePrefix
+(while_statement
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(LinkSection
+(link_section
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(CallConv
+(calling_convention
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(AsmExpr
+(asm_expression
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(ContainerDeclType
-   "(" @delimiter
-   ")" @delimiter @sentinel) @container
-
-(AsmInputItem
+(asm_input_item
    "[" @delimiter
    "]" @delimiter
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(AsmOutputItem
+(asm_output_item
    "[" @delimiter
    "]" @delimiter
    "(" @delimiter
    ")" @delimiter @sentinel) @container
 
-(SwitchExpr
+(switch_expression
    "(" @delimiter
    ")" @delimiter
    "{" @delimiter
    "}" @delimiter @sentinel) @container
 
-(ArrayTypeStart
+(array_type
    "[" @delimiter
    "]" @delimiter @sentinel) @container
 
-(SliceTypeStart
+(slice_type
    "[" @delimiter
    "]" @delimiter @sentinel) @container
 
-(PtrTypeStart
+(index_expression
    "[" @delimiter
    "]" @delimiter @sentinel) @container
 
-(SuffixOp
+(pointer_type
    "[" @delimiter
    "]" @delimiter @sentinel) @container
 
-(Block
+(block
    "{" @delimiter
    "}" @delimiter @sentinel) @container
 
-(ContainerDecl
+(initializer_list
    "{" @delimiter
    "}" @delimiter @sentinel) @container
 
-(InitList
-   "{" @delimiter
-   "}" @delimiter @sentinel) @container
-
-(FormatSequence
-   "{" @delimiter
-   "}" @delimiter @sentinel) @container
-
-(Payload
+(payload
+  .  ;; Without the anchor the @delimiter will be matched three times
   "|" @delimiter
   "|" @delimiter @sentinel) @container
 
-(PtrListPayload
-  ;; Without the anchor the @delimiter will be matched three times
-  .
-  "|" @delimiter
-  "|" @delimiter @sentinel) @container
+(call_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
-(PtrIndexPayload
-  ;; Without the anchor the @delimiter will be matched three times
-  .
-  "|" @delimiter
-  "|" @delimiter @sentinel) @container
+(opaque_declaration
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
+(struct_declaration
+   "{" @delimiter
+   "}" @delimiter @sentinel) @container
+
+(enum_declaration
+   "{" @delimiter
+   "}" @delimiter @sentinel) @container
+
+(union_declaration
+  "(" @delimiter
+  ")" @delimiter
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
