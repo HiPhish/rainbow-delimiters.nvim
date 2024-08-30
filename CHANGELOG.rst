@@ -12,6 +12,11 @@ Versioning`_.
 Unreleased
 ##########
 
+Added
+=====
+
+- SQL: `parenthesized_expression` pattern
+
 Fixed
 =====
 
