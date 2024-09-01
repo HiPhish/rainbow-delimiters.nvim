@@ -214,7 +214,16 @@ In order to correctly highlight containers we need to know the nesting level of
 each container relative to the other containers in the document.  We can use
 the order in which matches are returned by the `iter_matches` method of a
 query.  The iterator traverses the document tree in a depth-first manner
-according to the visitor patter, but matches are created upon exiting a node.
+according to the visitor patter, but matches are created whenever the match is
+complete.  This happens upon exiting the node if the child nodes are sandwiched
+in-between delimiters, as is the case with delimiters like parentheses or
+`begin`/`end` blocks.  However, if the child nodes are outside the delimiters
+(e.g. when using Python keywords like `def` or `while` as delimiters) the child
+nodes are not sandwiched between delimiters and the match will be returned upon
+entering the node.
+
+Sandwiching delimiters
+----------------------
 
 Let us look at a practical example.  Here is a hypothetical tree:
 
@@ -247,22 +256,59 @@ Start with an empty stack `s = []`.  For each match `m` do the following:
 
 #) Keep popping matches off `s` up until we find a match `m'` whose
    `@container` node is not a descendant of the container node of `m`. Collect
-   the popped matches (excluding `m'`) onto a new stack `s_m` (order does not
+   the popped matches (excluding `m'`) onto a new set `s_m` (order does not
    matter)
-#) Set `s_m` as the child match stack of `m`
+#) Set `s_m` as the child match set of `m`
 #) Add `m` to `s`
 
 Eventually `s` will only contain root-level matches, i.e. matches of nesting
 level one.  To apply the highlighting we can then traverse the match tree,
 incrementing the highlighting level by one each time we descend a level.
 
-The order of matches among siblings in the tree does not matter.  The above
-algorithm uses a stack when collecting children, but any unordered
-one-dimensional sequence will do.  The stack `s` is important for determining
-the relationship between nodes: since we know that no ancestors will be skipped
-we can be certain that we can stop checking the stack for descendants of `m`
-once we encounter the first non-descendant match.  Otherwise we would have to
-compare each match with each other match, which would tank the performance.
+The order of matches among siblings in the tree does not matter.  The stack
+`s` is important for determining the relationship between nodes: since we know
+that no ancestors will be skipped we can be certain that we can stop checking
+the stack for descendants of `m` once we encounter the first non-descendant
+match.  Otherwise we would have to compare each match with each other match,
+which would tank the performance.
+
+Here is a step-by-step illustration of the algorithm applied to the above
+example.  The left-hand side is the current stack (with the bottom of the stack
+on the left) and current node, the right-hand side is the resulting stack for
+that iteration.  If a match has no children I have omitted the braces for
+brevity.
+
++-------------------------+-------+--------------------------------------------+
+| Current stack           | Match | New stack and popped-of match              |
++=========================+=======+============================================+
+| `[]`                    | `D`   | `[D]`                                      |
++-------------------------+-------+--------------------------------------------+
+| `[D]`                   | `C`   | `[]`, `C{D}`                               |
+|                         |       +--------------------------------------------+
+|                         |       | `[C{D}]`                                   |
++-------------------------+-------+--------------------------------------------+
+| `[C{D}]`                | `B`   | `[]`, `B{C{D}}`                            |
+|                         |       +--------------------------------------------+
+|                         |       | `[B{C{D}}]`                                |
++-------------------------+-------+--------------------------------------------+
+| `[B{C{D}}]`             | `F`   | `[B{C{D}}, F]`                             |
++-------------------------+-------+--------------------------------------------+
+| `[B{C{D}}, F]`          | `G`   | `[B{C{D}}, F, G]`                          |
++-------------------------+-------+--------------------------------------------+
+| `[B{C{D}}, F, G]`       | `E`   | `[B{C{D}}, F]`, `E{G}`                     |
+|                         |       +--------------------------------------------+
+|                         |       | `[B{C{D}}]`, `E{G, F}`                     |
+|                         |       +--------------------------------------------+
+|                         |       | `[B{C{D}}, E{F, G}]`                       |
++-------------------------+-------+--------------------------------------------+
+| `[B{C{D}}, E{F, G}]`    | `A`   | `[B{C{D}}]`, `A{E{F, G}}`                  |
+|                         |       +--------------------------------------------+
+|                         |       | `[]`, `A{B{C{D}}, E{F, G}}`                |
+|                         |       +--------------------------------------------+
+|                         |       | `[A{B{C{D}}, E{F, G}}]`                    |
++-------------------------+-------+--------------------------------------------+
+| `[A{B{C{D}}, E{F, G}}]`                                                      |
++------------------------------------------------------------------------------+
 
 
 The local highlight strategy
