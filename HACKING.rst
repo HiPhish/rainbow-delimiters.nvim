@@ -311,6 +311,88 @@ brevity.
 +------------------------------------------------------------------------------+
 
 
+Without sandwiching
+-------------------
+
+In some languages like Python it makes sense to define block-level delimiters
+which have only one delimiter.  Here is an example:
+
+.. code:: python
+
+   def derp():
+       for (k, v) in {'a': 1, 'b': 2}:
+           print(k, v)
+
+We want to highlight the `def` of the function definition and the `for`/`in` of
+the loop.  This means we have a mix of sandwiching and no sandwiching.  The
+order of matches is:
+
+#) `def` (because it is completed first)
+#) `()` (the parentheses of `def`)
+#) `(k, v)` (because it is completed before `for`/`in`)
+#) `for`/`in`
+#) `{...}`
+#) `print(k, v)`
+
+The intended match tree should look like this according to the syntax tree:
+
+.. code::
+
+   def
+   ├ ()
+   └ for/in
+     ├ (k, v)
+     ├ {...}
+     └ print(k, v)
+
+Eyeballing the code however suggest a match tree like this:
+
+.. code::
+
+   ├def
+   └ ()
+     ├ for/in
+     │ ├ (k, v)
+     │ └ print(k, v)
+     └ {...}
+
+The idea is that matches which logicaly appear together (such as the head of a
+for-loop) should be cousins.  This raises the question of what belongs
+together.  I will probably need to add a new capture like `@body` which matches
+the delimited content.  In the sandwich case the body was implicitly that which
+is between both delimiters, but here we would need to be explicit about it.
+Example:
+
+.. code:: query
+
+   (for_statement
+     "for" @delimiter
+     "in" @delimiter
+     body: _ @body) @container
+
+   (list
+     "[" @delimiter
+     _ @body
+     "]" @delimiter) @container
+
+Then a match is a child of a parent if and only if the `@container` of the
+child is contained inside the `@body` of the parent.
+
+Not only can the parent-child order be reversed, we can also skip over
+generations.  In the above example `(k, v)` is a grandchild of `def`, but it
+comes directly after it.  We need to revise the algorithm to account for this
+case.  All in all we have the following cases:
+
+- The new node and the top of the stack are cousins
+- The new node is an ancestor of the top node
+- The new node is a descendant of the top node
+
+Here the term “cousin” is cross-generational, i.e. if A is the parent of B and
+C, and D the child of C, then B and D are considered cousins.  They have a
+common ancestor, but share no lineage from one to the other.  Siblings are also
+considered cousins.
+
+
 The local highlight strategy
 ============================
 
