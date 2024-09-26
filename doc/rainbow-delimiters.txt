@@ -569,16 +569,12 @@ The queries need to define the following capture groups:
   The entire delimited node.
 - `@delimiter`
   Any delimiter you want to highlight in the current `@container`.
-- `@sentinel`
-  A marker used to signal that you are done with the `@container`.  This
-  should almost always be put right after the last `@delimiter` in the given
-  `@container`.
 - `@_<capture_name>`
   Delimiters starting with `_` (underscore) are ignored for highlighting
   purposes, but you can use them for treesitter predicates like
   `#eq?`, `#any-eq?`, etc. (These are very rarely needed.)
 
-`@container` and `@sentinel` are mandatory, and `@delimiter` will always be
+`@container` is mandatory, and at least one `@delimiter` will always be
 present as well since `@delimiter` is what is highlighted.  The captures
 starting with underscore will be rarely used, since you only need them for
 predicates in a few special cases.
@@ -632,7 +628,7 @@ the `<br/>` tag a delimiter.  The corresponding query is as follows:
       (start_tag) @delimiter
       (element
         (self_closing_tag) @delimiter)?  ; Optional!
-      (end_tag) @delimiter @sentinel) @container
+      (end_tag) @delimiter) @container
 <
 Highlighting the entire tag might be too vibrant though.  What if we want to
 highlight only the opening and closing angle brackets?  The query gets
@@ -647,10 +643,8 @@ tree.
             ["<" "/>"] @delimiter))?  ;Optional!
        (end_tag
           "</" @delimiter
-          ">" @delimiter @sentinel))) @container
+          ">" @delimiter))) @container
 <
-Note that we don't want to put the `@sentinel` on the second to last `@delimiter`
-`"</"`, we need to be careful to put it on the last `@delimiter`.
 
 You might now see why we need the `@container` capture group: there is no way
 to know in general how deeply the delimiter is nested.  Even for one language
@@ -672,7 +666,7 @@ pleasant middle ground between the two above extremes.
       (end_tag
         "</" @delimiter
         (tag_name) @delimiter
-        ">" @delimiter @sentinel)) @container
+        ">" @delimiter)) @container
 <
 Here both opening and closing tag have three delimiters each.
 
@@ -683,7 +677,7 @@ In HTML the terminating slash in a self-closing tag is optional.  Instead of
       (start_tag
         "<" @delimiter
         (tag_name) @delimiter @_tag_name
-        ">" @delimiter @sentinel)) @container
+        ">" @delimiter)) @container
 <
 However, this query also matches the opening tag of regular tags like `<div>`.
 This is where the `@_tag_name` capture comes in.  The set of self-closing tags
@@ -694,7 +688,7 @@ will not match this particular pattern.
       (start_tag
         "<" @delimiter
         (tag_name) @delimiter @_tag_name
-        ">" @delimiter @sentinel)
+        ">" @delimiter)
       ;; List abridged for brevity
       (#any-of? @_tag_name "br" "hr" "input")) @container
 <

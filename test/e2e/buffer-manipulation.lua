@@ -72,4 +72,31 @@ describe('Buffer Manipulation', function()
 
 		assert.nvim(nvim).has_extmarks_at(3, 5, 'lua')
 	end)
+
+	describe('Pasting lines containing delimiters', function()
+		local content = [[print {
+	{a = 1, b = 2},
+}]]
+		before_each(function()
+			nvim:buf_set_lines(0, 0, -2, true, vim.fn.split(content, '\n'))
+			nvim:buf_set_option(0, 'filetype', 'lua')
+			nvim:exec_lua('vim.treesitter.start()', {})
+			assert.nvim(nvim).has_extmarks_at(1, 01, 'lua', 'RainbowDelimiterYellow')
+			assert.nvim(nvim).has_extmarks_at(1, 14, 'lua', 'RainbowDelimiterYellow')
+		end)
+
+		it('Properly highlights after inserting one line', function()
+			nvim:feedkeys('ggjyyp', 'n', false)
+
+			assert.nvim(nvim).has_extmarks_at(2, 01, 'lua', 'RainbowDelimiterYellow')
+			assert.nvim(nvim).has_extmarks_at(2, 14, 'lua', 'RainbowDelimiterYellow')
+		end)
+
+		it('Properly highlights after inserting two lines', function()
+			nvim:feedkeys('ggjyy2p', 'n', false)
+
+			assert.nvim(nvim).has_extmarks_at(2, 01, 'lua', 'RainbowDelimiterYellow')
+			assert.nvim(nvim).has_extmarks_at(2, 14, 'lua', 'RainbowDelimiterYellow')
+		end)
+	end)
 end)

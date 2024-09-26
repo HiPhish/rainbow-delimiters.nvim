@@ -61,6 +61,7 @@ local M = {
 		end
 	}),
 	enabled_for = function(lang)
+		if not lang then return false end
 		local conf = vim.g.rainbow_delimiters
 		if not conf then return true end
 
