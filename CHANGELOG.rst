@@ -9,6 +9,21 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Fixed
+=====
+
+- Highlighting wrong in global strategy after making changes inside a nested
+  node
+
+Changed
+=======
+
+- Queries no longer need the `@sentinel` capture group
+
+
 [0.6.2] - 2024-09-26
 ####################
 
