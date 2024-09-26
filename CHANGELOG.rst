@@ -9,8 +9,10 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
-Unreleased
-##########
+[0.6.2] - 2024-09-26
+####################
+
+Maintenance release which fixes a number of subtly broken queries.
 
 Added
 =====
