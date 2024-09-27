@@ -24,9 +24,9 @@
 local strategy
 
 if vim.fn.has 'nvim-0.10' ~= 0 then
-	strategy = require 'rainbow-delimiters.strategy.global2'
+	strategy = require 'rainbow-delimiters.strategy.global.current'
 else
-	strategy = require 'rainbow-delimiters.strategy.global1'
+	strategy = require 'rainbow-delimiters.strategy.global.legacy'
 end
 
 return strategy
