@@ -50,9 +50,7 @@ describe('Buffer Manipulation', function()
 
 		-- Move Lua line out of code block
 		nvim:cmd({cmd = 'move', range = {4}, args = {5}}, {})
-
-		local given = vim.fn.join(nvim:buf_get_lines(0, 0, -2, true), '\n')
-		assert.is.equal(markdown_without_injected_lua, given)
+		assert.nvim(nvim).has_content(markdown_without_injected_lua)
 
 		assert.nvim(nvim).Not.has_extmarks_at(4, 5, 'lua')
 	end)
@@ -66,9 +64,7 @@ describe('Buffer Manipulation', function()
 
 		-- Move Lua line out of code block
 		nvim:cmd({cmd = 'move', range = {5}, args = {3}}, {})
-
-		local given = vim.fn.join(nvim:buf_get_lines(0, 0, -2, true), '\n')
-		assert.is.equal(markdown_with_injected_lua, given)
+		assert.nvim(nvim).has_content(markdown_with_injected_lua)
 
 		assert.nvim(nvim).has_extmarks_at(3, 5, 'lua')
 	end)
@@ -82,8 +78,11 @@ describe('Buffer Manipulation', function()
 		assert.nvim(nvim).has_extmarks_at(3, 1, 'lua', 'RainbowDelimiterYellow')
 
 		nvim:command [[%s/\v\{\n\s+/{]]  -- Remove line break after opening brace
-		local given = vim.fn.join(nvim:buf_get_lines(0, 0, -2, true), '\n')
-		assert.is.equal('print {{},\n\t{},\n}', given)
+		-- assert.nvim(nvim).buffer(0).has_content('print {{},\n\t{},\n}')
+		assert.nvim(nvim).has_content
+[[print {{},
+	{},
+}]]
 
 		assert.nvim(nvim).has_extmarks_at(0, 7, 'lua', 'RainbowDelimiterYellow')
 		assert.nvim(nvim).has_extmarks_at(3, 1, 'lua', 'RainbowDelimiterYellow')

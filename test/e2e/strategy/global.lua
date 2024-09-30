@@ -45,7 +45,7 @@ describe('The global strategy', function()
 		-- Add a new pair of curly braces
 		-- (jump to first column, find the first closing brace, insert new pair)
 		nvim:feedkeys(rtc'gg0f}i{}<esc>', 'n', false)
-		assert.is.same({'print({{{{{{}}}}}})'}, nvim:buf_get_lines(0, 0, 1, true))
+		assert.nvim(nvim).has_content('print({{{{{{}}}}}})')
 
 		assert.nvim(nvim).Not.has_extmarks_at(0, 5, 'lua')
 		assert.is.equal(0, nvim:exec_lua('return the_strategy.attachments[1]', {}))
