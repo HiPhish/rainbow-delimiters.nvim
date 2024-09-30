@@ -41,7 +41,7 @@ describe('Buffer Manipulation', function()
 		yd.stop(nvim)
 	end)
 
-	it('Clears extmarks when moving line out of injected langauge', function()
+	it('Clears extmarks when moving line out of injected language', function()
 		nvim:exec_lua('TSEnsure(...)', {'lua', 'markdown'})
 		nvim:buf_set_lines(0, 0, -2, true, vim.fn.split(markdown_with_injected_lua, '\n'))
 		nvim:buf_set_option(0, 'filetype', 'markdown')
