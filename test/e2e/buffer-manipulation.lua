@@ -73,6 +73,22 @@ describe('Buffer Manipulation', function()
 		assert.nvim(nvim).has_extmarks_at(3, 5, 'lua')
 	end)
 
+	it('Preserves extmarks upon multi-line substitution', function()
+		nvim:exec_lua('TSEnsure(...)', {'lua'})
+		nvim:buf_set_lines(0, 0, -2, true, {'print {', '\t{', '\t},', '\t{', '\t},', '}'})
+		nvim:buf_set_option(0, 'filetype', 'lua')
+		nvim:exec_lua('vim.treesitter.start()', {})
+		assert.nvim(nvim).has_extmarks_at(1, 1, 'lua', 'RainbowDelimiterYellow')
+		assert.nvim(nvim).has_extmarks_at(3, 1, 'lua', 'RainbowDelimiterYellow')
+
+		nvim:command [[%s/\v\{\n\s+/{]]  -- Remove line break after opening brace
+		local given = vim.fn.join(nvim:buf_get_lines(0, 0, -2, true), '\n')
+		assert.is.equal('print {{},\n\t{},\n}', given)
+
+		assert.nvim(nvim).has_extmarks_at(0, 7, 'lua', 'RainbowDelimiterYellow')
+		assert.nvim(nvim).has_extmarks_at(3, 1, 'lua', 'RainbowDelimiterYellow')
+	end)
+
 	describe('Pasting lines containing delimiters', function()
 		local content = [[print {
 	{a = 1, b = 2},
