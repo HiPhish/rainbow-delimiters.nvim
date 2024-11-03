@@ -62,14 +62,6 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
-(constant_select1
-  "[" @delimiter
-  "]" @delimiter @sentinel) @container
-
-(bit_select1
-  "[" @delimiter
-  "]" @delimiter @sentinel) @container
-
-(select1
+(bit_select
   "[" @delimiter
   "]" @delimiter @sentinel) @container

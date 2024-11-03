@@ -18,16 +18,10 @@ return {
       start_col = 34,
       start_row = 60
     }, {
-      end_col = 0,
-      end_row = 61,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 35,
-      start_row = 60
-    }, {
       end_col = 4,
       end_row = 61,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 61
     }, {
       end_col = 5,
@@ -96,16 +90,10 @@ return {
       start_col = 6,
       start_row = 63
     }, {
-      end_col = 0,
-      end_row = 64,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 7,
-      start_row = 63
-    }, {
       end_col = 4,
       end_row = 64,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 64
     }, {
       end_col = 5,
@@ -228,16 +216,10 @@ return {
       start_col = 6,
       start_row = 66
     }, {
-      end_col = 0,
-      end_row = 67,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 7,
-      start_row = 66
-    }, {
       end_col = 4,
       end_row = 67,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 67
     }, {
       end_col = 10,
@@ -270,16 +252,10 @@ return {
       start_col = 44,
       start_row = 67
     }, {
-      end_col = 0,
-      end_row = 68,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 45,
-      start_row = 67
-    }, {
       end_col = 4,
       end_row = 68,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 68
     }, {
       end_col = 25,
@@ -330,16 +306,10 @@ return {
       start_col = 41,
       start_row = 69
     }, {
-      end_col = 0,
-      end_row = 70,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 44,
-      start_row = 69
-    }, {
       end_col = 5,
       end_row = 70,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 70
     }, {
       end_col = 26,
@@ -354,16 +324,10 @@ return {
       start_col = 26,
       start_row = 70
     }, {
-      end_col = 0,
-      end_row = 71,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 27,
-      start_row = 70
-    }, {
       end_col = 4,
       end_row = 71,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 71
     }, {
       end_col = 26,
@@ -414,16 +378,10 @@ return {
       start_col = 41,
       start_row = 72
     }, {
-      end_col = 0,
-      end_row = 73,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 44,
-      start_row = 72
-    }, {
       end_col = 5,
       end_row = 73,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 73
     }, {
       end_col = 27,
@@ -438,16 +396,10 @@ return {
       start_col = 27,
       start_row = 73
     }, {
-      end_col = 0,
-      end_row = 74,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 28,
-      start_row = 73
-    }, {
       end_col = 4,
       end_row = 74,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 74
     }, {
       end_col = 26,
@@ -462,16 +414,10 @@ return {
       start_col = 55,
       start_row = 74
     }, {
-      end_col = 0,
-      end_row = 75,
-      hl_group = "RainbowDelimiterYellow",
-      start_col = 57,
-      start_row = 74
-    }, {
       end_col = 4,
       end_row = 75,
       hl_group = "RainbowDelimiterYellow",
-      start_col = 0,
+      start_col = 3,
       start_row = 75
     }, {
       end_col = 19,
@@ -486,16 +432,10 @@ return {
       start_col = 48,
       start_row = 75
     }, {
-      end_col = 0,
-      end_row = 76,
-      hl_group = "RainbowDelimiterRed",
-      start_col = 50,
-      start_row = 75
-    }, {
       end_col = 4,
       end_row = 76,
       hl_group = "RainbowDelimiterRed",
-      start_col = 0,
+      start_col = 2,
       start_row = 76
     }, {
       end_col = 7,
