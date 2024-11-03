@@ -9,8 +9,10 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
-Unreleased
-##########
+[0.7.0] - 2024-11-03
+####################
+
+This is a bugfix release for Neovim 0.10 and later.
 
 Fixed
 =====
