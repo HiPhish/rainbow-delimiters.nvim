@@ -107,13 +107,15 @@ end
 ---@param lang  string
 ---@param tree  rainbow_delimiters.MatchTree
 ---@param level integer  Highlight level of this tree
-function M.highlight(tree, bufnr, lang, level)
+---@param pred  (fun(rainbow_delimiters): boolean)?  Predicate function, will abort highlighting if it evaluates to `false` at any point down the tree for that branch only.
+function M.highlight(tree, bufnr, lang, level, pred)
+	if pred and not pred(tree) then return end
 	local hlgroup = lib.hlgroup_at(level)
 	for delimiter in tree.match.delimiters:items() do
 		lib.highlight(bufnr, lang, delimiter, hlgroup)
 	end
 	for child in tree.children:items() do
-		M.highlight(child, bufnr, lang, level + 1)
+		M.highlight(child, bufnr, lang, level + 1, pred)
 	end
 end
 
