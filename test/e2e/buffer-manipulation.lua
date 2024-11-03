@@ -70,6 +70,8 @@ describe('Buffer Manipulation', function()
 	end)
 
 	it('Preserves extmarks upon multi-line substitution', function()
+		-- See also https://github.com/neovim/neovim/issues/31067
+		pending('Bug reported: https://github.com/neovim/neovim/issues/31067')
 		nvim:exec_lua('TSEnsure(...)', {'lua'})
 		nvim:buf_set_lines(0, 0, -2, true, {'print {', '\t{', '\t},', '\t{', '\t},', '}'})
 		nvim:buf_set_option(0, 'filetype', 'lua')
