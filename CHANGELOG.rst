@@ -9,6 +9,15 @@ is based on `Keep a Changelog`_ and this project adheres to `Semantic
 Versioning`_.
 
 
+Unreleased
+##########
+
+Added
+=====
+
+- Swift support
+
+
 [0.7.0] - 2024-11-03
 ####################
 
