@@ -17,6 +17,12 @@ Added
 
 - Swift support
 
+- Missing patterns
+
+  - Python
+
+    - `format_expression`
+
 
 [0.7.0] - 2024-11-03
 ####################
