@@ -23,6 +23,13 @@ Added
 
     - `format_expression`
 
+  - Starlark
+
+    - `list_pattern`
+    - `dict_pattern`
+    - `interpolation`
+    - `format_expression`
+
 
 [0.7.0] - 2024-11-03
 ####################
