@@ -58,6 +58,7 @@
 ---@field fennel       (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field fish         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field go           (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
+---@field groovy       (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field haskell      (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field hcl          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field html         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
@@ -126,6 +127,7 @@
 ---@field fennel       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field fish         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field go           (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field groovy       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field haskell      (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field hcl          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field html         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -194,6 +196,7 @@
 ---@field fennel       (integer | fun(bufnr: integer): integer)?
 ---@field fish         (integer | fun(bufnr: integer): integer)?
 ---@field go           (integer | fun(bufnr: integer): integer)?
+---@field groovy       (integer | fun(bufnr: integer): integer)?
 ---@field haskell      (integer | fun(bufnr: integer): integer)?
 ---@field hcl          (integer | fun(bufnr: integer): integer)?
 ---@field html         (integer | fun(bufnr: integer): integer)?
@@ -262,6 +265,7 @@
 ---| 'fennel'
 ---| 'fish'
 ---| 'go'
+---| 'groovy'
 ---| 'haskell'
 ---| 'hcl'
 ---| 'html'
