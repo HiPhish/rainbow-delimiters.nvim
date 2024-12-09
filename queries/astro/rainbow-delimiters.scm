@@ -8,6 +8,6 @@
     (tag_name) @delimiter
     ">" @delimiter @sentinel)) @container
 
-(interpolation
+(html_interpolation
   "{" @delimiter
   "}" @delimiter @sentinel) @container
