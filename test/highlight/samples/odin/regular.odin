@@ -21,6 +21,10 @@ U :: union {
 // i have no idea how this work
 B :: bit_field int {}
 
+foo :: proc() -> (int, string) {
+	return 1, "hello"[1:3]
+}
+
 main :: proc() {
 	st := S(int) {
 		x   = 10,
@@ -30,18 +34,23 @@ main :: proc() {
 
 	_ = st.arr[1]
 
-	m := map[rune]int {
+	m: map[rune]int = map[rune]int { 	// for the sake of example
 		'w' = 1,
 		's' = 2,
 	}
 
-	bs: bit_set[E]
-
-	bs = {.A, .B, .A}
+	bs: bit_set[E] = bit_set[E]{.A, .B, .A}
 
 	new_arr := [3]int{1, 2, 3}
 
 	may: Maybe(string)
+
+	exp := 5 * (1 + 2)
+
+	switch v in may {
+	case nil:
+	case string:
+	}
 
 	fmt.printfln("%v, %v", st, m['w'])
 }
