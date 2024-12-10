@@ -17,6 +17,8 @@ Added
 
 - Swift support
 
+- Odin support
+
 - Missing patterns
 
   - Python
