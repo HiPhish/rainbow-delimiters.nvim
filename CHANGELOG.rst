@@ -30,6 +30,16 @@ Added
     - `interpolation`
     - `format_expression`
 
+Changed
+=======
+
+- Renamed patterns
+
+  - Astro:
+
+    - `interpolation` to `html_interpolation`
+    
+
 
 [0.7.0] - 2024-11-03
 ####################
