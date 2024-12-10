@@ -65,6 +65,16 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(matrix_type
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(matrix
+  "[" @delimiter
+  "]" @delimiter
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
 (bit_set_type
   "[" @delimiter
   "]" @delimiter @sentinel) @container

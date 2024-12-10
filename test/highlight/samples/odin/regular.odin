@@ -47,6 +47,12 @@ main :: proc() {
 
 	exp := 5 * (1 + 2)
 
+	mat: matrix[2, 3]int
+	mat = matrix[2, 3]int{
+		1, 2, 3, 
+		4, 5, 6, 
+	}
+
 	switch v in may {
 	case nil:
 	case string:
