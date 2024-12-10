@@ -23,7 +23,7 @@
 # For more information, please refer to <https://unlicense.org/>
 
 
-.PHONY: check unit-test e2e-test clean
+.PHONY: check unit-test e2e-test highlight-test clean
 
 check: unit-test e2e-test highlight-test
 

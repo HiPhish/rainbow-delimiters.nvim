@@ -959,6 +959,5 @@ return {
       hl_group = "RainbowDelimiterRed",
       start_col = 0,
       start_row = 107
-    } },
-  regex = {}
+    } }
 }
