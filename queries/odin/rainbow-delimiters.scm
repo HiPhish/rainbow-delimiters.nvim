@@ -47,24 +47,33 @@
   "]" @delimiter @sentinel) @container
 
 (struct
-  ["{" "(" "["] @delimiter
-  ["}" ")" "]"] @delimiter @sentinel) @container
+ ("(" @delimiter
+  ")" @delimiter)?
+ ("[" @delimiter
+  "]" @delimiter)?
+ ("{" @delimiter
+  "}" @delimiter @sentinel)
+  ) @container
 
 (map_type
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
 (map
-  ["{" "["] @delimiter
-  ["}" "]"] @delimiter @sentinel) @container
+  "[" @delimiter
+  "]" @delimiter
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (bit_set_type
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
 (bit_set
-  ["{" "["] @delimiter
-  ["}" "]"] @delimiter @sentinel) @container
+  "[" @delimiter
+  "]" @delimiter
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
 
 (struct_declaration
   "{" @delimiter
