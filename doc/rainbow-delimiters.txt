@@ -26,6 +26,7 @@ TABLE OF CONTENTS                                     *rb-delimiters-contents*
 4. Recipes ................................... |rb-delimiters-recipes|
 5. Acknowledgements .......................... |rb-delimiters-credit|
 6. Further reading ........................... |rb-delimiters-reading|
+7. Changelog ................................. |rb-delimiters-news|
 
 
 ==============================================================================
