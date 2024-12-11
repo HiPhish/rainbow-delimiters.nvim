@@ -1,7 +1,7 @@
 (1..<2)/*
     there's no special AST node for this range syntax, and the (ERROR) node here
     isn't correct, this code is valid and runs
-*/.each { i -> // closjure
+*/.each { i -> // closure
     def _n = (1 + 3) // declaration
     _n = (3 + 1)     // assignment
 
