@@ -1,3 +1,9 @@
+;; NOTE: The current Groovy parser lacks any sort of "parenthesised expression"
+;; node, so we have a lot of patterns like `binary_op` which aim to give
+;; best-effort results.  Ideally the parser would be updated upstream and then
+;; we could remove a lot of these patterns.
+
+
 (assignment
   "(" @delimiter
   ")" @delimiter @sentinel) @container
