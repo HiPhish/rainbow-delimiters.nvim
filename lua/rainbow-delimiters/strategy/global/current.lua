@@ -190,6 +190,7 @@ end
 ---@param settings rainbow_delimiters.buffer_settings
 local function on_reset(bufnr, settings)
 	log.trace('global strategy on_reset for buffer %d', bufnr)
+	full_update(bufnr, settings.parser)
 end
 
 

@@ -1,6 +1,5 @@
 ---@meta
 
-
 --# Utility Library #--
 
 ---Strategy to use for highlighting with rainbow-delimiters
@@ -17,7 +16,6 @@
 ---@field strategy rainbow_delimiters.strategy
 ---@field parser vim.treesitter.LanguageTree
 ---@field lang string
-
 
 --# Config #--
 
@@ -78,6 +76,7 @@
 ---@field markdown     (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field nim          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field nix          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
+---@field odin         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field perl         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field php          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field python       (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
@@ -147,6 +146,7 @@
 ---@field markdown     (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nim          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nix          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field odin         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field perl         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field php          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field python       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -216,6 +216,7 @@
 ---@field markdown     (integer | fun(bufnr: integer): integer)?
 ---@field nim          (integer | fun(bufnr: integer): integer)?
 ---@field nix          (integer | fun(bufnr: integer): integer)?
+---@field odin         (integer | fun(bufnr: integer): integer)?
 ---@field perl         (integer | fun(bufnr: integer): integer)?
 ---@field php          (integer | fun(bufnr: integer): integer)?
 ---@field python       (integer | fun(bufnr: integer): integer)?
@@ -246,7 +247,6 @@
 ---@field zig          (integer | fun(bufnr: integer): integer)?
 ---User defined language, not part of rainbow_delimiters support
 ---@field [string]     (integer | fun(bufnr: integer): integer)?
-
 
 ---@alias rainbow_delimiters.language
 ---| 'astro'
@@ -285,6 +285,7 @@
 ---| 'markdown'
 ---| 'nim'
 ---| 'nix'
+---| 'odin'
 ---| 'perl'
 ---| 'php'
 ---| 'python'
