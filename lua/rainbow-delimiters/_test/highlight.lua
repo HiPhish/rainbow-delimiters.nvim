@@ -149,7 +149,7 @@ function M.record_extmarks(language, sample, query)
 				file:write('return ')
 				file:write(vim.inspect(result))
 				file:close()
-				print(string.format('Spec file "%s" written', spec_file))
+				print(string.format('Spec file "%s" written\n', spec_file))
 			end
 		end
 	end

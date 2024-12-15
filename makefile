@@ -23,7 +23,7 @@
 # For more information, please refer to <https://unlicense.org/>
 
 
-.PHONY: check unit-test e2e-test highlight-test clean
+.PHONY: check unit-test e2e-test highlight-test record-highlight clean
 
 check: unit-test e2e-test highlight-test
 
@@ -35,6 +35,18 @@ e2e-test:
 
 highlight-test:
 	@./test/bin/busted --run highlight
+
+# NOTE: default value empty string ensures that by default no language is
+# passed because there is no language whose name is the empty string.
+record-highlight:
+	@# Records the extmarks for the language passed via the LANGUAGE variable.
+	@# Use this from the command-line:  make record-highlight LANGUAGE=lua
+ifdef LANGUAGE
+	@./test/bin/lua -e 'require("rainbow-delimiters._test.highlight").record_extmarks("$(LANGUAGE)")'
+else
+	@echo 'Must pass a language via `LANGUAGE` variable'
+	@exit 1
+endif
 
 clean:
 	@rm -rf test/xdg/local/state/nvim/*
