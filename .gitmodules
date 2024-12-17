@@ -3,4 +3,4 @@
 	url = https://github.com/nvim-treesitter/nvim-treesitter
 [submodule "test/xdg/local/share/nvim/site/pack/testing/start/yo-dawg"]
 	path = test/xdg/local/share/nvim/site/pack/testing/start/yo-dawg
-	url = https://gitlab.com/HiPhish/yo-dawg.nvim.git
+	url = https://github.com/HiPhish/yo-dawg.nvim.git
