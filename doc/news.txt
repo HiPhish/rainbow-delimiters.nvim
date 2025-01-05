@@ -18,6 +18,10 @@ ADDED
 New languages:
     • Groovy
 
+Missing patterns:
+    • C++:
+        - `enumerator_list`
+
 
 ==============================================================================
 VERSION 0.8.0 (released on 2024-12-10)
