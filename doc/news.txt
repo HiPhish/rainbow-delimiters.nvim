@@ -21,7 +21,8 @@ New languages:
 Missing patterns:
     • C++:
         - `enumerator_list`
-
+    • Java:
+        - `switch_block`
 
 ==============================================================================
 VERSION 0.8.0 (released on 2024-12-10)

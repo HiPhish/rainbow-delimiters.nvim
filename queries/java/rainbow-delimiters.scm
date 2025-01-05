@@ -6,6 +6,10 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(switch_block
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
 (array_initializer
   "{" @delimiter
   "}" @delimiter @sentinel) @container

@@ -27,6 +27,15 @@ public class HelloWorld {
 			System.out.print(i);
 		}
 
+		switch (names[0]) {
+			case 'Alice':
+				System.out.println("Hello, Alice in wonderland");
+				break;
+			default:
+				System.out.println("Hello, " + names[0]);
+				break;
+		}
+
 		// Parentheses around condition
 		if (false) {
 			System.err.println("This will never print");
