@@ -18,6 +18,12 @@ ADDED
 New languages:
     • Groovy
 
+------------------------------------------------------------------------------
+CHANGED
+
+The default highlight priority is computed dynamically to be halfway between
+semantic tokens and Tree-sitter.
+
 
 ==============================================================================
 VERSION 0.8.0 (released on 2024-12-10)
