@@ -14,9 +14,10 @@
    limitations under the License.
 --]]
 
+local priorities = (vim.hl or vim.highlight).priorities
+
 ---Default plugin configuration.
 ---@type rainbow_delimiters.config
-local priorities = (vim.hl or vim.highlight).priorities
 local M = {
 	---Query names by file type
 	query = {
@@ -28,7 +29,9 @@ local M = {
 		[''] = require 'rainbow-delimiters.strategy.global',
 	},
 	priority = {
-		[''] = (priorities.treesitter + priorities.semantic_tokens) // 2
+		-- Halfway between semantic tokens and Tree-sitter
+		[''] = math.floor((priorities.semantic_tokens + priorities.treesitter) / 2)
+
 	},
 	---Event logging settings
 	log = {
