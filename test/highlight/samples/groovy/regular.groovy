@@ -1,14 +1,8 @@
-(1..<2)/*
-    there's no special AST node for this range syntax, and the (ERROR) node here
-    isn't correct, this code is valid and runs
-*/.each { i -> // closure
-    def _n = (1 + 3) // declaration
-    _n = (3 + 1)     // assignment
-
-    // ternary_op, binary_op
-    x = ((i % 2) == 0) ? "even" : "odd"
+(1..<2).each { i -> // closure
+    def _n = (1 + 3) // parenthesized_expression
 
     // if_statement
+    def x = ""
     if (x == "even") {
         println "Even number: $i"
     } else {
@@ -19,7 +13,7 @@
         print "."
     }
     // for_in_loop
-    for (y in ([1, [2, 3], 4])) { // FIXME: the nesting here
+    for (y in ([1, [2, 3], 4])) {
         println "y = $y"
     }
 }
@@ -31,7 +25,7 @@ def henlo(name="fren") // parameter_list
 
 {
     key = "hysm"
-    map = [(key): "ra3d"] // map, map_item
+    map = [(key): "ra3d"] // map
     def abcd = [a: [b: [c: [d: [:]]]]] // map nesting
     _ = map["hysm"] // index
     list = [0, [1, [2, [3, []]]]] // list
@@ -60,9 +54,7 @@ switch (x) {
     default: result = "default"
 }
 assert result == "number > 3"
-assert (result == "number > 3") // assertion
-
-while ((1+2) != 3) {} // while_loop
+assert (result == "number > 3")
 
 List <List<Map<String, Integer>>> _trash = [[[mazen: 5]]] // generics
 return ( // return

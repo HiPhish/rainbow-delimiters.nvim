@@ -1,14 +1,4 @@
-;; NOTE: The current Groovy parser lacks any sort of "parenthesised expression"
-;; node, so we have a lot of patterns like `binary_op` which aim to give
-;; best-effort results.  Ideally the parser would be updated upstream and then
-;; we could remove a lot of these patterns.
-
-
-(assignment
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(declaration
+(parenthesized_expression
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
@@ -20,39 +10,11 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-(binary_op
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(ternary_op
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(if_statement
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(map_item
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(while_loop
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
 (for_parameters
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
 (for_in_loop
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(return
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(assertion
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
@@ -71,10 +33,6 @@
 (closure
   "{" @delimiter
   "}" @delimiter @sentinel) @container
-
-(switch_statement
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
 
 (switch_block
   "{" @delimiter
