@@ -25,7 +25,7 @@
 
 .PHONY: check unit-test e2e-test highlight-test record-highlight clean
 
-check: unit-test e2e-test highlight-test
+check: unit-test e2e-test highlight-test query-test
 
 unit-test:
 	@./test/bin/busted --run unit
@@ -35,6 +35,9 @@ e2e-test:
 
 highlight-test:
 	@./test/bin/busted --run highlight
+
+query-test:
+	@./test/bin/busted --run query
 
 # NOTE: default value empty string ensures that by default no language is
 # passed because there is no language whose name is the empty string.
