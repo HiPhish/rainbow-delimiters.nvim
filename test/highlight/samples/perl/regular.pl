@@ -5,7 +5,7 @@ no warnings qw(experimental::signatures);
 
 sub foobar($foo, $bar) {
     my %h = (
-        foo => +{ foo => 'bar' },
+        foo => + { foo => 'bar' },
         ($foo ? (
             bar => hoge(foo => $bar)->id,
         ) : ()),
@@ -34,7 +34,7 @@ sub barfoo {
     my $sub = sub {
         say $foo;
     };
-    map { +{} } @ary;
+    map { + {} } @ary;
     qw(a b c d e);
     qr(a b c d e);
     qx(a b c d e);

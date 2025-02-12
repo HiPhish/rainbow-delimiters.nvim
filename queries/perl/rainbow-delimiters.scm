@@ -1,86 +1,90 @@
-(argument
+(signature
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(array
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(array_dereference
-  "{" @delimiter
-  "}" @delimiter @sentinel) @container
-
-(array_ref
-  "[" @delimiter
-  "]" @delimiter @sentinel) @container
-
-(array_ref
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
-(hash_access_variable
-  "->{" @delimiter
-  "}" @delimiter @sentinel) @container
-
-(hash_access_variable
+(anonymous_hash_expression
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
-(hash_ref
-  "+" @delimiter
-  "{" @delimiter
-  "}" @delimiter @sentinel) @container
-
-(multi_var_declaration
+(stub_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
-(parenthesized_expression
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
-(standalone_block
+(hash_element_expression
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
-(parenthesized_argument
+(array_element_expression
+  "[" @delimiter
+  "]" @delimiter) @container
+
+(function_call_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
-(list_block
-  "{" @delimiter
-  "}" @delimiter @sentinel) @container
+(anonymous_array_expression
+  "[" @delimiter
+  "]" @delimiter) @container
 
-(word_list_qw
-  (start_delimiter_qw) @delimiter
-  (end_delimiter_qw) @delimiter @sentinel) @container
+(slice_expression
+  "[" @delimiter
+  "]" @delimiter) @container
 
-(regex_pattern_qr
-  (start_delimiter) @delimiter
-  (end_delimiter) @delimiter @sentinel) @container
+(conditional_statement
+  "(" @delimiter
+  ")" @delimiter) @container
 
-(command_qx_quoted
-  (start_delimiter) @delimiter
-  (end_delimiter) @delimiter @sentinel) @container
+(quoted_word_list
+  "qw"
+  "'" @delimiter
+  "'" @delimiter) @container
 
-(string_qq_quoted
-  (start_delimiter) @delimiter
-  (end_delimiter) @delimiter @sentinel) @container
+(quoted_regexp
+  "qr"
+  "'" @delimiter
+  "'" @delimiter) @container
 
-(patter_matcher_m
-  (start_delimiter) @delimiter
-  (end_delimiter) @delimiter @sentinel) @container
+(command_string
+  "qx"
+  "'" @delimiter
+  "'" @delimiter) @container
 
-(substitution_pattern_s
-  (start_delimiter) @delimiter
-  (separator_delimiter) @delimiter
-  (end_delimiter) @delimiter @sentinel) @container
+(interpolated_string_literal
+  "qq"
+  "'" @delimiter
+  "'" @delimiter) @container
 
-(transliteration_tr_or_y
-  (start_delimiter) @delimiter
-  (separator_delimiter) @delimiter
-  (end_delimiter) @delimiter @sentinel) @container
+(string_literal
+  "q"
+  "'" @delimiter
+  "'" @delimiter) @container
+
+(match_regexp
+  "m"
+  "'" @delimiter
+  "'" @delimiter) @container
+
+(substitution_regexp
+  "s"
+  "'" @delimiter
+  "'" @delimiter
+  "'" @delimiter
+  "'" @delimiter) @container
+
+(transliteration_expression
+  "tr"
+  "'" @delimiter
+  "'" @delimiter
+  "'" @delimiter
+  "'" @delimiter) @container
+
+(transliteration_expression
+  "y"
+  "'" @delimiter
+  "'" @delimiter
+  "'" @delimiter
+  "'" @delimiter) @container

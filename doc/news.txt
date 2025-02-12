@@ -18,6 +18,8 @@ Fixed patterns:
     • Templ:
         - Missing `style_tag_start` and `style_tag_end` nodes in
           `style_element`
+    • Perl:
+        - All patterns were obsolete
 
 
 ------------------------------------------------------------------------------
