@@ -19,12 +19,14 @@
     "/>" @delimiter @sentinel)) @container
 
 (style_element
-  ("<" @delimiter
-   "style" @delimiter
-   ">" @delimiter)
-  ("</" @delimiter
-   "style" @delimiter
-   ">" @delimiter @sentinel)) @container
+  (style_tag_start
+    "<" @delimiter
+    "style" @delimiter
+    ">" @delimiter)
+  (style_tag_end
+    "</" @delimiter
+    "style" @delimiter
+    ">" @delimiter)) @container
 
 (script_element
   ("<" @delimiter
