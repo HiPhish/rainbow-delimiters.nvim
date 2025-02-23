@@ -5,6 +5,11 @@
   (identifier) @delimiter
   ")" @delimiter @sentinel) @container
 
+(missing_node
+  "(" @delimiter
+  (identifier)? @delimiter
+  ")" @delimiter @sentinel) @container
+
 (grouping
   "(" @delimiter
   ")" @delimiter @sentinel) @container
