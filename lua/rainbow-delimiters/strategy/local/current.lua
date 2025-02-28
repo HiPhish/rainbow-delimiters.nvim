@@ -51,7 +51,7 @@ local function find_cursor_container(query, tree, bufnr)
 	local curpos = api.nvim_win_get_cursor(0)
 	-- The order of traversal guarantees that the first match which
 	-- contains the cursor is also the lowest one.
-	for _, match in query:iter_matches(tree:root(), bufnr, 0, -1) do
+	for _, match in query:iter_matches(tree:root(), bufnr, 0, -1, {all=false}) do
 		if result then break end
 		for id, node in pairs(match) do
 			local name = query.captures[id]
