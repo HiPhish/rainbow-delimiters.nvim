@@ -7,6 +7,7 @@
 
 (missing_node
   "(" @delimiter
+  "MISSING" @delimiter
   (identifier)? @delimiter
   ")" @delimiter @sentinel) @container
 

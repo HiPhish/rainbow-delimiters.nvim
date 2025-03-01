@@ -33,6 +33,8 @@ Missing patterns:
         - `enumerator_list`
     • Java:
         - `switch_block`
+    • Query:
+        - `missing_node`
 
 ------------------------------------------------------------------------------
 CHANGED
