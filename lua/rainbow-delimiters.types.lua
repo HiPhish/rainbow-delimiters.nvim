@@ -68,6 +68,7 @@
 ---@field jsonc        (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field jsonnet      (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field julia        (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
+---@field kdl          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field kotlin       (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field latex        (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field lua          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
@@ -138,6 +139,7 @@
 ---@field jsonc        (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field jsonnet      (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field julia        (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field kdl          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field kotlin       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field latex        (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(bufnr: integer): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
 ---@field lua          (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(bufnr: integer): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
@@ -208,6 +210,7 @@
 ---@field jsonc        (integer | fun(bufnr: integer): integer)?
 ---@field jsonnet      (integer | fun(bufnr: integer): integer)?
 ---@field julia        (integer | fun(bufnr: integer): integer)?
+---@field kdl          (integer | fun(bufnr: integer): integer)?
 ---@field kotlin       (integer | fun(bufnr: integer): integer)?
 ---@field latex        (integer | fun(bufnr: integer): integer)?
 ---@field lua          (integer | fun(bufnr: integer): integer)?
@@ -277,6 +280,7 @@
 ---| 'jsonc'
 ---| 'jsonnet'
 ---| 'julia'
+---| 'kdl'
 ---| 'kotlin'
 ---| 'latex'
 ---| 'lua'
