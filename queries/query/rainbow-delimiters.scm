@@ -2,6 +2,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(missing_node
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (grouping
   "(" @delimiter
   ")" @delimiter @sentinel) @container
