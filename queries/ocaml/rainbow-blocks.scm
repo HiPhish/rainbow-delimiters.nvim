@@ -1,4 +1,4 @@
-; It shouldn't work but it works, I don't know why
+; let ... in
 (let_expression
   (value_definition
   "let" @delimiter
@@ -42,10 +42,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-; doesn't work on annotated types?
-; (parameter
-;   "(" @delimiter
-;   ")" @delimiter @sentinel) @container
+(parameter
+  pattern:(typed_pattern
+  "(" @delimiter
+  ")" @delimiter @sentinel)) @container
 
 (local_open_expression
   "(" @delimiter

@@ -6,10 +6,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-; doesn't work on annotated types?
-; (parameter
-;   "(" @delimiter
-;   ")" @delimiter @sentinel) @container
+(parameter
+  pattern:(typed_pattern
+  "(" @delimiter
+  ")" @delimiter @sentinel)) @container
 
 (local_open_expression
   "(" @delimiter
