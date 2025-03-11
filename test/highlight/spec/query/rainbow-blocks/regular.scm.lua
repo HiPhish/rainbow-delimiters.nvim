@@ -162,6 +162,12 @@ return {
       start_col = 7,
       start_row = 7
     }, {
+      end_col = 15,
+      end_row = 7,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 8,
+      start_row = 7
+    }, {
       end_col = 19,
       end_row = 7,
       hl_group = "RainbowDelimiterYellow",
