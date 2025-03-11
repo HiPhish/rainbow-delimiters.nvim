@@ -27,6 +27,7 @@ ADDED
 
 New languages:
     • Groovy
+    • KDL
 
 Missing patterns:
     • C++:
