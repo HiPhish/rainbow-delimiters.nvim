@@ -94,22 +94,18 @@ Recording
 Recording highlighting
 ----------------------
 
-First make the necessary changes to the sample file or query.  Then call the
-`record_extmarks` function from the `rainbow-delimiters._test.highlight`
-module.  This module is not part of the runtime plugin code, so it is
-undocumented.  The function takes three optional arguments (all strings):
+First make the necessary changes to the sample file or query.  Then build the
+`record-highlight` target in the makefile and pass the language as a variable.
 
-- `language`: The language in question
-- `sample`: Name of the sample file
-- `query`: Name of the query
+.. code:: sh
 
-If any one of these is missing the specs for all applicable languages, samples
-or queries are recorded.  You should at least specify the language, otherwise
-the function can take a lot of time.
+   make record-highlight LANGUAGE=lua
 
 
 Running highlight tests
 -----------------------
+
+Build the `highlight-test` target.
 
 
 
