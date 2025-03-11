@@ -34,7 +34,11 @@ e2e-test:
 	@./test/bin/busted --run e2e
 
 highlight-test:
+ifdef LANGUAGE
+	@./test/bin/busted --run highlight -t $(LANGUAGE)
+else
 	@./test/bin/busted --run highlight
+endif
 
 query-test:
 	@./test/bin/busted --run query
