@@ -47,7 +47,11 @@ local M = {
 	}),
 	strategy = setmetatable({}, {
 		__index = function(table, key)
-			return get_nested(table, 'strategy', key)
+			local value = get_nested(table, 'strategy', key)
+			if type(value) == 'string' then
+				return require(value)
+			end
+			return value
 		end
 	}),
 	priority = setmetatable({}, {

@@ -177,6 +177,9 @@ function M.attach(bufnr)
 		if type(strategy) == 'function' then
 			strategy = strategy(bufnr)
 		end
+		if type(strategy) == 'string' then
+			strategy = require(strategy)
+		end
 	end
 
 	-- Intentionally abort; the user has explicitly disabled rainbow delimiters

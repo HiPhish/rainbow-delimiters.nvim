@@ -13,6 +13,7 @@ local assert = require 'luassert'
 ---state.
 local NVIM_STATE_KEY = {}
 local BUFFER_STATE_KEY = {}
+local LANGUAGE_STATE_KEY = {}
 
 local function nvim_client(state, args, _level)
 	assert(args.n > 0, 'No Neovim channel provided to the modifier')
@@ -26,6 +27,13 @@ local function nvim_buffer(state, args, _level)
 	assert(rawget(state, NVIM_STATE_KEY) ~= nil, 'No Neovim client set')
 	assert(rawget(state, BUFFER_STATE_KEY) == nil, 'Buffer already set')
 	rawset(state, BUFFER_STATE_KEY, args[1])
+end
+
+local function nvim_language(state, args, _level)
+	assert(args.n == 1, 'Must provide exactly one language')
+	assert(rawget(state, NVIM_STATE_KEY) ~= nil, 'No Neovim client set')
+	assert(rawget(state, LANGUAGE_STATE_KEY) == nil, 'Language already set')
+	rawset(state, LANGUAGE_STATE_KEY, args[1])
 end
 
 ---Asserts that there are Rainbow Delimiters extmarks at the given position.
@@ -68,10 +76,31 @@ local function has_buffer_content(state, arguments)
 	return expected == given
 end
 
+local function has_strategy(state, arguments)
+	local nvim = rawget(state, NVIM_STATE_KEY)
+	local language = rawget(state, LANGUAGE_STATE_KEY)
+	local module = arguments[1]
+
+	assert(language ~= nil, 'No language set')
+	assert(module, 'Provide the expected strategy module as a string')
+
+	return nvim:exec_lua(
+		string.format([[
+			return vim.deep_equal(
+				require('rainbow-delimiters.config').strategy["%s"],
+				require('%s')
+			)
+		]], language, module),
+		{}
+	)
+end
+
 say:set('assertion.extmarks_at.positive', 'Expected extmarks at (%s, %s)')
 say:set('assertion.extmarks_at.negative', 'Expected no extmarks at (%s, %s)')
 say:set('assertion.has_content.positive', 'Expected buffer content %s')
 say:set('assertion.has_content.negative', 'Expected different buffer content than %s')
+say:set('assertion.has_strategy.positive', 'Expected strategy %s')
+say:set('assertion.has_strategy.negative', 'Expected different strategy than %s')
 
 assert:register(
 	'assertion', 'has_extmarks_at', has_extmarks_at,
@@ -79,5 +108,9 @@ assert:register(
 assert:register(
 	'assertion', 'has_content', has_buffer_content,
 	'assertion.has_content.positive', 'assertion.has_content.negative')
+assert:register(
+	'assertion', 'has_strategy', has_strategy,
+	'assertion.has_strategy.positive', 'assertion.has_strategy.negative')
 assert:register('modifier', 'nvim', nvim_client)
 assert:register('modifier', 'buffer', nvim_buffer)
+assert:register('modifier', 'language', nvim_language)

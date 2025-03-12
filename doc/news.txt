@@ -37,11 +37,19 @@ Missing patterns:
     • Query:
         - `missing_node`
 
+Other:
+    • Strategies in configuration may be strings
+    • Built-in stategies can be referenced via their module strings (see
+      |rb-delimiters-strategy|)
+
+
 ------------------------------------------------------------------------------
 CHANGED
 
-The default highlight priority is computed dynamically to be halfway between
-semantic tokens and Tree-sitter.
+• The default highlight priority is computed dynamically to be halfway between
+  semantic tokens and Tree-sitter.
+• Deprecated |rb-delimiters.strategy| and its Vim script mirror
+  |g:rainbow_delimiters#strategy|, refer to strategies via strings instead.
 
 
 ==============================================================================

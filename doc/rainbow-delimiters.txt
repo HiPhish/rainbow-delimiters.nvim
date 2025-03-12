@@ -52,9 +52,9 @@ dictionary which can be defined both in Vim script and in Lua.  The following
 keys are recognized:
 
 `strategy`
-  Dictionary mapping Tree-sitter language names to strategies.  The empty
-  string is the key for the default strategy.  See |rb-delimiters-strategy|
-  for more information about strategies.
+  How to apply highlighting.  The empty string is the key for the default
+  strategy. See |rb-delimiters-strategy| for more information about strategies
+  and the possible values.
 
 `query`
   Dictionary mapping Tree-sitter language names to queries.  The empty string
@@ -103,8 +103,8 @@ Here is an example configuration:
 >vim
     let g:rainbow_delimiters = {
         \ 'strategy': {
-            \ '': rainbow_delimiters#strategy.global,
-            \ 'vim': rainbow_delimiters#strategy.local,
+            \ '': 'rainbow-delimiters.strategy.global',
+            \ 'vim': 'rainbow-delimiters.strategy.local',
         \ },
         \ 'query': {
             \ '': 'rainbow-delimiters',
@@ -135,8 +135,8 @@ Alternatively, the same configuration in Lua:
     ---@type rainbow_delimiters.config
     vim.g.rainbow_delimiters = {
         strategy = {
-            [''] = rainbow_delimiters.strategy['global'],
-            commonlisp = rainbow_delimiters.strategy['local'],
+            [''] = 'rainbow-delimiters.strategy.global',
+            commonlisp = 'rainbow-delimiters.strategy.local',
         },
         query = {
             [''] = 'rainbow-delimiters',
@@ -167,8 +167,8 @@ available as part of a Lua module.
 >lua
     require 'rainbow-delimiters.setup'.setup {
         strategy = {
-            [''] = rainbow_delimiters.strategy['global'],
-            commonlisp = rainbow_delimiters.strategy['local'],
+            [''] = 'rainbow-delimiters.strategy.global',
+            commonlisp = 'rainbow-delimiters.strategy.local',
         },
         query = {
             [''] = 'rainbow-delimiters',
@@ -243,34 +243,33 @@ and updates the highlights when the document tree changes.  On the other hand,
 the included local strategy highlights only the sub-tree of the document which
 contains the cursor and is updated whenever the cursor moves.
 
-The strategy is set globally with per-language overrides.  The setting is a
-dictionary where the empty string is the key for the default strategy and the
-overrides use the name of the language as keys.
+The strategy is set globally with per-language overrides.  The empty string is
+the key for the default strategy used by all languages which do not have their
+own setting.  The setting value is of one of the following types:
 
-Each value can be either a strategy or a function which evaluates to a
-strategy.  A function can be used to defer the decision to a later point in
-time.
+    • String path to a Lua module which is a strategy
+    • A dictionary according to |rb-delimiters-custom-strategy|
+    • A function which returns a string or a strategy
 
-The function has the following signature:
+A function can be used to defer the decision to a later point in time.  It has
+the following signature:
 
     Parameters: ~
       • {bufnr}  Number of the buffer to highlight
 
     Return: ~
-      Either a strategy or `nil` (or |v:null|).  If `nil`, rainbow delimiters
-      will be disabled for that buffer.
+      Either a string, a strategy or `nil` (or |v:null|).  If `nil`, rainbow
+      delimiters will be disabled for that buffer.
 
 NOTE
 Functions can only be used from Lua.
 
 >lua
-    local rainbow = require 'rainbow-delimiters'
-
     strategy = {
         -- Use global strategy by default
-        [''] = rainbow.strategy['global'],
+        [''] = 'rainbow-delimiters.strategy.global',
         -- Use local for HTML
-        html = rainbow.strategy['local'],
+        html = 'rainbow-delimiters.strategy.local',
         -- Pick the strategy for LaTeX dynamically based on the buffer size
         latex = function(bufnr)
             -- Disabled for very large files, global strategy for large files,
@@ -279,9 +278,9 @@ Functions can only be used from Lua.
             if line_count > 10000 then
                 return nil
             elseif line_count > 1000 then
-                return rainbow.strategy['global']
+                return 'rainbow-delimiters.strategy.global'
             end
-            return rainbow.strategy['local']
+            return 'rainbow-delimiters.strategy.local'
         end
     }
 <
@@ -292,14 +291,14 @@ strategies are included:
 
                                                *rb-delimiters.strategy.global*
 Global~
-'rainbow-delimiters'.strategy['global']
+"rainbow-delimiters.strategy.global"
 
 The default strategy, highlights the entire buffer.  Has very simple logic.
 
 
                                                 *rb-delimiters.strategy.local*
 Local~
-'rainbow-delimiters'.strategy['local']
+"rainbow-delimiters.strategy.local"
 
 Based on the cursor position highlights only the sub-tree which contains the
 cursor.  Updated every time the cursor moves and uses more complex logic than
@@ -308,7 +307,7 @@ the global strategy to figure out which nodes exactly to highlight.
 
                                                  *rb-delimiters.strategy.noop*
 No-op~
-'rainbow-delimiters'.strategy['noop']
+"rainbow-delimiters.strategy.noop"
 
 A dummy strategy which does nothing.  This is only useful in testing or if you
 really want an empty strategy.
@@ -483,6 +482,10 @@ rainbow-delimiters#hlgroup_at({nesting_level})
                                                       *rb-delimiters.strategy*
                                                *g:rainbow_delimiters#strategy*
 'rainbow-delimiters'.strategy
+
+    WARNING: This is deprecated, use the string values listed in
+    |rb-delimiters-strategy|.
+
     Table of included strategies.  For more information about strategies see
     |rb-delimiters-strategy|.  The included ones are:
 
