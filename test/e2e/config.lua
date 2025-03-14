@@ -53,33 +53,27 @@ describe('User settings are respected', function()
 
 		describe('Strategies can be thunks', function()
 			before_each(function()
-				-- Store strategies in global variables for later reference
-				nvim:exec_lua('noop = require("rainbow-delimiters").strategy.noop', {})
-				nvim:exec_lua('the_strategy = require("rainbow-delimiters.strategy.track")(noop)', {})
 				-- Set a thunk as the strategy
+				nvim:exec_lua('TSEnsure(...)', {'lua', 'vim'})
 				nvim:exec_lua([[
 				vim.g.rainbow_delimiters = {
 					strategy = {
-						[""] = function() return the_strategy end,
+						[""] = function() return 'rainbow-delimiters.strategy.global' end,
 						vim = function() return nil end
 					}
 				}]], {})
 			end)
 
 			it('Uses the strategy returned by the thunk', function()
-				nvim:exec_lua('TSEnsure(...)', {'lua'})
 				nvim:buf_set_lines(0, 0, -1, true, {'print "Hello world"', '-- vim:ft=lua'})
 				nvim:command('filetype detect')
-				local attachments = nvim:exec_lua('return the_strategy.attachments[1]', {})
-				assert.is.equal(1, attachments, 'The strategy should be attached to the Lua buffer')
+				assert.nvim(nvim).has_rainbow()
 			end)
 
 			it('Does nothing if the thunk returns nil', function()
-				nvim:exec_lua('TSEnsure(...)', {'vim'})
 				nvim:buf_set_lines(0, 0, -1, true, {'echo "Hello world"', '" vim:ft=vim'})
 				nvim:command('filetype detect')
-				local attachments = nvim:exec_lua('return the_strategy.attachments[1]', {})
-				assert.is.equal(0, attachments, 'The strategy should not be attached to the Vim buffer')
+				assert.nvim(nvim).Not.has_rainbow()
 			end)
 		end)
 	end)

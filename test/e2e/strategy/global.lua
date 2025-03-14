@@ -15,19 +15,7 @@ describe('The global strategy', function()
 	before_each(function()
 		nvim = yd.start()
 		nvim:exec_lua('TSEnsure(...)', {'lua', 'vim'})
-		nvim:exec_lua([[
-			local rb = require 'rainbow-delimiters'
-			local track = require('rainbow-delimiters.strategy.track')
-			local global = rb.strategy.global
-			assert(nil ~= global)
-			the_strategy = track(global)
-			vim.g.rainbow_delimiters = {
-				strategy = {
-					[''] = the_strategy
-				}, query = {
-				},
-			}
-		]], {})
+		nvim:set_var('rainbow_delimiters', {query = {}})
 	end)
 
 	after_each(function()
@@ -48,7 +36,7 @@ describe('The global strategy', function()
 		assert.nvim(nvim).has_content('print({{{{{{}}}}}})')
 
 		assert.nvim(nvim).Not.has_extmarks_at(0, 5, 'lua')
-		assert.is.equal(0, nvim:exec_lua('return the_strategy.attachments[1]', {}))
+		assert.nvim(nvim).Not.has_rainbow()
 	end)
 
 	it('Ignores blacklisted injected languages', function()

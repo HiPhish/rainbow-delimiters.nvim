@@ -6,18 +6,6 @@ describe('The local strategy', function()
 	before_each(function()
 		nvim = yd.start()
 		nvim:exec_lua('TSEnsure(...)', {'lua', 'vim'})
-		nvim:exec_lua([[
-			local rb = require 'rainbow-delimiters'
-			local track = require('rainbow-delimiters.strategy.track')
-			local strategy = rb.strategy['local']
-			assert(nil ~= strategy)
-			the_strategy = track(strategy)
-			vim.g.rainbow_delimiters = {
-				strategy = {
-					[''] = the_strategy
-				}
-			}
-		]], {})
 	end)
 
 	after_each(function()
@@ -40,6 +28,6 @@ describe('The local strategy', function()
 		assert.nvim(nvim).has_content('print({{{{{{}}}}}})')
 
 		assert.nvim(nvim).Not.has_extmarks_at(0, 5, 'lua')
-		assert.is.equal(0, nvim:exec_lua('return the_strategy.attachments[1]', {}))
+		assert.nvim(nvim).Not.has_rainbow()
 	end)
 end)

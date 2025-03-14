@@ -6,15 +6,13 @@ describe('The Rainbow Delimiters public API', function()
 	before_each(function()
 		nvim = yd.start()
 
-		-- Set up a tracking strategy
-		nvim:exec_lua([[
-			TSEnsure('markdown', 'lua', 'vim')
-			rb = require 'rainbow-delimiters'
-    		vim.g.rainbow_delimiters = {
-    			strategy = {
-    				[''] = rb.strategy.global,
-    			},
-    		}]], {})
+		nvim:exec_lua([[TSEnsure('markdown', 'lua', 'vim')]], {})
+		nvim:exec_lua([[rb = require 'rainbow-delimiters' ]], {})
+    	nvim:set_var('rainbow_delimiters', {
+    		strategy = {
+    			[''] = 'rainbow-delimiters.strategy.global',
+    		}
+    	})
 	end)
 
 	after_each(function()
@@ -23,12 +21,12 @@ describe('The Rainbow Delimiters public API', function()
 
 	describe('Whether RB is enabled for a buffer at startup', function()
 		it('Is disabled for a buffer without file type', function()
-			assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+			assert.nvim(nvim).not_has_rainbow()
 		end)
 
 		it('Is enabled for a supported language', function()
 			nvim:buf_set_option(0, 'filetype', 'lua')
-			assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+			assert.nvim(nvim).has_rainbow()
 		end)
 
 		describe('Blacklist', function()
@@ -38,12 +36,12 @@ describe('The Rainbow Delimiters public API', function()
 
 			it('Is enabled for a not blacklisted language', function()
 				nvim:buf_set_option(0, 'filetype', 'lua')
-				assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).has_rainbow()
 			end)
 
 			it('Is disabled for a blacklisted language', function()
 				nvim:buf_set_option(0, 'filetype', 'markdown')
-				assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).not_has_rainbow()
 			end)
 
 			it('Is disabled for a blacklisted language with injected whitelisted language', function()
@@ -57,7 +55,7 @@ describe('The Rainbow Delimiters public API', function()
 					'More Markdown',
 				})
 				nvim:buf_set_option(0, 'filetype', 'markdown')
-				assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).not_has_rainbow()
 			end)
 		end)
 
@@ -68,12 +66,12 @@ describe('The Rainbow Delimiters public API', function()
 
 			it('Is disabled for a not whitelisted language', function()
 				nvim:buf_set_option(0, 'filetype', 'markdown')
-				assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).not_has_rainbow()
 			end)
 
 			it('Is enabled for a whitelisted language', function()
 				nvim:buf_set_option(0, 'filetype', 'lua')
-				assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).has_rainbow()
 			end)
 
 			it('Is enabled for whitelisted language with other language injected', function()
@@ -82,7 +80,7 @@ describe('The Rainbow Delimiters public API', function()
 					'vim.cmd [[echo "This is Vim"]]',
 				})
 				nvim:buf_set_option(0, 'filetype', 'lua')
-				assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).has_rainbow()
 			end)
 
 			it('Is disabled for not whitelisted language with injected whitelisted language', function()
@@ -96,7 +94,7 @@ describe('The Rainbow Delimiters public API', function()
 					'More Markdown',
 				})
 				nvim:buf_set_option(0, 'filetype', 'markdown')
-				assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).not_has_rainbow()
 			end)
 		end)
 	end)
@@ -105,34 +103,34 @@ describe('The Rainbow Delimiters public API', function()
 		it('Can be disabled for a buffer', function()
 			nvim:buf_set_option(0, 'filetype', 'lua')
 			nvim:exec_lua('rb.disable(0)', {})
-			assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+			assert.nvim(nvim).not_has_rainbow()
 		end)
 
 		it('Can be turned back on', function()
 			nvim:buf_set_option(0, 'filetype', 'lua')
 			nvim:exec_lua('rb.disable(0)', {})
 			nvim:exec_lua('rb.enable(0)', {})
-			assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+			assert.nvim(nvim).has_rainbow()
 		end)
 
 		it('Can be toggled off', function()
 			nvim:buf_set_option(0, 'filetype', 'lua')
 			nvim:exec_lua('rb.toggle(0)', {})
-			assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+			assert.nvim(nvim).not_has_rainbow()
 		end)
 
 		it('Can be toggled on', function()
 			nvim:buf_set_option(0, 'filetype', 'lua')
 			nvim:exec_lua('rb.toggle(0)', {})
 			nvim:exec_lua('rb.toggle(0)', {})
-			assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+			assert.nvim(nvim).has_rainbow()
 		end)
 
 		it('Gets disabled idempotently', function()
 			nvim:buf_set_option(0, 'filetype', 'lua')
 			nvim:exec_lua('rb.disable(0)', {})
 			nvim:exec_lua('rb.disable(0)', {})
-			assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+			assert.nvim(nvim).not_has_rainbow()
 		end)
 
 		it('Gets enabled idempotently', function()
@@ -140,7 +138,7 @@ describe('The Rainbow Delimiters public API', function()
 			nvim:exec_lua('rb.disable(0)', {})
 			nvim:exec_lua('rb.enable(0)', {})
 			nvim:exec_lua('rb.enable(0)', {})
-			assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+			assert.nvim(nvim).has_rainbow()
 		end)
 
 		describe('Blacklist', function()
@@ -151,13 +149,13 @@ describe('The Rainbow Delimiters public API', function()
 			it('Can be enabled for a blacklisted language', function()
 				nvim:buf_set_option(0, 'filetype', 'markdown')
 				nvim:exec_lua('rb.enable(0)', {})
-				assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).has_rainbow()
 			end)
 
 			it('Can be toggled for a blacklisted language', function()
 				nvim:buf_set_option(0, 'filetype', 'markdown')
 				nvim:exec_lua('rb.toggle(0)', {})
-				assert.is.True(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).has_rainbow()
 			end)
 		end)
 
@@ -169,13 +167,13 @@ describe('The Rainbow Delimiters public API', function()
 			it('Can be disabled for a whitelisted language', function()
 				nvim:buf_set_option(0, 'filetype', 'lua')
 				nvim:exec_lua('rb.disable(0)', {})
-				assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).not_has_rainbow()
 			end)
 
 			it('Can be toggled for a whitelisted language', function()
 				nvim:buf_set_option(0, 'filetype', 'lua')
 				nvim:exec_lua('rb.toggle(0)', {})
-				assert.is.False(nvim:exec_lua('return rb.is_enabled()', {}))
+				assert.nvim(nvim).not_has_rainbow()
 			end)
 		end)
 	end)

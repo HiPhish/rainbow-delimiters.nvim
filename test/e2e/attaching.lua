@@ -5,20 +5,7 @@ describe('Attaching a strategy to a buffer', function()
 
 	before_each(function()
 		nvim = yd.start()
-
-		-- Set up a tracking strategy
-		nvim:exec_lua([[
-			TSEnsure('lua', 'vim')
-			do
-				local track = require('rainbow-delimiters.strategy.track')
-				local noop  = require('rainbow-delimiters.strategy.no-op')
-				the_strategy = track(noop)
-			end
-    		vim.g.rainbow_delimiters = {
-    			strategy = {
-    				[''] = the_strategy
-    			}
-    		}]], {})
+		nvim:exec_lua([[TSEnsure('lua', 'vim')]], {})
 	end)
 
 	after_each(function()
@@ -36,23 +23,16 @@ describe('Attaching a strategy to a buffer', function()
 			nvim:cmd({cmd = 'filetype', args = {'detect'}}, {})
 		end
 
-		local count = nvim:exec_lua('return the_strategy.attachments[1]', {})
-		assert.is.equal(1, count, 'Buffer attached multiple times')
+		assert.nvim(nvim).has_rainbow()
 	end)
 
 	it('Performs cleanup after a buffer is deleted', function()
-		local is_attached
-
 		nvim:buf_set_lines(0, 0, -1, true, {'print((((("Hello, world!")))))', '-- vim:ft=lua'})
 		nvim:cmd({cmd = 'filetype', args = {'detect'}}, {})
-
-		is_attached = nvim:exec_lua('return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
-		assert.is_true(is_attached, 'Strategy must be attach to buffer')
-
+		assert.nvim(nvim).has_rainbow()
 		-- Delete the buffer
 		nvim:cmd({cmd = 'bdelete', bang = true}, {})
-		is_attached = nvim:exec_lua('return the_strategy.buffers[vim.fn.bufnr()] ~= nil', {})
-		assert.is_false(is_attached, 'Strategy must not be attach to buffer')
+		assert.nvim(nvim).not_has_rainbow()
 	end)
 
 	it('Detaches from the buffer and re-attached with the new language', function()
@@ -60,12 +40,7 @@ describe('Attaching a strategy to a buffer', function()
 		-- changes the language
 		for _, expected in ipairs({'lua', 'vim'}) do
 			nvim:buf_set_option(0, 'filetype', expected)
-
-			local lang = nvim:exec_lua('return the_strategy.buffers[vim.fn.bufnr()].lang', {})
-			local attachments = nvim:exec_lua('return the_strategy.attachments[1]', {})
-
-			assert.is.equal(1, attachments)
-			assert.is.equal(lang, expected)
+			assert.nvim(nvim).has_rainbow()
 		end
 	end)
 

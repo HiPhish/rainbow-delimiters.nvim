@@ -95,12 +95,25 @@ local function has_strategy(state, arguments)
 	)
 end
 
+---Whether rainbow delimiters is enabled for the given buffer
+local function has_rainbow(state, _arguments)
+	local nvim = rawget(state, NVIM_STATE_KEY)
+	local bufnr = rawget(state, BUFFER_STATE_KEY)
+	assert(nvim ~= nil, 'No Neovim channel set, use the `nvim` modifier to set the channel')
+	return nvim:exec_lua('return require("rainbow-delimiters").is_enabled(...)', {bufnr})
+end
+
 say:set('assertion.extmarks_at.positive', 'Expected extmarks at (%s, %s)')
 say:set('assertion.extmarks_at.negative', 'Expected no extmarks at (%s, %s)')
+
 say:set('assertion.has_content.positive', 'Expected buffer content %s')
 say:set('assertion.has_content.negative', 'Expected different buffer content than %s')
+
 say:set('assertion.has_strategy.positive', 'Expected strategy %s')
 say:set('assertion.has_strategy.negative', 'Expected different strategy than %s')
+
+say:set('assertion.has_rainbow.positive', 'Expected rainbow delimiters to be enabled')
+say:set('assertion.has_rainbow.negative', 'Expected rainbow delimiters to be disabled')
 
 assert:register(
 	'assertion', 'has_extmarks_at', has_extmarks_at,
@@ -111,6 +124,10 @@ assert:register(
 assert:register(
 	'assertion', 'has_strategy', has_strategy,
 	'assertion.has_strategy.positive', 'assertion.has_strategy.negative')
+assert:register(
+	'assertion', 'has_rainbow', has_rainbow,
+	'assertion.has_rainbow.positive', 'assertion.has_rainbow.negative')
+
 assert:register('modifier', 'nvim', nvim_client)
 assert:register('modifier', 'buffer', nvim_buffer)
 assert:register('modifier', 'language', nvim_language)
