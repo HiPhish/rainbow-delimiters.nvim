@@ -1,4 +1,13 @@
 {
 	"$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
-  	"workspace.ignoreDir": ["test/xdg"]
+	"runtime.path": ["?.lua"],
+	"workspace.ignoreDir": ["test/xdg"],
+	"workspace.ignoreSubmodules": false,
+	"workspake.userThirdParty": [
+		".luals/addons"
+	],
+	"workspace.library": [
+		".luals/addons/luassert/library",
+		".luals/meta"
+	]
 }
