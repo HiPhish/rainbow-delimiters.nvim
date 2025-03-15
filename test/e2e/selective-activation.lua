@@ -21,7 +21,7 @@ describe('We can disable rainbow delimiters for certain languages', function()
 				blacklist = {'lua'}}
 			)
 			nvim:command('filetype detect')
-			assert.nvim(nvim).not_has_rainbow()
+			assert.remote(nvim).not_has_rainbow()
 		end)
 
 		it('Runs when whitelisted', function()
@@ -29,7 +29,7 @@ describe('We can disable rainbow delimiters for certain languages', function()
 				whitelist = {'lua'}}
 			)
 			nvim:command('filetype detect')
-			assert.nvim(nvim).has_rainbow()
+			assert.remote(nvim).has_rainbow()
 		end)
 	end)
 
@@ -43,7 +43,7 @@ describe('We can disable rainbow delimiters for certain languages', function()
 				blacklist = {'lua'},
 			})
 			nvim:command('filetype detect')
-			assert.nvim(nvim).has_rainbow()
+			assert.remote(nvim).has_rainbow()
 		end)
 
 		it('Does not run when not whitelisted', function()
@@ -51,7 +51,7 @@ describe('We can disable rainbow delimiters for certain languages', function()
 				whitelist = {'lua'},
 			})
 			nvim:command('filetype detect')
-			assert.nvim(nvim).not_has_rainbow()
+			assert.remote(nvim).not_has_rainbow()
 		end)
 	end)
 
@@ -67,19 +67,19 @@ describe('We can disable rainbow delimiters for certain languages', function()
 				condition = nil,
 			})
 			nvim:command('filetype detect')
-			assert.nvim(nvim).has_rainbow()
+			assert.remote(nvim).has_rainbow()
 		end)
 
 		it('Runs when condition is met', function()
 			nvim:exec_lua('vim.g.rainbow_delimiters = {condition = always}', {})
 			nvim:command('filetype detect')
-			assert.nvim(nvim).has_rainbow()
+			assert.remote(nvim).has_rainbow()
 		end)
 
 		it('Does not run when condition is unmet', function()
 			nvim:exec_lua('vim.g.rainbow_delimiters = {condition = never}', {})
 			nvim:command('filetype detect')
-			assert.nvim(nvim).not_has_rainbow()
+			assert.remote(nvim).not_has_rainbow()
 		end)
 
 		it('Is ignored for blacklisted buffers', function()
@@ -90,7 +90,7 @@ describe('We can disable rainbow delimiters for certain languages', function()
 				}
 			]], {})
 			nvim:command('filetype detect')
-			assert.nvim(nvim).not_has_rainbow()
+			assert.remote(nvim).not_has_rainbow()
 		end)
 
 		it('Is takes prededence over the whitelist', function()
@@ -101,7 +101,7 @@ describe('We can disable rainbow delimiters for certain languages', function()
 				}
 			]], {})
 			nvim:command('filetype detect')
-			assert.nvim(nvim).not_has_rainbow()
+			assert.remote(nvim).not_has_rainbow()
 		end)
 	end)
 end)

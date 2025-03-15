@@ -3,7 +3,7 @@ if not is_test then return end
 local assert = require 'luassert'
 
 
-local function nvim_client(state, args, _level)
+local function channel(state, args, _level)
 	assert(args.n > 0, 'No Neovim channel provided to the modifier')
 	assert(rawget(state, keys.channel) == nil, 'Neovim already set')
 	rawset(state, keys.channel, args[1])
@@ -11,4 +11,4 @@ local function nvim_client(state, args, _level)
 end
 
 
-assert:register('modifier', 'nvim', nvim_client)
+assert:register('modifier', 'remote', channel)

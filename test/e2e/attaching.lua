@@ -23,16 +23,16 @@ describe('Attaching a strategy to a buffer', function()
 			nvim:cmd({cmd = 'filetype', args = {'detect'}}, {})
 		end
 
-		assert.nvim(nvim).has_rainbow()
+		assert.remote(nvim).has_rainbow()
 	end)
 
 	it('Performs cleanup after a buffer is deleted', function()
 		nvim:buf_set_lines(0, 0, -1, true, {'print((((("Hello, world!")))))', '-- vim:ft=lua'})
 		nvim:cmd({cmd = 'filetype', args = {'detect'}}, {})
-		assert.nvim(nvim).has_rainbow()
+		assert.remote(nvim).has_rainbow()
 		-- Delete the buffer
 		nvim:cmd({cmd = 'bdelete', bang = true}, {})
-		assert.nvim(nvim).not_has_rainbow()
+		assert.remote(nvim).not_has_rainbow()
 	end)
 
 	it('Detaches from the buffer and re-attached with the new language', function()
@@ -40,7 +40,7 @@ describe('Attaching a strategy to a buffer', function()
 		-- changes the language
 		for _, expected in ipairs({'lua', 'vim'}) do
 			nvim:buf_set_option(0, 'filetype', expected)
-			assert.nvim(nvim).has_rainbow()
+			assert.remote(nvim).has_rainbow()
 		end
 	end)
 
