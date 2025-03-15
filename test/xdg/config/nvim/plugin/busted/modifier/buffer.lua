@@ -10,4 +10,4 @@ local function buffer(state, args, _level)
 	rawset(state, keys.buffer, args[1])
 end
 
-assert:register('modifier', 'buffer', buffer)
+assert:register('modifier', 'in_buffer', buffer)
