@@ -26,6 +26,7 @@ Fixed patterns:
 ADDED
 
 New languages:
+    • Gleam  
     • Groovy
 
 Missing patterns:
