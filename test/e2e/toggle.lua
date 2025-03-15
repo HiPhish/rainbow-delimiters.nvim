@@ -16,26 +16,26 @@ describe('We can use functions to turn rainbow delimiters off and on again.', fu
 	end)
 
 	it('Does highlighting initially', function()
-		assert.remote(nvim).has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).has_extmarks()
 	end)
 
 	it('Disables rainbow delimiters', function()
 		nvim:call_function('rainbow_delimiters#disable', {0})
-		assert.remote(nvim).Not.has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).Not.has_extmarks()
 	end)
 
 	it('Remains disabled when disabling twice', function()
 		nvim:call_function('rainbow_delimiters#disable', {0})
 		nvim:call_function('rainbow_delimiters#disable', {0})
 
-		assert.remote(nvim).Not.has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).Not.has_extmarks()
 	end)
 
 	it('Turns rainbow delimiters back on', function()
 		nvim:call_function('rainbow_delimiters#disable', {0})
 		nvim:call_function('rainbow_delimiters#enable', {0})
 
-		assert.remote(nvim).has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).has_extmarks()
 	end)
 
 	it('Remains enabled when enabling twice', function()
@@ -43,7 +43,7 @@ describe('We can use functions to turn rainbow delimiters off and on again.', fu
 		nvim:call_function('rainbow_delimiters#enable', {0})
 		nvim:call_function('rainbow_delimiters#enable', {0})
 
-		assert.remote(nvim).has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).has_extmarks()
 	end)
 
 	it('Can be disabled after being enabled', function()
@@ -51,7 +51,7 @@ describe('We can use functions to turn rainbow delimiters off and on again.', fu
 		nvim:call_function('rainbow_delimiters#enable', {0})
 		nvim:call_function('rainbow_delimiters#disable', {0})
 
-		assert.remote(nvim).Not.has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).Not.has_extmarks()
 	end)
 
 	it('Can be enabled after being disabled twice', function()
@@ -59,6 +59,6 @@ describe('We can use functions to turn rainbow delimiters off and on again.', fu
 		nvim:call_function('rainbow_delimiters#disable', {0})
 		nvim:call_function('rainbow_delimiters#enable', {0})
 
-		assert.remote(nvim).has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).has_extmarks()
 	end)
 end)

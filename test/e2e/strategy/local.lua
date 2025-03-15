@@ -16,10 +16,10 @@ describe('The local strategy', function()
 		nvim:buf_set_lines(0, 0, -1, true, {'print({{{{{}}}}})', '-- vim:ft=lua'})
 		nvim:win_set_cursor(0, {1, 5})
 		nvim:buf_set_option(0, 'filetype', 'lua')
-		assert.remote(nvim).has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).has_extmarks()
 
 		nvim:call_function('rainbow_delimiters#disable', {0})
-		assert.remote(nvim).Not.has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).Not.has_extmarks()
 
 		-- Add a new pair of curly braces
 		-- (jump to first column, find the first closing brace, insert new pair)
@@ -27,7 +27,7 @@ describe('The local strategy', function()
 		nvim:feedkeys(keys, 'n', false)
 		assert.remote(nvim).has_content('print({{{{{{}}}}}})')
 
-		assert.remote(nvim).Not.has_extmarks_at(0, 5, 'lua')
+		assert.remote(nvim).for_language('lua').at_position(0, 5).Not.has_extmarks()
 		assert.remote(nvim).Not.has_rainbow()
 	end)
 end)

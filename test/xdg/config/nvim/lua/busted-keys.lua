@@ -12,6 +12,7 @@ local M = {
 	channel = {},
 	buffer = {},
 	language = {},
+	position = {},
 }
 
 

@@ -14,7 +14,7 @@ describe('User settings are respected', function()
 	describe('Strategy settings', function()
 		it('Resolves a string to a strategy table', function()
 			nvim:set_var('rainbow_delimiters', {strategy = {lua = 'rainbow-delimiters.strategy.local'}})
-			assert.remote(nvim).language('lua').has_strategy('rainbow-delimiters.strategy.local')
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
 		end)
 
 		it('Resolves a string to a strategy in Vim script', function()
@@ -22,7 +22,7 @@ describe('User settings are respected', function()
 				"let g:rainbow_delimiters = {'strategy': {'lua': 'rainbow-delimiters.strategy.local'}}",
 				{}
 			)
-			assert.remote(nvim).language('lua').has_strategy('rainbow-delimiters.strategy.local')
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
 		end)
 
 		it('Accepts a strategy object', function()
@@ -36,19 +36,19 @@ describe('User settings are respected', function()
 				]],
 				{}
 			)
-			assert.remote(nvim).language('lua').has_strategy('rainbow-delimiters.strategy.local')
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
 		end)
 
 		it('Applies the default strategy to all languages xx', function()
 			nvim:set_var('rainbow_delimiters', {strategy = {[''] = 'rainbow-delimiters.strategy.local'}})
-			assert.remote(nvim).language('lua').has_strategy('rainbow-delimiters.strategy.local')
-			assert.remote(nvim).language('vim').has_strategy('rainbow-delimiters.strategy.local')
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
+			assert.remote(nvim).for_language('vim').has_strategy('rainbow-delimiters.strategy.local')
 		end)
 
 		it('Overrides the strategy for individual languages', function()
 			nvim:set_var('rainbow_delimiters', {strategy = {lua = 'rainbow-delimiters.strategy.local'}})
-			assert.remote(nvim).language('lua').has_strategy('rainbow-delimiters.strategy.local')
-			assert.remote(nvim).language('vim').has_strategy('rainbow-delimiters.strategy.global')
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
+			assert.remote(nvim).for_language('vim').has_strategy('rainbow-delimiters.strategy.global')
 		end)
 
 		describe('Strategies can be thunks', function()

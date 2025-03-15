@@ -11,4 +11,4 @@ local function nvim_language(state, args, _level)
 end
 
 
-assert:register('modifier', 'language', nvim_language)
+assert:register('modifier', 'for_language', nvim_language)
