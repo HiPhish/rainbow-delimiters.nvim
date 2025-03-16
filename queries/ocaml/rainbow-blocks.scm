@@ -1,36 +1,33 @@
 ; let ... in
 (let_expression ; Line 170
   (value_definition
-  "let" @delimiter
-  ("rec" @delimiter)?
-  )
+    "let" @delimiter
+    ("rec" @delimiter)?)
   "in" @delimiter @sentinel) @container
 
 (match_expression ; Line 182
   "match" @delimiter
   "with" @delimiter
-  ("|"  @delimiter (match_case))+
-   ) @container
+  ("|"  @delimiter (match_case))+) @container
 
 ; I can't get it to collapse else if into one
 (if_expression ; Line 193
   "if" @delimiter
   (then_clause "then" @delimiter)
-  (else_clause "else" @delimiter)*
-  ) @container
+  (else_clause "else" @delimiter)*) @container
 
 (for_expression ; Line 208
   "for" @delimiter
   "to" @delimiter
   (do_clause
-  "do" @delimiter
-  "done" @delimiter)) @container
+    "do" @delimiter
+    "done" @delimiter)) @container
 
 (while_expression ; Line 219
   "while" @delimiter
   (do_clause
-  "do" @delimiter
-  "done" @delimiter)) @container
+    "do" @delimiter
+    "done" @delimiter)) @container
 
 ;;; Copied over from rainbow-delimiters
 
