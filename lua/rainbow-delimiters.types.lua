@@ -76,6 +76,7 @@
 ---@field markdown     (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field nim          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field nix          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
+---@field ocaml        (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field odin         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field perl         (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
 ---@field php          (rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?)?
@@ -146,6 +147,7 @@
 ---@field markdown     (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nim          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nix          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field ocaml        (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field odin         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field perl         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field php          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -216,6 +218,7 @@
 ---@field markdown     (integer | fun(bufnr: integer): integer)?
 ---@field nim          (integer | fun(bufnr: integer): integer)?
 ---@field nix          (integer | fun(bufnr: integer): integer)?
+---@field ocaml        (integer | fun(bufnr: integer): integer)?
 ---@field odin         (integer | fun(bufnr: integer): integer)?
 ---@field perl         (integer | fun(bufnr: integer): integer)?
 ---@field php          (integer | fun(bufnr: integer): integer)?
@@ -285,6 +288,7 @@
 ---| 'markdown'
 ---| 'nim'
 ---| 'nix'
+---| 'ocaml'
 ---| 'odin'
 ---| 'perl'
 ---| 'php'
