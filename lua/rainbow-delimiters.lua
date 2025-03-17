@@ -58,11 +58,11 @@ local M = {
 	---Available default highlight strategies
 	strategy = {
 		---Global highlighting strategy
-		['global'] = require 'rainbow-delimiters.strategy.global',
+		['global'] = 'rainbow-delimiters.strategy.global',
 		---Local highlighting strategy
-		['local']  = require 'rainbow-delimiters.strategy.local',
+		['local']  = 'rainbow-delimiters.strategy.local',
 		---Empty highlighting strategy for testing
-		['noop']   = require 'rainbow-delimiters.strategy.no-op',
+		['noop']   = 'rainbow-delimiters.strategy.no-op',
 	},
 	enable  = enable,
 	disable = disable,
