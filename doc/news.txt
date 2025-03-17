@@ -29,6 +29,7 @@ New languages:
     • Gleam  
     • Groovy
     • KDL
+    • OCaml
 
 Missing patterns:
     • C++:
