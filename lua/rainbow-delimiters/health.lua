@@ -48,6 +48,11 @@ end
 ---@param strategy rainbow_delimiters.strategy | fun(bufnr: integer): rainbow_delimiters.strategy?
 ---@return boolean
 local function check_strategy(strategy)
+	if type(strategy) == 'string' then
+		local success, result = pcall(require, strategy)
+		if not success then return false end
+		strategy = result
+	end
 	if type(strategy) == 'function' then
 		local finfo = debug.getinfo(strategy)
 		return finfo.nparams == 0 or finfo.nparams == 1
