@@ -62,9 +62,6 @@ The equivalent code in Lua:
 
 .. code:: lua
 
-   -- This module contains a number of default definitions
-   local rainbow_delimiters = require 'rainbow-delimiters'
-
    ---@type rainbow_delimiters.config
    vim.g.rainbow_delimiters = {
        strategy = {
