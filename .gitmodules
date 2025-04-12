@@ -10,3 +10,6 @@
 [submodule ".luals/addons/busted"]
 	path = .luals/addons/busted
 	url = https://github.com/LuaCATS/busted
+[submodule "test/bin"]
+	path = test/bin
+	url = https://gitlab.com/HiPhish/nvim-busted-shims.git
