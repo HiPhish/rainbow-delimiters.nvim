@@ -22,8 +22,12 @@ Installation and setup
 Installation
 ============
 
-Install it like any other Neovim plugin.  You will need a Tree-sitter parser
-for each language you want to use rainbow delimiters with.
+Install it like any other Neovim plugin; you do not need the Git submodules of
+this repository.  They are just used for development and won't cause any harm,
+they will just bloat your setup.
+
+You will need a Tree-sitter parser for each language you want to use rainbow
+delimiters with.
 
 Setup
 =====
