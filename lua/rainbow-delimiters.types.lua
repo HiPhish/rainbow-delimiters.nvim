@@ -77,6 +77,7 @@
 ---@field markdown     (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field nim          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field nix          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
+---@field nu           (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field ocaml        (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field odin         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field perl         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
@@ -149,6 +150,7 @@
 ---@field markdown     (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nim          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nix          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field nu           (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field ocaml        (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field odin         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field perl         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -221,6 +223,7 @@
 ---@field markdown     (integer | fun(bufnr: integer): integer)?
 ---@field nim          (integer | fun(bufnr: integer): integer)?
 ---@field nix          (integer | fun(bufnr: integer): integer)?
+---@field nu           (integer | fun(bufnr: integer): integer)?
 ---@field ocaml        (integer | fun(bufnr: integer): integer)?
 ---@field odin         (integer | fun(bufnr: integer): integer)?
 ---@field perl         (integer | fun(bufnr: integer): integer)?
@@ -292,6 +295,7 @@
 ---| 'markdown'
 ---| 'nim'
 ---| 'nix'
+---| 'nu'
 ---| 'ocaml'
 ---| 'odin'
 ---| 'perl'
