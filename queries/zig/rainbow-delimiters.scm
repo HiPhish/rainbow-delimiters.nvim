@@ -98,3 +98,7 @@
   ")" @delimiter
   "{" @delimiter
   "}" @delimiter @sentinel) @container
+
+(parenthesized_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container

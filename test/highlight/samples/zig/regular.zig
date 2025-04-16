@@ -70,6 +70,9 @@ pub fn main() !void {
     }
 
     try bw.flush(); // don't forget to flush!
+
+    const err_opt: anyerror!?bool = true;
+    _ = (try err_opt).?;
 }
 
 const truth linksection("lambda") = "calculus";
