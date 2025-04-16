@@ -1,6 +1,5 @@
 def foo []: [nothing -> nothing] {
-  (1 + (2 * 3))
-  echo ...([1])
+  echo ...([1]) $"(1 + (2 * 3))"
   null
 }
 
