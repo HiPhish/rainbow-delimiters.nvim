@@ -16,6 +16,7 @@ ADDED
 
 New languages:
     • Nu shell
+    • Yuck
 
 Missing patterns:
     • Zig:

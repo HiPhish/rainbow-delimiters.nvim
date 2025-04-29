@@ -107,6 +107,7 @@
 ---@field vue          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field wgsl         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field yaml         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
+---@field yuck         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field zig          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---User defined language, not part of rainbow_delimiters support
 ---@field [string]     (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
@@ -180,6 +181,7 @@
 ---@field vue          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field wgsl         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field yaml         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field yuck         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field zig          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---User defined language, not part of rainbow_delimiters support
 ---@field [string]     (string | fun(bufnr: integer): string)?
@@ -253,6 +255,7 @@
 ---@field vue          (integer | fun(bufnr: integer): integer)?
 ---@field wgsl         (integer | fun(bufnr: integer): integer)?
 ---@field yaml         (integer | fun(bufnr: integer): integer)?
+---@field yuck         (integer | fun(bufnr: integer): integer)?
 ---@field zig          (integer | fun(bufnr: integer): integer)?
 ---User defined language, not part of rainbow_delimiters support
 ---@field [string]     (integer | fun(bufnr: integer): integer)?
@@ -325,6 +328,7 @@
 ---| 'vue'
 ---| 'wgsl'
 ---| 'yaml'
+---| 'yuck'
 ---| 'zig'
 ---User defined language, not part of rainbow_delimiters support
 ---| string
