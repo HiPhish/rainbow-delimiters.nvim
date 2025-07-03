@@ -1,7 +1,3 @@
-(parenthesized_expression
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
 (parameters
    "(" @delimiter
    ")" @delimiter @sentinel) @container
@@ -156,6 +152,10 @@
   )?
   "{" @delimiter
   "}" @delimiter @sentinel) @container
+
+(parenthesized_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
 (error_set_declaration
   "{" @delimiter
