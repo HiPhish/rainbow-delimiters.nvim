@@ -73,3 +73,7 @@
   (interpolation
     "{" @delimiter
     "}" @delimiter @sentinel) @container)
+
+(format_expression
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container

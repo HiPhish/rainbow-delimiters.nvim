@@ -12,60 +12,68 @@ describe('User settings are respected', function()
 	end)
 
 	describe('Strategy settings', function()
-		it('Applies the default strategy to all languages', function()
-			local strategy = 'default strategy'
-			nvim:exec2('let g:rainbow_delimiters = {"strategy": {"": "default strategy"}}', {})
-			local lua_strategy = nvim:exec_lua('return require("rainbow-delimiters.config").strategy.lua', {})
-			local   c_strategy = nvim:exec_lua('return require("rainbow-delimiters.config").strategy.c', {})
-			assert.is.equal(strategy, lua_strategy)
-			assert.is.equal(strategy,   c_strategy)
+		it('Resolves a string to a strategy table', function()
+			nvim:set_var('rainbow_delimiters', {strategy = {lua = 'rainbow-delimiters.strategy.local'}})
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
+		end)
+
+		it('Resolves a string to a strategy in Vim script', function()
+			nvim:exec2(
+				"let g:rainbow_delimiters = {'strategy': {'lua': 'rainbow-delimiters.strategy.local'}}",
+				{}
+			)
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
+		end)
+
+		it('Accepts a strategy object', function()
+			nvim:exec_lua(
+				[[
+					vim.g.rainbow_delimiters = {
+						strategy = {
+							lua = require('rainbow-delimiters.strategy.local')
+						}
+					}
+				]],
+				{}
+			)
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
+		end)
+
+		it('Applies the default strategy to all languages xx', function()
+			nvim:set_var('rainbow_delimiters', {strategy = {[''] = 'rainbow-delimiters.strategy.local'}})
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
+			assert.remote(nvim).for_language('vim').has_strategy('rainbow-delimiters.strategy.local')
 		end)
 
 		it('Overrides the strategy for individual languages', function()
-			-- I had to use a trick here because we cannot compare dictionaries or
-			-- functions for identity between Vim script and Lua.  Instead I
-			-- set a string as the strategy and compare for that equality.
-			nvim:exec_lua('require("rainbow-delimiters.default").strategy[""] = "default strategy"', {})
-
-			-- Override the strategy for Vim only
-			nvim:set_var('rainbow_delimiters', {strategy = {vim = 'vim strategy'}})
-
-			local lua_strategy = nvim:exec_lua('return require("rainbow-delimiters.config").strategy.lua', {})
-			local vim_strategy = nvim:exec_lua('return require("rainbow-delimiters.config").strategy.vim', {})
-
-			assert.is.equal('vim strategy',     vim_strategy, 'Wrong strategy found for Vim')
-			assert.is.equal('default strategy', lua_strategy, 'Wrong strategy found for Lua')
+			nvim:set_var('rainbow_delimiters', {strategy = {lua = 'rainbow-delimiters.strategy.local'}})
+			assert.remote(nvim).for_language('lua').has_strategy('rainbow-delimiters.strategy.local')
+			assert.remote(nvim).for_language('vim').has_strategy('rainbow-delimiters.strategy.global')
 		end)
 
 		describe('Strategies can be thunks', function()
 			before_each(function()
-				-- Store strategies in global variables for later reference
-				nvim:exec_lua('noop = require("rainbow-delimiters").strategy.noop', {})
-				nvim:exec_lua('the_strategy = require("rainbow-delimiters.strategy.track")(noop)', {})
 				-- Set a thunk as the strategy
+				nvim:exec_lua('TSEnsure(...)', {'lua', 'vim'})
 				nvim:exec_lua([[
 				vim.g.rainbow_delimiters = {
 					strategy = {
-						[""] = function() return the_strategy end,
+						[""] = function() return 'rainbow-delimiters.strategy.global' end,
 						vim = function() return nil end
 					}
 				}]], {})
 			end)
 
 			it('Uses the strategy returned by the thunk', function()
-				nvim:exec_lua('TSEnsure(...)', {'lua'})
 				nvim:buf_set_lines(0, 0, -1, true, {'print "Hello world"', '-- vim:ft=lua'})
 				nvim:command('filetype detect')
-				local attachments = nvim:exec_lua('return the_strategy.attachments[1]', {})
-				assert.is.equal(1, attachments, 'The strategy should be attached to the Lua buffer')
+				assert.remote(nvim).has_rainbow()
 			end)
 
 			it('Does nothing if the thunk returns nil', function()
-				nvim:exec_lua('TSEnsure(...)', {'vim'})
 				nvim:buf_set_lines(0, 0, -1, true, {'echo "Hello world"', '" vim:ft=vim'})
 				nvim:command('filetype detect')
-				local attachments = nvim:exec_lua('return the_strategy.attachments[1]', {})
-				assert.is.equal(0, attachments, 'The strategy should not be attached to the Vim buffer')
+				assert.remote(nvim).Not.has_rainbow()
 			end)
 		end)
 	end)

@@ -1,0 +1,461 @@
+                                                     *rainbow-delimiters-news*
+                                                          *rb-delimiters-news*
+All notable changes to this project will be documented in this file. The
+format is based on "Keep a Changelog" and this project adheres to "Semantic
+Versioning".
+
+https://keepachangelog.com/en/1.1.0/
+https://semver.org/
+
+==============================================================================
+Unreleased
+
+
+------------------------------------------------------------------------------
+ADDED
+
+New languages:
+    • Nu shell
+
+Missing patterns:
+    • Zig:
+        - `parenthesized_expression`
+
+
+==============================================================================
+Version 0.9.1 (released on 2025-03-23)
+
+FIXED
+------------------------------------------------------------------------------
+
+Health check failing if a strategy was a string.
+
+
+==============================================================================
+Version 0.9.0 (released on 2025-03-17)
+
+
+FIXED
+------------------------------------------------------------------------------
+
+Fixed patterns:
+    • Templ:
+        - Missing `style_tag_start` and `style_tag_end` nodes in
+          `style_element`
+    • Perl:
+        - All patterns were obsolete
+
+
+------------------------------------------------------------------------------
+ADDED
+
+New languages:
+    • Gleam  
+    • Groovy
+    • KDL
+    • OCaml
+
+Missing patterns:
+    • C++:
+        - `enumerator_list`
+    • Java:
+        - `switch_block`
+    • Query:
+        - `missing_node`
+
+Other:
+    • Strategies in configuration may be strings
+    • Built-in stategies can be referenced via their module strings (see
+      |rb-delimiters-strategy|)
+
+
+------------------------------------------------------------------------------
+CHANGED
+
+• The default highlight priority is computed dynamically to be halfway between
+  semantic tokens and Tree-sitter.
+• Deprecated |rb-delimiters.strategy| and its Vim script mirror
+  |g:rainbow_delimiters#strategy|, refer to strategies via strings instead.
+
+
+==============================================================================
+VERSION 0.8.0 (released on 2024-12-10)
+
+
+------------------------------------------------------------------------------
+ADDED
+
+New languages:
+    • Swift
+    • Odin
+
+Missing patterns:
+    • Python:
+        - `format_expression`
+    • Starlark:
+        - `list_pattern`
+        - `dict_pattern`
+        - `interpolation`
+        - `format_expression`
+
+------------------------------------------------------------------------------
+CHANGED
+
+Renamed patterns:
+    • Astro:
+        - `interpolation` to `html_interpolation`
+
+
+==============================================================================
+VERSION 0.7.0 (released on 2024-11-03)
+
+This is a bugfix release for Neovim 0.10 and later.
+
+
+------------------------------------------------------------------------------
+FIXED
+
+• Highlighting wrong in global strategy after making changes inside a nested
+  node
+
+------------------------------------------------------------------------------
+CHANGED
+
+• Queries no longer need the `@sentinel` capture group
+
+
+==============================================================================
+VERSION 0.6.2 (released on 2024-09-26)
+
+Maintenance release which fixes a number of subtly broken queries.
+
+------------------------------------------------------------------------------
+ADDED
+
+Missing patterns:
+    • SQL:
+        - `parenthesized_expression`
+
+------------------------------------------------------------------------------
+FIXED
+
+Renamed patterns:
+    • Go query:
+        - `var_declaration` to `var_spec_list`
+
+Fixed patterns:
+    • C++:
+        - missing `@container` capture in one pattern
+        - duplicate pattern for `initializer_list`
+    • Common Lisp:
+        - duplicate extmarks on some delimiters
+    • Luadoc:
+        - Remove broken pattern for dictionary key type
+    • Ruby:
+        - duplicate extmarks on some delimiters
+    • Rust:
+        - duplicate pattern for `closure_parameters`
+    • SQL:
+        - Remove broken patterns
+    • Zig:
+        - duplicate extmarks on some delimiters
+        - renamed nodes in updated parser
+    • Vim:
+        - Make a better effort to make parentheses in expressions work (there
+          is only so much that can be done though)
+
+
+==============================================================================
+VERSION 0.6.1 (released on 2024-08-07)
+
+
+------------------------------------------------------------------------------
+FIXED
+
+• Health check is not aware of new `condition` configuration option
+
+
+==============================================================================
+VERSION 0.6.0 (released on 2024-08-07)
+
+
+------------------------------------------------------------------------------
+ADDED
+
+• New option `condition`: allows users to dynamically enable or disable
+  rainbow delimiters for a buffer.
+
+
+==============================================================================
+VERSION 0.5.0 (released on 2024-07-29)
+
+Mostly a maintenance support with added support for a few new languages.
+
+------------------------------------------------------------------------------
+ADDED
+
+New languages:
+    • Awk
+    • WebGL Shading Language (WGSL)
+    • Django HTML (preliminary, will only pass through injected languages)
+
+Missing patterns:
+    • C++
+        - `condition_clause`
+        - `for_statement`
+        - `cast_expression`
+        - `array_declarator`
+    • C#:
+        - `tuple_pattern`
+    • Common Lisp:
+        - `loop_macro`
+    • Cue:
+        - `dynamic`
+        - `index_expression`
+    • Javascript:
+        - `array_pattern`
+        - `for_in_statement`
+        - `for_statement`
+    • Rust:
+        - `bracketed_type`
+    • Typescript:
+        - `enum_body`
+        - `interface_body`
+    • Haskell:
+        - `children`
+        - `fields`
+        - `list`
+        - `parens`
+        - `prefix_id`
+        - `record`
+        - `tuple`
+        - `unit`
+
+Other:
+    • Recipes section in the manual
+
+
+
+------------------------------------------------------------------------------
+CHANGED
+
+Renamed patterns:
+  • C#:
+      - `for_each_statement` to `foreach_statement`
+      - `type_of_expression` to `typeof_expression`
+      - `size_of_expression` to `sizeof_expression`
+      - `implicit_stack_alloc_array_creation_expression` to
+        `implicit_stackalloc_expression`
+
+Updated R patterns for current parser
+
+
+------------------------------------------------------------------------------
+REMOVED
+
+Deprecated patterns:
+  • C#:
+      - `interpolation`
+  • Java:
+      - `condition`
+  • Haskell:
+      - `con_list`
+      - `context`
+      - `deriving`
+      - `exp_arithmetic_sequence`
+      - `exp_lambda`
+      - `exp_list_comprehension`
+      - `exp_list`
+      - `exp_name`
+      - `exp_record`
+      - `exp_section_right`
+      - `pat_fields`
+      - `pat_list`
+      - `pat_parens`
+      - `pat_tuple`
+      - `record_fields`
+      - `type_list`
+      - `type_parens`
+      - `type_tuple`
+      - `type_tuple`
+
+
+==============================================================================
+VERSION 0.4.0 (released on 2024-05-07)
+
+------------------------------------------------------------------------------
+ADDED
+
+- Public API function `is_enabled`
+
+New languages:
+    • Rasi
+    • Svelte
+    • Teal
+    • Typst
+    • XML
+
+Missing patterns:
+    • Java:
+        - `array_initializer`
+        - `annotation_argument_list`
+        - `catch_clause`
+        - `condition`
+        - `constructor_body`
+        - `dimensions_expr`
+        - `enhanced_for_statement`
+        - `for_statement`
+        - `inferred_parameters`
+        - `parenthesized_expression`
+        - `resource_specification`
+        - `cast_expression`
+    • Go:
+        - `type_assertion_expression`
+    • Julia:
+        - `curly_expression`
+        - `tuple_expression`
+    • Lua:
+        - `field`
+    • Luadoc:
+        - `indexed_field`
+        - `tuple_type`
+    • Python:
+        - `dict_pattern`
+        - `import_from_statement`
+        - `interpolation` (literal string interpolation)
+        - `list_pattern`
+        - `tuple_pattern`
+    • R:
+        -  `for`
+        -  `while`
+        -  `switch`
+        -  `function_definition`
+    • Rust:
+        - `array_type`
+    • Starlark:
+        - `tuple_pattern`
+
+------------------------------------------------------------------------------
+FIXED
+
+• Default configuration settings override custom settings if the configuration
+  value was used before setting the custom value
+• Deleted obsolete Julia pattern `parameter_list`
+• Switched Fennel queries to new upstream grammar (#6132):
+  https://github.com/nvim-treesitter/nvim-treesitter/pull/6132
+
+
+==============================================================================
+VERSION 0.3.0 (released on 2023-12-24)
+
+This release brings a plethora of missing patterns to existing queries and
+lets you specify priorities and queries dynamically at runtime.  This means
+that it is possible to set different queries for the same language depending
+on external conditions, such as whether a buffer is read-only.
+
+And as a little extra given the date of this release, there is a new Christmas
+strategy module.  This will let you decorate your syntax tree in an especially
+festive mood.  The module is just a joke, so it will not be loaded by default
+and you will have to figure out yourself how to set it up.
+
+------------------------------------------------------------------------------
+ADDED
+
+New languages:
+    • Starlark
+
+Missing patters:
+    • C:
+        - `enumerator_list`
+        - `macro_type_specifier`
+        - `preproc_params`
+        - `compound_literal_expression`
+        - `parenthesized_declarator`
+    • Elixir:
+        - `access_call`
+    • Fennel:
+        - `table_binding`
+
+New queries:
+    • Query:
+        - `rainbow-blocks`
+    • Javascript:
+        - `rainbow-tags-react`
+    • TypeScript React:
+        - `rainbow-tags-react`
+
+New Christmas strategy module `rainbow-delimiters.strategy.christmas` (not
+loaded by default)
+
+------------------------------------------------------------------------------
+FIXED
+
+• Query can be a function in configuration
+• Priority can be a function in configuration
+• Functions in configuration take buffer number as argument
+• Updated Nim queries
+
+
+==============================================================================
+VERSION 0.2.0 (released on 2023-11-26)
+
+------------------------------------------------------------------------------
+ADDED
+
+Ability to set highlight priority
+
+New languages:
+    • Cue
+    • Luadoc
+    • Nim
+    • Kotlin
+    • templ
+    • Terraform
+    • TOML
+
+------------------------------------------------------------------------------
+FIXED
+- Type error in local strategy
+- Log error in local strategy (Neovim <0.10 only)
+
+
+Missing patterns:
+    • CSS:
+        - `feature_query`
+        - `arguments`
+        - `attribute_selector`
+    • Go
+        - `array_type`
+        - `slice_expression`
+    • HCL
+        - `for_tuple_expr`
+        - `new_index`
+        - `expression`
+        - `binary_operation`
+        - `for_object_expr`
+        - `template_interpolation`
+        - `unary_operation`
+    • Javascript and Typescript
+        - `switch_body`
+    • Nix
+        - `rec_attrset_expression`
+        - `inherit_from`
+    • SCSS
+        - `parameters`
+
+------------------------------------------------------------------------------
+CHANGED
+
+Default highlight priority is 110 instead of 210, which is between Tree-sitter
+and LSP semantic tokens
+
+
+==============================================================================
+VERSION 0.1.0 (released on 2023-11-12)
+
+Initial release
+
+
+
+
+ vim:tw=78:ts=8:sw=4:et:ft=help:norl:

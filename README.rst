@@ -22,8 +22,12 @@ Installation and setup
 Installation
 ============
 
-Install it like any other Neovim plugin.  You will need a Tree-sitter parser
-for each language you want to use rainbow delimiters with.
+Install it like any other Neovim plugin; you do not need the Git submodules of
+this repository.  They are just used for development and won't cause any harm,
+they will just bloat your setup.
+
+You will need a Tree-sitter parser for each language you want to use rainbow
+delimiters with.
 
 Setup
 =====
@@ -36,8 +40,8 @@ script dictionary `g:rainbow_delimiters`.  Here is an example configuration:
 
    let g:rainbow_delimiters = {
        \ 'strategy': {
-           \ '': rainbow_delimiters#strategy.global,
-           \ 'vim': rainbow_delimiters#strategy.local,
+           \ '': 'rainbow-delimiters.strategy.global',
+           \ 'vim': 'rainbow-delimiters.strategy.local'
        \ },
        \ 'query': {
            \ '': 'rainbow-delimiters',
@@ -62,14 +66,11 @@ The equivalent code in Lua:
 
 .. code:: lua
 
-   -- This module contains a number of default definitions
-   local rainbow_delimiters = require 'rainbow-delimiters'
-
    ---@type rainbow_delimiters.config
    vim.g.rainbow_delimiters = {
        strategy = {
-           [''] = rainbow_delimiters.strategy['global'],
-           vim = rainbow_delimiters.strategy['local'],
+           [''] = 'rainbow-delimiters.strategy.global',
+           vim = 'rainbow-delimiters.strategy.local',
        },
        query = {
            [''] = 'rainbow-delimiters',

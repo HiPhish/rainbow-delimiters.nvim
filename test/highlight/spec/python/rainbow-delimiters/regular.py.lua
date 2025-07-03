@@ -743,5 +743,29 @@ return {
       hl_group = "RainbowDelimiterRed",
       start_col = 44,
       start_row = 48
+    }, {
+      end_col = 17,
+      end_row = 50,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 16,
+      start_row = 50
+    }, {
+      end_col = 28,
+      end_row = 50,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 27,
+      start_row = 50
+    }, {
+      end_col = 43,
+      end_row = 50,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 42,
+      start_row = 50
+    }, {
+      end_col = 44,
+      end_row = 50,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 43,
+      start_row = 50
     } }
 }

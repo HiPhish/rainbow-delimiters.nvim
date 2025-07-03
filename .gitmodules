@@ -4,3 +4,12 @@
 [submodule "test/xdg/local/share/nvim/site/pack/testing/start/yo-dawg"]
 	path = test/xdg/local/share/nvim/site/pack/testing/start/yo-dawg
 	url = https://gitlab.com/HiPhish/yo-dawg.nvim.git
+[submodule ".luals/addons/luassert"]
+	path = .luals/addons/luassert
+	url = https://github.com/LuaCATS/luassert
+[submodule ".luals/addons/busted"]
+	path = .luals/addons/busted
+	url = https://github.com/LuaCATS/busted
+[submodule "test/bin"]
+	path = test/bin
+	url = https://gitlab.com/HiPhish/nvim-busted-shims.git

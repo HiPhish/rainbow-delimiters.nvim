@@ -13,7 +13,7 @@
 --  See the License for the specific language governing permissions and
 --  limitations under the License.
 
-if vim.g.loaded_rainbow then
+if vim.g.loaded_rainbow_delimiters then
 	return
 end
 
@@ -22,15 +22,10 @@ local set_hl         = api.nvim_set_hl
 local create_augroup = api.nvim_create_augroup
 local create_autocmd = api.nvim_create_autocmd
 local get_lang   = vim.treesitter.language.get_lang
-local config     = require 'rainbow-delimiters.config'
-local log        = require 'rainbow-delimiters.log'
-local lib        = require 'rainbow-delimiters.lib'
 
 
 --- [ DEFINE HIGHLIGHT GROUPS ]------------------------------------------------
 local function define_hlgroups()
-	log.trace 'Define highlight groups'
-
 	set_hl(0, 'RainbowDelimiterRed'   , {default = true, fg = '#cc241d', ctermfg= 'Red'    })
 	set_hl(0, 'RainbowDelimiterOrange', {default = true, fg = '#d65d0e', ctermfg= 'White'  })
 	set_hl(0, 'RainbowDelimiterYellow', {default = true, fg = '#d79921', ctermfg= 'Yellow' })
@@ -57,6 +52,9 @@ create_autocmd('FileType', {
 	desc = 'Attach to a new buffer',
 	group = rb_augroup,
 	callback = function(args)
+		local config = require 'rainbow-delimiters.config'
+		local lib    = require 'rainbow-delimiters.lib'
+
 		local lang = get_lang(args.match)
 		local bufnr = args.buf
 		if not config.enabled_for(lang) then return end
@@ -69,9 +67,12 @@ create_autocmd('FileType', {
 create_autocmd('BufUnload', {
 	desc = 'Detach from the current buffer',
 	group = rb_augroup,
-	callback = function(args) lib.detach(args.buf) end
+	callback = function(args)
+		local lib = require 'rainbow-delimiters.lib'
+		lib.detach(args.buf)
+	end
 })
 
-vim.g.loaded_rainbow = true
+vim.g.loaded_rainbow_delimiters = true
 
 -- vim:tw=79:ts=4:sw=4:noet:

@@ -107,7 +107,7 @@ function M.highlight(bufnr, lang, node, hlgroup)
 	local nsid = M.nsids[lang]
 
 	if vim.api.nvim_buf_is_loaded(bufnr) then
-		vim.highlight.range(bufnr, nsid, hlgroup, start, finish, opts)
+		(vim.hl or vim.highlight).range(bufnr, nsid, hlgroup, start, finish, opts)
 	end
 end
 
@@ -176,6 +176,9 @@ function M.attach(bufnr)
 		strategy = config.strategy[lang]
 		if type(strategy) == 'function' then
 			strategy = strategy(bufnr)
+		end
+		if type(strategy) == 'string' then
+			strategy = require(strategy)
 		end
 	end
 

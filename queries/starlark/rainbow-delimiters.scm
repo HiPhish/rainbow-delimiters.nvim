@@ -7,11 +7,19 @@
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
+(list_pattern
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
 (list_comprehension
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
 (dictionary
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
+(dict_pattern
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
@@ -54,3 +62,12 @@
 (type_parameter
   "[" @delimiter
   "]" @delimiter @sentinel) @container
+
+(string
+  (interpolation
+    "{" @delimiter
+    "}" @delimiter @sentinel) @container)
+
+(format_expression
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container

@@ -5,3 +5,5 @@ doc/tags
 test/xdg/local/share/nvim/
 test/xdg/local/state/nvim/
 !test/xdg/local/share/nvim/site/pack/testing/start/rainbow-delimiters
+
+test/highlight/samples/gleam/build

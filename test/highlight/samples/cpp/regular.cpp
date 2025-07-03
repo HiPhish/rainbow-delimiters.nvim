@@ -8,6 +8,12 @@ namespace herp {
 	}
 }
 
+enum color {
+	RED,
+	GREEN,
+	BLUE,
+};
+
 /* A function declaration */
 int add(int, int);
 
