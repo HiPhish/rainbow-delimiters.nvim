@@ -190,16 +190,20 @@ function M.attach(bufnr)
 	end
 	if not strategy or strategy == vim.NIL then return end
 
+	---@param child vim.treesitter.LanguageTree
+	local function f(child)
+		if child:lang() ~= lang then
+			M.clear_namespace(bufnr, child:lang())
+		end
+	end
+
 	parser:register_cbs {
 		---@param bnr integer
 		on_detach = function(bnr)
 			if not M.buffers[bnr] then return end
 			M.detach(bufnr)
 		end,
-		---@param child vim.treesitter.LanguageTree
-		on_child_removed = function(child)
-			M.clear_namespace(bufnr, child:lang())
-		end,
+		on_child_removed = f,
 	}
 
 	settings = {
