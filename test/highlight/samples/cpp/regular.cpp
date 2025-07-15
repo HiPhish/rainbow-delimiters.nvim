@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 #include <cstdio>
 
@@ -80,6 +81,10 @@ int main(int argc, char *argv[]) {
 	auto result = add(a, b);
 	printf("The sum of %d and %d is %d", ((((a)))), b, result);
 	int indices[] = {0, };
+	auto some_lambda = [] {};
 	auto i = indices[indices[indices[indices[indices[indices[0]]]]]];
+	for (auto i : {1, 2, 3}) {
+		std::cout << i;
+	}
 	return 0;
 }
