@@ -52,6 +52,10 @@
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
+(new_declarator
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
 (field_declaration_list
    "{" @delimiter
    "}" @delimiter @sentinel) @container

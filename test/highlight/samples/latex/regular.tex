@@ -2,6 +2,7 @@
 \usepackage{amsmath} % Imports amsmath
 
 \title{\LaTeX} % Title
+\author{author}
 
 \begin{document} % Begins a document
   \maketitle
@@ -22,8 +23,8 @@
   % The following shows typesetting  power of LaTeX:
   \begin{align}
     E_0 &= mc^2 \\
-    E &= \frac{mc^2}{\sqrt{1-\frac{v^2}{c^2}}}
-  \end{align} 
+    E &= \frac{mc^2}{\sqrt{1-\left(\frac{v}{c}\right)^2}}\label{E}
+  \end{align}
 
   This is testing {nesting {of {text} with a reference\ref{section:some_sec}}}.
 \end{document}

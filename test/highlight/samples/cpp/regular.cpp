@@ -78,6 +78,7 @@ void do_nothing_with_vector(std::vector<std::vector<std::vector<int>>> v) {
 int main(int argc, char *argv[]) {
 	auto a {10};
 	auto b = (5);
+    auto c = new int[b];
 	auto result = add(a, b);
 	printf("The sum of %d and %d is %d", ((((a)))), b, result);
 	int indices[] = {0, };
