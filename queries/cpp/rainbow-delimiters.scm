@@ -24,6 +24,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(for_range_loop
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (cast_expression
   "(" @delimiter
   ")" @delimiter @sentinel) @container
@@ -41,6 +45,14 @@
   "]" @delimiter @sentinel) @container
 
 (subscript_argument_list
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(lambda_capture_specifier
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(new_declarator
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
