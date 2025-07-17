@@ -1,5 +1,4 @@
 #version 450
-layout(local_size_x = 256)in;
 
 struct A{
     float a,b;
