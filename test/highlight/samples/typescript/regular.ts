@@ -2,7 +2,7 @@
 function add(x: number, y: number): number {
 	function iter(i: number, acc: number) {
 		if (i == 0) {
-			return accu;
+			return acc;
 		}
 		return iter(i - 1, acc + 1);
 	}
@@ -57,8 +57,10 @@ let some_object = {
 };
 
 // Subscript expressions
-const zeroes = [0];
+const zeroes: number[] = [0, 0, 0, 0];
 console.log(zeroes[zeroes[zeroes[0]]])
+
+const coordinates: [number, number] = [1, 2];
 
 let a = 1
 

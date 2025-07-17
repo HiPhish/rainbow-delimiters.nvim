@@ -38,7 +38,8 @@ let some_object = {
 			c: {},
 		},
 	d: [[1, 2, 3]]
-	}
+	},
+	['x' + 'y']: 'xy',
 };
 
 // object pattern

@@ -16,6 +16,10 @@
   "<" @delimiter
   ">" @delimiter @sentinel) @container
 
+(array_type
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
 (lookup_type
   "[" @delimiter
   "]" @delimiter @sentinel) @container
@@ -23,3 +27,7 @@
 (object_type
   "{" @delimiter
   "}" @delimiter @sentinel) @container
+
+(tuple_type
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container

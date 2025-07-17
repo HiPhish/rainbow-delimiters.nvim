@@ -24,6 +24,8 @@ Missing patterns:
         - `for_range_loop`
         - `lambda_capture_specifier`
         - `new_declarator`
+    • JavaScript:
+        - `computed_property_name`
     • LaTeX:
         - `brack_group_key_value`
         - `curly_group`
@@ -33,6 +35,9 @@ Missing patterns:
         - `curly_group_path_list`
         - `label_definition`
         - `math_delimiter`
+    • TypeScript:
+        - `array_type`
+        - `tuple_type`
     • Zig:
         - `parenthesized_expression`
 

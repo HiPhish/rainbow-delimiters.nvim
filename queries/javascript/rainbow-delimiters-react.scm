@@ -9,6 +9,10 @@
   "{" @delimiter
   "}" @delimiter @sentinel) @container
 
+(computed_property_name
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
 (statement_block
   "{" @delimiter
   "}" @delimiter @sentinel) @container
