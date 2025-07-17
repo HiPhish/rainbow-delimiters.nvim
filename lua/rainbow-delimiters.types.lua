@@ -55,6 +55,7 @@
 ---@field elm          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field fennel       (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field fish         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
+---@field glsl         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field go           (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field groovy       (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field haskell      (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
@@ -128,6 +129,7 @@
 ---@field elm          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field fennel       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field fish         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field glsl         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field go           (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field groovy       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field haskell      (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -201,6 +203,7 @@
 ---@field elm          (integer | fun(bufnr: integer): integer)?
 ---@field fennel       (integer | fun(bufnr: integer): integer)?
 ---@field fish         (integer | fun(bufnr: integer): integer)?
+---@field glsl         (integer | fun(bufnr: integer): integer)?
 ---@field go           (integer | fun(bufnr: integer): integer)?
 ---@field groovy       (integer | fun(bufnr: integer): integer)?
 ---@field haskell      (integer | fun(bufnr: integer): integer)?
