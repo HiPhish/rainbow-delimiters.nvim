@@ -15,9 +15,23 @@ Unreleased
 ADDED
 
 New languages:
+    • GLSL
     • Nu shell
 
 Missing patterns:
+    • C++:
+        - `for_range_loop`
+        - `lambda_capture_specifier`
+        - `new_declarator`
+    • LaTeX:
+        - `brack_group_key_value`
+        - `curly_group`
+        - `curly_group_author_list`
+        - `curly_group_text_list`
+        - `curly_group_path`
+        - `curly_group_path_list`
+        - `label_definition`
+        - `math_delimiter`
     • Zig:
         - `parenthesized_expression`
 
