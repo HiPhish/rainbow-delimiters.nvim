@@ -80,10 +80,10 @@
    "(" @delimiter
    ")" @delimiter
    "{" @delimiter
+   ((switch_case
+     "=>" @delimiter)
+   _)+
    "}" @delimiter @sentinel) @container
-
-(switch_case
-  "=>" @delimiter @sentinel) @container
 
 (array_type
    "[" @delimiter
