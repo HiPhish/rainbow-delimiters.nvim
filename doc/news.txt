@@ -19,7 +19,14 @@ New languages:
 
 Missing patterns:
     • Zig:
+        - `address_space`
+        - `byte_alignment`
+        - `error_set_declaration`
+        - `for_expression`
+        - `if_expression`
+        - `if_type_expression`
         - `parenthesized_expression`
+        - `while_expression`
 
 
 ==============================================================================
