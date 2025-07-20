@@ -11,6 +11,13 @@ https://semver.org/
 Unreleased
 
 
+FIXED
+------------------------------------------------------------------------------
+
+• Highlighting disappearing when scrolling if the language has macros (e.g. C,
+  C++, Rust)
+
+
 ------------------------------------------------------------------------------
 ADDED
 
