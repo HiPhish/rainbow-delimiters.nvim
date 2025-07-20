@@ -1,3 +1,8 @@
+# This file would normally be named `.gitmodules`, but I have intentionally
+# renamed it to prevent Neovim plugin managers from picking up on it.  This
+# avoids the problem where the submodules would get installed for users of the
+# plugin.
+
 [submodule "test/xdg/local/share/nvim/site/pack/testing/start/nvim-treesitter"]
 	path = test/xdg/local/share/nvim/site/pack/testing/start/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
@@ -13,3 +18,5 @@
 [submodule "test/bin"]
 	path = test/bin
 	url = https://gitlab.com/HiPhish/nvim-busted-shims.git
+
+# vim:ft=gitconfig

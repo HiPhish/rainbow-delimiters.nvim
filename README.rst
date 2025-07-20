@@ -117,6 +117,24 @@ There are only so many languages which I understand to the point that I can
 write queries for them.  If you want support for a new language please consider
 contributing code.  See the CONTRIBUTING_ for details.
 
+Contributing
+============
+
+TL;DR: Run these steps first if you want to run tests:
+
+.. code:: sh
+
+   ln -s .submodules .gitmodules
+   git submodule init
+   git submodule updated --checkout
+
+To provide some context, there are dependencies needed to run tests.  These are
+included as Git submodules.  The problem is that a number of package managers
+will download submodules by default, which means that users will end up with a
+bunch of stuff installed that they don't want.  There is no way to tell Git to
+use a different file, so we have to create a symbolic link instead if we
+actually do want to download these submodules.
+
 
 Status of the plugin
 ####################
