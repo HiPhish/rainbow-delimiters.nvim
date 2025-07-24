@@ -77,3 +77,7 @@
 (format_expression
   "{" @delimiter
   "}" @delimiter @sentinel) @container
+
+(with_clause
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container

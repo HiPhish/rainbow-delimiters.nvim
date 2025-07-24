@@ -1,11 +1,18 @@
 # NOTE: When updating this file update the Starlark test file as well if
 # applicable.
 
+from tempfile import TemporaryFile
 from typing import (
     Dict,
     List,
 )
 
+with (
+    TemporaryFile(mode="w") as f1,
+    TemporaryFile(mode="w") as f2,
+):
+    f1.write("File1")
+    f2.write("File2")
 
 def sum_list(lst: List[Dict[int, int]]) -> int:
     result = 0
