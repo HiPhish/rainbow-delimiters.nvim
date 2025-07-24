@@ -42,6 +42,8 @@ Missing patterns:
         - `curly_group_path_list`
         - `label_definition`
         - `math_delimiter`
+    • Python:
+        - `with_clause`
     • TypeScript:
         - `array_type`
         - `tuple_type`
