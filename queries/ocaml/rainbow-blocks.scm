@@ -2,13 +2,35 @@
 (let_expression ; Line 170
   (value_definition
     "let" @delimiter
-    ("rec" @delimiter)?)
+    ("rec" @delimiter)?
+    ("and" @delimiter (let_binding))*)
+  "in" @delimiter @sentinel) @container
+
+(let_expression ; Line 256
+  (value_definition
+    (let_operator) @delimiter
+    ("rec" @delimiter)?
+    ((let_and_operator) @delimiter (let_binding))*)
+  "in" @delimiter @sentinel) @container
+
+(let_open_expression ; Line 268
+  "let" @delimiter
   "in" @delimiter @sentinel) @container
 
 (match_expression ; Line 182
   "match" @delimiter
   "with" @delimiter
-  ("|"  @delimiter (match_case))+) @container
+  ("|" @delimiter
+   (match_case
+     (guard "when" @delimiter)?
+     "->" @delimiter))+) @container
+
+(function_expression ; Line 272
+  "function" @delimiter
+  ("|" @delimiter
+   (match_case
+     (guard "when" @delimiter)?
+     "->" @delimiter))+) @container
 
 ; I can't get it to collapse else if into one
 (if_expression ; Line 193
@@ -136,6 +158,9 @@
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
+(polymorphic_variant_type ; Line 244
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (polymorphic_variant_type ; Line 130
   "[<" @delimiter
@@ -173,3 +198,22 @@
   "{<" @delimiter
   ">}" @delimiter @sentinel) @container
 
+(packed_module ; Line 242
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(abstract_type ; Line 248
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(type_binding ; Line 276
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(parameter ; Line 252
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(package_pattern ; Line 278
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container

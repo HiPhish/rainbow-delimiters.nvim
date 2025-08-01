@@ -103,6 +103,9 @@
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
+(polymorphic_variant_type ; Line 244
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
 (polymorphic_variant_type ; Line 130
   "[<" @delimiter
@@ -140,3 +143,22 @@
   "{<" @delimiter
   ">}" @delimiter @sentinel) @container
 
+(packed_module ; Line 242
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(abstract_type ; Line 248
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(type_binding ; Line 276
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(parameter; Line 252
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(package_pattern ; Line 278
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
