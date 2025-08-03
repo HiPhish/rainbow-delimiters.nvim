@@ -9,7 +9,6 @@
 (let_expression ; Line 256
   (value_definition
     (let_operator) @delimiter
-    ("rec" @delimiter)?
     ((let_and_operator) @delimiter (let_binding))*)
   "in" @delimiter @sentinel) @container
 

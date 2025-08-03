@@ -261,7 +261,11 @@ let () =
     and n = 0
     and o = x
     in o
-  in z
+  in 
+  let rec aux i x =
+    if i = 1 then x else aux (i-1) (x*y)
+  in aux z
+  z
 ;;
 
 (* let_open_expression *)
