@@ -16,7 +16,7 @@
   "let" @delimiter
   "in" @delimiter @sentinel) @container
 
-(let_module_expression ; Line 268
+(let_module_expression ; Line 284
   "let" @delimiter
   "in" @delimiter @sentinel) @container
 
