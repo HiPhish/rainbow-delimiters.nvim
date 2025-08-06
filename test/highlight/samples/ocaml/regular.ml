@@ -280,3 +280,7 @@ let function_expression = function
 type ('raw_test) data = { field : string }
 
 let fn (module P: SOME_MODULE) = ()
+
+let () =
+  let module Opt = Option in
+  ()

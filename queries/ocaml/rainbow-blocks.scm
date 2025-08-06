@@ -9,10 +9,14 @@
 (let_expression ; Line 256
   (value_definition
     (let_operator) @delimiter
-    ((let_and_operator) @delimiter (let_binding))*)
+    ((let_and_operator) @delimiter _)*)
   "in" @delimiter @sentinel) @container
 
 (let_open_expression ; Line 268
+  "let" @delimiter
+  "in" @delimiter @sentinel) @container
+
+(let_module_expression ; Line 268
   "let" @delimiter
   "in" @delimiter @sentinel) @container
 
@@ -210,6 +214,8 @@
   ")" @delimiter @sentinel) @container
 
 (parameter ; Line 252
+  (("?") @delimiter)?
+  (("~") @delimiter)?
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
