@@ -214,8 +214,8 @@
   ")" @delimiter @sentinel) @container
 
 (parameter ; Line 252
-  (("?") @delimiter)?
-  (("~") @delimiter)?
+  ("?" @delimiter)?
+  ("~" @delimiter)?
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
