@@ -23,6 +23,10 @@ Missing patters:
     • LaTeX:
         - `curly_group_label`
         - `curly_group_label_list`
+    • Nu:
+        - `parameter_bracks`
+        - `parameter_pipes`
+        - `val_nothing`
 
 Fixed patterns:
     • LaTeX:

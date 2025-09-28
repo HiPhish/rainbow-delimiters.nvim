@@ -18,6 +18,10 @@
   ["[" "...["] @delimiter
   "]" @delimiter @sentinel) @container
 
+(val_nothing
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (block
   "{" @delimiter
   "}" @delimiter @sentinel) @container
@@ -41,3 +45,11 @@
 (list_type
   "<" @delimiter
   ">" @delimiter @sentinel) @container
+
+(parameter_bracks
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(parameter_pipes
+  "|" @delimiter
+  "|" @delimiter) @container
