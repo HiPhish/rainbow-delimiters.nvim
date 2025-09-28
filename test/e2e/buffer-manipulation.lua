@@ -24,7 +24,7 @@ describe('Buffer Manipulation', function()
 
 	before_each(function()
 		nvim = yd.start()
-		nvim:exec_lua('TSEnsure(...)', {'lua', 'vim', 'markdown'})
+		nvim:exec_lua('EnsureTSParser(...)', {{'lua', 'vim', 'markdown'}})
 		nvim:set_var('rainbow_delimiters', {
 			strategy = {
 				[''] = 'rainbow-delimiters.strategy.global'

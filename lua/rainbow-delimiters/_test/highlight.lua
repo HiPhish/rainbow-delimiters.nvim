@@ -104,7 +104,7 @@ function M.fetch_delimiters(nvim, lang, sample, query)
 	-- Neovim which has no UI.  When there is a UI the buffer will be parsed
 	-- automatically, but in an embedded context this is not guaranteed.
 	nvim:set_var('rainbow_delimiters', {query = {[''] = query}})
-	nvim:exec_lua('TSEnsure(...)', {lang})
+	nvim:exec_lua('EnsureTSParser(...)', {lang})
 	nvim:cmd({cmd = 'edit', args = {sample_file}}, {})
 	nvim:exec_lua('vim.treesitter.start()', {})
 	nvim:exec_lua('parser = vim.treesitter.get_parser()', {})

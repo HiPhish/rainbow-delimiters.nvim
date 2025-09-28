@@ -5,7 +5,7 @@ describe('Attaching a strategy to a buffer', function()
 
 	before_each(function()
 		nvim = yd.start()
-		nvim:exec_lua([[TSEnsure('lua', 'vim')]], {})
+		nvim:exec_lua([[EnsureTSParser({'lua', 'vim'})]], {})
 	end)
 
 	after_each(function()

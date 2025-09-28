@@ -23,7 +23,7 @@ describe('Scrolling a buffer in a window', function()
 
 	describe('with a language that has macros', function()
 		before_each(function ()
-			nvim:exec_lua('TSEnsure(...)', {'c'})
+			nvim:exec_lua('EnsureTSParser(...)', {'c'})
 		end)
 
 		it('preserves highlighting in C', function()

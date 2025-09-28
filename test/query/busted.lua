@@ -5,7 +5,7 @@ local lib = require 'rainbow-delimiters._test.highlight'
 
 for _, lang in ipairs(lib.list_languages()) do
 	describe(('For language #%s'):format(lang), function()
-		-- TSEnsure(lang)
+		EnsureTSParser(lang)
 		local queries = lib.list_queries(lang)
 		for _, query in ipairs(queries) do
 			describe(('the query #%s'):format(query), function()

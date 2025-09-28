@@ -54,7 +54,7 @@ describe('User settings are respected', function()
 		describe('Strategies can be thunks', function()
 			before_each(function()
 				-- Set a thunk as the strategy
-				nvim:exec_lua('TSEnsure(...)', {'lua', 'vim'})
+				nvim:exec_lua('EnsureTSParser(...)', {{'lua', 'vim'}})
 				nvim:exec_lua([[
 				vim.g.rainbow_delimiters = {
 					strategy = {

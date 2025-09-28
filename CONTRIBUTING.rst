@@ -5,6 +5,26 @@
 #####################
 
 
+Developer's setup
+#################
+
+You will need the following on your system:
+
+- `tree-sitter` CLI tool
+- LuaRocks_
+- `busted` installed from LuaRocks for Lua 5.1
+
+Next, install the development dependencies from Git submodules.
+
+.. code:: sh
+
+   git submodule init
+   git submodule update --checkout
+
+The first test run will install and compile Tree-sitter parsers as needed,
+which may take a while.
+
+
 Adding support for a new language
 #################################
 
@@ -36,3 +56,6 @@ for a new language. You will need to update:
 - `@class rainbow_delimiters.config.queries`
 - `@class rainbow_delimiters.config.priorities`
 - `@alias rainbow_delimiters.language`
+
+
+.. _LuaRocks: https://luarocks.org/

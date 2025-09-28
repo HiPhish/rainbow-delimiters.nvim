@@ -6,7 +6,7 @@ describe('The Rainbow Delimiters public API', function()
 	before_each(function()
 		nvim = yd.start()
 
-		nvim:exec_lua([[TSEnsure('markdown', 'lua', 'vim')]], {})
+		nvim:exec_lua([[EnsureTSParser({'markdown', 'lua', 'vim'})]], {})
 		nvim:exec_lua([[rb = require 'rainbow-delimiters' ]], {})
     	nvim:set_var('rainbow_delimiters', {
     		strategy = {

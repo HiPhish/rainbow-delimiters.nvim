@@ -6,7 +6,7 @@ describe('We can use functions to turn rainbow delimiters off and on again.', fu
 	before_each(function()
 		nvim = yd.start()
 		nvim:exec_lua('the_strategy = require("rainbow-delimiters.strategy.global")', {})
-		nvim:exec_lua('TSEnsure(...)', {'lua'})
+		nvim:exec_lua('EnsureTSParser(...)', {'lua'})
 		nvim:buf_set_lines(0, 0, -1, true, {'print((((("Hello, world!")))))'})
 		nvim:buf_set_option(0, 'filetype', 'lua')
 	end)

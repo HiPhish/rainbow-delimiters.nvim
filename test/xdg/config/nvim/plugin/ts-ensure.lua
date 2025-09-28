@@ -1,14 +1,11 @@
-local get_runtime_file = vim.api.nvim_get_runtime_file
-local parser_pattern = 'parser/%s.*'
-
----Wrapper around the `:TSinstall` command which will only install a parser if
----it is not installed yet
----@param lang string  Language to install
-function TSEnsure(lang, ...)
-	for _, l in ipairs({lang, ...}) do
-		local parsers = get_runtime_file(parser_pattern:format(l), true)
-		if #parsers == 0 then
-			vim.cmd {cmd = 'TSInstallSync', args = {l}}
-		end
+---Install one or more languages synchronously.
+---@param lang string | string[]  One or more languages to install
+function EnsureTSParser(lang, timeout)
+	local nts = require 'nvim-treesitter'
+	timeout = timeout or 2 * 60 * 1000
+	local result = nts.install(lang):wait(timeout)
+	if not result then
+		local msg = string.format('Error installing Tree-sitter parsers: %s', vim.inspect(lang))
+		error(msg)
 	end
 end

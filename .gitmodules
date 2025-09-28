@@ -3,12 +3,6 @@
 # avoids the problem where the submodules would get installed for users of the
 # plugin.
 
-[submodule "test/xdg/local/share/nvim/site/pack/testing/start/nvim-treesitter"]
-	path = test/xdg/local/share/nvim/site/pack/testing/start/nvim-treesitter
-	url = https://github.com/nvim-treesitter/nvim-treesitter
-[submodule "test/xdg/local/share/nvim/site/pack/testing/start/yo-dawg"]
-	path = test/xdg/local/share/nvim/site/pack/testing/start/yo-dawg
-	url = https://gitlab.com/HiPhish/yo-dawg.nvim.git
 [submodule ".luals/addons/luassert"]
 	path = .luals/addons/luassert
 	url = https://github.com/LuaCATS/luassert

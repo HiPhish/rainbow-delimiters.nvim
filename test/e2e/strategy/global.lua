@@ -14,7 +14,7 @@ describe('The global strategy', function()
 
 	before_each(function()
 		nvim = yd.start()
-		nvim:exec_lua('TSEnsure(...)', {'lua', 'vim'})
+		nvim:exec_lua('EnsureTSParser(...)', {{'lua', 'vim'}})
 		nvim:set_var('rainbow_delimiters', {query = {}})
 	end)
 
