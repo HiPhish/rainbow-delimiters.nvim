@@ -18,6 +18,14 @@
   "$" @delimiter
   "$" @delimiter @sentinel) @container
 
+(curly_group_label
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+
+(curly_group_label_list
+  "{" @delimiter
+  "}" @delimiter) @container
+
 (curly_group_path
   "{" @delimiter
   "}" @delimiter @sentinel) @container

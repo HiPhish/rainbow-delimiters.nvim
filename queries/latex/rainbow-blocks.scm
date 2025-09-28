@@ -25,10 +25,17 @@
   "}" @delimiter @sentinel) @container
 
 (label_definition
-  name: (curly_group_text
-  "{" @delimiter
-  "}" @delimiter @sentinel) @container
-)
+  "\\label" @delimiter
+  name: (curly_group_label
+    "{" @delimiter
+    "}" @delimiter @sentinel) @container)
+
+(label_reference
+  "\\ref" @delimiter
+  (curly_group_label_list
+    "{" @delimiter
+    "}" @delimiter @sentinel)) @container
+
 
 (curly_group_text_list
   "{" @delimiter

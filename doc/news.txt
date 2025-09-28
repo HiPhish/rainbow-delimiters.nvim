@@ -17,7 +17,14 @@ FIXED
 Highlighting disappearing when scrolling if the language has macros (e.g. C,
 C++, Rust)
 
+Missing patters:
+    • LaTeX:
+        - `curly_group_label`
+        - `curly_group_label_list`
+
 Fixed patterns:
+    • LaTeX:
+        - `curly_group_label` instead of `curly_group_text`
     • Templ:
         - Missing `script_tag_start` and `script_tag_end` nodes in
           `script_element`

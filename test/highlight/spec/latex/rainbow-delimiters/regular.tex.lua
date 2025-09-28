@@ -258,22 +258,22 @@ return {
       start_col = 58,
       start_row = 29
     }, {
-      end_col = 76,
-      end_row = 29,
-      hl_group = "RainbowDelimiterBlue",
-      start_col = 75,
-      start_row = 29
-    }, {
       end_col = 77,
       end_row = 29,
-      hl_group = "RainbowDelimiterYellow",
+      hl_group = "RainbowDelimiterBlue",
       start_col = 76,
       start_row = 29
     }, {
       end_col = 78,
       end_row = 29,
-      hl_group = "RainbowDelimiterRed",
+      hl_group = "RainbowDelimiterYellow",
       start_col = 77,
+      start_row = 29
+    }, {
+      end_col = 79,
+      end_row = 29,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 78,
       start_row = 29
     }, {
       end_col = 5,
