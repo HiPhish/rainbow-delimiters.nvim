@@ -15,7 +15,9 @@ FIXED
 ------------------------------------------------------------------------------
 
 Highlighting disappearing when scrolling if the language has macros (e.g. C,
-C++, Rust)
+C++, Rust).
+
+Replaced `verilog` with `systemverilog`.
 
 Missing patters:
     • LaTeX:
