@@ -14,8 +14,13 @@ Unreleased
 FIXED
 ------------------------------------------------------------------------------
 
-• Highlighting disappearing when scrolling if the language has macros (e.g. C,
-  C++, Rust)
+Highlighting disappearing when scrolling if the language has macros (e.g. C,
+C++, Rust)
+
+Fixed patterns:
+    • Templ:
+        - Missing `script_tag_start` and `script_tag_end` nodes in
+          `script_element`
 
 
 ------------------------------------------------------------------------------

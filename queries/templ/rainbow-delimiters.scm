@@ -29,12 +29,14 @@
     ">" @delimiter)) @container
 
 (script_element
-  ("<" @delimiter
-   "script" @delimiter
-   ">" @delimiter)
-  ("</" @delimiter
-   "script" @delimiter
-   ">" @delimiter @sentinel)) @container
+  (script_tag_start
+    "<" @delimiter
+    "script" @delimiter
+    ">" @delimiter)
+  (script_tag_end
+    "</" @delimiter
+    "script" @delimiter
+    ">" @delimiter)) @container
 
 ;; Brackets
 
