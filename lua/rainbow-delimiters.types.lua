@@ -84,6 +84,7 @@
 ---@field perl         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field php          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field python       (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
+---@field qmljs        (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field query        (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field r            (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field racket       (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
@@ -159,6 +160,7 @@
 ---@field perl         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field php          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field python       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field qmljs        (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field query        (('rainbow-delimiters' | 'rainbow-blocks' | string) | fun(bufnr: integer): ('rainbow-delimiters' | 'rainbow-blocks' | string))?
 ---@field r            (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field racket       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -234,6 +236,7 @@
 ---@field perl         (integer | fun(bufnr: integer): integer)?
 ---@field php          (integer | fun(bufnr: integer): integer)?
 ---@field python       (integer | fun(bufnr: integer): integer)?
+---@field qmljs        (integer | fun(bufnr: integer): integer)?
 ---@field query        (integer | fun(bufnr: integer): integer)?
 ---@field r            (integer | fun(bufnr: integer): integer)?
 ---@field racket       (integer | fun(bufnr: integer): integer)?
@@ -307,6 +310,7 @@
 ---| 'perl'
 ---| 'php'
 ---| 'python'
+---| 'qmljs'
 ---| 'query'
 ---| 'r'
 ---| 'racket'
