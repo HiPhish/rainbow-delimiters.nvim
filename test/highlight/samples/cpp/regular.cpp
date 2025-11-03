@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdio>
+#include <ranges>
 
 namespace herp {
 	const int derpiness = 9000;
@@ -25,11 +26,14 @@ public:
 	int y;
 };
 
+template <typename ... T>
 class Point3D {
 public:
 	int x;
 	int y;
 	int z;
+    typedef int(*F)(T...);
+    constexpr static size_t s = sizeof...(T);
 };
 
 /* A function definition */
@@ -76,6 +80,8 @@ void do_nothing_with_vector(std::vector<std::vector<std::vector<int>>> v) {
 }
 
 int main(int argc, char *argv[]) {
+    decltype(do_nothing_with_vector) func;
+    static_assert(1, "False");
 	auto a {10};
 	auto b = (5);
     auto c = new int[b];
@@ -84,8 +90,9 @@ int main(int argc, char *argv[]) {
 	int indices[] = {0, };
 	auto some_lambda = [] {};
 	auto i = indices[indices[indices[indices[indices[indices[0]]]]]];
-	for (auto i : {1, 2, 3}) {
-		std::cout << i;
+    std::vector<int> v {4, 2, 3};
+	for (auto [i, v] : v | std::ranges::views::enumerate) {
+		std::cout << i << ":" << v << std::endl;
 	}
 	return 0;
 }

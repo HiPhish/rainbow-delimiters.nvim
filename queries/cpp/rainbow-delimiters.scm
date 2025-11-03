@@ -16,6 +16,22 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(decltype
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(static_assert_declaration
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(sizeof_expression
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(parenthesized_declarator
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (compound_statement
   "{" @delimiter
   "}" @delimiter @sentinel) @container
@@ -53,6 +69,10 @@
   "]" @delimiter @sentinel) @container
 
 (new_declarator
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+
+(structured_binding_declarator
   "[" @delimiter
   "]" @delimiter @sentinel) @container
 
