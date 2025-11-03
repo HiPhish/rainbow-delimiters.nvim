@@ -16,6 +16,14 @@ ADDED
 New languages:
     • QML
 
+Missing pattersn:
+    • C++:
+        - `decltype`
+        - `parenthesized_declarator`
+        - `sizeof_expression`
+        - `static_assert_declaration`
+        - `structured_binding_declarator`
+
 
 
 ==============================================================================
