@@ -11,4 +11,6 @@ end
 
 puts greeting('Fry', 25)
 
+puts an_array[0][0][1]
+
 [[1], [2], [3]].each { |nums| nums.each { |num| puts num } }
