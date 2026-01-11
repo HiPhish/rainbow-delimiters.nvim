@@ -14,9 +14,10 @@ Unreleased
 ADDED
 
 New languages:
+    • Nickel
     • QML
 
-Missing pattersn:
+Missing patterns:
     • C++:
         - `decltype`
         - `parenthesized_declarator`
