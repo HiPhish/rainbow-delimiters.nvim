@@ -23,7 +23,11 @@ Missing pattersn:
         - `sizeof_expression`
         - `static_assert_declaration`
         - `structured_binding_declarator`
-
+    • Ruby:
+        - `interpolation`
+        - `element_reference`
+        - `argument_list`
+        - `method_parameters`
 
 
 ==============================================================================
