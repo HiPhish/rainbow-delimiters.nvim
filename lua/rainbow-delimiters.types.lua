@@ -61,6 +61,7 @@
 ---@field haskell      (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field hcl          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field html         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
+---@field htmlangular  (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field janet_simple (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field java         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field javascript   (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
@@ -138,6 +139,7 @@
 ---@field haskell      (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field hcl          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field html         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field htmlangular  (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field janet_simple (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field java         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field javascript   (('rainbow-delimiters' | 'rainbow-parens' | 'rainbow-delimiters-react' | string) | fun(bufnr: integer): ('rainbow-delimiters' | 'rainbow-parens' | 'rainbow-delimiters-react' | string))?
@@ -215,6 +217,7 @@
 ---@field haskell      (integer | fun(bufnr: integer): integer)?
 ---@field hcl          (integer | fun(bufnr: integer): integer)?
 ---@field html         (integer | fun(bufnr: integer): integer)?
+---@field htmlangular  (integer | fun(bufnr: integer): integer)?
 ---@field janet_simple (integer | fun(bufnr: integer): integer)?
 ---@field java         (integer | fun(bufnr: integer): integer)?
 ---@field javascript   (integer | fun(bufnr: integer): integer)?
@@ -290,6 +293,7 @@
 ---| 'haskell'
 ---| 'hcl'
 ---| 'html'
+---| 'htmlangular'
 ---| 'janet_simple'
 ---| 'java'
 ---| 'javascript'
