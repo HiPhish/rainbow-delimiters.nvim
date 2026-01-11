@@ -76,6 +76,7 @@
 ---@field luadoc       (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field make         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field markdown     (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
+---@field nickel       (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field nim          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field nix          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field nu           (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
@@ -152,6 +153,7 @@
 ---@field luadoc       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field make         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field markdown     (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field nickel       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nim          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nix          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field nu           (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -228,6 +230,7 @@
 ---@field luadoc       (integer | fun(bufnr: integer): integer)?
 ---@field make         (integer | fun(bufnr: integer): integer)?
 ---@field markdown     (integer | fun(bufnr: integer): integer)?
+---@field nickel       (integer | fun(bufnr: integer): integer)?
 ---@field nim          (integer | fun(bufnr: integer): integer)?
 ---@field nix          (integer | fun(bufnr: integer): integer)?
 ---@field nu           (integer | fun(bufnr: integer): integer)?
@@ -302,6 +305,7 @@
 ---| 'luadoc'
 ---| 'make'
 ---| 'markdown'
+---| 'nickel'
 ---| 'nim'
 ---| 'nix'
 ---| 'nu'
