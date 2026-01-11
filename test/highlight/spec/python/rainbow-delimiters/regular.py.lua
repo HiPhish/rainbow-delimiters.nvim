@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: Unlicense
+-- SPDX-FileCopyrightText: NONE
+
 return {
   python = { {
       end_col = 20,

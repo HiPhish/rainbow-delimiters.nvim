@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: Unlicense
+-- SPDX-FileCopyrightText: NONE
+
 return {
   teal = { {
       end_col = 19,

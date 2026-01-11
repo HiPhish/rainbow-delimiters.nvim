@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: Unlicense
+-- SPDX-FileCopyrightText: NONE
+
 return {
   scheme = { {
       end_col = 1,

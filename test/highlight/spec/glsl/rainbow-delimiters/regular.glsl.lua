@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: Unlicense
+-- SPDX-FileCopyrightText: NONE
+
 return {
   glsl = { {
       end_col = 9,
