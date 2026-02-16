@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Unlicense
+
 # This file would normally be named `.gitmodules`, but I have intentionally
 # renamed it to prevent Neovim plugin managers from picking up on it.  This
 # avoids the problem where the submodules would get installed for users of the

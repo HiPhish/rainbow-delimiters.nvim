@@ -1,3 +1,5 @@
+-- SPDX-License-Identifier: Apache-2.0
+
 local M = {}
 
 ---Apply the given configuration to the rainbow-delimiter settings.  Will

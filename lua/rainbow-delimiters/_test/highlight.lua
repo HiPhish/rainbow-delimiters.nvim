@@ -1,3 +1,5 @@
+-- SPDX-License-Identifier: Apache-2.0
+
 ---Helper script of functions which are used in highlight tests.  Do not
 ---require this file at runtime, it is only used for testing.
 local M = {}
@@ -146,6 +148,10 @@ function M.record_extmarks(language, sample, query)
 				if not file then
 					error (('Could not open output file %s'):format(spec_file))
 				end
+				-- License and copyright header are hard-coded
+				file:write('-- SPDX-License-Identifier: Unlicense\n')
+				file:write('-- SPDX-FileCopyrightText: NONE\n')
+				file:write('\n')
 				file:write('return ')
 				file:write(vim.inspect(result))
 				file:close()

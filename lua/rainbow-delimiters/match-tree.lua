@@ -1,3 +1,5 @@
+-- SPDX-License-Identifier: Apache-2.0
+
 ---Functions for dealing with match trees.  This library is only relevant to
 ---strategy authors.  A match tree is the tree-like structure we use to
 ---organize a subset of the buffer's node tree for highlighting.

@@ -1,3 +1,5 @@
+-- SPDX-License-Identifier: Apache-2.0
+
 --  Copyright 2023 Alejandro "HiPhish" Sanchez
 --  Copyright 2020-2022 Chinmay Dalal
 --
