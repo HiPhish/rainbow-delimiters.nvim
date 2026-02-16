@@ -25,9 +25,16 @@ const formattedPosts = formatBlogPosts(allPosts, {});
       }
     </div>
   </section>
+  <SelfClosingComponent foo="bar" />
   <!-- <PostCard
     frontmatter={allPosts[0].frontmatter}
     url={allPosts[0].url}
     tagType="h2"
   /> -->
 </MainLayout>
+
+<style define:vars={{headingHeight: 3rem}}>
+	h1 {
+		text-size: var(--headingHeight);
+	}
+</style>

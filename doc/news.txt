@@ -18,6 +18,9 @@ New languages:
     • QML
 
 Missing patterns:
+    • Astro:
+        - `element`
+        - `style_element`
     • C++:
         - `decltype`
         - `parenthesized_declarator`

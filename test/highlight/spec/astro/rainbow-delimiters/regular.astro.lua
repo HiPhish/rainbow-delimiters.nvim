@@ -99,6 +99,24 @@ return {
       start_col = 6,
       start_row = 16
     }, {
+      end_col = 11,
+      end_row = 18,
+      hl_group = "RainbowDelimiterGreen",
+      start_col = 10,
+      start_row = 18
+    }, {
+      end_col = 19,
+      end_row = 18,
+      hl_group = "RainbowDelimiterGreen",
+      start_col = 11,
+      start_row = 18
+    }, {
+      end_col = 12,
+      end_row = 22,
+      hl_group = "RainbowDelimiterGreen",
+      start_col = 10,
+      start_row = 22
+    }, {
       end_col = 7,
       end_row = 24,
       hl_group = "RainbowDelimiterOrange",
@@ -141,23 +159,102 @@ return {
       start_col = 11,
       start_row = 26
     }, {
+      end_col = 3,
+      end_row = 27,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 2,
+      start_row = 27
+    }, {
+      end_col = 23,
+      end_row = 27,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 3,
+      start_row = 27
+    }, {
+      end_col = 36,
+      end_row = 27,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 34,
+      start_row = 27
+    }, {
       end_col = 2,
-      end_row = 32,
+      end_row = 33,
       hl_group = "RainbowDelimiterRed",
       start_col = 0,
-      start_row = 32
+      start_row = 33
     }, {
       end_col = 12,
-      end_row = 32,
+      end_row = 33,
       hl_group = "RainbowDelimiterRed",
       start_col = 2,
-      start_row = 32
+      start_row = 33
     }, {
       end_col = 13,
-      end_row = 32,
+      end_row = 33,
       hl_group = "RainbowDelimiterRed",
       start_col = 12,
-      start_row = 32
+      start_row = 33
+    }, {
+      end_col = 1,
+      end_row = 35,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 0,
+      start_row = 35
+    }, {
+      end_col = 6,
+      end_row = 35,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 1,
+      start_row = 35
+    }, {
+      end_col = 43,
+      end_row = 35,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 42,
+      start_row = 35
+    }, {
+      end_col = 2,
+      end_row = 39,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 0,
+      start_row = 39
+    }, {
+      end_col = 7,
+      end_row = 39,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 2,
+      start_row = 39
+    }, {
+      end_col = 8,
+      end_row = 39,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 7,
+      start_row = 39
+    } },
+  css = { {
+      end_col = 5,
+      end_row = 36,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 4,
+      start_row = 36
+    }, {
+      end_col = 17,
+      end_row = 37,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 16,
+      start_row = 37
+    }, {
+      end_col = 33,
+      end_row = 37,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 32,
+      start_row = 37
+    }, {
+      end_col = 2,
+      end_row = 38,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 1,
+      start_row = 38
     } },
   typescript = { {
       end_col = 8,
@@ -219,5 +316,17 @@ return {
       hl_group = "RainbowDelimiterRed",
       start_col = 32,
       start_row = 17
+    }, {
+      end_col = 21,
+      end_row = 35,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 20,
+      start_row = 35
+    }, {
+      end_col = 41,
+      end_row = 35,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 40,
+      start_row = 35
     } }
 }
