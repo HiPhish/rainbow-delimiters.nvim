@@ -21,8 +21,9 @@ templ headerTemplate(name string) {
 }
 
 templ footerTemplate() {
+	{{ year := fmt.Sprintf("%d", time.Now().Year()) }}
 	<footer data-testid="footerTemplate">
-		<div>&copy; { fmt.Sprintf("%d", time.Now().Year()) }</div>
+		<div>&copy; { year }</div>
 	</footer>
 }
 

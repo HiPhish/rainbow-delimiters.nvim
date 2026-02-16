@@ -1,5 +1,9 @@
 ; inherits: go
 
+(rawgo_block
+  "{{" @delimiter
+  "}}" @delimiter @sentinel) @container
+
 ;; HTML elements
 
 (element

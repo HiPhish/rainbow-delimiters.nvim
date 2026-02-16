@@ -27,6 +27,8 @@ Missing patterns:
         - `sizeof_expression`
         - `static_assert_declaration`
         - `structured_binding_declarator`
+    • Templ:
+        - `rawgo_block`
     • Ruby:
         - `interpolation`
         - `element_reference`
