@@ -23,7 +23,10 @@
   "}}" @delimiter @sentinel) @container
 
 ;; @if condition parentheses
-(if_condition
-  (expression
-    "(" @delimiter
-    ")" @delimiter @sentinel)) @container
+(if_statement
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
+(statement_block
+  "{" @delimiter 
+  "}" @delimiter @sentinel) @container
