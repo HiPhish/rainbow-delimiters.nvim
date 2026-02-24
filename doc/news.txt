@@ -35,6 +35,15 @@ Missing patterns:
         - `argument_list`
         - `method_parameters`
 
+FIXED
+------------------------------------------------------------------------------
+
+Fixed patterns:
+    • Gleam
+      - `bit_array` instead of `bit_string`
+      - `bit_array_pattern` instead of `bit_string_pattern`
+      - `bit_array_segment_option` instead of `bit_string_segment_option`
+
 
 ==============================================================================
 Version 0.10.0 (released on 2025-09-29)
