@@ -8,7 +8,7 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
-; fn foo(arg: fn(string) -> MyType)
+; fn foo(arg: fn(String) -> MyType)
 (function_parameter_types
   "(" @delimiter
   ")" @delimiter @sentinel) @container
