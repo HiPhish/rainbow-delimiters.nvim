@@ -32,7 +32,3 @@
   "%" @delimiter
   "{" @delimiter
   "}" @delimiter @sentinel) @container
-
-(do_block
-  "do" @delimiter
-  "end" @delimiter @sentinel) @container
