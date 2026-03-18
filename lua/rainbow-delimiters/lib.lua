@@ -169,8 +169,11 @@ function M.attach(bufnr)
 	local parser
 	do
 		local success
+		-- NOTE: In older versions, `get_parser` throws an error when
+		-- no parser is available. In newer ones, it returns nil instead.
+		-- see: https://github.com/neovim/neovim/commit/fd1e019
 		success, parser = pcall(get_parser, bufnr, lang)
-		if not success then return end
+		if not success or not parser then return end
 	end
 
 	local strategy
