@@ -8,7 +8,7 @@ https://keepachangelog.com/en/1.1.0/
 https://semver.org/
 
 ==============================================================================
-Unreleased
+Version 0.11.0 (released on 2026-03-25)
 
 ------------------------------------------------------------------------------
 ADDED
@@ -37,6 +37,8 @@ Missing patterns:
 
 FIXED
 ------------------------------------------------------------------------------
+
+Missing parser error in Neovim version 0.12.0
 
 Fixed patterns:
     • Gleam
