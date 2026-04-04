@@ -1,0 +1,56 @@
+<div>
+  <span>Hello</span>
+  <p>
+    <a href="/">
+      <span>Link</span>
+    </a>
+  </p>
+</div>
+
+<br />
+<img src="logo.png" />
+
+<MyApp.Component>
+  <AnotherComponent>
+    <span>Nested</span>
+  </AnotherComponent>
+</MyApp.Component>
+
+<Widget />
+
+<MyApp.Component>
+  <:header>
+    <h1>Title</h1>
+  </:header>
+  <:body>
+    <p>
+      <span>Content</span>
+    </p>
+  </:body>
+</MyApp.Component>
+
+<%= if @show do %>
+  <div>
+    <%= for item <- @items do %>
+      <span><%= item.name %></span>
+    <% end %>
+  </div>
+<% end %>
+
+<%= if @logged_in do %>
+  <span>Welcome</span>
+<% else %>
+  <a href="/login">Log in</a>
+<% end %>
+
+<div>
+  <%= case @status do %>
+    <% :ok -> %>
+      <span>Success</span>
+    <% :error -> %>
+      <p>
+        <span>Error</span>
+      </p>
+  <% end %>
+</div>
+
