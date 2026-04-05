@@ -57,7 +57,9 @@ local function find_cursor_container(query, tree, bufnr)
 		if result then break end
 		for id, node in pairs(match) do
 			local name = query.captures[id]
-			if name == 'container' and ts.is_in_node_range(node, curpos[1] - 1, curpos[2]) then
+			-- nvim 0.12: iter_matches may yield nodes with nil range method
+			if name == 'container' and type(node) == 'userdata' and node.range
+				and ts.is_in_node_range(node, curpos[1] - 1, curpos[2]) then
 				result = node
 				break
 			end
@@ -211,8 +213,10 @@ local function setup_parser(bufnr, parser, start_parent_lang)
 			setup_parser(bufnr, child, lang)
 		end
 
+		-- on_changedtree removed: it causes re-entrant parsing in nvim 0.12
+		-- (iter_matches inside parse callback corrupts LanguageTree state).
+		-- CursorMoved autocmd already calls full_update on every movement.
 		p:register_cbs {
-			on_changedtree = on_changedtree,
 			on_child_added = on_child_added,
 		}
 		log.trace("Done with setting up parser for '%s' in buffer %d", lang, bufnr)
