@@ -56,6 +56,10 @@ local function find_cursor_container(query, tree, bufnr)
 	for _, match in query:iter_matches(tree:root(), bufnr, 0, -1, {all=false}) do
 		if result then break end
 		for id, node in pairs(match) do
+			-- NOTE: In Neovim 0.12+ the `all=false` option does nothing
+			if vim.fn.has('nvim-0.12') ~= 0 then
+				node = node[1]
+			end
 			local name = query.captures[id]
 			if name == 'container' and ts.is_in_node_range(node, curpos[1] - 1, curpos[2]) then
 				result = node
