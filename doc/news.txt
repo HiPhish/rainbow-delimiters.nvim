@@ -11,6 +11,13 @@ https://semver.org/
 Unreleased
 
 ------------------------------------------------------------------------------
+ADDED
+
+New queries:
+    • Elixir:
+        - `rainbow-blocks`
+
+------------------------------------------------------------------------------
 CHANGED
 
 The `jsonc` language is now parsed as `json`; this is because nvim-treesitter
