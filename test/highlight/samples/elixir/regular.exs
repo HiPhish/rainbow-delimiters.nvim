@@ -28,6 +28,40 @@ defmodule Regular do
     end
 end
 
+defmodule DoEndBlocks do
+    @moduledoc """
+    Testing do end block nesting.
+    """
+
+    def check(x) do
+        if x > 0 do
+            :ok
+        else
+            :error
+        end
+    end
+
+    def nested(x) do
+        if x > 0 do
+            if x > 10 do
+                :big
+            else
+                :small
+            end
+        else
+            :negative
+        end
+    end
+
+    def try_example(x) do
+        try do
+            x + 1
+        rescue
+            _ -> :error
+        end
+    end
+end
+
 # Keyword list syntactic sugar
 IO.puts inspect([a: 1, b: [c: 3, d: [e: 5, f: []]]])
 
