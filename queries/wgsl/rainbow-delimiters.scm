@@ -1,47 +1,47 @@
 (argument_list_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (attribute
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (compound_statement
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (function_declaration
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (for_statement
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (loop_statement
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (parenthesized_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (postfix_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (struct_declaration
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (subscript_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (type_declaration
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container
 
 (variable_qualifier
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container

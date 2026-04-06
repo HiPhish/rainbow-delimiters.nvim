@@ -8,21 +8,21 @@
 
 (list
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (dictionnary  ;; this is no typo, "dictionary" is misspelled in the parser
   "{" @delimiter
   (dictionnary_entry
     ":" @delimiter)?
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (call_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (unary_operation
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 
 ;;; ---------------------------------------------------------------------------
@@ -30,17 +30,17 @@
   left: ("(" @delimiter
          ")" @delimiter)
   right: ("(" @delimiter
-          ")" @delimiter @sentinel)) @container
+          ")" @delimiter)) @container
 
 (binary_operation
   left: _ @_left
   (#not-eq? @_left "(")
   right: ("(" @delimiter
-          ")" @delimiter @sentinel)) @container
+          ")" @delimiter)) @container
 
 (binary_operation
   left: ("(" @delimiter
-         ")" @delimiter @sentinel)
+         ")" @delimiter)
   right: _ @_right
   (#not-eq? @_right "(")) @container
 
@@ -52,7 +52,7 @@
   left: ("(" @delimiter
          ")" @delimiter)
   right: ("(" @delimiter
-          ")" @delimiter @sentinel)) @container
+          ")" @delimiter)) @container
 
 (ternary_expression
   condition: _ @_condition
@@ -60,7 +60,7 @@
   left: ("(" @delimiter
          ")" @delimiter)
   right: ("(" @delimiter
-          ")" @delimiter @sentinel)) @container
+          ")" @delimiter)) @container
 
 (ternary_expression
   condition: ("(" @delimiter
@@ -68,19 +68,19 @@
   left: _ @_left
   (#not-eq? @_left "(")
   right: ("(" @delimiter
-          ")" @delimiter @sentinel)) @container
+          ")" @delimiter)) @container
 
 (ternary_expression
   condition: ("(" @delimiter
               ")" @delimiter)
   left: ("(" @delimiter
-          ")" @delimiter @sentinel)
+          ")" @delimiter)
   right: _ @_right
   (#not-eq? @_right "(")) @container
 
 (ternary_expression
   condition: ("(" @delimiter
-              ")" @delimiter @sentinel)
+              ")" @delimiter)
   left: _ @_left
   (#not-eq? @_left "(")
   right: _ @_right
@@ -90,7 +90,7 @@
   condition: _ @_condition
   (#not-eq? @_condition "(")
   left: ("(" @delimiter
-              ")" @delimiter @sentinel)
+              ")" @delimiter)
   right: _ @_right
   (#not-eq? @_right "(")) @container
 
@@ -100,4 +100,4 @@
   left: _ @_left
   (#not-eq? @_left "(")
   right: ("(" @delimiter
-          ")" @delimiter @sentinel)) @container
+          ")" @delimiter)) @container

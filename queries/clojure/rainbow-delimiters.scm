@@ -1,19 +1,19 @@
 (list_lit
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (vec_lit
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (map_lit
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (set_lit
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (anon_fn_lit
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container

@@ -1,138 +1,138 @@
 (parenthesized_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (declaration_list
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (field_declaration_list
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (ordered_field_declaration_list
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (enum_variant_list
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (use_list
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (field_initializer_list
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (parameters
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (arguments
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (match_block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (tuple_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (tuple_type
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (token_tree
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (token_tree
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (token_tree
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (token_tree_pattern
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (token_repetition_pattern
   "$" @delimiter
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (token_repetition
   "$" @delimiter
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (attribute_item
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (inner_attribute_item
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (type_arguments
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container
 
 (type_parameters
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container
 
 (closure_parameters
   "|" @delimiter
   (_)?
-  "|" @delimiter @sentinel) @container
+  "|" @delimiter) @container
 
 (array_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (array_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (index_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (tuple_struct_pattern
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (tuple_pattern
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (struct_pattern
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (slice_pattern
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (macro_definition
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (visibility_modifier
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (bracketed_type
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container

@@ -1,50 +1,50 @@
 (parameters
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (tuple_type
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (polymorphic_parameters
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (polymorphic_type
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (attribute
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (call_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (index_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (slice_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (switch_statement
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (array_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (struct
  ("(" @delimiter
@@ -52,51 +52,51 @@
  ("[" @delimiter
   "]" @delimiter)?
  ("{" @delimiter
-  "}" @delimiter @sentinel)
+  "}" @delimiter)
   ) @container
 
 (map_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (map
   "[" @delimiter
   "]" @delimiter
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (matrix_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (matrix
   "[" @delimiter
   "]" @delimiter
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (bit_set_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (bit_set
   "[" @delimiter
   "]" @delimiter
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (struct_declaration
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (enum_declaration
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (union_declaration
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (bit_field_declaration
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container

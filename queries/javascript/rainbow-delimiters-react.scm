@@ -3,71 +3,71 @@
 ;; String interpolation inside template strings
 (template_substitution
   "${" @delimiter
-  "}"  @delimiter @sentinel) @container
+  "}"  @delimiter) @container
 
 (object
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (computed_property_name
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (statement_block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (class_body
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (switch_body
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (arguments
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (formal_parameters
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (for_statement
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (for_in_statement
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (subscript_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (named_imports
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (export_clause
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (object_pattern
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (array
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (array_pattern
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 
 ;;; React.js support
@@ -79,7 +79,7 @@
   close_tag: (jsx_closing_element
                "</" @delimiter
                name: (identifier) @delimiter
-               ">" @delimiter @sentinel)) @container
+               ">" @delimiter)) @container
 
 (jsx_element
   open_tag: (jsx_opening_element
@@ -89,18 +89,18 @@
   close_tag: (jsx_closing_element
               "</" @delimiter
                name: (member_expression) @delimiter
-              ">" @delimiter @sentinel)) @container
+              ">" @delimiter)) @container
 
 (jsx_self_closing_element
   "<" @delimiter
   name: (identifier) @delimiter
-  "/>" @delimiter @sentinel) @container
+  "/>" @delimiter) @container
 
 (jsx_self_closing_element
   "<" @delimiter
   name: (member_expression) @delimiter
-  "/>" @delimiter @sentinel) @container
+  "/>" @delimiter) @container
 
 (jsx_expression
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container

@@ -1,15 +1,15 @@
 (table
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (array
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (inline_table
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (table_array_element
   "[[" @delimiter
-  "]]" @delimiter @sentinel) @container
+  "]]" @delimiter) @container

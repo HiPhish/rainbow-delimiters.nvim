@@ -1,23 +1,23 @@
 (par_tup_lit
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (par_arr_lit
   "@(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (sqr_tup_lit
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (sqr_arr_lit
   "@[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (struct_lit
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (tbl_lit
   "@{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container

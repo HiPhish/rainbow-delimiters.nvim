@@ -11,7 +11,7 @@ local function make_node(start_row, start_col, end_row, end_col)
 end
 
 local fake_query = {
-	captures = {'delimiter', 'container', 'sentinel'}
+	captures = {'delimiter', 'container'}
 }
 
 local function make_matchtree(match)

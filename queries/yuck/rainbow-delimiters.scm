@@ -1,19 +1,19 @@
 (list
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (loop_widget
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (array
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (string_interpolation
   "${" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (expr
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container

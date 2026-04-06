@@ -1,19 +1,19 @@
 (group
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (content
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (math
   "$" @delimiter
-  "$" @delimiter @sentinel) @container
+  "$" @delimiter) @container
 
 (call
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container

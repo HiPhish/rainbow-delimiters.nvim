@@ -2,7 +2,7 @@
 
 (rawgo_block
   "{{" @delimiter
-  "}}" @delimiter @sentinel) @container
+  "}}" @delimiter) @container
 
 ;; HTML elements
 
@@ -14,13 +14,13 @@
   (tag_end
     "</" @delimiter
     (element_identifier) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container
 
 (element
   (self_closing_tag
     "<" @delimiter
     (element_identifier) @delimiter
-    "/>" @delimiter @sentinel)) @container
+    "/>" @delimiter)) @container
 
 (style_element
   (style_tag_start
@@ -46,24 +46,24 @@
 
 (component_block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (script_block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (css_declaration
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (component_switch_statement
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (component_children_expression
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (expression
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container

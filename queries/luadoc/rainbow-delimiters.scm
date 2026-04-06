@@ -1,36 +1,36 @@
 (function_type
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_type
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 ;;; I wanted to use something like
 ; (union_type
-;   "|" @delimiter @sentinel
+;   "|" @delimiter
 ; ) @container
 ;;; too, but it doesn't fully work with the current parser
 
 (array_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (table_type
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container
 
 (table_literal_type
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (indexed_field
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (tuple_type
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 ;;; Dictionary-type tables cannot be matched.  Their syntax is 
 ;;;    { [string]: VALUE_TYPE }
@@ -45,4 +45,4 @@
 ;   .
 ;   field: (_)
 ;   .
-;   "]" @delimiter @sentinel) @container
+;   "]" @delimiter) @container

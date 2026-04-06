@@ -23,9 +23,6 @@ behaviour).  In 0.12 this option was removed.
 We only ever use the new behaviour in our code, so we could just remove the
 options and break backwards compatibility with 0.10.
 
-We can remove the `@sentinel` capture group from all queries.  This is also
-something related to the legacy implementation of the strategies.
-
 
 Built-in queries
 ################

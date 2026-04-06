@@ -1,43 +1,43 @@
 (block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (grouping
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (array_ref
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (func_call
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (if_statement
   "if"
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (while_statement
   "while"
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 ;; This messes up the highlighting of the sibling block
 ; (do_while_statement
 ;   "(" @delimiter
-;   ")" @delimiter @sentinel) @container
+;   ")" @delimiter) @container
 
 (for_statement
   "for"
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (for_in_statement
   "for"
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (switch_statement
   "switch"
@@ -45,4 +45,4 @@
   ")" @delimiter
   (switch_body
     "{" @delimiter
-    "}" @delimiter @sentinel)) @container
+    "}" @delimiter)) @container

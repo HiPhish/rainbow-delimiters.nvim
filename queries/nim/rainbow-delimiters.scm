@@ -1,47 +1,47 @@
 (array_construction
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 (tuple_construction
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 (tuple_deconstruct_declaration
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 (curly_construction
   "{" @delimiter
   ":"? @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (parenthesized
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (argument_list
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 (parameter_declaration_list
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (bracket_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 (field_declaration_list
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 (generic_parameter_list
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (cast
   "[" @delimiter
   "]" @delimiter
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (term_rewriting_pattern
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 (curly_expression
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container

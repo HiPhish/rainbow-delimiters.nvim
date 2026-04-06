@@ -15,8 +15,6 @@ local Set = require 'rainbow-delimiters.set'
 ---@class rainbow_delimiters.Match
 ---The container node.
 ---@field container vim.treesitter.TSNode
----Sentinel node, marks the last delimiter of the match.
----@field sentinel vim.treesitter.TSNode
 ---The actual delimiters we want to highlight, there can be any number of them.
 ---@field delimiters rainbow_delimiters.Set
 

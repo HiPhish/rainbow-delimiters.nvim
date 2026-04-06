@@ -6,10 +6,10 @@
   (ETag
     "</" @delimiter
     (Name) @delimiter
-    ">" @delimiter @sentinel))@container
+    ">" @delimiter))@container
 
 (element
   (EmptyElemTag
     "<" @delimiter
     (Name) @delimiter
-    "/>" @delimiter @sentinel)) @container
+    "/>" @delimiter)) @container

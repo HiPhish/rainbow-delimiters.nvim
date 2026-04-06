@@ -1,7 +1,7 @@
 (object
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (array
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container

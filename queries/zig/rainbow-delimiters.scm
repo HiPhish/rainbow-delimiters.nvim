@@ -1,37 +1,37 @@
 (parameters
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (arguments
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (if_statement
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (if_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (if_type_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (for_statement
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (for_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (while_statement
   "(" @delimiter
   .
   condition: (_)
   .
-  ")" @delimiter @sentinel ;; keep the sentinel for fallback
+  ")" @delimiter
   (
     ":" @delimiter
     "(" @delimiter
@@ -44,7 +44,7 @@
   .
   condition: (_)
   .
-  ")" @delimiter @sentinel ;; keep the sentinel for fallback
+  ")" @delimiter
   (
   ":" @delimiter
   "(" @delimiter
@@ -54,27 +54,27 @@
 
 (link_section
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (calling_convention
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (asm_expression
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (asm_input_item
    "[" @delimiter
    "]" @delimiter
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (asm_output_item
    "[" @delimiter
    "]" @delimiter
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (switch_expression
    "(" @delimiter
@@ -83,47 +83,47 @@
    ((switch_case
      "=>" @delimiter)
    _)+
-   "}" @delimiter @sentinel) @container
+   "}" @delimiter) @container
 
 (array_type
    "[" @delimiter
-   "]" @delimiter @sentinel) @container
+   "]" @delimiter) @container
 
 (slice_type
    "[" @delimiter
-   "]" @delimiter @sentinel) @container
+   "]" @delimiter) @container
 
 (index_expression
    "[" @delimiter
-   "]" @delimiter @sentinel) @container
+   "]" @delimiter) @container
 
 (pointer_type
   (
     "(" @delimiter
-    ")" @delimiter @sentinel ;; keep the sentinel for fallback
+    ")" @delimiter
   )?
   (
     "[" @delimiter
-    "]" @delimiter @sentinel ;; keep the sentinel for fallback
+    "]" @delimiter
   )?
 ) @container
 
 (block
    "{" @delimiter
-   "}" @delimiter @sentinel) @container
+   "}" @delimiter) @container
 
 (initializer_list
    "{" @delimiter
-   "}" @delimiter @sentinel) @container
+   "}" @delimiter) @container
 
 (payload
   .  ;; Without the anchor the @delimiter will be matched three times
   "|" @delimiter
-  "|" @delimiter @sentinel) @container
+  "|" @delimiter) @container
 
 (opaque_declaration
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (struct_declaration
   (
@@ -131,7 +131,7 @@
     ")" @delimiter
   )?
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (enum_declaration
   (
@@ -139,7 +139,7 @@
     ")" @delimiter
   )?
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (union_declaration
   (
@@ -147,20 +147,20 @@
     ")" @delimiter
   )?
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (parenthesized_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (error_set_declaration
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (byte_alignment
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (address_space
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container

@@ -1,15 +1,15 @@
 (command_substitution
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (concatenation
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (list_element_access
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (brace_expansion
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container

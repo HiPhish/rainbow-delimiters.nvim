@@ -4,21 +4,21 @@
     "let" @delimiter
     ("rec" @delimiter)?
     ("and" @delimiter (let_binding))*)
-  "in" @delimiter @sentinel) @container
+  "in" @delimiter) @container
 
 (let_expression ; Line 256
   (value_definition
     (let_operator) @delimiter
     ((let_and_operator) @delimiter _)*)
-  "in" @delimiter @sentinel) @container
+  "in" @delimiter) @container
 
 (let_open_expression ; Line 268
   "let" @delimiter
-  "in" @delimiter @sentinel) @container
+  "in" @delimiter) @container
 
 (let_module_expression ; Line 284
   "let" @delimiter
-  "in" @delimiter @sentinel) @container
+  "in" @delimiter) @container
 
 (match_expression ; Line 182
   "match" @delimiter
@@ -58,167 +58,167 @@
 
 (array_get_expression ; Line 8
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (coercion_expression ; Line 122
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (constructed_type ; Line 14
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (local_open_expression ; Line 27
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (module_parameter ; Line 38
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (package_expression ; Line 31
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_expression ; Line 6
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_module_expression ; Line 47
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_operator ; Line 25
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_pattern ; Line 23
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_type ; Line 12
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (object_expression ; Line 54
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (typed_pattern ; Line 18
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (typed_expression ; Line 50
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (list_expression ; Line 18
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (list_pattern ; Line 63
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (array_expression ; Line 68
   "[|" @delimiter
-  "|]" @delimiter @sentinel) @container
+  "|]" @delimiter) @container
 
 (array_pattern ; Line 73
   "[|" @delimiter
-  "|]" @delimiter @sentinel) @container
+  "|]" @delimiter) @container
 
 (attribute ; Line 84
   "[@" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (item_attribute ; Line 90
   "[@@" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (floating_attribute ; Line 93
   "[@@@" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (record_pattern ; Line 104
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (record_expression ; Line 99
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (record_declaration ; Line 96
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 ; Can't find an example
 ; (record_binding_pattern
 ;   "{" @delimiter
-;   "}" @delimiter @sentinel) @container
+;   "}" @delimiter) @container
 
 (class_binding ; Line 127
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (polymorphic_variant_type ; Line 244
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (polymorphic_variant_type ; Line 130
   "[<" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (polymorphic_variant_type ; Line 137
   "[>" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (string_get_expression ; Line 77
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (extension ; Line 140
   "[%" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (item_extension ; Line 147
   "[%%" @delimiter 
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (quoted_item_extension ; Line 150
   "{%%" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (quoted_string ; Line 81
   "{" @delimiter
-  "}" @sentinel) @container
+  "}") @container
 
 (bigarray_get_expression ; Line 158
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (object_copy_expression ; Line 166
   "{<" @delimiter
-  ">}" @delimiter @sentinel) @container
+  ">}" @delimiter) @container
 
 (packed_module ; Line 242
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (abstract_type ; Line 248
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (type_binding ; Line 276
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parameter ; Line 252
   ("?" @delimiter)?
   ("~" @delimiter)?
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (package_pattern ; Line 278
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container

@@ -6,7 +6,7 @@
   (end_tag
     "</" @delimiter
     (tag_name) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container
 
 (style_element
   (start_tag
@@ -16,13 +16,13 @@
   (end_tag
     "</" @delimiter
     (tag_name) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container
 
 (element
   (self_closing_tag
     "<" @delimiter
     (tag_name) @delimiter
-    "/>" @delimiter @sentinel)) @container
+    "/>" @delimiter)) @container
 
 (element
   (start_tag
@@ -32,4 +32,4 @@
   (end_tag
     "</" @delimiter
     (tag_name) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container

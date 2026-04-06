@@ -1,8 +1,8 @@
 (node_children
   "{" @delimiter
-  "}"  @delimiter @sentinel) @container
+  "}"  @delimiter) @container
 
 (type
   "(" @delimiter
   (annotation_type)
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container

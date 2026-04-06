@@ -1,37 +1,37 @@
 (command_substitution
   "$(" @delimiter
-  ")"  @delimiter @sentinel) @container
+  ")"  @delimiter) @container
 
 (expansion
   "${" @delimiter
   (":-" @delimiter)?
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 ;;; The double-bracket variant is a bashism
 (test_command
   ["[[" "["] @delimiter
-  ["]]" "]"] @delimiter @sentinel) @container
+  ["]]" "]"] @delimiter) @container
 
 (subshell
  "(" @delimiter
- ")" @delimiter @sentinel) @container
+ ")" @delimiter) @container
 
 (array
  "(" @delimiter
- ")" @delimiter @sentinel) @container
+ ")" @delimiter) @container
 
 (function_definition
  "(" @delimiter
- ")" @delimiter @sentinel) @container
+ ")" @delimiter) @container
 
 (arithmetic_expansion
  "$((" @delimiter
- "))" @delimiter @sentinel) @container
+ "))" @delimiter) @container
 
 (compound_statement
  "{" @delimiter
- "}" @delimiter @sentinel) @container
+ "}" @delimiter) @container
 
 (subscript
  "[" @delimiter
- "]" @delimiter @sentinel) @container
+ "]" @delimiter) @container

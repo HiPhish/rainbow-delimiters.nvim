@@ -1,37 +1,37 @@
 (call
   (arguments
     "(" @delimiter
-    ")" @delimiter @sentinel) @container)
+    ")" @delimiter) @container)
 
 (block
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (string
   (interpolation
     "#{" @delimiter
-    "}" @delimiter @sentinel) @container)
+    "}" @delimiter) @container)
 
 (tuple
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (list
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (access_call
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (bitstring
   "<<" @delimiter
-  ">>" @delimiter @sentinel) @container
+  ">>" @delimiter) @container
 
 (map
   "%" @delimiter
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (do_block
   "do" @delimiter

@@ -1,7 +1,7 @@
 (flow_mapping
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (flow_sequence
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container

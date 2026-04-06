@@ -6,7 +6,7 @@
   (end_tag
     "</" @delimiter
     (tag_name) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container
 
 (element
   (self_closing_tag
@@ -22,8 +22,8 @@
   (end_tag
     "</" @delimiter
     (tag_name) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container
 
 (html_interpolation
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container

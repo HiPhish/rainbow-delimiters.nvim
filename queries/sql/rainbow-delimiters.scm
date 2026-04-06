@@ -1,15 +1,15 @@
 (subquery
     "(" @delimiter
-    ")" @delimiter @sentinel) @container
+    ")" @delimiter) @container
 
 (invocation
     "(" @delimiter
-    ")" @delimiter @sentinel) @container
+    ")" @delimiter) @container
 
 (list
     "(" @delimiter
-    ")" @delimiter @sentinel) @container
+    ")" @delimiter) @container
 
 (parenthesized_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container

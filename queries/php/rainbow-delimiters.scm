@@ -1,31 +1,31 @@
 (parenthesized_expression
     "(" @delimiter
-    ")" @delimiter @sentinel) @container
+    ")" @delimiter) @container
 
 (arguments
     "(" @delimiter
-    ")" @delimiter @sentinel) @container
+    ")" @delimiter) @container
 
 (formal_parameters
     "(" @delimiter
-    ")" @delimiter @sentinel) @container
+    ")" @delimiter) @container
 
 (declaration_list
     "{" @delimiter
-    "}" @delimiter @sentinel) @container
+    "}" @delimiter) @container
 
 (compound_statement
     "{" @delimiter
-    "}" @delimiter @sentinel) @container
+    "}" @delimiter) @container
 
 (encapsed_string
     "{" @delimiter
-    "}" @delimiter @sentinel) @container
+    "}" @delimiter) @container
 
 (array_creation_expression
     "[" @delimiter
-    "]" @delimiter @sentinel) @container
+    "]" @delimiter) @container
 
 (subscript_expression
     "[" @delimiter
-    "]" @delimiter @sentinel) @container
+    "]" @delimiter) @container

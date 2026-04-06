@@ -1,14 +1,14 @@
 (exposing_list
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (exposed_operator
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (exposed_union_constructors
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 ;;; Broken by design, see https://github.com/elm-tooling/tree-sitter-elm/issues/159
 (_
@@ -16,7 +16,7 @@
   .
   (type_expression)
   .
-  ")" @delimiter @sentinel
+  ")" @delimiter
 ) @container
 
 ;;; Broken by design, see https://github.com/elm-tooling/tree-sitter-elm/issues/159
@@ -25,41 +25,41 @@
   .
   [(pattern) (union_pattern)]
   .
-")" @delimiter @sentinel
+")" @delimiter
 )  @container
 
 (record_expr
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (record_type
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (record_pattern
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (tuple_expr
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (tuple_type
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (tuple_pattern
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_expr
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (list_expr
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (list_pattern
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container

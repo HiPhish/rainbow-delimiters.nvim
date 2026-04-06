@@ -1,5 +1,4 @@
 ;;; A pair of delimiter tags with any content in-between.
-;;; Last tag should be a sentinel.
 
 ;;; If instead you want rainbow-delimiters to only highlight
 ;;; the tag names without any of "<", "</", ">" or "/>", then
@@ -17,19 +16,19 @@
   (end_tag
     "</" @delimiter
     (tag_name) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container
 
 (element
   (self_closing_tag
     "<" @delimiter
     (tag_name) @delimiter
-    "/>" @delimiter @sentinel)) @container
+    "/>" @delimiter)) @container
 
 (element
   (start_tag
     "<" @delimiter
     (tag_name) @delimiter @_tag_name
-    ">" @delimiter @sentinel)
+    ">" @delimiter)
   (#any-of? @_tag_name
    "area"
    "base"
@@ -56,7 +55,7 @@
   (end_tag
     "</" @delimiter
     (tag_name) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container
 
 (script_element
   (start_tag
@@ -66,4 +65,4 @@
   (end_tag
     "</" @delimiter
     (tag_name) @delimiter
-    ">" @delimiter @sentinel)) @container
+    ">" @delimiter)) @container

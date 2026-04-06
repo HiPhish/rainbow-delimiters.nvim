@@ -1,3 +1,3 @@
 (_
   open: ["(" "[" "{"] @delimiter
-  close: [")" "]" "}"] @delimiter @sentinel) @container
+  close: [")" "]" "}"] @delimiter) @container

@@ -5,11 +5,11 @@
 
 (function_declaration
   "function" @delimiter
-  "end" @delimiter @sentinel) @container
+  "end" @delimiter) @container
 
 (function_definition
   "function" @delimiter
-  "end" @delimiter @sentinel) @container
+  "end" @delimiter) @container
 
 (if_statement
   "if" @delimiter
@@ -19,51 +19,51 @@
     "then" @delimiter)*
   (else_statement
     "else" @delimiter)?
-  "end" @delimiter @sentinel) @container
+  "end" @delimiter) @container
 
 (while_statement
   "while" @delimiter
   "do" @delimiter
-  "end" @delimiter @sentinel) @container
+  "end" @delimiter) @container
 
 (repeat_statement
   "repeat" @delimiter
-  "until" @delimiter @sentinel) @container
+  "until" @delimiter) @container
 
 (for_statement
   "for" @delimiter
   (for_generic_clause
     "in" @delimiter)?
   "do" @delimiter
-  "end" @delimiter @sentinel) @container
+  "end" @delimiter) @container
 
 (do_statement
   "do" @delimiter
-  "end" @delimiter @sentinel) @container
+  "end" @delimiter) @container
 
 
 ;;; Copied over from rainbow-parens
 
 (arguments
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parameters
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (parenthesized_expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (table_constructor
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (bracket_index_expression
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (field
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container

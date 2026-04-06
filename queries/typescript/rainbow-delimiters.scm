@@ -2,32 +2,32 @@
 
 (interface_body
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (enum_body
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (type_arguments
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container
 
 (type_parameters
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container
 
 (array_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (lookup_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (object_type
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (tuple_type
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container

@@ -1,11 +1,11 @@
 (list_lit
   "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (defun
   "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (loop_macro
   "(" @delimiter
-  ")" @delimiter @sentinel ) @container
+  ")" @delimiter ) @container

@@ -1,27 +1,27 @@
 (attrset_expression
   ("{" @delimiter)
-  ("}" @delimiter @sentinel)) @container
+  ("}" @delimiter)) @container
 
 (rec_attrset_expression
   ("{" @delimiter)
-  ("}" @delimiter @sentinel)) @container
+  ("}" @delimiter)) @container
 
 (formals
   ("{" @delimiter)
-  ("}" @delimiter @sentinel)) @container
+  ("}" @delimiter)) @container
 
 (list_expression
   ("[" @delimiter)
-  ("]" @delimiter @sentinel)) @container
+  ("]" @delimiter)) @container
 
 (parenthesized_expression
   ("(" @delimiter)
-  (")" @delimiter @sentinel)) @container
+  (")" @delimiter)) @container
 
 (interpolation
   ("${" @delimiter)
-  ("}" @delimiter @sentinel)) @container
+  ("}" @delimiter)) @container
 
 (inherit_from
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container

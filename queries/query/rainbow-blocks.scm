@@ -3,32 +3,32 @@
 (named_node
   "(" @delimiter
   (identifier) @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (missing_node
   "(" @delimiter
   "MISSING" @delimiter
   (identifier)? @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (grouping
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (list
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (predicate
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (field_definition
-  (identifier) @delimiter @sentinel) @container
+  (identifier) @delimiter) @container
 
 ;; For more highlighting the following can be added too:
 ; (parameters
-;   (identifier) @delimiter @sentinel) @container
+;   (identifier) @delimiter) @container
 ;
 ; (negated_field
-;   (identifier) @delimiter @sentinel) @container
+;   (identifier) @delimiter) @container

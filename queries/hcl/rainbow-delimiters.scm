@@ -1,47 +1,47 @@
 (tuple
   (tuple_start "[") @delimiter
-  (tuple_end   "]") @delimiter @sentinel) @container
+  (tuple_end   "]") @delimiter) @container
 
 (for_tuple_expr
   (tuple_start "[") @delimiter
-  (tuple_end   "]") @delimiter @sentinel) @container
+  (tuple_end   "]") @delimiter) @container
 
 (new_index
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (function_call
    "(" @delimiter
-   ")" @delimiter @sentinel) @container
+   ")" @delimiter) @container
 
 (expression
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (binary_operation
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (unary_operation
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (block
   (block_start "{") @delimiter
-  (block_end   "}") @delimiter @sentinel) @container
+  (block_end   "}") @delimiter) @container
 
 (object
   (object_start "{") @delimiter
-  (object_end   "}") @delimiter @sentinel) @container
+  (object_end   "}") @delimiter) @container
 
 (for_object_expr
   (object_start "{") @delimiter
-  (object_end   "}") @delimiter @sentinel) @container
+  (object_end   "}") @delimiter) @container
 
 (template_interpolation
   (template_interpolation_start) @delimiter
-  (template_interpolation_end) @delimiter @sentinel) @container
+  (template_interpolation_end) @delimiter) @container
 
 (_
   (template_directive_start) @delimiter
-  (template_directive_end) @delimiter @sentinel) @container
+  (template_directive_end) @delimiter) @container

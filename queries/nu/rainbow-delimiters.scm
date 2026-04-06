@@ -1,54 +1,54 @@
 (flag_capsule
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (expr_interpolated
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (expr_parenthesized
   ["(" "...("] @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (val_table
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (val_list
   ["[" "...["] @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (val_nothing
   "(" @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (block
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (ctrl_match
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (val_record
   ["{" "...{"] @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (val_closure
   "{" @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
 
 (collection_type
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container
 
 (list_type
   "<" @delimiter
-  ">" @delimiter @sentinel) @container
+  ">" @delimiter) @container
 
 (parameter_bracks
   "[" @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (parameter_pipes
   "|" @delimiter

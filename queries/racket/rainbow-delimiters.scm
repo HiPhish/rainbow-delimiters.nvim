@@ -1,14 +1,14 @@
 (list
   "(" @delimiter
   (dot)? @delimiter
-  ")" @delimiter @sentinel) @container
+  ")" @delimiter) @container
 
 (list
   "[" @delimiter
   (dot)? @delimiter
-  "]" @delimiter @sentinel) @container
+  "]" @delimiter) @container
 
 (list
   "{" @delimiter
   (dot)? @delimiter
-  "}" @delimiter @sentinel) @container
+  "}" @delimiter) @container
