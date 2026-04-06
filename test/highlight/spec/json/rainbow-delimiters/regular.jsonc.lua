@@ -2,7 +2,7 @@
 -- SPDX-FileCopyrightText: NONE
 
 return {
-  jsonc = { {
+  json = { {
       end_col = 1,
       end_row = 1,
       hl_group = "RainbowDelimiterRed",

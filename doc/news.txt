@@ -11,6 +11,12 @@ https://semver.org/
 Unreleased
 
 ------------------------------------------------------------------------------
+CHANGED
+
+The `jsonc` language is now parsed as `json`; this is because nvim-treesitter
+no longer supports `jsonc` as its own language.
+
+------------------------------------------------------------------------------
 FIXED
 
 Error in local strategy when running Neovim 0.12
