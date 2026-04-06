@@ -143,6 +143,25 @@ Tree-sitter support in Neovim is still experimental.  This plugin and its API
 should be considered stable insofar as breaking changes will only happen if
 changes to Neovim necessitates them.
 
+Neovim version compatibility policy
+====================================
+
+As long as Tree-sitter support in Neovim remains experimental the Neovim
+version compatibility will be a sliding window encompassing the following
+versions in order of priority:
+
+1) The currently released version
+2) The upcoming version
+3) The previously released version
+
+If any for these are in conflict with each other the higher-priority version
+will be preferred.  This should cover the needs of most Neovim users.  The
+plugin may still be compatible with even older releases if convenient, but it
+is a guarantee.
+
+Intentionally breaking backwards compatibility necessitates a new release of
+the plugin.
+
 
 License
 #######
