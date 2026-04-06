@@ -15,6 +15,9 @@ FIXED
 
 Error in local strategy when running Neovim 0.12
 
+Impossible patterns:
+    • Zig:
+        - `call_expression`
 
 
 ==============================================================================

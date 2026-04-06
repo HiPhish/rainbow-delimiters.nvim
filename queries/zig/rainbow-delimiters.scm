@@ -121,10 +121,6 @@
   "|" @delimiter
   "|" @delimiter @sentinel) @container
 
-(call_expression
-  "(" @delimiter
-  ")" @delimiter @sentinel) @container
-
 (opaque_declaration
   "{" @delimiter
   "}" @delimiter @sentinel) @container
