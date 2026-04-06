@@ -67,7 +67,7 @@ local function update_range(bufnr, changes, tree, lang)
 		local start_row, end_row = change[1], change[3] + 1
 		lib.clear_namespace(bufnr, lang, start_row, end_row)
 
-		for _, match in query:iter_matches(root_node, bufnr, start_row, end_row, {all=true}) do
+		for _, match in query:iter_matches(root_node, bufnr, start_row, end_row) do
 			---@type rainbow_delimiters.MatchTree
 			local this = MatchTree.assemble(query, match)
 			while match_trees:size() > 0 do

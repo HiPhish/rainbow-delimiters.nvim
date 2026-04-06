@@ -53,7 +53,7 @@ local function find_cursor_container(query, tree, bufnr)
 	local curpos = api.nvim_win_get_cursor(0)
 	-- The order of traversal guarantees that the first match which
 	-- contains the cursor is also the lowest one.
-	for _, match in query:iter_matches(tree:root(), bufnr, 0, -1, {all=true}) do
+	for _, match in query:iter_matches(tree:root(), bufnr, 0, -1) do
 		if result then break end
 		for id, nodes in pairs(match) do
 			local node = nodes[1]
@@ -113,7 +113,7 @@ local function update_range(bufnr, changes, tree, lang)
 		local start_row, end_row = change[1], change[3] + 1
 		lib.clear_namespace(bufnr, lang, start_row, end_row)
 
-		for _, match in query:iter_matches(root_node, bufnr, start_row, end_row, {all=true}) do
+		for _, match in query:iter_matches(root_node, bufnr, start_row, end_row) do
 			---@type rainbow_delimiters.MatchTree
 			local this = MatchTree.assemble(query, match)
 			while match_trees:size() > 0 do
