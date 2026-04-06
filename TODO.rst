@@ -5,6 +5,32 @@
 #######################
 
 
+Break legacy compatibility
+##########################
+
+Here are plans for dropping support for certain Neovim versions in a controlled
+manner.
+
+Neovim 0.10
+===========
+
+The `Query:iter_matches()` method in 0.10 and prior would only produce the
+first matching node of the query, but from 0.11 onwards it produces a list of
+nodes.  To help bridge this transition the `all` keyword parameter was
+introduced (`true` would be the default behaviour, `false` the legacy
+behaviour).  In 0.12 this option was removed.
+
+We only ever use the new behaviour in our code, so we could just remove the
+options and break backwards compatibility with 0.10.
+
+We can also remove the legacy implementation of the built-in strategies while
+we are at it.  I think this is still for compatibility with Neovim 0.9, but I
+am not certain.
+
+We can remove the `@sentinel` capture group from all queries.  This is also
+something related to the legacy implementation of the strategies.
+
+
 Built-in queries
 ################
 
