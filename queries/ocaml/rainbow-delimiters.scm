@@ -2,10 +2,6 @@
   "(" @delimiter
   ")" @delimiter) @container
 
-(coercion_expression ; Line 122
-  "(" @delimiter
-  ")" @delimiter) @container
-
 (constructed_type ; Line 14
   "(" @delimiter
   ")" @delimiter) @container

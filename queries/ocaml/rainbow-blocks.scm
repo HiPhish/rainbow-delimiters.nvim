@@ -12,12 +12,14 @@
     ((let_and_operator) @delimiter _)*)
   "in" @delimiter) @container
 
-(let_open_expression ; Line 268
+(let_expression ; Line 268
   "let" @delimiter
+  (open_module)
   "in" @delimiter) @container
 
-(let_module_expression ; Line 284
+(let_expression ; Line 284
   "let" @delimiter
+  (module_definition)
   "in" @delimiter) @container
 
 (match_expression ; Line 182
@@ -57,10 +59,6 @@
 ;;; Copied over from rainbow-delimiters
 
 (array_get_expression ; Line 8
-  "(" @delimiter
-  ")" @delimiter) @container
-
-(coercion_expression ; Line 122
   "(" @delimiter
   ")" @delimiter) @container
 

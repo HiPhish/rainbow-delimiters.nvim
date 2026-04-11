@@ -118,7 +118,7 @@ let square w =
 
 let squares : square list = [ square 10; square 20 ]
 
-(* coercion_expression *)
+(* now just a typed_expression node *)
 let shapes : shape list = (squares :> shape list)
 
 type x = { s : int list }
@@ -268,7 +268,7 @@ let () =
   z
 ;;
 
-(* let_open_expression *)
+(* let_expression with open_module *)
 let () =
   let open Option in
   ()
