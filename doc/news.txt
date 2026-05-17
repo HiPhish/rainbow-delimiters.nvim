@@ -10,6 +10,19 @@ https://semver.org/
 ==============================================================================
 Version 0.12.0 (released on 2026-04-06)
 
+------------------------------------------------------------------------------
+ADDED
+
+New languages:
+    • Heex (Elixir templates)
+
+Missing patterns:
+    • A bunch of standard Elixir blocks
+
+
+==============================================================================
+Version 0.12.0 (released on 2026-04-06)
+
 This is the last version with support for Neovim 0.10 or older.  It contains
 fixes for Neovim 0.12 and various cleanups in preparation for dropping Neovim
 version 0.10 support.
