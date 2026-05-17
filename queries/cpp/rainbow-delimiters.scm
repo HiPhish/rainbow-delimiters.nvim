@@ -48,6 +48,10 @@
   "(" @delimiter
   ")" @delimiter) @container
 
+(fold_expression
+  "(" @delimiter
+  ")" @delimiter) @container
+
 (enumerator_list
   "{" @delimiter
   "}" @delimiter) @container

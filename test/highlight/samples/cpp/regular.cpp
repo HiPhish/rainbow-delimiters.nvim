@@ -34,6 +34,10 @@ public:
 	int z;
     typedef int(*F)(T...);
     constexpr static size_t s = sizeof...(T);
+    template <typename ... Arg>
+    void unfold(Arg ... args) {
+        (args() || ...);
+    }
 };
 
 /* A function definition */
