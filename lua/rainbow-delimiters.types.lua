@@ -52,6 +52,7 @@
 ---@field css          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field cuda         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field cue          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
+---@field d            (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field dart         (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field elixir       (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
 ---@field elm          (string | rainbow_delimiters.strategy | fun(bufnr: integer): string | rainbow_delimiters.strategy?)?
@@ -129,6 +130,7 @@
 ---@field css          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field cuda         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field cue          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
+---@field d            (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field dart         (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field elixir       (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
 ---@field elm          (('rainbow-delimiters' | string) | fun(bufnr: integer): ('rainbow-delimiters' | string))?
@@ -206,6 +208,7 @@
 ---@field css          (integer | fun(bufnr: integer): integer)?
 ---@field cuda         (integer | fun(bufnr: integer): integer)?
 ---@field cue          (integer | fun(bufnr: integer): integer)?
+---@field d            (integer | fun(bufnr: integer): integer)?
 ---@field dart         (integer | fun(bufnr: integer): integer)?
 ---@field elixir       (integer | fun(bufnr: integer): integer)?
 ---@field elm          (integer | fun(bufnr: integer): integer)?
@@ -282,6 +285,7 @@
 ---| 'css'
 ---| 'cuda'
 ---| 'cue'
+---| 'd'
 ---| 'dart'
 ---| 'elixir'
 ---| 'elm'
