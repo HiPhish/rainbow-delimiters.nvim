@@ -231,7 +231,7 @@ end
 ---@param bufnr integer
 ---@param settings rainbow_delimiters.buffer_settings
 local function on_attach(bufnr, settings)
-	log.trace('global strategy on_attach for buffer %d', bufnr)
+	log.trace('local strategy on_attach for buffer %d', bufnr)
 	local parser = settings.parser
 	setup_parser(bufnr, parser, nil)
 
@@ -254,13 +254,13 @@ local function on_detach(bufnr)
 		buffer = bufnr,
 		group = augroup,
 	}
-	log.trace('global strategy on_detach for buffer %d', bufnr)
+	log.trace('local strategy on_detach for buffer %d', bufnr)
 end
 
 ---@param bufnr integer
 ---@param settings rainbow_delimiters.buffer_settings
 local function on_reset(bufnr, settings)
-	log.trace('global strategy on_reset for buffer %d', bufnr)
+	log.trace('local strategy on_reset for buffer %d', bufnr)
 end
 
 
