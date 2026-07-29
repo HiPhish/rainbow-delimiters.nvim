@@ -9,6 +9,7 @@
 doc/tags
 
 # Fake user directory structures
+test/xdg/cache
 test/xdg/local/share/nvim/
 test/xdg/local/state/nvim/
 !test/xdg/local/share/nvim/site/pack/testing/start/rainbow-delimiters
