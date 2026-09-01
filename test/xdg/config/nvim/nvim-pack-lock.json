@@ -1,0 +1,19 @@
+{
+  "plugins": {
+    "nvim-treesitter": {
+      "rev": "19071296d3d643b48615ee574a20e8a03ac40872",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'main'"
+    },
+    "tree-sitter-jinja2": {
+      "rev": "7af726f7ac42db3fe798d45ee375078bbef28a41",
+      "src": "https://github.com/geigerzaehler/tree-sitter-jinja2",
+      "version": "'main'"
+    },
+    "yo-dawg.nvim": {
+      "rev": "75b5de95bbc28a22d1627a226e3f97ed0f286a53",
+      "src": "https://gitlab.com/HiPhish/yo-dawg.nvim.git",
+      "version": "'master'"
+    }
+  }
+}

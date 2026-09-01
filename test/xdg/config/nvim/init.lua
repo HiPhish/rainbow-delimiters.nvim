@@ -6,7 +6,11 @@ vim.pack.add {
 	}, {
 		src = 'https://gitlab.com/HiPhish/yo-dawg.nvim.git',
 		version = 'master',
-	},
+	}, {
+		-- Custom grammar for language 'htmljinja'
+		src = 'https://github.com/geigerzaehler/tree-sitter-jinja2',
+		version = 'main',
+	}
 }
 
 -- Add the plugin itself to the runtime path so we can use it in our tests.
