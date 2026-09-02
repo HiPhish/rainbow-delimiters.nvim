@@ -1,17 +1,13 @@
+-- SPDX-FileCopyrightText: © 2024 HiPhish
+-- SPDX-License-Identifier: 0BSD
+
+
 -- Test dependencies
-vim.pack.add {
-	{
-		src = 'https://github.com/nvim-treesitter/nvim-treesitter',
-		version = 'main',
-	}, {
-		src = 'https://gitlab.com/HiPhish/yo-dawg.nvim.git',
-		version = 'master',
-	}, {
-		-- Custom grammar for language 'htmljinja'
-		src = 'https://github.com/geigerzaehler/tree-sitter-jinja2',
-		version = 'main',
-	}
-}
+vim.pack.add(require 'plugins')
+
+
+-- Set up tree-sitter-jinja2 (plugin providing a custom grammar)
+require("tree-sitter-jinja2").setup()
 
 -- Add the plugin itself to the runtime path so we can use it in our tests.
 vim.opt.runtimepath:append(vim.fn.getcwd())
