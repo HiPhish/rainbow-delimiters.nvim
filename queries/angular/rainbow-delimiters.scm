@@ -1,3 +1,5 @@
+;; SPDX-FileCopyrightText: © 2026 Sckab
+
 ;;; Angular HTML
 
 ;; HTML elements
