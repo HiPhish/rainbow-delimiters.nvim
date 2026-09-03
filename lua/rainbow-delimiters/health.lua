@@ -1,4 +1,5 @@
 -- SPDX-License-Identifier: Apache-2.0
+-- SPDX-FileCopyrightText: © 2023 HiPhish
 
 ---Health check module.
 local M = {}

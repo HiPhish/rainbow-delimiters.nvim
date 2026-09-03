@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: Unlicense
+# SPDX-License-Identifier: 0BSD
+# SPDX-FileCopyrightText: © 2024 HiPhish
 
 # This is free and unencumbered software released into the public domain.
 #

@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: Unlicense
+# SPDX-License-Identifier: 0BSD
+# SPDX-FileCopyrightText: © 2024 HiPhish
 
 # This file would normally be named `.gitmodules`, but I have intentionally
 # renamed it to prevent Neovim plugin managers from picking up on it.  This

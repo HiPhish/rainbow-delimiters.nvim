@@ -1,4 +1,5 @@
 -- SPDX-License-Identifier: Apache-2.0
+-- SPDX-FileCopyrightText: © 2024 HiPhish
 
 ---Helper script of functions which are used in highlight tests.  Do not
 ---require this file at runtime, it is only used for testing.

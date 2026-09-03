@@ -1,4 +1,5 @@
 -- SPDX-License-Identifier: Apache-2.0
+-- SPDX-FileCopyrightText: © 2024 HiPhish
 
 --[[
    Copyright 2024 Alejandro "HiPhish" Sanchez

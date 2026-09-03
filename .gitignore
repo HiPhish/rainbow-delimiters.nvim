@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: Unlicense
+# SPDX-License-Identifier: 0BSD
+# SPDX-FileCopyrightText: © 2020 HiPhish
 
 # Hack: because most plugin managers will try to automatically download
 # submodules I have renamed the `.gitmodules` file.  Contributors will have to
