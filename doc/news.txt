@@ -16,6 +16,7 @@ ADDED
 New languages:
     • D
     • Heex (Elixir templates)
+    • htmljinja (from https://github.com/geigerzaehler/tree-sitter-jinja2)
 
 Missing patterns:
     • C++:
