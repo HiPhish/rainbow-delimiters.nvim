@@ -149,8 +149,10 @@ function M.record_extmarks(language, sample, query)
 					error (('Could not open output file %s'):format(spec_file))
 				end
 				-- License and copyright header are hard-coded
-				file:write('-- SPDX-License-Identifier: Unlicense\n')
+				-- REUSE-IgnoreStart
+				file:write('-- SPDX-License-Identifier: 0BSD\n')
 				file:write('-- SPDX-FileCopyrightText: NONE\n')
+				-- REUSE-IgnoreEnd
 				file:write('\n')
 				file:write('return ')
 				file:write(vim.inspect(result))
