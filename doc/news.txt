@@ -14,6 +14,7 @@ Unreleased
 ADDED
 
 New languages:
+    • Angular
     • D
     • Heex (Elixir templates)
     • htmljinja (from https://github.com/geigerzaehler/tree-sitter-jinja2)
