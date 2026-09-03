@@ -14,6 +14,7 @@ Unreleased
 ADDED
 
 New languages:
+    • Angular
     • Nickel
     • QML
 
