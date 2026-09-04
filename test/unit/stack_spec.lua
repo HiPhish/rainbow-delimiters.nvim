@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: 0BSD
+-- SPDX-FileCopyrightText: © 2024 HiPhish
+
 local Stack = require 'rainbow-delimiters.stack'
 
 describe('The stack data structure #stack', function()

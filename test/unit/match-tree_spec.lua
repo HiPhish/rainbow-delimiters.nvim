@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: 0BSD
+-- SPDX-FileCopyrightText: © 2024 HiPhish
+
 local MatchTree = require 'rainbow-delimiters.match-tree'
 
 ---Constructor for fake TSNode objects which implement the subset of the read

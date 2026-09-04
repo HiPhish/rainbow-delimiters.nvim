@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: 0BSD
+-- SPDX-FileCopyrightText: © 2024 HiPhish
+
 local Set = require 'rainbow-delimiters.set'
 
 describe('The set data structure', function()
