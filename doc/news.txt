@@ -22,6 +22,8 @@ New languages:
 Missing patterns:
     • C++:
         - `fold_expression`
+    • OCaml
+        - `empty_list`
     • A bunch of standard Elixir blocks
 
 ------------------------------------------------------------------------------
@@ -31,6 +33,13 @@ Outdated patterns:
     • OCaml:
         - `let_expression`
         - `coercion_expression`
+
+------------------------------------------------------------------------------
+REMOVED
+
+Deprecated patterns:
+    • OCaml:
+        - `local_open_expression`
 
 
 ==============================================================================
