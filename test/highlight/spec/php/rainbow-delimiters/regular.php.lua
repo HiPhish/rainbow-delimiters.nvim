@@ -230,5 +230,89 @@ return {
       hl_group = "RainbowDelimiterRed",
       start_col = 0,
       start_row = 31
+    }, {
+      end_col = 21,
+      end_row = 33,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 20,
+      start_row = 33
+    }, {
+      end_col = 22,
+      end_row = 33,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 21,
+      start_row = 33
+    }, {
+      end_col = 32,
+      end_row = 33,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 31,
+      start_row = 33
+    }, {
+      end_col = 23,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 22,
+      start_row = 40
+    }, {
+      end_col = 28,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 27,
+      start_row = 40
+    }, {
+      end_col = 30,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 29,
+      start_row = 40
+    }, {
+      end_col = 35,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 34,
+      start_row = 40
+    }, {
+      end_col = 37,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 36,
+      start_row = 40
+    }, {
+      end_col = 42,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 41,
+      start_row = 40
+    }, {
+      end_col = 44,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 43,
+      start_row = 40
+    }, {
+      end_col = 50,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 49,
+      start_row = 40
+    }, {
+      end_col = 52,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 51,
+      start_row = 40
+    }, {
+      end_col = 58,
+      end_row = 40,
+      hl_group = "RainbowDelimiterYellow",
+      start_col = 57,
+      start_row = 40
+    }, {
+      end_col = 1,
+      end_row = 41,
+      hl_group = "RainbowDelimiterRed",
+      start_col = 0,
+      start_row = 41
     } }
 }

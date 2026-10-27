@@ -34,6 +34,11 @@ Outdated patterns:
         - `let_expression`
         - `coercion_expression`
 
+Fixed patterns:
+    • PHP:
+        - `encapsed_string`: handle multipe interpolated variables
+    
+
 ------------------------------------------------------------------------------
 REMOVED
 

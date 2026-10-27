@@ -19,8 +19,10 @@
     "}" @delimiter) @container
 
 (encapsed_string
-    "{" @delimiter
-    "}" @delimiter) @container
+    ("{" @delimiter
+      (variable_name)
+     "}" @delimiter
+     (string_content)?)+) @container
 
 (array_creation_expression
     "[" @delimiter

@@ -30,3 +30,13 @@ class AddOp {
     }
 
 }
+
+function getKeywords(): string {
+    $foo = 'foo';
+    $bar = 'bar';
+    $baz = 'baz';
+    $herp = 'herp';
+    $derp = 'derp';
+
+    return "Keywords: {$foo} {$bar} {$baz} {$herp} {$derp}.";
+}
