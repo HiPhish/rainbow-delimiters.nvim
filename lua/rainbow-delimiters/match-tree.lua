@@ -32,6 +32,11 @@ local Set = require 'rainbow-delimiters.set'
 ---@field public match rainbow_delimiters.Match
 ---The children of the match
 ---@field public children rainbow_delimiters.Set
+---children sorted by container start position, enables binary search
+---@field public order rainbow_delimiters.MatchTree[]
+---cached container start row/col
+---@field public _sr integer
+---@field public _sc integer
 
 local match_mt = {
 	__tostring = function(self)
@@ -57,12 +62,28 @@ local tree_mt = {
 	---@return boolean success  Whether appending was successfull
 	__call = function(self, other)
 		if not (self < other) then return false end
-		for child in self.children:items() do
-			if child < other then
-				return child(other)
+		-- Children are pairwise disjoint, so at most one of them can contain
+		-- `other`. Locate it by binary search on the start position instead of
+		-- scanning the whole set, which is quadratic for flat buffers.
+		local order = self.order
+		local sr, sc = other._sr, other._sc
+		local lo, hi = 1, #order
+		local candidate
+		while lo <= hi do
+			local mid = math.floor((lo + hi) / 2)
+			local item = order[mid]
+			if item._sr < sr or (item._sr == sr and item._sc <= sc) then
+				candidate = item
+				lo = mid + 1
+			else
+				hi = mid - 1
 			end
 		end
+		if candidate and (candidate < other) then
+			return candidate(other)
+		end
 		self.children:add(other)
+		table.insert(order, lo, other)
 		return true
 	end,
 	__tostring = function(self)
@@ -96,9 +117,17 @@ function M.assemble(query, match)
 	end
 
 	---@type rainbow_delimiters.MatchTree
+	local container = result.container
+	local sr, sc = 0, 0
+	if container then
+		sr, sc = container:range()
+	end
 	local matchtree = {
 		match = setmetatable(result, match_mt),
 		children = Set.new(),
+		order = {},
+		_sr = sr,
+		_sc = sc,
 	}
 	return setmetatable(matchtree, tree_mt)
 end
