@@ -155,6 +155,7 @@ function M.attach(bufnr)
 		-- TODO: If the language is the same reload the parser
 		if settings.lang == lang then
 			local parser = get_parser(bufnr, lang)
+			if not parser then return end
 			local strategy = settings.strategy
 			parser:invalidate(true)
 			parser:parse()
